@@ -1,6 +1,6 @@
 {
   "name": "parentnode-skin-default",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Default skin (bundle of css, js, and images) for websites made with the parentNode tools: Templator, Manipulator, Janitor, and Detector.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
