@@ -1,6 +1,7 @@
 document.write('<script type="text/javascript" src="http://parentnode.local/js/manipulator/v0_9_2/merged/seg_desktop.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
+// Do we need to include u-settings for index file?
+// document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/global/u-basics.js"></script>');
 document.write('<script type="text/javascript" src="http://parentnode.local/js/manipulator/v0_9_2/src/u-googleanalytics.js"></script>');
 
