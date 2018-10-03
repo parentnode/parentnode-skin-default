@@ -1,0 +1,135 @@
+/* BASE FORM ELEMENTS */
+form {}
+fieldset {border: none; display: block;}
+div.field {padding: 0 70px 15px; position: relative; font-size: 0;}
+
+
+/* BLOCK LABELS */
+div.field label {font-size: 14px; display: block;}
+
+
+/* BASIC FORM INPUTS */
+div.field input,
+div.field select,
+div.field textarea {color: #333333; background: #ffffff; border: 1px solid #dcdcdc; outline: none; position: relative; z-index: 1;}
+
+div.field input {width: 366px; height: 24px; padding: 2px 6px;}
+div.field select {width: 381px; height: 33px; color: #333333; padding: 5px 3px 2px 2px;}
+
+div.field select option {padding: 5px 3px 2px 6px;}
+div.field textarea {width: 372px; height: 100px; overflow: auto; padding: 6px 0 2px 6px; }
+div.field textarea.autoexpand {width: 366px; padding: 6px 6px 2px; overflow: hidden;}
+
+
+/* BOOLEAN + CHECKBOX */
+div.field.checkbox,
+div.field.boolean {}
+div.field.checkbox input,
+div.field.boolean input {display: inline; vertical-align: top; width: auto; height: auto; padding: 0; margin: 0 10px 0 3px; border: 0;}
+div.field.checkbox label,
+div.field.boolean label {width: auto; display: inline; vertical-align: top; font-size: 14px; line-height: 1em;}
+
+
+/* RADIO */
+div.field.radiobuttons {}
+div.field.radiobuttons label {display: block; font-size: 14px; line-height: 1em; padding: 0 0 8px 3px;}
+div.field.radiobuttons div.item {padding: 0 0 5px;}
+div.field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 10px 0 3px; border: 0;}
+div.field.radiobuttons div.item label {font-size: 14px; line-height: 1em; display: inline; vertical-align: top; }
+
+div.field.location div.location,
+div.field.location div.latitude {padding-bottom: 2px;}
+
+
+/* FOCUS */
+div.field.focus input,
+div.field.focus textarea {}
+div.field.focus select {padding: 3px 3px 2px 0px;}
+div.field.focus input,
+div.field.focus select,
+div.field.focus textarea {border-color: #5c5c5c;}
+
+div.field.radiobuttons.focus input,
+div.field.checkbox.focus input,
+div.field.boolean.focus input {margin: 0px 10px 0 3px; border: none;}
+
+/* FOCUS - LOCATION */
+div.field.location.focus input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.focus input.focus {margin: 0; border: 3px solid #5c5c5c;}
+
+
+div.field .indicator {display: none;}
+
+/* VALIDATION */
+div.field.required .indicator {color: #df0000; display: inline;}
+
+
+
+
+/* ERROR */
+div.field.error input,
+div.field.error textarea {}
+div.field.error select {padding: 3px 3px 2px 0px;}
+div.field.error input,
+div.field.error select,
+div.field.error textarea {border-color: #a62300;}
+
+div.field.radio_buttons.error input,
+div.field.checkbox.error input,
+div.field.boolean.error input {margin: 0px 10px 0 3px; border: none;}
+
+/* ERROR - LOCATION */
+div.field.location.error input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}
+
+
+/* BUTTONS */
+#content ul.actions {overflow: hidden;}
+#content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
+
+#content ul.actions input.button {width: auto; height: 28px; line-height: 1em; padding: 3px 12px;}
+#content ul.actions a.button {text-decoration: none; display: block; font-size: 14px; padding: 6px 12px;}
+
+
+/* DEFAULT BUTTON */
+#content ul.actions input.button,
+#content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
+
+#content ul.actions input.button:hover,
+#content ul.actions a.button:hover {background-color: #bebebe;}
+
+
+/* PRIMARY BUTTON */
+#content ul.actions input.button.primary,
+#content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
+
+#content ul.actions input.button.primary:hover,
+#content ul.actions a.button.primary:hover {background-color: #313942;}
+
+
+/* SECONDARY BUTTON */
+#content ul.actions input.button.secondary,
+#content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
+#content ul.actions input.button.secondary:hover,
+#content ul.actions a.button.secondary:hover {background-color: #313942;}
+
+
+/* DISABLED BUTTON */
+#content form input.button.disabled,
+#content form input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+
+
+/* HELP - HINT AND ERROR MESSAGES */
+div.field div.help {position: absolute; left: 455px; top: 6px; width: 200px;}
+div.field div.error,
+div.field div.hint {display: none; padding: 5px; font-size: 12px; margin-top: -3px;}
+
+
+/* HELP - ERRORS */
+div.field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
+div.field.error div.error {display: block;}
+
+/* HELP - HINTS */
+div.field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
+div.field.focus div.hint {display: block;}
+

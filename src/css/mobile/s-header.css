@@ -1,0 +1,22 @@
+/* HEADER */
+#header {padding: 10px;}
+
+#header .logo {font-size: 30px; padding: 10px 20px; color: #888888; cursor: pointer; display: inline-block;
+	font-family: "PT Serif", Times, serif;
+}
+
+
+#header .servicenavigation li.navigation {}
+#header .servicenavigation li.navigation a {}
+#header .servicenavigation li.cart {display: none;}
+#header .servicenavigation li.login {display: none;}
+#header .servicenavigation li.user {display: none;}
+#header .servicenavigation li.admin {display: none;}
+
+
+/* NAViGATION */
+#navigation {}
+#navigation ul {border-top: 1px solid #888888;}
+#navigation ul li {padding: 10px; font-size: 18px; color: #888888; display: block; text-align: center;
+	font-family: "PT Serif", Times, serif;
+}

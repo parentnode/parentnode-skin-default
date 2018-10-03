@@ -1,0 +1,34 @@
+/* HOVERS ARE SEPARATED FOR DESKTOP SEGMENT BECAUSE THE CSS IS REUSED FOR TABLET */
+
+#header .logo:hover,
+#navigation ul li:hover {text-decoration: none;}
+
+#content .scene a:hover {text-decoration: underline;}
+
+.terms_notification .accept:hover,
+.terms_notification .details:hover {text-decoration: underline;}
+
+
+ul.actions input.button:hover,
+ul.actions a.button:hover,
+#content ul.actions a.button:hover {background-color: #bebebe;}
+ul.actions input.button.primary:hover,
+ul.actions a.button.primary:hover {background-color: #313942;}
+ul.actions input.button.secondary:hover,
+ul.actions a.button.secondary:hover {background-color: #313942;}
+div.field.html ul.options li:hover {background-color: #64ad8e;}
+div.field.html .editor div.tag:hover .drag {display: block;}
+div.field.html .editor div.tag:hover .remove {display: block;}
+body #selection_options ul.actions input.button:hover,
+body #selection_options ul.actions a.button:hover {background-color: #313942;}
+
+#content .scene.docsindex .search .results .function:hover {background: #ededed;}
+
+
+#content .scene div.readstate:hover p {color: #000000;}
+#content .scene div.comments h2:hover {color: #888888;}
+#content .scene div.comments h2:hover svg.arrow line {stroke: #888888;}
+#content .scene ul.geo.active li.location:hover {text-decoration: underline;}
+
+
+#content .scene div.image p a:hover {text-decoration: none;}

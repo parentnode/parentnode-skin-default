@@ -1,0 +1,82 @@
+/* DOCUMENTATION FRONTPAGE */
+#content .scene.docsindex {}
+#content .scene.docsindex ul.actions {display: none;}
+
+#content .scene.docsindex .notes {display: none;}
+#content .scene.docsindex .tests {display: none;}
+
+
+/* FILES */
+#content .scene.docsindex .files {padding-top: 25px;}
+#content .scene.docsindex .files h2 {padding-bottom: 15px;}
+#content .scene.docsindex .files ul {max-width: 500px;}
+
+#content .scene.docsindex .files li {position: relative; padding: 5px; border-top: 1px solid #dedede;}
+#content .scene.docsindex .files li h3 {font-size: 16px; padding: 0;}
+#content .scene.docsindex .files li p {font-size: 13px; color: #999999; padding: 0;}
+
+
+/* SEARCH */
+#content .scene.docsindex .search {padding-top: 15px;}
+#content .scene.docsindex .search.loading {background: transparent url(/img/gx_loader.gif) no-repeat 438px 68px;}
+#content .scene.docsindex .search h2 {padding-bottom: 15px;}
+#content .scene.docsindex .search .results .function {padding: 15px 0 0; border-top: 1px solid #dedede; cursor: pointer;}
+#content .scene.docsindex .search .results .function:hover {background: #ededed;}
+#content .scene.docsindex .search .results .function .header h3 {padding-bottom: 5px;}
+#content .scene.docsindex .search .results .function .definition dl {width: auto;}
+#content .scene.docsindex .search .results .function .definition dd {padding-bottom: 0; width: auto; display: block;}
+
+#content .scene.docsindex .search .results .function .parameters,
+#content .scene.docsindex .search .results .function .examples,
+#content .scene.docsindex .search .results .function .return,
+#content .scene.docsindex .search .results .function .uses,
+#content .scene.docsindex .search .results .function .description,
+#content .scene.docsindex .search .results .function .callbacks,
+#content .scene.docsindex .search .results .function .definition h4,
+#content .scene.docsindex .search .results .function .definition .name,
+#content .scene.docsindex .search .results .function .definition dt {display: none;}
+
+
+/* DOCUMENTATION PAGE */
+/* FUNCTIONS */
+#content .scene div.functions {padding-bottom: 25px;}
+#content .scene div.functions .function .body {}
+#content .scene div.functions .header {cursor: pointer;}
+#content .scene div.functions .body {border-bottom: 1px solid #bbbbbb;}
+
+
+#content .scene div.functions .function {padding: 10px 0 0; overflow: hidden; border-top: 1px solid #bbbbbb; background: #ffffff;}
+#content .scene div.functions .function .header {}
+#content .scene div.functions .function .body {padding: 20px 0 0; border: none;}
+
+
+#content .scene div.functions .function .body .definition dd {white-space: nowrap;}
+
+
+#content .scene div.functions .function .body .parameters dl.options {margin-left: -10px; width: 475px;}
+#content .scene div.functions .function .body .parameters dl.options dt {width: 130px;}
+
+
+#content .scene div.functions .function .body .callbacks dl {padding-left: 70px;}
+#content .scene div.functions .function .body .callbacks dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .callbacks dd {width: auto; display: block;}
+
+
+#content .scene div.functions .function .body .example {padding: 0 0 20px;}
+#content .scene div.functions .function .body .examples h4 {padding-bottom: 10px;}
+#content .scene div.functions .function .body .example h5 {padding-bottom: 10px; font-size: 13px;}
+#content .scene div.functions .function .body .example p {padding-bottom: 5px;}
+
+
+#content .scene div.functions .function .body .uses .javascript {padding: 5px 0 0 20px;}
+#content .scene div.functions .function .body .uses .manipulator {padding: 5px 0 0 20px;}
+#content .scene div.functions dd {padding-bottom: 5px;}
+
+
+
+#content .scene div.includefiles {}
+#content .scene div.includefiles .header {cursor: pointer;}
+	
+#content .scene div.segmentsupport {padding-top: 15px;}
+#content .scene div.segmentsupport .header {cursor: pointer;}
+#content .scene div.segmentsupport dd {padding-bottom: 5px;}

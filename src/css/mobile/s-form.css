@@ -1,0 +1,139 @@
+/* BASE FORM ELEMENTS */
+#content form {}
+#content fieldset {border: none; display: block;}
+#content .field {padding: 0 8px 10px; position: relative; font-size: 0;}
+
+
+/* INLINE LABELS */
+#content label {display: block; font-size: 13px;}
+
+
+/* BASIC FORM INPUTS */
+#content .field input,
+#content .field select,
+#content .field textarea {color: #333333; background: #ffffff; border: 1px solid #dcdcdc; margin: 0; outline: none; position: relative; z-index: 10;}
+
+#content .field input {width: 100%; height: 24px;}
+#content .field select {width: 100%; height: 33px; color: #333333;}
+#content .field textarea {width: 100%; height: 100px; overflow: auto;}
+
+
+/* BOOLEAN + CHECKBOX */
+#content .field.checkbox,
+#content .field.boolean {}
+#content .field.checkbox input,
+#content .field.boolean input {display: inline; vertical-align: top; width: auto; height: auto; padding: 0; margin: 0 5px 0 3px; border: 0;}
+#content .field.checkbox label,
+#content .field.boolean label {width: auto; display: inline; vertical-align: top; display: inline-block; vertical-align: top; font-size: 13px; line-height: 1em;}
+
+
+/* RADIO */
+#content .field.radiobuttons {}
+#content .field.radiobuttons label {display: block; font-size: 13px; line-height: 1em; padding: 0 0 8px 3px;}
+#content .field.radiobuttons div.item {padding: 0 0 5px;}
+#content .field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 5px 0 3px; border: 0;}
+#content .field.radiobuttons div.item label {font-size: 13px; line-height: 1em; display: inline; vertical-align: top; }
+
+#content .field.location div.location,
+#content .field.location div.latitude {padding-bottom: 2px;}
+
+
+
+/* FOCUS */
+#content .field.focus input,
+#content .field.focus select,
+#content .field.focus textarea {border: 1px solid #5c5c5c;}
+
+
+#content .field.radiobuttons.focus input,
+#content .field.checkbox.focus input,
+#content .field.boolean.focus input {border: none;}
+
+
+/* DEFAULT STATE - BEFORE TEXT IS MODIFIED */
+#content .field input.default,
+#content .field select.default,
+#content .field textarea.default {color: #aaaaaa;}
+
+
+/* VALIDATION */
+#content .field.required .indicator {position: absolute; top: 4px; left: 435px; width: 25px; height: 25px; 
+	background: transparent url(/janitor/admin/img/bg_icons.png) no-repeat 0 -292px;
+}
+#content .field.text.required .indicator {background-position: 0 -296px;}
+
+
+/* CORRECT */
+#content .field.correct .indicator {background-position: 2px -320px;}
+#content .field.text.correct .indicator {background-position: 2px -321px;}
+
+
+/* ERROR */
+#content .field.error input,
+#content .field.error textarea {}
+#content .field.error select {}
+#content .field.error input,
+#content .field.error select,
+#content .field.error textarea {border: 3px solid #a62300;}
+
+#content .field.radiobuttons.error input,
+#content .field.checkbox.error input,
+#content .field.boolean.error input {border: none;}
+
+
+
+/* BUTTONS */
+#content ul.actions {overflow: hidden;}
+#content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
+
+/*
+#content ul.actions li a {display: inline-block; vertical-align: top;}
+*/
+
+#content ul.actions input.button {width: auto; height: 28px; padding: 3px 12px;}
+#content ul.actions a.button {display: block; text-decoration: none; height: 14px; padding: 6px 12px 8px;}
+
+
+/* DEFAULT BUTTON */
+#content ul.actions input.button,
+#content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
+
+#content ul.actions input.button:active,
+#content ul.actions a.button:active {background-color: #bebebe;}
+
+
+/* PRIMARY BUTTON */
+#content ul.actions input.button.primary,
+#content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;;}
+
+#content ul.actions input.button.primary:active,
+#content ul.actions a.button.primary:active {background-color: #313942;}
+
+
+
+/* SECONDARY BUTTON */
+#content ul.actions input.button.secondary,
+#content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
+#content ul.actions input.button.secondary:active,
+#content ul.actions a.button.secondary:active {background-color: #313942;}
+
+
+/* DISABLED BUTTON */
+#content form input.button.disabled,
+#content form input.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+
+
+/* HELP - HINT AND ERROR MESSAGES */
+#content .field div.help {position: absolute; left: 455px; top: 6px; width: 200px;}
+#content .field div.error,
+#content .field div.hint {display: none; padding: 5px; font-size: 12px; margin-top: -3px;}
+
+
+/* HELP - ERRORS */
+#content .field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
+#content .field.error div.error {display: block;}
+
+/* HELP - HINTS */
+#content .field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
+#content .field.focus div.hint {display: block;}
+

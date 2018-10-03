@@ -1,0 +1,30 @@
+/* ACTIVEs ARE SEPARATED FOR TABLET SEGMENT BECAUSE THE CSS IS REUSED FOR DESKTOP */
+#header .logo:active,
+#navigation ul li:active {text-decoration: none;}
+
+#content .scene a:active {text-decoration: underline;}
+
+
+.terms_notification .accept:active,
+.terms_notification .details:active {text-decoration: underline;}
+
+
+#content ul.actions input.button:active,
+#content ul.actions a.button:active {background-color: #bebebe;}
+#content ul.actions input.button.primary:active,
+#content ul.actions a.button.primary:active {background-color: #313942;}
+#content ul.actions input.button.secondary:active,
+#content ul.actions a.button.secondary:active {background-color: #313942;}
+#content .field.html ul.options li:active {background-color: #64ad8e;}
+#content .field.html .editor div.tag:active .drag {display: block;}
+#content .field.html .editor div.tag:active .remove {display: block;}
+body #selection_options ul.actions input.button:active,
+body #selection_options ul.actions a.button:active {background-color: #313942;}
+
+
+#content .scene.docsindex .search .results .function:active {background: #ededed;}
+
+
+#content .scene div.readstate:active p {color: #000000;}
+#content .scene div.comments h2:active {color: #888888;}
+#content .scene div.comments h2:active svg.arrow line {stroke: #888888;}

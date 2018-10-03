@@ -1,0 +1,396 @@
+
+/* BASE FORM ELEMENTS */
+form {
+	/*background: transparent url(http://parentnode.local/img/temp-input.png) repeat-y top left;*/
+}
+fieldset {border: none; display: block;}	
+div.field {padding: 0 68px 15px; position: relative; font-size: 0; z-index: 1;}
+
+
+/* INLINE LABELS */
+div.field label {display: none;}
+
+
+/* BASIC FORM INPUTS */	
+div.field input,
+div.field select,
+div.field textarea {box-shadow: inset 0 1px 2px #dedede; background: #ffffff; border: 1px solid #dcdcdc; display: inline-block; vertical-align: top; border-radius: 3px; margin: 2px; outline: none; position: relative; z-index: 1;}
+
+div.field input {width: 366px; height: 24px; padding: 2px 6px;}
+div.field select {width: 381px; height: 33px; color: #333333; padding: 5px 3px 2px 2px;}
+div.field select option {padding: 5px 3px 2px 6px;}
+/* SET BACKGROUND IMAGE FOR WEBKIT SELECTS */
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	div.field select {width: 380px; height: 31px; padding: 2px 3px 2px 7px;
+		background: #ffffff url(/janitor/admin/img/bg_icons.png) no-repeat 360px -977px;
+		-webkit-appearance: none;
+	}
+}
+
+div.field textarea {width: 372px; height: 100px; overflow: auto; padding: 6px 0 2px 6px;}
+div.field.short textarea {height: 40px;}
+div.field textarea.autoexpand {width: 366px; padding: 6px 6px 2px; overflow: hidden;}
+
+/* PSEUDO LABEL - FAKE PLACEHOLDER FOR INTERGER AND NUMBER INPUTS */
+div.field .pseudolabel {position: absolute; font-size: 14px; display: inline-block; padding: 5px 6px; z-index: 2;}
+
+
+/* BOOLEAN + CHECKBOX */
+div.field.checkbox,
+div.field.boolean {}
+div.field.checkbox input,
+div.field.boolean input {display: inline-block; vertical-align: top; width: auto; height: auto; padding: 0; margin: 1px 10px 0 3px; border: 0;}
+div.field.checkbox label,
+div.field.boolean label {width: auto; display: inline-block; vertical-align: top; font-size: 14px; line-height: 1em;}
+
+
+/* RADIO */
+div.field.radiobuttons {}
+div.field.radiobuttons > label {display: block; font-size: 14px; line-height: 1em; padding: 0 0 0 3px;}
+div.field.radiobuttons > label:after {content: ":";}
+div.field.radiobuttons div.item {padding: 10px 0 0;}
+div.field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 1px 10px 0 3px; border: 0;}
+div.field.radiobuttons div.item label {font-size: 14px; line-height: 1em; display: inline-block; vertical-align: top; text-align: left; width: auto;}
+
+/* REMOVE SPINNER FROM NUMBER */
+div.field input[type="integer"],
+div.field input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+div.field input[type="integer"]::-webkit-inner-spin-button,
+div.field input[type="integer"]::-webkit-outer-spin-button,
+div.field input[type="number"]::-webkit-inner-spin-button,
+div.field input[type="number"]::-webkit-outer-spin-button {margin: 0;
+	-webkit-appearance: none;
+}
+
+/* FILES */
+div.field.files {border: 3px dashed #dedede; display: block; width: 378px; border-radius: 5px; position: relative; margin: 2px 68px 17px; padding: 0;}
+div.field.files input[type=file] {opacity: 0; width: 360px; height: 49px; margin: 0; border: 0;}
+div.field.files label {color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;}
+div.field.files.loading label {display: none;}
+div.field.files.loading {background: transparent url(/janitor/admin/img/gx_loader.gif) no-repeat center center;}
+
+
+/* LOCATION */
+div.field.location {}
+div.field.location div.location {padding-bottom: 2px;}
+div.field.location div.latitude {padding-right: 2px;}
+div.field.location div.latitude,
+div.field.location div.longitude {display: inline-block; vertical-align: top;}
+div.field.location div.latitude input,
+div.field.location div.longitude input {width: 173px;}
+
+/* WITH GEOLOCATION BUTTON */
+div.field.location.geolocation div.geolocation {width: 30px; height: 30px; display: inline-block; vertical-align: top; cursor: pointer;
+	background: transparent url(/janitor/admin/img/gx_geolocation.png) no-repeat 5px 8px;
+}
+div.field.location.geolocation div.latitude input,
+div.field.location.geolocation div.longitude input {width: 158px;}
+iframe#geolocationmap {width: 300px; height: 300px; position: absolute; top: 0; left: 0; z-index: 100; border: 1px solid #666666; background-color: #ffffff;}
+
+
+
+/* FOCUS */	
+div.field.focus input,
+div.field.focus textarea {margin: 0;}
+div.field.focus select {padding: 4px 3px 1px 0px;}
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	div.field.focus select {padding: 2px 3px 3px 5px;
+		background-position: 358px -979px;
+	}
+}
+div.field.focus input,
+div.field.focus select,
+div.field.focus textarea {border: 3px solid #5c5c5c;}
+
+/* RADIOBUTTONS + CHECKBOX */
+div.field.radiobuttons.focus input,
+div.field.checkbox.focus input,
+div.field.boolean.focus input {margin: 1px 10px 0 3px; border: none;}
+
+/* FOCUS - LOCATION */
+div.field.location.focus input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.focus input.focus {margin: 0; border: 3px solid #5c5c5c;}
+
+/* FOCUS - FILES */
+div.field.files.focus {border-color: #c8e183;}
+div.field.files.focus input[type=file] {margin: 0; border: none;}
+div.field.files.focus label {background-color: #c8e183;}
+
+
+/* DEFAULT STATE - BEFORE TEXT IS MODIFIED */
+div.field input.default,
+div.field select.default,
+div.field textarea.default,
+div.field .pseudolabel {color: #aaaaaa;}
+
+
+
+/* VALIDATION */	
+div.field .indicator {position: absolute; top: 4px; left: 455px; width: 25px; height: 25px;}
+div.field.required .indicator {
+	background: transparent url(/janitor/admin/img/bg_icons.png) no-repeat 0 -292px;
+}
+div.field.text.required .indicator {background-position: 0 -296px;}
+
+/* RADIOBUTTONS + CHECKBOX */
+div.field.radiobuttons .indicator,
+div.field.checkbox .indicator,
+div.field.boolean .indicator {top: -5px;}
+
+/* FILES */
+div.field.files .indicator {left: 404px; top: -1px;}
+
+
+/* CORRECT */
+div.field.correct .indicator {background-position: 2px -320px;}
+div.field.text.correct .indicator {background-position: 2px -321px;}
+
+
+/* ERROR */
+div.field.error input,
+div.field.error textarea {margin: 0;}
+div.field.error select {padding: 3px 3px 2px 0px;}
+div.field.error input,
+div.field.error select,
+div.field.error textarea {border: 3px solid #a62300;}
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	div.field.error select {padding: 2px 3px 3px 5px;
+		background-position: 358px -979px;
+	}
+}
+/* ERROR - RADIOBUTTONS + CHECKBOX */
+div.field.radiobuttons.error input,
+div.field.checkbox.error input,
+div.field.boolean.error input {margin: 1px 10px 0 3px; border: none;
+	box-shadow: 0px 0px 0px 1px #df0000;
+}
+
+/* ERROR - LOCATION */
+div.field.location.error input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}
+
+/* ERROR - FILES */
+div.field.files.error {border-color: #a62300;}
+
+
+
+/* BUTTONS */
+ul.actions {}
+ul.actions li {width: auto; height: auto; display: inline-block; padding: 0 10px 10px 0; vertical-align: top;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+ul.actions input.button {width: auto; height: 30px; padding: 3px 9px; display: inline-block; vertical-align: top;}
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	ul.actions input.button {padding: 3px 12px 5px;
+		-webkit-appearance: none;
+	}
+}
+ul.actions a.button,
+#content ul.actions a.button {display: block; text-decoration: none; height: 16px; padding: 7px 12px;}
+
+
+/* DEFAULT BUTTON */
+ul.actions input.button,
+ul.actions a.button,
+#content ul.actions a.button {font-size: 14px; background-color: #dedede; color: #333333; border: none; cursor: pointer; border-radius: 3px;}
+
+/* FORM IN SUBMITTING STATE */
+.submitting input.button,
+.submitting a.button,
+#content .submitting a.button {padding-left: 40px !important;
+	background-image: url(/img/gx_loader.gif);
+	background-position: 11px 5px;
+	background-repeat: no-repeat;
+	background-size: 17px auto;
+}
+
+/* PRIMARY BUTTON */
+ul.actions input.button.primary,
+ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
+
+/* SECONDARY BUTTON */
+ul.actions input.button.secondary,
+ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
+
+
+/* DISABLED BUTTON */
+ul.actions a.button.disabled,
+ul.actions input.button.disabled,
+ul.actions a.button.disabled:hover,
+ul.actions input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+
+
+/* HELP - HINT AND ERROR MESSAGES */
+div.field div.help {position: absolute; left: 475px; top: 6px; width: 200px;}
+div.field.files div.help {left: 404px;}
+	
+div.field div.error,
+div.field div.hint {display: none; padding: 5px; border-radius: 3px; font-size: 12px;}
+
+/* HELP - ERRORS */
+div.field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
+div.field.error div.error {display: block;}
+
+/* HELP - HINTS */	
+div.field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
+div.field.focus div.hint,
+div.field.hover div.hint {display: block;}
+
+/* SPECIAL BORDER CASES */
+div.field.error div.hint {border-bottom-left-radius: 0; border-bottom-right-radius: 0;}
+div.field.focus div.hint+div.error,
+div.field.hover div.hint+div.error {border-top-left-radius: 0; border-top-right-radius: 0; border-top: none;}
+
+
+
+/* HTML EDITOR */
+div.field.html {z-index: 3;}
+div.field.html.optionsshown {z-index: 60 !important;}
+
+/* USE HELP */	
+div.field.html div.html_editor_hint {width: 383px;}
+div.field.html div.html_editor_hint_content {display: none;}
+div.field.html div.html_editor_hint h3,
+div.field.html div.html_editor_hint h4,
+div.field.html div.html_editor_hint p {padding: 0 0 5px;}
+div.field.html div.html_editor_hint p+h3,
+div.field.html div.html_editor_hint p+h4 {padding: 10px 0 5px;}
+div.field.html div.html_editor_hint .open,
+div.field.html div.html_editor_hint .close {font-size: 13px; line-height: 1em; cursor: pointer; vertical-align: top; margin: 3px 3px 0; border-radius: 13px; background-color: #313942; padding: 6px 10px 7px; color: #ffffff; margin: 10px 0 20px; text-align: center;}
+
+/* RAW HTML INPUT */
+div.field.html > textarea {display: none;}
+div.field.html > textarea.show {display: block; height: 200px;}
+	
+div.field.html > label {display: block; width: 377px;}
+div.field.html > label span {font-size: 0.723em; float: right; padding: 3px 0 0; cursor: pointer;}
+div.field.html > .indicator {top: 33px;}
+
+/* HTML VIEWER AND EDITOR */
+div.field.html .viewer {display: none;}
+div.field.html .editor {width: 385px; position: relative; z-index: 3;}
+
+/* EDITOR OPTIONS */
+div.field.html ul.options {height: 40px; display: block; vertical-align: top; width: 30px; position: relative; z-index: 10; padding: 0;}
+div.field.html ul.options li {font-size: 13px; line-height: 1em; cursor: pointer; vertical-align: top; margin: 3px 3px 0; border-radius: 13px; background-color: #313942; padding: 6px 10px 7px; color: #ffffff; width: 330px; display: none;}
+div.field.html ul.options li.add {display: inline-block; font-size: 16px; line-height: 1em; padding: 2px 4px 4px; width: 14px; text-align: center;}
+div.field.html ul.options.show li.add {top: 0; left: 0; background-color: #df0000;}
+div.field.html ul.options.show li {display: inline-block; position: relative; top: -26px; left: 26px;}
+
+
+/* EDITOR TAGS */
+div.field.html .editor div.tag {margin: 0 0 1px; padding: 0 0 0 30px; background-color: #dcdcdc; position: relative; border-radius: 3px; border: 2px solid #f5f7f8;}
+div.field.html .editor div.dragged {z-index: 15;}
+div.field.html .editor div.tag .drag {display: none; position: absolute; top: 0px; left: -20px; border-top-left-radius: 15px; border-bottom-left-radius: 15px; background: #dedede; width: 30px; height: 30px; cursor: move;}
+div.field.html .editor div.tag .remove {display: none; position: absolute; top: 0px; right: -10px; border-radius: 15px; background: #dedede; width: 30px; height: 30px; cursor: pointer;
+	background: #dedede url(/janitor/admin/img/bg_icons.png) no-repeat 8px -42px;
+}
+
+/* TAG TYPE SELECTOR */
+div.field.html .editor div.tag ul.type {display: block; z-index: 5; position: absolute; width: 30px; top: 0px; left: 0px; padding: 0;}
+div.field.html .editor div.tag ul.type li {display: none; text-transform: uppercase; padding: 9px 4px; text-align: center; font-size: 11px; cursor: default;}
+div.field.html .editor div.tag ul.type.clickable li {cursor: pointer;}
+div.field.html .editor div.tag ul.type li.selected {display: block;}
+div.field.html .editor div.tag ul.type.open {z-index: 10; border: 2px solid #5c5c5c; margin: -2px; background-color: #F5F7F8;}
+div.field.html .editor div.tag ul.type.open li {display: block; color: #5c5c5c !important;}
+div.field.html .editor div.tag ul.type.open li:hover {background-color: #dedede;}
+div.field.html .editor div.tag ul.type.open li.selected {background-color: #5c5c5c !important; color: #ffffff !important;}
+/* CUSTOM FONT SIZES FOR SOME TYPES */
+div.field.html .editor div.tag ul.type li.code {font-size: 8px; padding-top: 11px;}
+div.field.html .editor div.tag ul.type li.media {font-size: 8px; padding-top: 11px;}
+div.field.html .editor div.tag ul.type li.youtube {font-size: 8px; padding: 7px 5px; max-width: 4.4ch; word-wrap: break-word;}
+div.field.html .editor div.tag ul.type li.vimeo {font-size: 8px; padding-top: 11px;}
+
+/* TAG EDITABLE CONTENT */
+div.field.html .editor div.tag div.text {display: inline-block; vertical-align: top; width: 337px; height: auto; padding: 4px 6px; line-height: 1.375em; border-radius: 3px; background-color: #F5F7F8; color: #333333; box-shadow: inset 0 1px 2px #dedede; background: #ffffff; border: 1px solid #dcdcdc; min-height: 20px;}
+div.field.html .editor div.tag div.text em,
+div.field.html .editor div.tag div.text strong,
+div.field.html .editor div.tag div.text a {background-color: rgba(255, 0, 0, 0.3); cursor: default; font-size: inherit;}
+
+/* TAG FOCUS */
+div.field.html .editor div.tag.focus {background-color: #5c5c5c; padding: 0 0 0 30px; border: 2px solid #5c5c5c;}
+div.field.html .editor div.tag.focus div.text {border-color: #5c5c5c;}
+div.field.html .editor div.tag.focus .drag {background-color: #5c5c5c; top: -2px;}
+div.field.html .editor div.tag.focus ul.type li {color: #ffffff;}
+
+/* DEFAULT TEXT TAG STYLING */
+div.field.html .editor div.tag.h1 div.text {font-size: 36px;}
+div.field.html .editor div.tag.h2 div.text {font-size: 30px;}
+div.field.html .editor div.tag.h3 div.text {font-size: 30px;}
+div.field.html .editor div.tag.h4 div.text {font-size: 16px;}
+div.field.html .editor div.tag.h5 div.text {font-size: 14px;}
+div.field.html .editor div.tag.p div.text {font-size: 14px;}
+
+/* DEFAULT LIST TAG STYLING */
+div.field.html .editor div.tag.ul {padding-left: 50px;}
+div.field.html .editor div.tag.ol {padding-left: 50px;}
+div.field.html .editor div.tag div.li {font-size: 14px;}
+div.field.html .editor div.tag div.li div.text {width: 317px;}
+
+/* DEFAULT FILE TAG STYLING */
+div.field.html .editor div.tag.file .text {padding: 0 6px; height: 28px;}
+div.field.html .editor div.tag.file.done .text {color: #aaaaaa; font-size: 13px; padding: 4px 6px; line-height: 20px; height: auto; text-decoration: underline;}
+div.field.html .editor div.tag.file.done.focus .text {color: #333333;}
+div.field.html .editor div.tag.file .text label {padding: 5px 0 0; display: block; text-align: center; font-size: 13px; line-height: 20px; position: absolute; z-index: 1; width: 332px; color: #aaaaaa;}
+div.field.html .editor div.tag.file input {width: 319px; opacity: 0; height: 18px; position: relative; z-index: 2;}
+
+/* DEFAULT MEDIA TAG STYLING */
+div.field.html .editor div.tag.media .text {padding: 0 6px; height: 28px;}
+div.field.html .editor div.tag.media.done .text {color: #aaaaaa; font-size: 13px; padding: 4px 6px; line-height: 20px; height: auto;}
+div.field.html .editor div.tag.media.done.focus .text {color: #333333;}
+div.field.html .editor div.tag.media .text label {padding: 5px 0 0; display: block; text-align: center; font-size: 13px; line-height: 20px; position: absolute; z-index: 1; width: 332px; color: #aaaaaa;}
+div.field.html .editor div.tag.media input {width: 319px; opacity: 0; height: 18px; position: relative; z-index: 2;}
+div.field.html .editor div.tag.media img {width: 347px; margin: 2px;}
+
+/* DEFAULT EXTERNAL VIDEO TAG STYLING */	
+div.field.html .editor div.tag.vimeo .text,
+div.field.html .editor div.tag.youtube .text {padding: 0 6px; height: 28px; color: #aaaaaa; font-size: 13px; padding: 4px 6px; line-height: 20px; height: auto;}
+div.field.html .editor div.tag.vimeo.focus .text,
+div.field.html .editor div.tag.youtube.focus .text {color: #333333;}
+
+
+/* SELECTION OPTIONS PANE */
+body #selection_options {z-index: 1100; position: absolute; background-color: #F5F7F8; border: 3px solid #5c5c5c; margin: 0px 0 0 10px; padding: 15px; border-radius: 5px;}
+body #selection_options h3 {padding: 10px 0 10px; text-align: left; font-size: 13px; margin-top: 10px; border-top: 1px solid #5c5c5c;}
+body #selection_options li {display: block; font-size: 13px; padding: 5px 0; cursor: pointer;}
+body #selection_options li.link {text-decoration: underline;}
+body #selection_options li.em {font-style: italic;}
+body #selection_options li.strong {font-weight: 700;}
+
+body #selection_options .field {margin-left: -2px;}
+body #selection_options .field label {display: none;}
+body #selection_options .field input {color: #333333; box-shadow: inset 0 1px 2px #dedede; background: #ffffff; border: 1px solid #dcdcdc; display: inline-block; vertical-align: top; border-radius: 3px; margin: 2px; outline: none; position: relative; z-index: 10; width: 150px; height: 24px; padding: 2px 6px;}
+body #selection_options .field.checkbox input {width: auto;}
+body #selection_options .field.checkbox label {display: inline-block; vertical-align: top; padding: 4px 0 0 3px;}
+
+body #selection_options .field input.default {color: #cccccc;}
+body #selection_options .field input.focus {}
+
+body #selection_options ul.actions {padding: 10px 0 0;}
+body #selection_options ul.actions li {width: auto; height: auto; display: inline-block; padding: 0 5px 0 0; vertical-align: top;}
+
+body #selection_options ul.actions input.button {width: auto; height: 26px; padding: 3px 12px;}
+@media all and (-webkit-min-device-pixel-ratio:0) {
+	body #selection_options ul.actions input.button {padding-bottom: 5px;}
+}
+body #selection_options ul.actions a.button {display: block; text-decoration: none; height: 14px; padding: 5px 12px 7px;}
+body #selection_options ul.actions input.button,
+body #selection_options ul.actions a.button {background-color: #8c9399; color: #ffffff; border: none; cursor: pointer; border-radius: 3px;}
+
+/* DELETE SELECTION ICON */
+.delete_selection {position: absolute; z-index: 1150; top: 0; left: 0; border-radius: 8px; width: 14px; height: 14px; font-size: 10px; line-height: 14px; text-align: center; background: #ffffff; border: 1px solid #000000; cursor: pointer;}
+
+
+
+/* TODO: test this IE specific hack (made when simplifying segments - but didn't have time to test) */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	div.field.files input[type=file] {font-size: 130px;}
+	div.field.html .editor div.tag.media input {font-size: 130px;}
+	div.field.html .editor div.tag.file input {font-size: 130px;}
+}

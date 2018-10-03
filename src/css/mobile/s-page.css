@@ -1,0 +1,55 @@
+* {font-family: "OpenSans", Verdana, Arial, sans-serif; color: #000000;}
+
+html {}
+body {background: #ffffff; margin: 0;}
+
+
+/* BASE */
+h1, h2, h3, h4, h5, h6, p, ul, li, dl, dd, dt {padding: 0; margin: 0;}
+h1, h2, h3, h4, h5, h6, p, li, dd, dt, span, a {line-height: 1em; font-weight: normal;}
+
+ul {list-style: none;}
+a {text-decoration: underline; cursor: pointer;}
+
+img {border: 0; display: block;}
+form, fieldset, label, input, select, textarea {padding: 0; margin: 0; font-weight: normal;}
+fieldset {border: none;}
+input, select, textarea {font-size: 14px;}
+input, textarea {outline: none;}
+
+
+a, span {font-size: inherit; font-family: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; color: inherit; text-transform: inherit;}
+em, strong {font-size: inherit; font-family: inherit; line-height: inherit; color: inherit; text-transform: inherit;}
+
+h1 {padding: 0 10px 20px; font-size: 24px; line-height: 1.05em;
+	font-family: "PT Serif", Times, serif;
+}
+h2 {padding: 0 10px 20px; font-size: 20px; line-height: 1.1em;
+	font-family: "PT Serif", Times, serif;
+}
+h3 {padding: 0 10px 10px; font-size: 16px; line-height: 1.25em;}
+h4 {padding: 0 10px 5px; font-size: 13px; line-height: 1em; font-weight: bold;}
+h5 {padding: 0 10px 2px; font-size: 13px; line-height: 1em; font-weight: bold;}
+h6 {padding: 0 10px 2px; font-size: 13px; line-height: 1em; font-weight: bold;}
+
+p {padding: 0 10px 15px; font-size: 13px; line-height: 1.38em;} 
+
+
+ul {font-size: 0;}
+li {font-size: 13px; line-height: 1.25em;}
+
+dl {font-size: 0;} 
+dt, 
+dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
+
+.c {clear: both; font-size: 0;}
+.c400, .c300, .c266, .c200, .c150, .c133, .c100, .c75, .c50 {display: inline-block; min-height: 10px; vertical-align: top;}
+.c400 {width: 100%;}
+.c300 {width: 75%;}
+.c266 {width: 66%;}
+.c200 {width: 50%;}
+.c133 {width: 34%;}
+.c100 {width: 25%;}
+
+
+#page {position: relative;}

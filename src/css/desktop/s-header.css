@@ -1,0 +1,35 @@
+/* HEADER */
+#header {position: relative; height: 100px;}
+#header .logo {z-index: 50; position: absolute; top: 10px; left: 30px; font-size: 30px; padding: 10px 13px; color: #888888; cursor: pointer; 
+	background-color: rgba(255,255,255, 0.8); border-radius: 5px;
+/*	text-shadow: 0px 0px 1px #fffcd2;*/
+/*	text-shadow: 1px 1px 1px #fffcd2, -1px -1px 1px #fffcd2, 1px -1px 1px #fffcd2, -1px 1px 1px #fffcd2;*/
+	font-family: "PT Serif", Times, serif;
+}
+#header .logo {position: fixed;}
+
+
+/* SERVICENAVIGATION */
+#header .servicenavigation {position: absolute; top: 5px; right: 43px;}
+#header .servicenavigation li {display: inline-block; vertical-align: top; color: #bbbbbb; padding: 3px 0;}
+#header .servicenavigation li.navigation {display: none;}
+#header .servicenavigation li:before {content: "\00a0\00a0|\00a0\00a0"; color: #bbbbbb;}
+#header .servicenavigation li.github:before,
+#header .servicenavigation li.navigation:before,
+#header .servicenavigation li:first-child:before {content: "";}
+
+#header .servicenavigation li.github {margin: 0 0 0 10px; padding: 4px 12px; background: #8c9399; border-radius: 3px; cursor: pointer; font-size: 12px; color: #ffffff;}
+#header .servicenavigation li.cart.used {color: #df0000;}
+
+
+/* NAViGATION */
+#navigation {z-index: 50; position: fixed; right: 33px; top: 65px; 
+	background-color: rgba(255,255,255, 0.8); border-radius: 5px;
+}
+#navigation ul {}
+#navigation ul li {display: inline-block; vertical-align: top; padding: 10px; font-size: 20px; color: #888888;
+
+/*	text-shadow: 1px 1px 1px #fffcd2, -1px -1px 1px #fffcd2, 1px -1px 1px #fffcd2, -1px 1px 1px #fffcd2;*/
+	font-family: "PT Serif", Times, serif;
+}
+#navigation ul li.front {display: none;}

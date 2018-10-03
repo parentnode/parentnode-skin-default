@@ -1,0 +1,69 @@
+/* ARTICLE BODY */
+#content .scene .articlebody ul,
+#content .scene .articlebody ol {list-style-position: outside; margin-left: 20px;}
+#content .scene .articlebody ul {list-style-type: disc;}
+#content .scene .articlebody ol {list-style-type: decimal;}
+#content .scene .articlebody li {font-size: 13px; padding-bottom: 8px; padding-left: 3px; line-height: 1.538em;}
+
+#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
+#content .scene .articlebody ul.actions li {padding-left: 0;}
+
+
+/* TODOS */
+#content .scene ul.todos dl.info {padding-bottom: 10px;}
+#content .scene ul.todos dl.info dd:after {content: ",\00a0";}
+#content .scene ul.todos dl.info dd:last-child:after {content: "";}
+
+/* TODOS - DONE / NOT DONE */
+#content .scene ul.todos > li ul.actions {}
+#content .scene ul.todos > li ul.actions li {padding: 0;}
+#content .scene ul.todos > li ul.actions.closed .close {display: none;}
+#content .scene ul.todos > li ul.actions .open {display: none;}
+#content .scene ul.todos > li ul.actions.closed .open {display: inline-block;}
+
+
+
+/* WISHLIST */
+#content .scene ul.wishlists {padding-left: 20px; padding-right: 20px;}
+
+/* WISH */
+#content .scene ul.wishes > li .image {/*height: 30px; background-position: center center; background-size: 100% auto; background-repeat: no-repeat; margin-bottom: 10px;*/ cursor: default;}
+
+
+#content .scene ul.wishes > li div.description p.available,
+#content .scene ul.wishes > li div.description p.reserved {/*padding-top: 5px;*/}
+
+#content .scene ul.wishes > li div.description p.available span
+#content .scene ul.wishes > li div.description p.reserved span {font-style: italic;}
+#content .scene ul.wishes > li div.description p.available span {color: #bbbbbb;}
+
+
+#content .scene ul.wishes > li form {margin-left: -3px; margin-right: -3px;}
+
+#content .scene ul.wishes > li > ul.actions,
+#content .scene ul.wishes > li > .text > ul.actions {padding-bottom: 0;}
+#content .scene ul.wishes > li > ul.actions li,
+#content .scene ul.wishes > li > .text > ul.actions li {padding-right: 0; display: block;}
+#content .scene ul.wishes > li > ul.actions form div.field,
+#content .scene ul.wishes > li > .text > ul.actions form div.field {display: none; padding-left: 0; padding-right: 0;/*display: inline-block; vertical-align: top; padding: 0 10px;*/}
+#content .scene ul.wishes > li > ul.actions form div.field input,
+#content .scene ul.wishes > li > .text > ul.actions form div.field input {/*width: 200px; display: none;*/}
+#content .scene ul.wishes > li > ul.actions form input[type=submit],
+#content .scene ul.wishes > li > .text > ul.actions form input[type=submit] {/*display: inline-block; vertical-align: top; margin-top: 3px;*/}
+
+
+/* WISH INFO */
+/*#content .scene ul.wishes dl.info dd {font-size: 13px; display: block; padding-bottom: 8px;}*/
+#content .scene ul.wishes dl.info dt.price {display: inline-block; vertical-align: top; width: auto;}
+#content .scene ul.wishes dl.info dt.price:after {content: ":";}
+
+#content .scene ul.wishes dl.info dd.price {display: inline-block; vertical-align: top; width: auto; padding-left: 5px;}
+#content .scene ul.wishes dl.info dt.link {display: none;}
+#content .scene ul.wishes dl.info dd.link {font-size: 13px; display: block; width: auto; padding-left: 0;}
+
+/* WISH RESERVE / UN-RESERVE */
+/*#content .scene ul.wishes > li ul.actions {padding: 0 20px 10px;}
+#content .scene ul.wishes > li ul.actions.reserved .reserve {display: none;}
+#content .scene ul.wishes > li ul.actions .unreserve {display: none;}
+#content .scene ul.wishes > li ul.actions.reserved .unreserve {display: inline-block;}
+*/
