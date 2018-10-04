@@ -1,0 +1,25 @@
+{
+  "name": "parentnode-skin-default",
+  "version": "1.0.2",
+  "description": "Default skin (bundle of css, js, and images) for websites made with the parentNode tools: Templator, Manipulator, Janitor, and Detector.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parentnode/parentnode-skin-default.git"
+  },
+  "keywords": [
+    "parentnode",
+    "manipulator",
+    "templator",
+    "janitor",
+    "detector"
+  ],
+  "author": "\"Martin Kæstel Nielsen <martin@parentnode.dk> (http://www.parentnode.dk)",
+  "license": "CPAL-1.0",
+  "bugs": {
+    "url": "https://github.com/parentnode/parentnode-skin-default/issues"
+  },
+  "homepage": "https://github.com/parentnode/parentnode-skin-default#readme"
+}
