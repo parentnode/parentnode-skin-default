@@ -1,31 +1,21 @@
-document.write('<script type="text/javascript" src="/js/manipulator/src/u.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-debug.js"></script>');
+document.write('<script type="text/javascript" src=js/manipulator/merged/tablet.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-animation.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-cookie.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-date.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-dom.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-easings.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-events.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-events-browser.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-events-movements.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-builder.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-geolocation.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-htmleditor.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-geometry.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-history.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-init.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-keyboard.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-math.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-navigation.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-preloader.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-request.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-scrollto.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-string.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-sortable.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-svg.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-system.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-textscaler.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-timer.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-url.js"></script>');
+// document.write('<script type="text/javascript" src="http://parentnode.local/js/manipulator/v0_9_2/src/u-googleanalytics.js"></script>'); // Include seperately
+
+// Project specific
+document.write('<script type="text/javascript" src="js/u-basics.js"></script>');
+
+// Include BETA modules seprately
+document.write('<script type="text/javascript" src="js/manipulator/src/beta-u-animation-to.js"></script>');
+document.write('<script type="text/javascript" src="js/manipulator/src/beta-u-fontsReady.js"></script>');
+document.write('<script type="text/javascript" src="js/manipulator/src/beta-u-notifier.js"></script>');
+
+
+document.write('<script type="text/javascript" src="js/desktop/i-page.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-front.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-scene.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-login.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-signup.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-newsletter.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-article.js"></script>');
+document.write('<script type="text/javascript" src="js/desktop/i-todolist.js"></script>');
