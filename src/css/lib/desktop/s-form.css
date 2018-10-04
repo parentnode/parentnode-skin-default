@@ -22,7 +22,7 @@ div.field select option {padding: 5px 3px 2px 6px;}
 /* SET BACKGROUND IMAGE FOR WEBKIT SELECTS */
 @media all and (-webkit-min-device-pixel-ratio:0) {
 	div.field select {width: 380px; height: 31px; padding: 2px 3px 2px 7px;
-		background: #ffffff url(/janitor/admin/img/bg_icons.png) no-repeat 360px -977px;
+		background: #ffffff url(../../../img/bg_icons.png) no-repeat 360px -977px;
 		-webkit-appearance: none;
 	}
 }
@@ -70,7 +70,7 @@ div.field.files {border: 3px dashed #dedede; display: block; width: 378px; borde
 div.field.files input[type=file] {opacity: 0; width: 360px; height: 49px; margin: 0; border: 0;}
 div.field.files label {color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;}
 div.field.files.loading label {display: none;}
-div.field.files.loading {background: transparent url(/janitor/admin/img/gx_loader.gif) no-repeat center center;}
+div.field.files.loading {background: transparent url(../../../img/gx_loader.gif) no-repeat center center;}
 
 
 /* LOCATION */
@@ -84,7 +84,7 @@ div.field.location div.longitude input {width: 173px;}
 
 /* WITH GEOLOCATION BUTTON */
 div.field.location.geolocation div.geolocation {width: 30px; height: 30px; display: inline-block; vertical-align: top; cursor: pointer;
-	background: transparent url(/janitor/admin/img/gx_geolocation.png) no-repeat 5px 8px;
+	background: transparent url(../../../img/gx_geolocation.png) no-repeat 5px 8px;
 }
 div.field.location.geolocation div.latitude input,
 div.field.location.geolocation div.longitude input {width: 158px;}
@@ -131,7 +131,7 @@ div.field .pseudolabel {color: #aaaaaa;}
 /* VALIDATION */	
 div.field .indicator {position: absolute; top: 4px; left: 455px; width: 25px; height: 25px;}
 div.field.required .indicator {
-	background: transparent url(/janitor/admin/img/bg_icons.png) no-repeat 0 -292px;
+	background: transparent url(../../../img/bg_icons.png) no-repeat 0 -292px;
 }
 div.field.text.required .indicator {background-position: 0 -296px;}
 
@@ -289,7 +289,7 @@ div.field.html .editor div.tag {margin: 0 0 1px; padding: 0 0 0 30px; background
 div.field.html .editor div.dragged {z-index: 15;}
 div.field.html .editor div.tag .drag {display: none; position: absolute; top: 0px; left: -20px; border-top-left-radius: 15px; border-bottom-left-radius: 15px; background: #dedede; width: 30px; height: 30px; cursor: move;}
 div.field.html .editor div.tag .remove {display: none; position: absolute; top: 0px; right: -10px; border-radius: 15px; background: #dedede; width: 30px; height: 30px; cursor: pointer;
-	background: #dedede url(/janitor/admin/img/bg_icons.png) no-repeat 8px -42px;
+	background: #dedede url(../../../img/bg_icons.png) no-repeat 8px -42px;
 }
 
 /* TAG TYPE SELECTOR */
