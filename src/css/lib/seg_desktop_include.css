@@ -1,7 +1,7 @@
 @import url(s-fonts.css);
 
 @import url(desktop/s-page.css);
-@import url(/css/lib/desktop/s-header.css);
+@import url(desktop/s-header.css);
 @import url(desktop/s-footer.css);
 
 @import url(desktop/s-content.css);
