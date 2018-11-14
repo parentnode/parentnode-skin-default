@@ -341,10 +341,11 @@ body > div.pagination li.next a {padding-right: 0;}
 }
 #content .scene .usedby ul {padding-bottom: 0;}
 #content .scene .usedby ul li {display: inline-block; width: 20%; background-position: center center; background-repeat: no-repeat; height: 150px; text-indent: -9999px;}
-#content .scene .usedby ul li.metro {background-image: url(/img/logos/metro.png); background-size: 70px auto;}
+#content .scene .usedby ul li.metro {background-image: url(../../../img/logos/metro.png); background-size: 70px auto;}
 #content .scene .usedby ul li.soulland {background-image: url(/img/logos/soulland.png); background-size: 70px auto;}
 #content .scene .usedby ul li.cphpix {background-image: url(/img/logos/cphpix.png);}
-#content .scene .usedby ul li.tuborg {background-image: url(/img/logos/tuborg.png);} #content .scene .usedby ul li.distortion {background-image: url(/img/logos/distortion.png);}
+#content .scene .usedby ul li.tuborg {background-image: url(/img/logos/tuborg.png);} 
+#content .scene .usedby ul li.distortion {background-image: url(/img/logos/distortion.png);}
 #content .scene .usedby ul li.landskabsarkitekter {background-image: url(http://parentnode-skin-default.local/img/logos/landskabsarkitekter.png);}
 #content .scene .usedby ul li.urbangreen {background-image: url(http://parentnode.dk/img/logos/urbangreen.png);}
 #content .scene .usedby ul li.oeo {background-image: url(/img/logos/oeo.png);}
