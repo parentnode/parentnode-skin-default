@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-14 10:33:03
+asset-builder @ 2018-11-14 12:34:25
 */
 
 /*seg_desktop_include.css*/
@@ -7,33 +7,33 @@ asset-builder @ 2018-11-14 10:33:03
 /*s-fonts.css*/
 @font-face {
 	font-family: 'OpenSans';
-	src: url('fonts/open_sans/opensans-regular-webfont.woff') format('woff'),
-		 url('fonts/open_sans/opensans-regular-webfont.ttf') format('truetype'),
-		 url("fonts/open_sans/opensans-regular-webfont.svg#OpenSansRegular") format('svg');
+	src: url('fonts/opensans-regular-webfont.woff') format('woff'),
+		 url('fonts/opensans-regular-webfont.ttf') format('truetype'),
+		 url("fonts/opensans-regular-webfont.svg#OpenSansRegular") format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'OpenSans';
-	src: url('fonts/open_sans/opensans-bold-webfont.woff') format('woff'),
-		 url('fonts/open_sans/opensans-bold-webfont.ttf') format('truetype'),
-		 url('fonts/open_sans/opensans-bold-webfont.svg#open_sansbold') format('svg');
+	src: url('fonts/opensans-bold-webfont.woff') format('woff'),
+		 url('fonts/opensans-bold-webfont.ttf') format('truetype'),
+		 url('fonts/opensans-bold-webfont.svg#open_sansbold') format('svg');
 	font-weight: bold;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'OpenSans';
-	src: url('fonts/open_sans/opensans-italic-webfont.woff') format('woff'),
-		 url('fonts/open_sans/opensans-italic-webfont.ttf') format('truetype'),
-		 url('fonts/open_sans/opensans-italic-webfont.svg#open_sansitalic') format('svg');
+	src: url('fonts/opensans-italic-webfont.woff') format('woff'),
+		 url('fonts/opensans-italic-webfont.ttf') format('truetype'),
+		 url('fonts/opensans-italic-webfont.svg#open_sansitalic') format('svg');
 	font-weight: normal;
 	font-style: italic;
 }
 @font-face {
 	font-family: 'PT Serif';
-	src: url('fonts/pt_serif/pt_serif-regular-webfont.woff') format('woff'),
-		 url('fonts/pt_serif/pt_serif-regular-webfont.ttf') format('truetype'),
-		 url('fonts/pt_serif/pt_serif-regular-webfont.svg#pt_serifregular') format('svg');
+	src: url('fonts/pt_serif-regular-webfont.woff') format('woff'),
+		 url('fonts/pt_serif-regular-webfont.ttf') format('truetype'),
+		 url('fonts/pt_serif-regular-webfont.svg#pt_serifregular') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -372,18 +372,18 @@ body > div.pagination li.next a {padding-right: 0;}
 }
 #content .scene .usedby ul {padding-bottom: 0;}
 #content .scene .usedby ul li {display: inline-block; width: 20%; background-position: center center; background-repeat: no-repeat; height: 150px; text-indent: -9999px;}
-#content .scene .usedby ul li.metro {background-image: url(../img/logos/metro.png); background-size: 70px auto;}
-#content .scene .usedby ul li.soulland {background-image: url(../img/logos/soulland.png); background-size: 70px auto;}
-#content .scene .usedby ul li.cphpix {background-image: url(../img/logos/cphpix.png);}
-#content .scene .usedby ul li.tuborg {background-image: url(../img/logos/tuborg.png);} 
-#content .scene .usedby ul li.distortion {background-image: url(../img/logos/distortion.png);}
-#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../img/logos/landskabsarkitekter.png);}
-#content .scene .usedby ul li.urbangreen {background-image: url(http://parentnode.dk/img/logos/urbangreen.png);}
-#content .scene .usedby ul li.oeo {background-image: url(../img/logos/oeo.png);}
-#content .scene .usedby ul li.torvehallerne {background-image: url(../img/logos/torvehallerne.png);}
-#content .scene .usedby ul li.peoplegroup {background-image: url(../img/logos/peoplegroup.png);}
-#content .scene .usedby ul li.lsb {background-image: url(../img/logos/lsb.png);}
-#content .scene .usedby ul li.punkt1 {background-image: url(../img/logos/punkt1.png);}
+#content .scene .usedby ul li.metro {background-image: url(../img/metro.png); background-size: 70px auto;}
+#content .scene .usedby ul li.soulland {background-image: url(../img/soulland.png); background-size: 70px auto;}
+#content .scene .usedby ul li.cphpix {background-image: url(../img/cphpix.png);}
+#content .scene .usedby ul li.tuborg {background-image: url(../img/tuborg.png);} 
+#content .scene .usedby ul li.distortion {background-image: url(../img/distortion.png);}
+#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../img/landskabsarkitekter.png);}
+#content .scene .usedby ul li.urbangreen {background-image: url(../img/logos/urbangreen.png);}
+#content .scene .usedby ul li.oeo {background-image: url(../img/oeo.png);}
+#content .scene .usedby ul li.torvehallerne {background-image: url(../img/torvehallerne.png);}
+#content .scene .usedby ul li.peoplegroup {background-image: url(../img/peoplegroup.png);}
+#content .scene .usedby ul li.lsb {background-image: url(../img/lsb.png);}
+#content .scene .usedby ul li.punkt1 {background-image: url(../img/punkt1.png);}
 #content .scene.login form {padding-bottom: 20px;}
 #content .scene form li.forgot {padding-top: 5px;}
 #content .scene div.messages > p.error {color: #df0000;}
