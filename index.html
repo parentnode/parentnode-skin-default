@@ -881,16 +881,18 @@ player.load("/media/audio/audio_1.mp3");</code>
 	
 	<script type="text/javascript">
 
-		// Standard form initializer
-		u.o.standardForm = new function() {
-			this.init = function(form) {
-				u.f.init(form);
+		if (typeof(u) == "object") {
+			// Standard form initializer
+			u.o.standardForm = new function() {
+				this.init = function(form) {
+					u.f.init(form);
 
-				// while testing form - scroll to form onload
-				// u.scrollTo(window, {"node":form});
+					// while testing form - scroll to form onload
+					// u.scrollTo(window, {"node":form});
+				}
 			}
 		}
-
+		
 	</script>
 
 	<form action="/template/#/1" method="post" class="labelstyle:inject i:standardForm" enctype="application/x-www-form-urlencoded">
