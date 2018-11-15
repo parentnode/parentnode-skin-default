@@ -44,7 +44,7 @@
 
 /* DEFINITION LIST */
 #content .scene dl {padding: 0 70px 15px; width: 500px;}
-#content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;} 
+#content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;}
 #content .scene dt:after {content: ":";}
 /* one px off dd width, to support Androids */
 #content .scene dd {padding: 0 0 6px; width: 394px;}
@@ -342,17 +342,17 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene .usedby ul {padding-bottom: 0;}
 #content .scene .usedby ul li {display: inline-block; width: 20%; background-position: center center; background-repeat: no-repeat; height: 150px; text-indent: -9999px;}
 #content .scene .usedby ul li.metro {background-image: url(../../../img/logos/metro.png); background-size: 70px auto;}
-#content .scene .usedby ul li.soulland {background-image: url(/img/logos/soulland.png); background-size: 70px auto;}
-#content .scene .usedby ul li.cphpix {background-image: url(/img/logos/cphpix.png);}
-#content .scene .usedby ul li.tuborg {background-image: url(/img/logos/tuborg.png);} 
-#content .scene .usedby ul li.distortion {background-image: url(/img/logos/distortion.png);}
-#content .scene .usedby ul li.landskabsarkitekter {background-image: url(http://parentnode-skin-default.local/img/logos/landskabsarkitekter.png);}
-#content .scene .usedby ul li.urbangreen {background-image: url(../img/logos/urbangreen.png);}
-#content .scene .usedby ul li.oeo {background-image: url(/img/logos/oeo.png);}
-#content .scene .usedby ul li.torvehallerne {background-image: url(/img/logos/torvehallerne.png);}
-#content .scene .usedby ul li.peoplegroup {background-image: url(/img/logos/peoplegroup.png);}
-#content .scene .usedby ul li.lsb {background-image: url(/img/logos/lsb.png);}
-#content .scene .usedby ul li.punkt1 {background-image: url(/img/logos/punkt1.png);}
+#content .scene .usedby ul li.soulland {background-image: url(../../../img/logos/soulland.png); background-size: 70px auto;}
+#content .scene .usedby ul li.cphpix {background-image: url(../../../img/logos/cphpix.png);}
+#content .scene .usedby ul li.tuborg {background-image: url(../../../img/logos/tuborg.png);}
+#content .scene .usedby ul li.distortion {background-image: url(../../../img/logos/distortion.png);}
+#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../../..img/logos/landskabsarkitekter.png);}
+#content .scene .usedby ul li.urbangreen {background-image: url(../../../img/logos/urbangreen.png);}
+#content .scene .usedby ul li.oeo {background-image: url(../../../img/logos/oeo.png);}
+#content .scene .usedby ul li.torvehallerne {background-image: url(../../../img/logos/torvehallerne.png);}
+#content .scene .usedby ul li.peoplegroup {background-image: url(../../../img/logos/peoplegroup.png);}
+#content .scene .usedby ul li.lsb {background-image: url(../../../img/logos/lsb.png);}
+#content .scene .usedby ul li.punkt1 {background-image: url(../../../img/logos/punkt1.png);}
 
 
 

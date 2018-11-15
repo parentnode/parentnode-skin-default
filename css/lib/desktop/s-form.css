@@ -3,7 +3,7 @@
 form {
 	/*background: transparent url(http://parentnode.local/img/temp-input.png) repeat-y top left;*/
 }
-fieldset {border: none; display: block;}	
+fieldset {border: none; display: block;}
 div.field {padding: 0 68px 15px; position: relative; font-size: 0; z-index: 1;}
 
 
@@ -11,7 +11,7 @@ div.field {padding: 0 68px 15px; position: relative; font-size: 0; z-index: 1;}
 div.field label {display: none;}
 
 
-/* BASIC FORM INPUTS */	
+/* BASIC FORM INPUTS */
 div.field input,
 div.field select,
 div.field textarea {box-shadow: inset 0 1px 2px #dedede; background: #ffffff; border: 1px solid #dcdcdc; display: inline-block; vertical-align: top; border-radius: 3px; margin: 2px; outline: none; position: relative; z-index: 1;}
@@ -92,7 +92,7 @@ iframe#geolocationmap {width: 300px; height: 300px; position: absolute; top: 0; 
 
 
 
-/* FOCUS */	
+/* FOCUS */
 div.field.focus input,
 div.field.focus textarea {margin: 0;}
 div.field.focus select {padding: 4px 3px 1px 0px;}
@@ -128,7 +128,7 @@ div.field .pseudolabel {color: #aaaaaa;}
 
 
 
-/* VALIDATION */	
+/* VALIDATION */
 div.field .indicator {position: absolute; top: 4px; left: 455px; width: 25px; height: 25px;}
 div.field.required .indicator {
 	background: transparent url(../../../img/bg_icons.png) no-repeat 0 -292px;
@@ -204,7 +204,7 @@ ul.actions a.button,
 .submitting input.button,
 .submitting a.button,
 #content .submitting a.button {padding-left: 40px !important;
-	background-image: url(/img/gx_loader.gif);
+	background-image: url(../../../img/gx_loader.gif);
 	background-position: 11px 5px;
 	background-repeat: no-repeat;
 	background-size: 17px auto;
@@ -229,7 +229,7 @@ ul.actions input.button.disabled:hover {cursor: default !important; color: #aaaa
 /* HELP - HINT AND ERROR MESSAGES */
 div.field div.help {position: absolute; left: 475px; top: 6px; width: 200px;}
 div.field.files div.help {left: 404px;}
-	
+
 div.field div.error,
 div.field div.hint {display: none; padding: 5px; border-radius: 3px; font-size: 12px;}
 
@@ -237,7 +237,7 @@ div.field div.hint {display: none; padding: 5px; border-radius: 3px; font-size: 
 div.field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
 div.field.error div.error {display: block;}
 
-/* HELP - HINTS */	
+/* HELP - HINTS */
 div.field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
 div.field.focus div.hint,
 div.field.hover div.hint {display: block;}
@@ -253,7 +253,7 @@ div.field.hover div.hint+div.error {border-top-left-radius: 0; border-top-right-
 div.field.html {z-index: 3;}
 div.field.html.optionsshown {z-index: 60 !important;}
 
-/* USE HELP */	
+/* USE HELP */
 div.field.html div.html_editor_hint {width: 383px;}
 div.field.html div.html_editor_hint_content {display: none;}
 div.field.html div.html_editor_hint h3,
@@ -267,7 +267,7 @@ div.field.html div.html_editor_hint .close {font-size: 13px; line-height: 1em; c
 /* RAW HTML INPUT */
 div.field.html > textarea {display: none;}
 div.field.html > textarea.show {display: block; height: 200px;}
-	
+
 div.field.html > label {display: block; width: 377px;}
 div.field.html > label span {font-size: 0.723em; float: right; padding: 3px 0 0; cursor: pointer;}
 div.field.html > .indicator {top: 33px;}
@@ -348,7 +348,7 @@ div.field.html .editor div.tag.media .text label {padding: 5px 0 0; display: blo
 div.field.html .editor div.tag.media input {width: 319px; opacity: 0; height: 18px; position: relative; z-index: 2;}
 div.field.html .editor div.tag.media img {width: 347px; margin: 2px;}
 
-/* DEFAULT EXTERNAL VIDEO TAG STYLING */	
+/* DEFAULT EXTERNAL VIDEO TAG STYLING */
 div.field.html .editor div.tag.vimeo .text,
 div.field.html .editor div.tag.youtube .text {padding: 0 6px; height: 28px; color: #aaaaaa; font-size: 13px; padding: 4px 6px; line-height: 20px; height: auto;}
 div.field.html .editor div.tag.vimeo.focus .text,
