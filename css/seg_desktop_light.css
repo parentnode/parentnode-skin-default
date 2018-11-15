@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-14 22:56:19
+asset-builder @ 2018-11-15 11:38:40
 */
 
 /*seg_desktop_light_include.css*/
@@ -72,12 +72,12 @@ h3 {padding: 0 70px 10px; font-size: 20px; line-height: 1.25em;}
 h4 {padding: 0 70px 5px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h5 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h6 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
-p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;}
+p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;} 
 ul,
 ol {font-size: 0;}
 li {font-size: 13px; line-height: 1.25em;}
-dl {font-size: 0;}
-dt,
+dl {font-size: 0;} 
+dt, 
 dd {display: block; font-size: 13px; line-height: 1.25em;}
 .c {clear: both; font-size: 0; overflow: hidden;}
 .c400, .c300, .c266, .c200, .c150, .c133, .c100, .c75, .c50 {float: left; min-height: 10px; vertical-align: top;}
@@ -421,3 +421,4 @@ div.field.focus div.hint {display: block;}
 #content .scene div.segmentsupport {padding-top: 15px;}
 #content .scene div.segmentsupport .header {cursor: pointer;}
 #content .scene div.segmentsupport dd {padding-bottom: 5px;}
+

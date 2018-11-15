@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-14 22:56:19
+asset-builder @ 2018-11-15 11:38:41
 */
 
 /*seg_tablet_include.css*/
@@ -164,7 +164,7 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene ul.items li.item {display: block; padding-top: 20px; padding-bottom: 30px; border-top: 1px solid #dedede; position: relative;}
 #content .scene ul.items li.item h2 {position: relative; z-index: 1;}
 #content .scene dl {padding: 0 70px 15px; width: 500px;}
-#content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;} 
+#content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;}
 #content .scene dt:after {content: ":";}
 #content .scene dd {padding: 0 0 6px; width: 394px;}
 #content .scene dt span {text-transform: none;}
@@ -375,9 +375,9 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene .usedby ul li.metro {background-image: url(../img/logos/metro.png); background-size: 70px auto;}
 #content .scene .usedby ul li.soulland {background-image: url(../img/logos/soulland.png); background-size: 70px auto;}
 #content .scene .usedby ul li.cphpix {background-image: url(../img/logos/cphpix.png);}
-#content .scene .usedby ul li.tuborg {background-image: url(../img/logos/tuborg.png);} 
+#content .scene .usedby ul li.tuborg {background-image: url(../img/logos/tuborg.png);}
 #content .scene .usedby ul li.distortion {background-image: url(../img/logos/distortion.png);}
-#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../img/logos/landskabsarkitekter.png);}
+#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../img/landskabsarkitekter.png);}
 #content .scene .usedby ul li.urbangreen {background-image: url(../img/logos/urbangreen.png);}
 #content .scene .usedby ul li.oeo {background-image: url(../img/logos/oeo.png);}
 #content .scene .usedby ul li.torvehallerne {background-image: url(../img/logos/torvehallerne.png);}
@@ -392,7 +392,7 @@ body > div.pagination li.next a {padding-right: 0;}
 /*s-form.css*/
 form {
 }
-fieldset {border: none; display: block;}	
+fieldset {border: none; display: block;}
 div.field {padding: 0 68px 15px; position: relative; font-size: 0; z-index: 1;}
 div.field label {display: none;}
 div.field input,

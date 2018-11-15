@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-14 22:56:19
+asset-builder @ 2018-11-15 11:38:41
 */
 
 /*seg_smartphone_include.css*/
@@ -325,7 +325,7 @@ div.field input::-ms-clear, div.field textarea::-ms-clear {
 div.field select {width: calc(100% - 2px); height: 30px; color: #333333; padding: 2px 3px 2px 2px;}
 div.field select option {padding: 2px 3px 2px 6px;}
 @media all and (-webkit-min-device-pixel-ratio:0) {
-	div.field select {width: 100%; height: 31px; padding: 2px 3px 2px 7px; 
+	div.field select {width: 100%; height: 31px; padding: 2px 3px 2px 7px;
 		background: #ffffff url(../img/bg_icons.png) no-repeat 360px -977px;
 		-webkit-appearance: none;
 	}
@@ -400,7 +400,7 @@ div.field select.default,
 div.field textarea.default,
 div.field .pseudolabel {color: #aaaaaa;}
 div.field .indicator {width: 20px; height: 15px; display: inline-block; margin-bottom: -2px; margin-top: -2px;}
-div.field.required .indicator { 
+div.field.required .indicator {
 	background: transparent url(../img/bg_icons.png) no-repeat 3px -295px;
 }
 div.field.correct .indicator {background-position: 3px -324px;}
