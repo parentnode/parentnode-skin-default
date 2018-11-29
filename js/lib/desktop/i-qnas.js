@@ -1,6 +1,6 @@
 Util.Objects["qnas"] = new function() {
 	this.init = function(div) {
-//		u.bug("qnas init:" + u.nodeId(div))
+//		u.bug("qnas init:", div)
 
 
 		div.item_id = u.cv(div, "item_id");

@@ -1,13 +1,13 @@
 Util.Objects["wishes"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+//		u.bug("scene init:", scene)
 
 
 		scene.image_width = 480;
 
 
 		scene.resized = function() {
-//			u.bug("scene.resized:" + u.nodeId(this));
+//			u.bug("scene.resized:", this);
 
 
 			// resize text nodes
@@ -27,7 +27,7 @@ Util.Objects["wishes"] = new function() {
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:" + u.nodeId(this));
+//			u.bug("scene.ready:", this);
 
 			page.cN.scene = this;
 
@@ -157,14 +157,14 @@ Util.Objects["wishes"] = new function() {
 //
 // Util.Objects["wishes"] = new function() {
 // 	this.init = function(scene) {
-// //		u.bug("scene init:" + u.nodeId(scene))
+// //		u.bug("scene init:", scene)
 //
 //
 // 		scene.image_width = 100;
 //
 //
 // 		scene.resized = function() {
-// //			u.bug("scene.resized:" + u.nodeId(this));
+// //			u.bug("scene.resized:", this);
 //
 //
 // 			if(this.nodes && this.nodes.length) {
@@ -184,7 +184,7 @@ Util.Objects["wishes"] = new function() {
 // 		}
 //
 // 		scene.ready = function() {
-// //			u.bug("scene.ready:" + u.nodeId(this));
+// //			u.bug("scene.ready:", this);
 //
 // 			this.nodes = u.qsa("li.item", this);
 // 			if(this.nodes.length) {

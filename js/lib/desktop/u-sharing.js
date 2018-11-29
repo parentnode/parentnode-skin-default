@@ -16,7 +16,7 @@ u.injectSharing = function(node) {
 
 		u.e.hover(node.share_info, {"delay":500});
 		node.share_info.over = function() {
-		
+
 			if(!this.hint) {
 				this.hint = u.ae(document.body, "div", {"class":"hint"});
 				this.hint.share_info = this;
@@ -65,7 +65,7 @@ u.injectSharing = function(node) {
 					"left":(u.absX(this)) + "px"
 				});
 			}
-		
+
 		}
 		node.share_info.out = function() {
 			if(this.hint) {
@@ -140,7 +140,7 @@ u.injectSharing = function(node) {
 		var new_radius = u.random(2, 5);
 		circle.transitioned = svg._circle_transitioned;
 		u.a.to(circle, "all 100ms linear", {"r":new_radius});
-		
+
 		return circle;
 	}
 	node.sharing.drawLine = function(svg, x1, y1, x2, y2) {
@@ -160,7 +160,7 @@ u.injectSharing = function(node) {
 //					u.bug("x2:" + x2 + " , y2:" + y2)
 
 		if(x2 < 490 && y2 > 10 && y2 < 290 && (x2 < 70 || x2 > 450 || (y2 < 130 && y1 < 130) || (y2 > 180 && y1 > 180))) {
-			
+
 			var line = u.svgShape(svg, {
 				"type": "line",
 				"x1": x1,
@@ -178,14 +178,14 @@ u.injectSharing = function(node) {
 			u.a.to(line, "all 150ms linear", {"x2": x2, "y2": y2});
 
 			return line;
-			
+
 		}
 		return false;
 	}
 
 
 	node.sharing.svg._line_transitioned = function() {
-//				u.bug("line done:" + u.nodeId(this));
+//				u.bug("line done:",this);
 
 		this.transitioned = null;
 
@@ -199,7 +199,7 @@ u.injectSharing = function(node) {
 		}
 	}
 	node.sharing.svg._circle_transitioned = function() {
-//				u.bug("circle done:" + u.nodeId(this));
+//				u.bug("circle done:",this);
 
 //				u.bug("this.svg.drawings:" + this.svg.drawings)
 		this.transitioned = null;
@@ -231,7 +231,7 @@ u.injectSharing = function(node) {
 
 					line = this.svg.node.drawLine(this.svg, x1, y1, x1 + u.random(20, 70), y1 + u.random(-15, -40));
 					line = this.svg.node.drawLine(this.svg, x1, y1, x1 + u.random(20, 70), y1 + u.random(15, 40));
-				
+
 				}
 				else if(r >= 3 || this.svg.drawings%2 == 1) {
 
@@ -337,4 +337,3 @@ u.injectSharing = function(node) {
 	}
 
 }
-
