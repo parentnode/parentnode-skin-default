@@ -36,13 +36,14 @@ Util.Objects["page"] = new function() {
 		page.nN = u.ie(page.hN, page.nN);
 
 
+
 		// footer reference
 		page.fN = u.qs("#footer");
 		page.fN.service = u.qs("ul.servicenavigation", page.fN);
 
 
 
-		// global resize handler 
+		// global resize handler
 		page.resized = function(event) {
 //			u.bug("page resized")
 
@@ -82,7 +83,7 @@ Util.Objects["page"] = new function() {
 
 		}
 
-		// global scroll handler 
+		// global scroll handler
 		page.scrolled = function(event) {
 
 			page.scrolled_y = u.scrollY();
@@ -215,7 +216,7 @@ Util.Objects["page"] = new function() {
 
 		// initialize header elements
 		page.initHeader = function() {
-			
+
 			// LOGO
 			// add logo to navigation
 			page.logo = u.ie(page.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
@@ -229,7 +230,7 @@ Util.Objects["page"] = new function() {
 			page.style_tag.sheet.insertRule("#header a.logo {}", 0);
 			page.logo.css_rule = page.style_tag.sheet.cssRules[0];
 
-			
+
 		}
 
 		// initialize navigation elements
@@ -352,7 +353,7 @@ Util.Objects["page"] = new function() {
 			u.ass(page.fN, {
 				"opacity":1
 			});
-			
+
 		}
 
 		// ready to start page builing process
@@ -362,4 +363,3 @@ Util.Objects["page"] = new function() {
 }
 
 u.e.addDOMReadyEvent(u.init);
-
