@@ -146,6 +146,8 @@ Util.Objects["wishes"] = new function() {
 				}
 			}
 
+			u.showScene(this);
+
 			page.resized();
 		}
 
