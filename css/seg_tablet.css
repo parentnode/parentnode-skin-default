@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-30 15:52:33
+asset-builder @ 2018-11-30 16:02:30
 */
 
 /*seg_tablet_include.css*/
@@ -72,12 +72,12 @@ h3 {padding: 0 70px 10px; font-size: 20px; line-height: 1.25em;}
 h4 {padding: 0 70px 5px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h5 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h6 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
-p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;} 
+p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;}
 ul,
 ol {font-size: 0;}
 li {font-size: 13px; line-height: 1.25em;}
-dl {font-size: 0;} 
-dt, 
+dl {font-size: 0;}
+dt,
 dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 .c {clear: both; font-size: 0;}
 .c400, .c300, .c266, .c200, .c150, .c133, .c100, .c75, .c50 {display: inline-block; min-height: 10px; vertical-align: top;}
@@ -101,7 +101,7 @@ dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.
 body > div.hint {z-index: 100; position: absolute; top: 0; left: 0; padding: 3px 5px; background: #ffffff; color: #888888; border: 1px solid #888888; box-shadow: 0 1px 1px #888888; border-radius: 5px; font-size: 12px; max-width: 400px;}
 body > div.hint p {padding: 5px; color: #888888; font-size: 12px;}
 body > div.hint a {text-decoration: underline; display: inline-block; vertical-align: top; padding: 5px;}
-#smartphone_switch {z-index: 11000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); text-align: left; opacity: 0;}
+#smartphone_switch {z-index: 11000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); text-align: left; opacity: 0;}
 #smartphone_switch h1 {padding: 40px 20px; font-size: 36px; width: 300px;}
 #smartphone_switch p {padding: 0 20px 20px; width: 250px;}
 #smartphone_switch ul {padding: 30px 20px 20px;}
