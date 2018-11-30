@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-27 10:02:38
+asset-builder @ 2018-11-30 14:44:33
 */
 
 /*seg_smartphone_include.css*/
@@ -142,7 +142,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 
 /*s-content.css*/
 #content {position: relative; padding-top: 60px;}
-#content .scene {position: relative; padding: 50px 0 30px;}
+#content .scene {opacity: 0; position: relative; padding: 50px 0 30px;}
 #content .scene .link {cursor: pointer;}
 #content .scene a {color: #888888;}
 #content .scene a:active {text-decoration: underline;}
