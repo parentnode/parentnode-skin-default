@@ -2,6 +2,11 @@ document.write('<script type="text/javascript" src="js/manipulator/merged/seg_de
 
 // Project specific
 document.write('<script type="text/javascript" src="js/u-basics.js"></script>');
+document.write('<script type="text/javascript" src="js/u-form-builder.js"></script>');
+document.write('<script type="text/javascript" src="js/u-form-geolocation.js"></script>');
+document.write('<script type="text/javascript" src="js/u-form-htmleditor.js"></script>');
+document.write('<script type="text/javascript" src="js/u-sortable.js"></script>');
+document.write('<script type="text/javascript" src="js/u-textscaler.js"></script>');
 
 
 // Include BETA modules separately
