@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2018-11-30 14:03:13
+asset-builder @ 2018-11-30 14:44:31
 */
 
 /*seg_desktop_include.js*/
@@ -5251,6 +5251,7 @@ Util.Objects["login"] = new function() {
 			u.f.init(this._form);
 			this._form.fields["username"].focus();
 			page.cN.scene = this;
+			u.showScene(this);
 			page.resized();
 		}
 		scene.ready();
