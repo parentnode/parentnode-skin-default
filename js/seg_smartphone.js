@@ -4615,6 +4615,7 @@ Util.Objects["front"] = new function() {
 		}
 		scene.ready = function() {
 			page.cN.scene = this;
+			u.showScene(this);
 			page.acceptCookies();
 			page.resized();
 		}
@@ -4633,6 +4634,7 @@ Util.Objects["scene"] = new function() {
 		}
 		scene.ready = function() {
 			page.cN.scene = this;
+			u.showScene(this);
 			page.acceptCookies();
 			page.resized();
 		}
@@ -4652,6 +4654,7 @@ Util.Objects["login"] = new function() {
 			this._form = u.qs("form", this);
 			u.f.init(this._form);
 			page.cN.scene = this;
+			u.showScene(this);
 			page.resized();
 		}
 		scene.ready();

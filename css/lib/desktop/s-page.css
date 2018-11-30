@@ -42,15 +42,15 @@ h4 {padding: 0 70px 5px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h5 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
 h6 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: bold;}
 
-p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;} 
+p {padding: 0 70px 20px; font-size: 14px; line-height: 1.38em;}
 
 
 ul,
 ol {font-size: 0;}
 li {font-size: 13px; line-height: 1.25em;}
 
-dl {font-size: 0;} 
-dt, 
+dl {font-size: 0;}
+dt,
 dd {display: inline-block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 
 .c {clear: both; font-size: 0;}
@@ -84,7 +84,7 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 
 
 /* MOBILE SWITCH */
-#smartphone_switch {z-index: 11000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); text-align: left; opacity: 0;}
+#smartphone_switch {z-index: 11000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.95); text-align: left; opacity: 0;}
 #smartphone_switch h1 {padding: 40px 20px; font-size: 36px; width: 300px;}
 #smartphone_switch p {padding: 0 20px 20px; width: 250px;}
 #smartphone_switch ul {padding: 30px 20px 20px;}

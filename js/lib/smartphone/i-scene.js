@@ -20,6 +20,8 @@ Util.Objects["scene"] = new function() {
 
 			page.cN.scene = this;
 
+			u.showScene(this);
+
 			// accept cookies?
 			page.acceptCookies();
 
