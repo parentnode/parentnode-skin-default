@@ -1,11 +1,11 @@
 Util.Objects["todolist"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+//		u.bug("scene init:", scene);
 
 
 
 		scene.resized = function() {
-//			u.bug("scene.resized:" + u.nodeId(this));
+//			u.bug("scene.resized:", this);
 
 
 			// resize text nodes
@@ -19,11 +19,11 @@ Util.Objects["todolist"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled")
+//			u.bug("scrolled");
 		}
 
 		scene.ready = function() {
-			u.bug("scene.ready:" + u.nodeId(this));
+			u.bug("scene.ready:", this);
 
 			this.nodes = u.qsa("li.item", this);
 			if(this.nodes.length) {

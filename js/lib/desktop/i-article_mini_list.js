@@ -21,9 +21,9 @@ Util.Objects["articleMiniList"] = new function() {
 // 			link = u.qs("a", header);
 //
 // 			// should node be extended with readmore link
-// 			u.bug(list.add_readmore + "; " + link)
+// 			u.bug(list.add_readmore + "; " + link);
 // 			if(list.add_readmore && link) {
-// //				var anchor_point = u.qs(".description p", node)
+// //				var anchor_point = u.qs(".description p", node);
 // //				u.ae(anchor_point, "a", {"href":link.href, "html":" "+u.txt["readmore"]});
 //
 // 				ul = u.ae(node, "ul", {"class":"actions"});

@@ -2,7 +2,7 @@
 // global function to add checkmark
 u.addCheckmark = function(node) {
 
-//	u.bug("add checkmark:" + node.current_readstate + ", " + u.nodeId(node.parentNode) + ", " + (node.current_readstate ? (u.txt["readstate-read"] + ", " + u.date("Y-m-d H:i:s", node.current_readstate)) : u.txt["readstate-not_read"])); 
+//	u.bug("add checkmark:" + node.current_readstate + ", ", + node.parentNode + ", " + (node.current_readstate ? (u.txt["readstate-read"] + ", " + u.date("Y-m-d H:i:s", node.current_readstate)) : u.txt["readstate-not_read"])); 
 
 	node.checkmark = u.svg({
 		"name":"checkmark",

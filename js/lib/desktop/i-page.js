@@ -3,7 +3,7 @@ u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
-		// u.bug("init page")
+		// u.bug("init page");
 
 		window.page = page;
 
@@ -17,8 +17,8 @@ Util.Objects["page"] = new function() {
 
 		// create a generel style rule
 		page.style_tag = document.createElement("style");
-		page.style_tag.setAttribute("media", "all")
-		page.style_tag.setAttribute("type", "text/css")
+		page.style_tag.setAttribute("media", "all");
+		page.style_tag.setAttribute("type", "text/css");
 		page.style_tag = u.ae(document.head, page.style_tag);
 
 
@@ -36,15 +36,16 @@ Util.Objects["page"] = new function() {
 		page.nN = u.ie(page.hN, page.nN);
 
 
+
 		// footer reference
 		page.fN = u.qs("#footer");
 		page.fN.service = u.qs("ul.servicenavigation", page.fN);
 
 
 
-		// global resize handler 
+		// global resize handler
 		page.resized = function(event) {
-//			u.bug("page resized")
+//			u.bug("page resized");
 
 			page.browser_h = u.browserH();
 			page.browser_w = u.browserW();
@@ -52,7 +53,7 @@ Util.Objects["page"] = new function() {
 			// adjust content height
 			page.available_height = page.browser_h - page.hN.offsetHeight - page.fN.offsetHeight;
 
-//			u.bug("page.cN.offsetHeight:" + page.cN.offsetHeight)
+//			u.bug("page.cN.offsetHeight:" + page.cN.offsetHeight);
 
 			u.as(page.cN, "min-height", "auto", false);
 			if(page.available_height >= page.cN.offsetHeight) {
@@ -82,7 +83,7 @@ Util.Objects["page"] = new function() {
 
 		}
 
-		// global scroll handler 
+		// global scroll handler
 		page.scrolled = function(event) {
 
 			page.scrolled_y = u.scrollY();
@@ -144,7 +145,7 @@ Util.Objects["page"] = new function() {
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
-//				u.bug("page ready")
+//				u.bug("page ready");
 
 			// page is ready to be shown - only initalize if not already shown
 			if(!this.is_ready) {
@@ -215,7 +216,7 @@ Util.Objects["page"] = new function() {
 
 		// initialize header elements
 		page.initHeader = function() {
-			
+
 			// LOGO
 			// add logo to navigation
 			page.logo = u.ie(page.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
@@ -229,7 +230,7 @@ Util.Objects["page"] = new function() {
 			page.style_tag.sheet.insertRule("#header a.logo {}", 0);
 			page.logo.css_rule = page.style_tag.sheet.cssRules[0];
 
-			
+
 		}
 
 		// initialize navigation elements
@@ -352,7 +353,7 @@ Util.Objects["page"] = new function() {
 			u.ass(page.fN, {
 				"opacity":1
 			});
-			
+
 		}
 
 		// ready to start page builing process
@@ -362,4 +363,3 @@ Util.Objects["page"] = new function() {
 }
 
 u.e.addDOMReadyEvent(u.init);
-

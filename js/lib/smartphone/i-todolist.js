@@ -1,21 +1,21 @@
 Util.Objects["todolist"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+//		u.bug("scene init:", scene);
 
 
 		scene.resized = function() {
-//			u.bug("scene.resized:" + u.nodeId(this));
+//			u.bug("scene.resized:", this);
 
 			// refresh dom
 //			this.offsetHeight;
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled")
+//			u.bug("scrolled");
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:" + u.nodeId(this));
+//			u.bug("scene.ready:", this);
 
 			this.nodes = u.qsa("li.item", this);
 			if(this.nodes.length) {
@@ -31,7 +31,7 @@ Util.Objects["todolist"] = new function() {
 					u.f.init(node.close_form);
 					node.bn_close = u.qs("input[type=submit]", node.close_form);
 					node.bn_close.node = node;
-					u.e.click(node.bn_close)
+					u.e.click(node.bn_close);
 					node.bn_close.clicked = function(event) {
 						u.e.kill(event);
 
@@ -54,7 +54,7 @@ Util.Objects["todolist"] = new function() {
 					u.f.init(node.open_form);
 					node.bn_open = u.qs("input[type=submit]", node.open_form);
 					node.bn_open.node = node;
-					u.e.click(node.bn_open)
+					u.e.click(node.bn_open);
 					node.bn_open.clicked = function(event) {
 						u.e.kill(event);
 

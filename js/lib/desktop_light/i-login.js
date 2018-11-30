@@ -1,10 +1,10 @@
 Util.Objects["login"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:" + u.nodeId(scene))
+//		u.bug("scene init:", scene);
 
 
 		scene.resized = function() {
-//			u.bug("scene.resized:" + u.nodeId(this));
+//			u.bug("scene.resized:", this);
 
 
 			// refresh dom
@@ -12,11 +12,11 @@ Util.Objects["login"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled:" + u.nodeId(this))
+//			u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:" + u.nodeId(this));
+//			u.bug("scene.ready:", this);
 
 			u.ae(this, "p", {"html":"Your browser is not supported by the Administration system.<br />Please upgrade:"})
 
