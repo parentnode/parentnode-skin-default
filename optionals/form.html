@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+	<!-- (c) & (p) think.dk, parentnode.dk 2002-2018 -->
+	<!-- If you want to use or contribute to this code, visit https://parentnode.dk -->
+	<title>Getting lost without losing my way</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="development frontend HTML JavaScript CSS idealism web" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<meta property="og:title" content="Getting lost without losing my way" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="https://parentnode.dk/img/logo-large.png" />
+	<meta property="og:url" content="http://parentnode-skin-default.local" />
+	<link rel="apple-touch-icon" href="https://parentnode.dk/touchicon.png" />
+	<link rel="icon" href="https://parentnode.dk/favicon.png" />
+
+	<script type="text/javascript" src="https://detector-v4.dearapi.com/js-include"></script>
+</head>
+
+<body class="story">
+
+<div id="page" class="i:page">
+
+	<div id="header">
+		<ul class="servicenavigation">
+			<li class="keynav navigation nofollow"><a href="#navigation">To navigation</a></li>
+			<li class="keynav user nofollow"><a href="/login">Login</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+
+		<div class="scene template i:scene">
+
+			<h1>Form</h1>
+
+
+			<script type="text/javascript">
+
+				if (typeof(u) == "object") {
+					// Standard form initializer
+					u.o.standardForm = new function() {
+						this.init = function(form) {
+							u.f.init(form);
+
+							// while testing form - scroll to form onload
+							// u.scrollTo(window, {"node":form});
+						}
+					}
+				}
+
+			</script>
+
+			<form action="/template/#/1" method="post" class="labelstyle:inject i:standardForm" enctype="application/x-www-form-urlencoded">
+				<input type="hidden" name="csrf-token" value="245a30b2-9028-4b06-943c-b1a049cf3f20" />
+
+				<h2>Form elements</h2>
+				<p>
+					This is a general form layout, containing most common input/text combinations.
+					This is not used to test anything but parentNode CSS!
+				</p>
+				<p>
+					To perform tests on JavaScript layer, use:<br />
+					<a href="http://manipulator.parentnode.dk/tests/u-form">http://manipulator.parentnode.dk/tests/u-form</a>.
+				</p>
+				<p>
+					To perform tests on Janitor layer, use:<br />
+					<a href="http://janitor.parentnode.dk/tests/form">http://janitor.parentnode.dk/tests/form</a>.
+				</p>
+
+				<fieldset>
+					<h3>String and text</h3>
+
+					<div class="field string">
+						<label for="input_string">String</label>
+						<input type="text" name="string" id="input_string" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field string required">
+						<label for="input_string_required">String required</label>
+						<input type="text" name="string_required" id="input_string_required" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field text autoexpand">
+						<label for="input_text">Text</label>
+						<textarea name="text" id="input_text" autocomplete="off"></textarea>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field text autoexpand required">
+						<label for="input_text_required">Text required</label>
+						<textarea name="text_required" id="input_text_required" autocomplete="off"></textarea>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<h3>Buttons</h3>
+				<ul class="actions">
+					<li class="save"><input value="Primary submit" type="submit" class="button primary" /></li>
+					<li class="button"><a href="/template" class="button primary">Primary a</a></li>
+
+					<li class="cancel"><a href="/template" class="button secondary">Secondary a</a></li>
+					<li class="button"><input value="Secondary button" type="button" class="button secondary" /></li>
+
+					<li class="cancel"><a href="/template" class="button">Default a</a></li>
+					<li class="button"><input value="Default button" type="button" class="button" /></li>
+				</ul>
+
+
+				<fieldset>
+					<h3>Select, Checkbox and Radio buttons</h3>
+
+					<div class="field select">
+						<label for="input_select">Select</label>
+						<select name="select" id="input_select">
+							<option value="0" selected="selected">test</option>
+						</select>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field select required">
+						<label for="input_select_required">Select required</label>
+						<select name="select_required" id="input_select_required">
+							<option value="0" selected="selected">test</option>
+						</select>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field checkbox">
+						<input type="hidden" name="checkbox" value="0" />
+						<input type="checkbox" name="checkbox" id="input_checkbox" value="1" />
+						<label for="input_checkbox">Checkbox</label>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field checkbox required">
+						<input type="hidden" name="checkbox_required" value="0" />
+						<input type="checkbox" name="checkbox_required" id="input_checkbox_required" value="1" />
+						<label for="input_checkbox_required">Checkbox required</label>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field radiobuttons">
+						<label>Radiobuttons</label>
+						<div class="item">
+							<input type="radio" name="radiobuttons" id="input_radiobuttons_test1" value="test1" />
+							<label for="input_radiobuttons_test1">Test A</label>
+						</div>
+						<div class="item">
+							<input type="radio" name="radiobuttons" id="input_radiobuttons_test2" value="test2" />
+							<label for="input_radiobuttons_test2">Test B</label>
+						</div>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field radiobuttons required">
+						<label>Radiobuttons required</label>
+						<div class="item">
+							<input type="radio" name="radiobuttons_required" id="input_radiobuttons_required_test1" value="test1" />
+							<label for="input_radiobuttons_required_test1">Test A</label>
+						</div>
+						<div class="item">
+							<input type="radio" name="radiobuttons_required" id="input_radiobuttons_required_test2" value="test2" />
+							<label for="input_radiobuttons_required_test2">Test B</label>
+						</div>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<ul class="actions">
+					<li class="cancel"><a href="/template" class="button key:esc">Cancel</a></li>
+					<li class="save"><input value="Submit" type="submit" class="button primary key:s" /></li>
+				</ul>
+
+
+				<fieldset>
+					<h3>Special input types</h3>
+
+					<div class="field email">
+						<label for="input_email">Email</label>
+						<input type="email" name="email" id="input_email" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field email required">
+						<label for="input_email_required">Email required</label>
+						<input type="email" name="email_required" id="input_email_required" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field tel">
+						<label for="input_tel">Phone</label>
+						<input type="tel" name="tel" id="input_tel" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field tel required">
+						<label for="input_tel_required">Phone required</label>
+						<input type="tel" name="tel_required" id="input_tel_required" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field password">
+						<label for="input_password">Password</label>
+						<input type="password" name="password" id="input_password" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field password required">
+						<label for="input_password_required">Password required</label>
+						<input type="password" name="password_required" id="input_password_required" autocomplete="off" maxlength="255" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field number">
+						<label for="input_number">Number</label>
+						<input type="number" name="number" id="input_number" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field number required">
+						<label for="input_number_required">Number required</label>
+						<input type="number" name="number_required" id="input_number_required" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field integer">
+						<label for="input_integer">Integer</label>
+						<input type="number" name="integer" id="input_integer" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field integer required">
+						<label for="input_integer_required">Integer required</label>
+						<input type="number" name="integer_required" id="input_integer_required" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field date">
+						<label for="input_date">Date</label>
+						<input type="date" name="date" id="input_date" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field date required">
+						<label for="input_date_required">Date required</label>
+						<input type="date" name="date_required" id="input_date_required" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field datetime">
+						<label for="input_datetime">Datetime</label>
+						<input type="datetime" name="datetime" id="input_datetime" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field datetime required">
+						<label for="input_datetime_required">Datetime required</label>
+						<input type="datetime" name="datetime_required" id="input_datetime_required" autocomplete="off" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field files">
+						<label for="input_files">Files</label>
+						<input type="file" name="files[]" id="input_files" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field files required">
+						<label for="input_files_required">Files required</label>
+						<input type="file" name="files_required[]" id="input_files_required" />
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide with
+								hint message or other error messages
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<ul class="actions">
+					<li class="cancel"><a href="/template" class="button key:esc">Cancel</a></li>
+					<li class="save"><input value="Submit" type="submit" class="button primary key:s" /></li>
+				</ul>
+
+
+				<fieldset>
+					<h3>Custom input types</h3>
+
+					<div class="field location">
+						<div class="location">
+							<label for="input_location">Location</label>
+							<input type="text" name="location" id="input_location" class="location" />
+						</div>
+						<div class="latitude">
+							<label for="input_latitude">Latitude</label>
+							<input type="text" name="latitude" id="input_latitude" class="latitude" />
+						</div>
+						<div class="longitude">
+							<label for="input_longitude">Longitude</label>
+							<input type="text" name="longitude" id="input_longitude" class="longitude" />
+						</div>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide
+								with hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field location required">
+						<div class="location">
+							<label for="input_location_required">Location required</label>
+							<input type="text" name="location_required" id="input_location_required" class="location" />
+						</div>
+						<div class="latitude">
+							<label for="input_latitude_required">Latitude required</label>
+							<input type="text" name="latitude_required" id="input_latitude_required" class="latitude" />
+						</div>
+						<div class="longitude">
+							<label for="input_longitude_required">Longitude required</label>
+							<input type="text" name="longitude_required" id="input_longitude_required" class="longitude" />
+						</div>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide
+								with hint message or other error messages
+							</div>
+						</div>
+					</div>
+
+					<div class="field html tags:p,h2,h3,h4,ul,ol,code,download,jpg,png"
+						data-file-add="/template/addHTMLFile" data-file-delete="/template/deleteHTMLFile"
+						data-media-add="/template/addHTMLMedia" data-media-delete="/template/deleteHTMLMedia">
+						<label for="input_html">HTML</label>
+						<textarea name="html" id="input_html"></textarea>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide
+								with hint message or other error messages
+							</div>
+						</div>
+					</div>
+					<div class="field html tags:p,h2,h3,h4,ul,ol,code,download,jpg,png"
+						data-file-add="/template/addHTMLFile" data-file-delete="/template/deleteHTMLFile"
+						data-media-add="/template/addHTMLMedia" data-media-delete="/template/deleteHTMLMedia">
+						<label for="input_html_required">HTML required</label>
+						<textarea name="html_required" id="input_html_required"></textarea>
+						<div class="help">
+							<div class="hint">Hint message example which might collide</div>
+							<div class="error">Error message which might visually collide
+								with hint message or other error messages
+							</div>
+						</div>
+					</div>
+				</fieldset>
+
+				<ul class="actions">
+					<li class="cancel"><a href="/template" class="button key:esc">Cancel</a></li>
+					<li class="save"><input value="Submit" type="submit" class="button primary key:s" /></li>
+				</ul>
+
+
+
+			</form>
+
+
+			<hr />
+
+
+		</div>
+
+	</div>
+
+	<div id="navigation">
+		<ul class="navigation">
+			<li class="front"><a href="/">Frontpage</a></li>
+			<li class="blog"><a href="/blog">Posts</a></li>
+		</ul>
+	</div>
+
+	<div id="footer">
+		<ul class="servicenavigation">
+			<li class="terms"><a href="/terms">Terms</a></li>
+		</ul>
+
+		<p>
+			<a href="https://parentnode.dk">&lt;aliens&gt;we are all&lt;/aliens&gt;</a>
+		</p>
+	</div>
+
+</div>
+
+</body>
+</html>
