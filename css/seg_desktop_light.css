@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-30 14:44:33
+asset-builder @ 2018-11-30 15:52:33
 */
 
 /*seg_desktop_light_include.css*/
@@ -9,6 +9,7 @@ asset-builder @ 2018-11-30 14:44:33
 	font-family: 'OpenSans';
 	src: url('fonts/open_sans/opensans-regular-webfont.eot');
 	src: url('fonts/open_sans/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/open_sans/opensans-regular-webfont.woff2') format('woff2'),
 		 url('fonts/open_sans/opensans-regular-webfont.woff') format('woff'),
 		 url('fonts/open_sans/opensans-regular-webfont.ttf') format('truetype'),
 		 url('fonts/open_sans/opensans-regular-webfont.svg#OpenSansRegular') format('svg');
@@ -19,6 +20,7 @@ asset-builder @ 2018-11-30 14:44:33
 	font-family: 'OpenSans';
 	src: url('fonts/open_sans/opensans-bold-webfont.eot');
 	src: url('fonts/open_sans/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/open_sans/opensans-bold-webfont.woff2') format('woff2'),
 		 url('fonts/open_sans/opensans-bold-webfont.woff') format('woff'),
 		 url('fonts/open_sans/opensans-bold-webfont.ttf') format('truetype'),
 		 url('fonts/open_sans/opensans-bold-webfont.svg#open_sansbold') format('svg');
@@ -29,6 +31,7 @@ asset-builder @ 2018-11-30 14:44:33
 	font-family: 'OpenSans';
 	src: url('fonts/open_sans/opensans-italic-webfont.eot');
 	src: url('fonts/open_sans/opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/open_sans/opensans-italic-webfont.woff2') format('woff2'),
 		 url('fonts/open_sans/opensans-italic-webfont.woff') format('woff'),
 		 url('fonts/open_sans/opensans-italic-webfont.ttf') format('truetype'),
 		 url('fonts/open_sans/opensans-italic-webfont.svg#open_sansitalic') format('svg');
@@ -39,6 +42,7 @@ asset-builder @ 2018-11-30 14:44:33
 	font-family: 'PT Serif';
 	src: url('fonts/pt_serif/pt_serif-regular-webfont.eot');
 	src: url('fonts/pt_serif/pt_serif-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/pt_serif/pt_serif-regular-webfont.woff2') format('woff2'),
 		 url('fonts/pt_serif/pt_serif-regular-webfont.woff') format('woff'),
 		 url('fonts/pt_serif/pt_serif-regular-webfont.ttf') format('truetype'),
 		 url('fonts/pt_serif/pt_serif-regular-webfont.svg#pt_serifregular') format('svg');

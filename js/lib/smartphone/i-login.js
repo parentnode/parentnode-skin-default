@@ -23,6 +23,9 @@ Util.Objects["login"] = new function() {
 
 
 			page.cN.scene = this;
+
+			u.showScene(this);
+
 			page.resized();
 		}
 
