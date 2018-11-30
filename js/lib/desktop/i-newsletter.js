@@ -1,6 +1,6 @@
 Util.Objects["newsletter"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene)
+//		u.bug("scene init:", scene);
 
 
 		scene.resized = function() {
@@ -12,7 +12,7 @@ Util.Objects["newsletter"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled:", this)
+//			u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {

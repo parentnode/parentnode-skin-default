@@ -3,7 +3,7 @@ u.bug_console_only = true;
 
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
-		// u.bug("init page")
+		// u.bug("init page");
 
 		window.page = page;
 
@@ -17,8 +17,8 @@ Util.Objects["page"] = new function() {
 
 		// create a generel style rule
 		page.style_tag = document.createElement("style");
-		page.style_tag.setAttribute("media", "all")
-		page.style_tag.setAttribute("type", "text/css")
+		page.style_tag.setAttribute("media", "all");
+		page.style_tag.setAttribute("type", "text/css");
 		page.style_tag = u.ae(document.head, page.style_tag);
 
 
@@ -45,7 +45,7 @@ Util.Objects["page"] = new function() {
 
 		// global resize handler
 		page.resized = function(event) {
-//			u.bug("page resized")
+//			u.bug("page resized");
 
 			page.browser_h = u.browserH();
 			page.browser_w = u.browserW();
@@ -53,7 +53,7 @@ Util.Objects["page"] = new function() {
 			// adjust content height
 			page.available_height = page.browser_h - page.hN.offsetHeight - page.fN.offsetHeight;
 
-//			u.bug("page.cN.offsetHeight:" + page.cN.offsetHeight)
+//			u.bug("page.cN.offsetHeight:" + page.cN.offsetHeight);
 
 			u.as(page.cN, "min-height", "auto", false);
 			if(page.available_height >= page.cN.offsetHeight) {
@@ -145,7 +145,7 @@ Util.Objects["page"] = new function() {
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
-//				u.bug("page ready")
+//				u.bug("page ready");
 
 			// page is ready to be shown - only initalize if not already shown
 			if(!this.is_ready) {

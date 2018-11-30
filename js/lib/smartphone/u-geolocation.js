@@ -1,7 +1,7 @@
 u.injectGeolocation = function(node) {
 
 	node.geolocation.node = node;
-	u.bug("node.geolocation:" + node.geolocation)
+	u.bug("node.geolocation:" + node.geolocation);
 
 	var li_longitude = u.qs("li.longitude", node.geolocation);
 	var li_latitude = u.qs("li.latitude", node.geolocation);

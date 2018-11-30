@@ -1,6 +1,6 @@
 Util.Objects["todolist"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene)
+//		u.bug("scene init:", scene);
 
 
 
@@ -19,7 +19,7 @@ Util.Objects["todolist"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled")
+//			u.bug("scrolled");
 		}
 
 		scene.ready = function() {

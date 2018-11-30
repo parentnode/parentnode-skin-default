@@ -39,9 +39,9 @@ Util.Objects["page"] = new function() {
 		page.fN.service = u.qs(".servicenavigation", page.fN);
 
 
-		// global resize handler 
+		// global resize handler
 		page.resized = function() {
-//			u.bug("page resized")
+//			u.bug("page resized");
 
 			this.browser_h = u.browserH();
 			this.browser_w = u.browserW();
@@ -61,7 +61,7 @@ Util.Objects["page"] = new function() {
 			this.offsetHeight;
 		}
 
-		// iOS scroll fix 
+		// iOS scroll fix
 		page.fixiOSScroll = function() {
 
 			u.ass(this.hN, {
@@ -75,7 +75,7 @@ Util.Objects["page"] = new function() {
 
 		}
 
-		// global scroll handler 
+		// global scroll handler
 		page.scrolled = function() {
 
 			// Fix issue with fixed element after scroll
@@ -105,12 +105,12 @@ Util.Objects["page"] = new function() {
 				page.cN.scene.orientationchanged();
 			}
 		}
-		
+
 
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
-//			u.bug("page ready")
+//			u.bug("page ready");
 
 			// page is ready to be shown - only initalize if not already shown
 			if(!this.is_ready) {
@@ -355,4 +355,3 @@ Util.Objects["page"] = new function() {
 }
 
 u.e.addDOMReadyEvent(u.init);
-

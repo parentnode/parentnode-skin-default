@@ -1,6 +1,6 @@
 Util.Objects["signup"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene)
+//		u.bug("scene init:", scene);
 
 
 		scene.resized = function() {
@@ -8,7 +8,7 @@ Util.Objects["signup"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled:", this)
+//			u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {

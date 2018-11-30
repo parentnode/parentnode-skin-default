@@ -1,6 +1,6 @@
 Util.Objects["wishes"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene)
+//		u.bug("scene init:", scene);
 
 
 		scene.image_width = 250;
@@ -23,7 +23,7 @@ Util.Objects["wishes"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled")
+//			u.bug("scrolled");
 		}
 
 		scene.ready = function() {

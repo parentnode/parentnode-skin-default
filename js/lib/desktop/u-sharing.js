@@ -1,5 +1,5 @@
 u.injectSharing = function(node) {
-//	u.bug("sharing")
+//	u.bug("sharing");
 
 	// sharing wrapper
 	node.sharing = u.ae(node, "div", {"class":"sharing"});
@@ -157,7 +157,7 @@ u.injectSharing = function(node) {
 			}
 		}
 
-//					u.bug("x2:" + x2 + " , y2:" + y2)
+//					u.bug("x2:" + x2 + " , y2:" + y2);
 
 		if(x2 < 490 && y2 > 10 && y2 < 290 && (x2 < 70 || x2 > 450 || (y2 < 130 && y1 < 130) || (y2 > 180 && y1 > 180))) {
 
@@ -172,7 +172,7 @@ u.injectSharing = function(node) {
 			u.ie(svg, line);
 			line.svg = svg;
 
-//					u.bug("x2:" + x2 + " , y2:" + y2)
+//					u.bug("x2:" + x2 + " , y2:" + y2);
 
 			line.transitioned = svg._line_transitioned;
 			u.a.to(line, "all 150ms linear", {"x2": x2, "y2": y2});
@@ -191,7 +191,7 @@ u.injectSharing = function(node) {
 
 		if(!this.svg.hide) {
 			var key = u.randomString(4);
-//				u.bug("do circle:" + key)
+//				u.bug("do circle:" + key);
 			var cx = Number(this.getAttribute("x2"));
 			var cy = Number(this.getAttribute("y2"));
 			var circle = this.svg.node.drawCircle(this.svg, cx, cy);
@@ -201,7 +201,7 @@ u.injectSharing = function(node) {
 	node.sharing.svg._circle_transitioned = function() {
 //				u.bug("circle done:",this);
 
-//				u.bug("this.svg.drawings:" + this.svg.drawings)
+//				u.bug("this.svg.drawings:" + this.svg.drawings);
 		this.transitioned = null;
 
 		if(!this.svg.hide) {
@@ -212,7 +212,7 @@ u.injectSharing = function(node) {
 				var x1 = Number(this.getAttribute("cx"));
 				var y1 = Number(this.getAttribute("cy"));
 				var r = Number(this.getAttribute("r"));
-//					u.bug("x1:" + x1 + " , y1:" + y1)
+//					u.bug("x1:" + x1 + " , y1:" + y1);
 
 
 				var line, i;
@@ -293,7 +293,7 @@ u.injectSharing = function(node) {
 				this.svg.removeChild(this);
 			}
 
-			u.a.to(circle, "all 0.15s linear", {"r":0})
+			u.a.to(circle, "all 0.15s linear", {"r":0});
 		}
 		for(i = 0; line = lines[i]; i++) {
 
@@ -316,11 +316,11 @@ u.injectSharing = function(node) {
 				this.transitioned = null;
 				this.svg.removeChild(this);
 			}
-			u.a.to(line, "all 0.25s linear", {"x1":new_x, "y1":new_y, "x2":new_x, "y2":new_y})
+			u.a.to(line, "all 0.25s linear", {"x1":new_x, "y1":new_y, "x2":new_x, "y2":new_y});
 
 		}
 
-		u.t.setTimer(this.sharing.svg, function() {this.hide = false;}, 250)
+		u.t.setTimer(this.sharing.svg, function() {this.hide = false;}, 250);
 
 	}
 	node.sharing.autohide = function() {
