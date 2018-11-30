@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-27 10:02:39
+asset-builder @ 2018-11-30 14:44:33
 */
 
 /*seg_tablet_include.css*/
@@ -136,7 +136,7 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 
 /*s-content.css*/
 #content {position: relative;}
-#content .scene {position: relative; padding: 50px 0 75px;}
+#content .scene {opacity: 0; position: relative; padding: 50px 0 75px;}
 #content .scene .link {cursor: pointer;}
 #content .scene a {color: #888888;}
 #content .scene h1,

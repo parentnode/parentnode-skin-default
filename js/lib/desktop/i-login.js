@@ -24,6 +24,9 @@ Util.Objects["login"] = new function() {
 			this._form.fields["username"].focus();
 
 			page.cN.scene = this;
+
+			u.showScene(this);
+
 			page.resized();
 		}
 

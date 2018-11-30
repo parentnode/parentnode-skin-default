@@ -1,4 +1,4 @@
-Util.Objects["scene"] = new function() {
+Util.Objects["front"] = new function() {
 	this.init = function(scene) {
 //		u.bug("scene init:", scene);
 
@@ -19,6 +19,8 @@ Util.Objects["scene"] = new function() {
 
 
 			page.cN.scene = this;
+
+			u.showScene(this);
 
 			// accept cookies?
 			page.acceptCookies();
