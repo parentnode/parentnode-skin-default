@@ -1,7 +1,8 @@
 document.write('<script type="text/javascript" src="/js/manipulator/merged/seg_tablet.js"></script>');
 
 // Project specific
-document.write('<script type="text/javascript" src="/js/u-basics.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/u-basics.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
 
 // Include BETA modules seprately
 // document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-animation-to.js"></script>');
