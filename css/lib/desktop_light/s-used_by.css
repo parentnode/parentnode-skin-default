@@ -1,0 +1,19 @@
+/* USED BY (BRANDING FOOTER) */
+#content .scene .usedby {min-width: 600px; margin-top: 20px; margin-bottom: -50px; padding-top: 5px; border-top: 1px solid #cccccc;}
+#content .scene .usedby h2 {display: none; text-align: center; padding-bottom: 5px; font-size: 11px; width: auto; color: #bbbbbb; text-transform: uppercase;
+	font-family: "OpenSans", Verdana, Arial, sans-serif;
+}
+#content .scene .usedby ul {padding-bottom: 0;}
+#content .scene .usedby ul li {display: inline-block; width: 20%; background-position: center center; background-repeat: no-repeat; height: 150px; text-indent: -9999px;}
+#content .scene .usedby ul li.metro {background-image: url(../../../img/logos/metro.png); background-size: 70px auto;}
+#content .scene .usedby ul li.soulland {background-image: url(../../../img/logos/soulland.png); background-size: 70px auto;}
+#content .scene .usedby ul li.cphpix {background-image: url(../../../img/logos/cphpix.png);}
+#content .scene .usedby ul li.tuborg {background-image: url(../../../img/logos/tuborg.png);}
+#content .scene .usedby ul li.distortion {background-image: url(../../../img/logos/distortion.png);}
+#content .scene .usedby ul li.landskabsarkitekter {background-image: url(../../../img/logos/landskabsarkitekter.png);}
+#content .scene .usedby ul li.urbangreen {background-image: url(../../../img/logos/urbangreen.png);}
+#content .scene .usedby ul li.oeo {background-image: url(../../../img/logos/oeo.png);}
+#content .scene .usedby ul li.torvehallerne {background-image: url(../../../img/logos/torvehallerne.png);}
+#content .scene .usedby ul li.peoplegroup {background-image: url(../../../img/logos/peoplegroup.png);}
+#content .scene .usedby ul li.lsb {background-image: url(../../../img/logos/lsb.png);}
+#content .scene .usedby ul li.punkt1 {background-image: url(../../../img/logos/punkt1.png);}

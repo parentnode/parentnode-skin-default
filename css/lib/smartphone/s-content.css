@@ -233,10 +233,6 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene div.vcard dl.info dd li a {padding-bottom: 10px; display: inline-block;}
 
 
-/* USED BY (BRANDING FOOTER) */
-#content .scene .usedby {display: none;}
-
-
 
 /* LOGIN */
 #content .scene.login form {padding-bottom: 20px;}
