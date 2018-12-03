@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2018-11-30 16:04:49
+asset-builder @ 2018-12-03 12:28:45
 */
 
 /*seg_smartphone_include.js*/
@@ -4381,15 +4381,6 @@ u._stepA2 = function() {
 }
 
 
-/*u-form-custom.js*/
-u.f.fixFieldHTML = function(field) {
-	u.bug("fixFieldHTML");
-	var label = u.qs("label", field);
-	if(label) {
-		u.ae(label, field._indicator);
-	}
-}
-
 /*i-page.js*/
 u.bug_console_only = true;
 Util.Objects["page"] = new function() {
@@ -4605,25 +4596,6 @@ Util.Objects["page"] = new function() {
 u.e.addDOMReadyEvent(u.init);
 
 
-/*i-front.js*/
-Util.Objects["front"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-			this.offsetHeight;
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			page.cN.scene = this;
-			u.showScene(this);
-			page.acceptCookies();
-			page.resized();
-		}
-		scene.ready();
-	}
-}
-
-
 /*i-scene.js*/
 Util.Objects["scene"] = new function() {
 	this.init = function(scene) {
@@ -4636,68 +4608,6 @@ Util.Objects["scene"] = new function() {
 			page.cN.scene = this;
 			u.showScene(this);
 			page.acceptCookies();
-			page.resized();
-		}
-		scene.ready();
-	}
-}
-
-
-/*i-login.js*/
-Util.Objects["login"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			this._form = u.qs("form", this);
-			u.f.init(this._form);
-			page.cN.scene = this;
-			u.showScene(this);
-			page.resized();
-		}
-		scene.ready();
-	}
-}
-
-
-/*i-signup.js*/
-Util.Objects["signup"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			page.cN.scene = this;
-			var signup_form = u.qs("form.signup", this);
-			var place_holder = u.qs("div.articlebody .placeholder.signup", this);
-			if(signup_form && place_holder) {
-				place_holder.parentNode.replaceChild(signup_form, place_holder);
-			}
-			if(signup_form) {
-				u.f.init(signup_form);
-			}
-			page.acceptCookies();
-			page.resized();
-		}
-		scene.ready();
-	}
-}
-
-
-/*i-newsletter.js*/
-Util.Objects["newsletter"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			this._form = u.qs("form", this);
-			u.f.init(this._form);
-			page.cN.scene = this;
 			page.resized();
 		}
 		scene.ready();

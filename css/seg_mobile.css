@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-11-30 16:04:49
+asset-builder @ 2018-12-03 12:28:45
 */
 
 /*seg_mobile_include.css*/
@@ -165,6 +165,13 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.article {padding-bottom: 20px;}
 #content .scene div.article ul.tags a {color: #cccccc;}
 #content .scene div.article div.articlebody .placeholder {display: none;}
+#content .scene .articlebody ul,
+#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px;}
+#content .scene .articlebody ul {list-style-type: disc;}
+#content .scene .articlebody ol {list-style-type: decimal;}
+#content .scene .articlebody li {padding-bottom: 7px; padding-left: 3px; display: list-item;}
+#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
+#content .scene .articlebody ul.actions li {padding-left: 0;}
 #content .scene ul.articles {padding: 0;}
 #content .scene ul.articles li.article {padding: 10px 0 0; border-top: 1px solid #dedede;}
 #content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
@@ -207,145 +214,4 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.vcard dl.info dd {padding-bottom: 10px; color: #cccccc;}
 #content .scene div.vcard dl.info dd ul {padding: 0;}
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
-#content .scene .usedby {display: none;}
-
-
-/*s-form.css*/
-#content form {}
-#content fieldset {border: none; display: block;}
-#content .field {padding: 0 8px 10px; position: relative; font-size: 0;}
-#content label {display: block; font-size: 13px;}
-#content .field input,
-#content .field select,
-#content .field textarea {color: #333333; background: #ffffff; border: 1px solid #dcdcdc; margin: 0; outline: none; position: relative; z-index: 10;}
-#content .field input {width: 100%; height: 24px;}
-#content .field select {width: 100%; height: 33px; color: #333333;}
-#content .field textarea {width: 100%; height: 100px; overflow: auto;}
-#content .field.checkbox,
-#content .field.boolean {}
-#content .field.checkbox input,
-#content .field.boolean input {display: inline; vertical-align: top; width: auto; height: auto; padding: 0; margin: 0 5px 0 3px; border: 0;}
-#content .field.checkbox label,
-#content .field.boolean label {width: auto; display: inline; vertical-align: top; display: inline-block; vertical-align: top; font-size: 13px; line-height: 1em;}
-#content .field.radiobuttons {}
-#content .field.radiobuttons label {display: block; font-size: 13px; line-height: 1em; padding: 0 0 8px 3px;}
-#content .field.radiobuttons div.item {padding: 0 0 5px;}
-#content .field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 5px 0 3px; border: 0;}
-#content .field.radiobuttons div.item label {font-size: 13px; line-height: 1em; display: inline; vertical-align: top; }
-#content .field.location div.location,
-#content .field.location div.latitude {padding-bottom: 2px;}
-#content .field.focus input,
-#content .field.focus select,
-#content .field.focus textarea {border: 1px solid #5c5c5c;}
-#content .field.radiobuttons.focus input,
-#content .field.checkbox.focus input,
-#content .field.boolean.focus input {border: none;}
-#content .field input.default,
-#content .field select.default,
-#content .field textarea.default {color: #aaaaaa;}
-#content .field.required .indicator {position: absolute; top: 4px; left: 435px; width: 25px; height: 25px; 
-	background: transparent url(../img/bg_icons.png) no-repeat 0 -292px;
-}
-#content .field.text.required .indicator {background-position: 0 -296px;}
-#content .field.correct .indicator {background-position: 2px -320px;}
-#content .field.text.correct .indicator {background-position: 2px -321px;}
-#content .field.error input,
-#content .field.error textarea {}
-#content .field.error select {}
-#content .field.error input,
-#content .field.error select,
-#content .field.error textarea {border: 3px solid #a62300;}
-#content .field.radiobuttons.error input,
-#content .field.checkbox.error input,
-#content .field.boolean.error input {border: none;}
-#content ul.actions {overflow: hidden;}
-#content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
-#content ul.actions input.button {width: auto; height: 28px; padding: 3px 12px;}
-#content ul.actions a.button {display: block; text-decoration: none; height: 14px; padding: 6px 12px 8px;}
-#content ul.actions input.button,
-#content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
-#content ul.actions input.button:active,
-#content ul.actions a.button:active {background-color: #bebebe;}
-#content ul.actions input.button.primary,
-#content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;;}
-#content ul.actions input.button.primary:active,
-#content ul.actions a.button.primary:active {background-color: #313942;}
-#content ul.actions input.button.secondary,
-#content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
-#content ul.actions input.button.secondary:active,
-#content ul.actions a.button.secondary:active {background-color: #313942;}
-#content form input.button.disabled,
-#content form input.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
-#content .field div.help {position: absolute; left: 455px; top: 6px; width: 200px;}
-#content .field div.error,
-#content .field div.hint {display: none; padding: 5px; font-size: 12px; margin-top: -3px;}
-#content .field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
-#content .field.error div.error {display: block;}
-#content .field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
-#content .field.focus div.hint {display: block;}
-
-
-/*s-itemtypes.css*/
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {padding-bottom: 7px; padding-left: 3px; display: list-item;}
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-#content .scene ul.todos dl.info {padding-bottom: 10px;}
-#content .scene ul.todos > li ul.actions {display: none;}
-#content .scene ul.wishlists {padding-left: 10px; padding-right: 10px;}
-#content .scene ul.wishes dl.info dt {display: none;}
-#content .scene ul.wishes dl.info dd {padding-left: 0;}
-#content .scene ul.wishes > li ul.actions {display: none;}
-
-
-/*s-documentation.css*/
-#content .scene.docsindex {}
-#content .scene.docsindex .notes {display: none;}
-#content .scene.docsindex .tests {display: none;}
-#content .scene.docsindex .files {padding-top: 25px;}
-#content .scene.docsindex .files h2 {padding-bottom: 15px;}
-#content .scene.docsindex .files ul {max-width: 500px;}
-#content .scene.docsindex .files li {position: relative;}
-#content .scene.docsindex .files li h3 {font-size: 16px; padding: 0;}
-#content .scene.docsindex .files li p {display: none;}
-#content .scene.docsindex .search {padding-top: 15px;}
-#content .scene.docsindex .search.loading {background: transparent url(../img/gx_loader.gif) no-repeat 438px 68px;}
-#content .scene.docsindex .search h2 {padding-bottom: 15px;}
-#content .scene.docsindex .search .results .function {padding: 15px 0 0; border-top: 1px solid #dedede; cursor: pointer;}
-#content .scene.docsindex .search .results .function .header h3 {padding-bottom: 5px;}
-#content .scene.docsindex .search .results .function .definition dl {width: auto;}
-#content .scene.docsindex .search .results .function .definition dd {padding-bottom: 0; width: auto; display: block;}
-#content .scene.docsindex .search .results .function .parameters,
-#content .scene.docsindex .search .results .function .examples,
-#content .scene.docsindex .search .results .function .return,
-#content .scene.docsindex .search .results .function .uses,
-#content .scene.docsindex .search .results .function .description,
-#content .scene.docsindex .search .results .function .callbacks,
-#content .scene.docsindex .search .results .function .definition h4,
-#content .scene.docsindex .search .results .function .definition .name,
-#content .scene.docsindex .search .results .function .definition dt {display: none;}
-#content .scene div.functions {padding-bottom: 15px;}
-#content .scene div.functions .body {border-bottom: 1px solid #bbbbbb;}
-#content .scene div.functions .function {padding: 10px 0 0; overflow: hidden; border-top: 1px solid #bbbbbb; background: #ffffff;}
-#content .scene div.functions .function .header {}
-#content .scene div.functions .function .body {padding: 20px 0 0; border: none;}
-#content .scene div.functions .function .body .definition dd {white-space: nowrap;}
-#content .scene div.functions .function .body .parameters dl.options {}
-#content .scene div.functions .function .body .parameters dl.options dt {}
-#content .scene div.functions .function .body .callbacks dl {}
-#content .scene div.functions .function .body .callbacks dt {width: auto; display: block; text-align: left;}
-#content .scene div.functions .function .body .callbacks dd {width: auto; display: block;}
-#content .scene div.functions .function .body .example {padding: 0 0 20px;}
-#content .scene div.functions .function .body .examples h4 {padding-bottom: 5px;}
-#content .scene div.functions .function .body .example h5 {padding-bottom: 5px; font-size: 13px;}
-#content .scene div.functions .function .body .example p {padding-bottom: 5px;}
-#content .scene div.functions .function .body .uses .javascript {padding: 5px 0 0 10px;}
-#content .scene div.functions .function .body .uses .manipulator {padding: 5px 0 0 10px;}
-#content .scene div.functions dd {padding-bottom: 5px;}
-#content .scene div.includefiles {}
-#content .scene div.segmentsupport {padding-top: 15px;}
-#content .scene div.segmentsupport dd {padding-bottom: 5px;}
 

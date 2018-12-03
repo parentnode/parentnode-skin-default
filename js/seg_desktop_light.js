@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2018-11-30 16:04:48
+asset-builder @ 2018-12-03 12:28:44
 */
 
 /*seg_desktop_light_include.js*/
@@ -5222,57 +5222,4 @@ Util.Objects["page"] = new function() {
 	}
 }
 window.onload = u.init;
-
-
-/*i-login.js*/
-Util.Objects["login"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			u.ae(this, "p", {"html":"Your browser is not supported by the Administration system.<br />Please upgrade:"})
-			var ul = u.ae(this, "ul");
-			u.ae(ul, "li", {"html":'<a href="https://firefox.com/download" target="_blank">Firefox</a>'});
-			u.ae(ul, "li", {"html":'<a href="https://www.google.com/chrome/" target="_blank">Chrome</a>'});
-			page.cN.scene = this;
-		}
-		scene.ready();
-	}
-}
-
-
-/*i-signup.js*/
-Util.Objects["signup"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			this._form = u.qs("form", this);
-			u.f.init(this._form);
-			page.cN.scene = this;
-		}
-		scene.ready();
-	}
-}
-
-
-/*i-newsletter.js*/
-Util.Objects["newsletter"] = new function() {
-	this.init = function(scene) {
-		scene.resized = function() {
-		}
-		scene.scrolled = function() {
-		}
-		scene.ready = function() {
-			this._form = u.qs("form", this);
-			u.f.init(this._form);
-			page.cN.scene = this;
-		}
-		scene.ready();
-	}
-}
 
