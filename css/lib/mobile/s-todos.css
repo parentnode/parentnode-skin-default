@@ -1,0 +1,5 @@
+/* TODOS */
+#content .scene ul.todos dl.info {padding-bottom: 10px;}
+
+/* TODOS - DONE / NOT DONE */
+#content .scene ul.todos > li ul.actions {display: none;}

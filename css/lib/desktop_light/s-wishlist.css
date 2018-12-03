@@ -1,0 +1,8 @@
+/* WISHLIST */
+#content .scene ul.wishlist {}
+#content .scene ul.wishes dl.info dt {display: none;}
+#content .scene ul.wishes dl.info dd {padding-left: 0;}
+
+
+/* WISH RESERVE / UN-RESERVE */
+#content .scene ul.wishes > li ul.actions {display: none;}

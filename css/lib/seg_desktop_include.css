@@ -7,9 +7,10 @@
 @import url(desktop/s-content.css);
 @import url(desktop/s-form.css);
 
-@import url(desktop/s-itemtypes.css);
 @import url(desktop/s-documentation.css);
 @import url(desktop/s-login_overlay.css);
+@import url(desktop/s-todos.css);
+@import url(desktop/s-wishlist.css);
 @import url(desktop/s-used_by.css);
 
 @import url(desktop/s-hovers.css);

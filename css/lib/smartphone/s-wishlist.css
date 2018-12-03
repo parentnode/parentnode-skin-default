@@ -1,28 +1,3 @@
-/* ARTICLE BODY */
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 20px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {font-size: 13px; padding-bottom: 8px; padding-left: 3px; line-height: 1.538em;}
-
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-
-
-/* TODOS */
-#content .scene ul.todos dl.info {padding-bottom: 10px;}
-#content .scene ul.todos dl.info dd:after {content: ",\00a0";}
-#content .scene ul.todos dl.info dd:last-child:after {content: "";}
-
-/* TODOS - DONE / NOT DONE */
-#content .scene ul.todos > li ul.actions {}
-#content .scene ul.todos > li ul.actions li {padding: 0;}
-#content .scene ul.todos > li ul.actions.closed .close {display: none;}
-#content .scene ul.todos > li ul.actions .open {display: none;}
-#content .scene ul.todos > li ul.actions.closed .open {display: inline-block;}
-
-
-
 /* WISHLIST */
 #content .scene ul.wishlists {padding-left: 20px; padding-right: 20px;}
 

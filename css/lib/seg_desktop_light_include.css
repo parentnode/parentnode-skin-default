@@ -7,7 +7,8 @@
 
 @import url(desktop_light/s-content.css);
 @import url(desktop_light/s-form.css);
-@import url(desktop_light/s-used_by.css);
 
-@import url(desktop_light/s-itemtypes.css);
 @import url(desktop_light/s-documentation.css);
+@import url(desktop_light/s-todos.css);
+@import url(desktop_light/s-wishlist.css);
+@import url(desktop_light/s-used_by.css);
