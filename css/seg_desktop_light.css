@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-12-04 14:24:38
+asset-builder @ 2018-12-04 14:48:53
 */
 
 /*seg_desktop_light_include.css*/
@@ -194,21 +194,6 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene div.categories ul.tags li.selected a {color: #000000;}
 #content .scene div.categories ul.actions {padding-bottom: 0;}
 #content .scene div.categories ul.actions li {padding-bottom: 0; font-size: 15px; display: block;}
-#content .scene div.article {padding-bottom: 30px;}
-#content .scene div.article ul.tags {padding-bottom: 20px;}
-#content .scene ul.tags a:hover {color: #888888;}
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px; display: list-item;}
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-#content .scene ul.articles li.article {padding: 20px 0 0; border-top: 1px solid #dedede; position: relative;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
-#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 15px;
-	font-family: "PT Serif", Times, serif;
-}
 #content .scene div.related {padding-top: 10px; position: relative; z-index: 1;}
 #content .scene div.related h2 a {font-size: 13px; display: inline; vertical-align: baseline;
 	font-family: "OpenSans";
@@ -256,3 +241,21 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene.login form {padding-bottom: 20px;}
 #content .scene div.messages > p.error {color: #df0000;}
 
+
+/*s-article.css*/
+#content .scene div.article {padding-bottom: 30px;}
+#content .scene div.article ul.tags {padding-bottom: 20px;}
+#content .scene ul.tags a:hover {color: #888888;}
+#content .scene .articlebody ul,
+#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
+#content .scene .articlebody ul {list-style-type: disc;}
+#content .scene .articlebody ol {list-style-type: decimal;}
+#content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px; display: list-item;}
+#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
+#content .scene .articlebody ul.actions li {padding-left: 0;}
+#content .scene ul.articles li.article {padding: 20px 0 0; border-top: 1px solid #dedede; position: relative;}
+#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
+#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 15px;
+	font-family: "PT Serif", Times, serif;
+}
+#content .scene .article ul.info ul.geo {padding: 0;}

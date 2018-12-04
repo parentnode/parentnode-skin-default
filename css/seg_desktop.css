@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-12-04 14:24:38
+asset-builder @ 2018-12-04 14:48:53
 */
 
 /*seg_desktop_include.css*/
@@ -276,6 +276,42 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene form li.forgot {padding-top: 5px;}
 #content .scene div.messages > p.error {color: #df0000;}
 
+
+/*s-article.css*/
+#content .scene div.article {position: relative; padding-bottom: 30px;}
+#content .scene div.article h1 svg.checkmark {cursor: pointer;}
+#content .scene div.article ul.tags {padding-bottom: 30px;}
+#content .scene div.article ul.tags li,
+#content .scene div.article ul.tags li a {color: #cccccc;}
+#content .scene .articlebody {position: relative; z-index: 1;}
+#content .scene .articlebody ul,
+#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
+#content .scene .articlebody ul {list-style-type: disc;}
+#content .scene .articlebody ol {list-style-type: decimal;}
+#content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px;}
+#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
+#content .scene .articlebody ul.actions li {padding-left: 0;}
+#content .scene div.article div.articlebody span.sup.reference {font-size: 10px; line-height: 1.1em; vertical-align: top; padding-left: 2px;}
+#content .scene div.article div.articlebody h3.reference {padding-top: 20px;}
+#content .scene div.article div.articlebody p.reference {font-style: italic;}
+#content .scene ul.articles {padding: 0;}
+#content .scene ul.articles li.article {padding: 20px 0 5px; border-top: 1px solid #dedede; position: relative;}
+#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
+#content .scene ul.articles li.article ul.tags li,
+#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
+#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 10px;
+	font-family: "PT Serif", Times, serif;
+}
+#content .scene ul.articles li.article ul.actions {margin-top: -10px;}
+#content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
+#content .scene ul.articles li.article > svg.checkmark {position: absolute; top: 14px; left: 45px;}
+#content .scene ul.articles li.article > svg.checkmark line {stroke: #666666; stroke-width: 3px;}
+#content .scene .article ul.info > li.place {font-size: 0;}
+#content .scene .article ul.geo.active li.location {cursor: pointer;}
+#content .scene .article ul.info ul.geo {padding: 0; display: inline-block; vertical-align: top; width: auto;}
+#content .scene .article div.geomap {position: relative; z-index: 1; height: 300px; width: 600px; margin-bottom: 20px;}
+#content .scene .article div.geomap iframe {display: block; width: 100%; height: 100%; border: 1px solid #666666; background-color: #ffffff; margin: 0 50px 30px; width: 540px; border-radius: 5px; }
+#content .scene .article li div.geomap {}
 
 /*s-hovers.css*/
 #header .logo:hover,

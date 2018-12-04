@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-12-04 14:24:38
+asset-builder @ 2018-12-04 14:48:54
 */
 
 /*seg_mobile_include.css*/
@@ -161,20 +161,6 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.media {display: none;}
 #content .scene .pagination {}
 #content .scene div.categories {padding-bottom: 10px;}
-#content .scene div.article {padding-bottom: 20px;}
-#content .scene div.article ul.tags a {color: #cccccc;}
-#content .scene div.article div.articlebody .placeholder {display: none;}
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {padding-bottom: 7px; padding-left: 3px; display: list-item;}
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-#content .scene ul.articles {padding: 0;}
-#content .scene ul.articles li.article {padding: 10px 0 0; border-top: 1px solid #dedede;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
-#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
 #content .scene div.related {}
 #content .scene dl.offer {font-size: 0; padding: 0;}
 #content .scene dl.offer dt {display: none;}
@@ -211,4 +197,22 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.vcard dl.info dd {padding-bottom: 10px; color: #cccccc;}
 #content .scene div.vcard dl.info dd ul {padding: 0;}
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
+
+
+/*s-article.css*/
+#content .scene div.article {padding-bottom: 20px;}
+#content .scene div.article ul.tags a {color: #cccccc;}
+#content .scene div.article div.articlebody .placeholder {display: none;}
+#content .scene .articlebody ul,
+#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px;}
+#content .scene .articlebody ul {list-style-type: disc;}
+#content .scene .articlebody ol {list-style-type: decimal;}
+#content .scene .articlebody li {padding-bottom: 7px; padding-left: 3px; display: list-item;}
+#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
+#content .scene .articlebody ul.actions li {padding-left: 0;}
+#content .scene ul.articles {padding: 0;}
+#content .scene ul.articles li.article {padding: 10px 0 0; border-top: 1px solid #dedede;}
+#content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
+#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
+#content .scene .article ul.info ul.geo {padding: 0;}
 
