@@ -3,10 +3,11 @@
 @import url(../../lib/mobile/s-page.css);
 @import url(../../lib/mobile/s-header.css);
 @import url(../../lib/mobile/s-footer.css);
+
 @import url(../../lib/mobile/s-content.css);
+@import url(../../lib/mobile/s-article.css);
 
 /* Optionals */
-@import url(../../lib/mobile/s-article.css);
 @import url(../../lib/mobile/s-form.css);
 @import url(../../lib/mobile/s-documentation.css);
 @import url(../../lib/mobile/s-todos.css);
