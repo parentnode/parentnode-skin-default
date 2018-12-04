@@ -3,7 +3,9 @@
 @import url(desktop/s-page.css);
 @import url(desktop/s-header.css);
 @import url(desktop/s-footer.css);
+
 @import url(desktop/s-content.css);
+@import url(desktop/s-article.css);
 
 @import url(desktop/s-hovers.css);
 
