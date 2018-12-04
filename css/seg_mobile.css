@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2018-12-03 17:06:57
+asset-builder @ 2018-12-04 14:24:38
 */
 
 /*seg_mobile_include.css*/
@@ -157,7 +157,6 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.info li.publisher,
 #content .scene ul.info li.image_info,
 #content .scene ul.info li.modified_at {display: none;}
-#content .scene ul.info ul.geo {padding: 0;}
 #content .scene div.image,
 #content .scene div.media {display: none;}
 #content .scene .pagination {}
@@ -177,8 +176,6 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
 #content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
 #content .scene div.related {}
-#content .scene div.comments {display: none;}
-#content .scene div.readstate {display: none;}
 #content .scene dl.offer {font-size: 0; padding: 0;}
 #content .scene dl.offer dt {display: none;}
 #content .scene dl.offer .url {display: none;}
