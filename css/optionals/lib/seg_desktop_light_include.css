@@ -6,8 +6,11 @@
 @import url(../../lib/desktop_light/s-content.css);
 
 /* Optionals */
-@import url(../../lib/desktop_light/s-form.css);
+@import url(../../lib/desktop_light/s-comments.css);
 @import url(../../lib/desktop_light/s-documentation.css);
+@import url(../../lib/desktop_light/s-form.css);
+@import url(../../lib/desktop_light/s-geo.css);
+@import url(../../lib/desktop_light/s-pagination.css);
 @import url(../../lib/desktop_light/s-todos.css);
 @import url(../../lib/desktop_light/s-wishlist.css);
 @import url(../../lib/desktop_light/s-used_by.css);

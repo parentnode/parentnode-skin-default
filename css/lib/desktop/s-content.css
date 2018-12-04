@@ -41,8 +41,6 @@
 #content .scene ul.items li.item {display: block; padding-top: 20px; padding-bottom: 30px; border-top: 1px solid #dedede; position: relative;}
 #content .scene ul.items li.item h2 {position: relative; z-index: 1;}
 
-
-
 /* DEFINITION LIST */
 #content .scene dl {padding: 0 70px 15px; width: 500px;}
 #content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;}
@@ -59,10 +57,8 @@
 #content .scene dl h5,
 #content .scene dl h6 {padding-left: 0; padding-right: 0; padding-top: 10px;}
 
-
 /* SCENE ACTIONS */
 #content .scene > ul.actions {margin: 0 0 20px; padding: 15px 70px;}
-
 
 /* TAGS */
 #content .scene ul.tags {position: relative; z-index: 1; padding-bottom: 20px;}
@@ -89,18 +85,6 @@
 #content .scene ul.info li.longitude {display: none;}
 
 
-/* GEOLOCATION */
-#content .scene ul.info > li.place {font-size: 0;}
-#content .scene ul.geo.active li.location {cursor: pointer;}
-#content .scene ul.info ul.geo {padding: 0; display: inline-block; vertical-align: top; width: auto;}
-
-
-/* MAP */
-#content .scene div.geomap {position: relative; z-index: 1; height: 300px; width: 600px; margin-bottom: 20px;}
-#content .scene div.geomap iframe {display: block; width: 100%; height: 100%; border: 1px solid #666666; background-color: #ffffff; margin: 0 50px 30px; width: 540px; border-radius: 5px; }
-#content .scene li div.geomap {}
-
-
 /* IMAGE */
 #content .scene div.image {position: relative; z-index: 1;}
 #content .scene div.image img {cursor: zoom-in; margin: 0 50px 30px; width: 540px; border-radius: 5px; overflow: hidden;}
@@ -120,11 +104,6 @@
 #content .scene div.media.fullsize {}
 #content .scene div.media.fullsize img {cursor: zoom-out; width: 100%; margin: 0 0 30px; border-radius: 0;}
 
-
-/* PAGINATION */
-#content .scene .pagination {display: none;}
-
-
 /* CATEGORIES */
 #content .scene div.categories {padding-bottom: 5px; display: inline-block; vertical-align: top; width: 250px;}
 #content .scene div.categories ul {padding-right: 0;}
@@ -136,123 +115,12 @@
 #content .scene div.categories ul.actions {padding-bottom: 0;}
 #content .scene div.categories ul.actions li {padding-bottom: 0; font-size: 15px; display: block;}
 
-
-
-/* ARTICLE */
-#content .scene div.article {position: relative; padding-bottom: 30px;}
-#content .scene div.article h1 svg.checkmark {cursor: pointer;}
-#content .scene div.article ul.tags {padding-bottom: 30px;}
-#content .scene div.article ul.tags li,
-#content .scene div.article ul.tags li a {color: #cccccc;}
-
-/* ARTICLE BODY */
-
-#content .scene .articlebody {position: relative; z-index: 1;}
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px;}
-
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-
-
-/* ARTICLE REFERENCES */
-#content .scene div.article div.articlebody span.sup.reference {font-size: 10px; line-height: 1.1em; vertical-align: top; padding-left: 2px;}
-#content .scene div.article div.articlebody h3.reference {padding-top: 20px;}
-#content .scene div.article div.articlebody p.reference {font-style: italic;}
-
-
-/* ARTICLES */
-#content .scene ul.articles {padding: 0;}
-#content .scene ul.articles li.article {padding: 20px 0 5px; border-top: 1px solid #dedede; position: relative;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
-#content .scene ul.articles li.article ul.tags li,
-#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 10px;
-	font-family: "PT Serif", Times, serif;
-}
-#content .scene ul.articles li.article ul.actions {margin-top: -10px;}
-#content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
-
-
-/*#content .scene ul.articles li.article p {font-size: 13px; color: #888888;}*/
-#content .scene ul.articles li.article > svg.checkmark {position: absolute; top: 14px; left: 45px;}
-#content .scene ul.articles li.article > svg.checkmark line {stroke: #666666; stroke-width: 3px;}
-
-
-
 /* RELATED */
 #content .scene div.related {padding-top: 10px; position: relative; z-index: 1;}
 #content .scene div.related h2 {padding-bottom: 15px;}
 #content .scene div.related h2 a {font-size: 12px; display: inline-block; vertical-align: middle;
 	font-family: "OpenSans";
 }
-
-
-/* READSTATE CHECKMARK */
-#content .scene svg.checkmark {position: absolute; top: 0; left: 0;}
-#content .scene h1 svg.checkmark {top: 13px; left: 35px; transform: scale(1.5);}
-#content .scene h2 svg.checkmark {top: 8px; left: 40px; transform: scale(1.2);}
-#content .scene h3 svg.checkmark {top: 3px; left: 45px;}
-#content .scene svg.checkmark line {stroke: #dedede; stroke-width: 3px;}
-#content .scene svg.checkmark.read line {stroke: #666666;}
-
-
-
-/* COMMENTS */
-#content .scene div.comments {padding-bottom: 15px; position: relative; z-index: 1;}
-#content .scene div.articlebody + div.comments {padding-top: 20px;}
-#content .scene div.comments h2 {font-size: 16px; padding-bottom: 25px; position: relative; color: #dedede; cursor: pointer;}
-#content .scene div.comments h2 svg.arrow {position: absolute; top: 3px; left: 45px;}
-#content .scene div.comments h2 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-
-#content .scene div.comments > p,
-#content .scene div.comments ul.comments,
-#content .scene div.comments ul.actions {display: none;}
-
-#content .scene div.comments.open h2 {color: #888888;}
-#content .scene div.comments.open > p,
-#content .scene div.comments.open ul.comments,
-#content .scene div.comments.open ul.actions {display: block;}
-
-#content .scene div.comments > p {color: #999999; font-size: 13px; padding-bottom: 25px;}
-#content .scene div.comments ul.comments {padding: 0; margin: 0;}
-#content .scene div.comments ul.comments > li {padding-bottom: 10px; padding-left: 0;}
-#content .scene div.comments ul.comments > li ul.info {padding-bottom: 0; margin: 0; list-style: none; display: block;}
-#content .scene div.comments ul.comments > li ul.info li {display: inline-block; vertical-align: top; color: #cccccc; font-size: 12px; padding-bottom: 0; padding-left: 0;}
-#content .scene div.comments ul.comments > li ul.info li.user:after {content: ",\00a0";}
-#content .scene div.comments ul.comments > li p.comment {padding-bottom: 15px; font-size: 13px;}
-#content .scene div.comments .field {padding-bottom: 10px;}
-
-
-/* QnAs */
-#content .scene div.qnas {padding-bottom: 15px; position: relative; z-index: 1;}
-#content .scene div.articlebody + div.qnas {padding-top: 20px;}
-
-#content .scene div.qnas h2 {font-size: 16px; padding-bottom: 25px; position: relative; color: #dedede; cursor: pointer;}
-#content .scene div.qnas h2 svg.arrow {position: absolute; top: 3px; left: 45px;}
-#content .scene div.qnas h2 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
-
-#content .scene div.qnas > p,
-#content .scene div.qnas ul.qnas,
-#content .scene div.qnas ul.actions {display: none;}
-
-#content .scene div.qnas.open h2 {color: #00c90d;}
-#content .scene div.qnas.open > p,
-#content .scene div.qnas.open ul.qnas,
-#content .scene div.qnas.open ul.actions {display: block;}
-
-#content .scene div.qnas > p {color: #999999; font-size: 13px; padding-bottom: 25px;}
-#content .scene div.qnas ul.qnas {padding: 0; margin: 0;}
-#content .scene div.qnas ul.qnas > li {padding-bottom: 15px; padding-left: 0;}
-#content .scene div.qnas ul.qnas > li ul.info {padding-bottom: 0; margin: 0; list-style: none; display: block;}
-#content .scene div.qnas ul.qnas > li ul.info li {display: inline-block; vertical-align: top; color: #cccccc; font-size: 12px; padding-bottom: 0; padding-left: 0;}
-#content .scene div.qnas ul.qnas > li ul.info li.user:after {content: ",\00a0";}
-#content .scene div.qnas ul.qnas > li p.question {padding-bottom: 10px; font-size: 13px;}
-#content .scene div.qnas .field {padding-bottom: 10px;}
-
 
 
 /* OFFER */
@@ -269,23 +137,6 @@
 #content .scene ul.offer li.description ul li {display: list-item; padding: 0 0 3px; font-size: 13px;}
 
 /*#content .scene ul.offer dd.currency:after {content: "\00a0";}*/
-
-
-/* PAGINATION */
-body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
-body > div.pagination li.next > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
-body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}
-body > div.pagination li.previous > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
-body > div.pagination li.previous,
-body > div.pagination li.next {z-index: 100; position: fixed; top: 50%; margin-top: -20px; height: 40px; width: 0; overflow: hidden; border: 1px solid #26962d; cursor: pointer; background: #ffffff;}
-body > div.pagination li.previous {left: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left: none; padding-left: 30px;}
-body > div.pagination li.next {right: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none; padding-right: 30px;}
-body > div.pagination li.previous a,
-body > div.pagination li.next a {font-size: 16px; line-height: 16px; display: inline-block; vertical-align: top; padding: 11px 12px 13px; white-space: nowrap; opacity: 0;}
-body > div.pagination li.previous a {padding-left: 0;}
-body > div.pagination li.next a {padding-right: 0;}
-
-
 
 /* CODE AND TYPECASTING */
 #content .scene code {padding: 10px 20px; margin: 0 50px 15px; background-color: #ededed; color: #333333; font-size: 12px; display: block; overflow: auto; white-space: pre; border-radius: 5px;
@@ -314,7 +165,6 @@ body > div.pagination li.next a {padding-right: 0;}
 
 #content .scene span.command {color: #4b5cd7;}
 
-
 /* VCARD */
 #content .scene div.vcard.company {margin-top: 65px; border-top: 1px solid #dedede; padding: 0 70px 25px;}
 #content .scene div.vcard.company h2 {margin-top: -65px; padding: 0 0 60px;}
@@ -326,7 +176,6 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene div.vcard dl.info dd {padding-bottom: 10px; font-size: 12px; color: #cccccc;}
 #content .scene div.vcard dl.info dd ul {padding: 0;}
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
-
 
 /* LOGIN */
 #content .scene.login form {padding-bottom: 20px;}

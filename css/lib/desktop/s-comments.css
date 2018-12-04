@@ -1,0 +1,25 @@
+/* COMMENTS */
+#content .scene div.comments {padding-bottom: 15px; position: relative; z-index: 1;}
+#content .scene div.articlebody + div.comments {padding-top: 20px;}
+#content .scene div.comments h2 {font-size: 16px; padding-bottom: 25px; position: relative; color: #dedede; cursor: pointer;}
+#content .scene div.comments h2 svg.arrow {position: absolute; top: 3px; left: 45px;}
+#content .scene div.comments h2 svg.arrow line {stroke: #dedede; stroke-width: 3px;}
+
+#content .scene div.comments > p,
+#content .scene div.comments ul.comments,
+#content .scene div.comments ul.actions {display: none;}
+
+#content .scene div.comments.open h2 {color: #888888;}
+#content .scene div.comments.open > p,
+#content .scene div.comments.open ul.comments,
+#content .scene div.comments.open ul.actions {display: block;}
+
+#content .scene div.comments > p {color: #999999; font-size: 13px; padding-bottom: 25px;}
+#content .scene div.comments ul.comments {padding: 0; margin: 0;}
+#content .scene div.comments ul.comments > li {padding-bottom: 10px; padding-left: 0;}
+#content .scene div.comments ul.comments > li ul.info {padding-bottom: 0; margin: 0; list-style: none; display: block;}
+#content .scene div.comments ul.comments > li ul.info li {display: inline-block; vertical-align: top; color: #cccccc; font-size: 12px; padding-bottom: 0; padding-left: 0;}
+#content .scene div.comments ul.comments > li ul.info li.user:after {content: ",\00a0";}
+#content .scene div.comments ul.comments > li p.comment {padding-bottom: 15px; font-size: 13px;}
+#content .scene div.comments .field {padding-bottom: 10px;}
+

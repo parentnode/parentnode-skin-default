@@ -1,0 +1,16 @@
+/* PAGINATION */
+#content .scene .pagination {display: none;}
+body > div.pagination {position: fixed; top: 60px; left: 0; width: 100%;}
+body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
+body > div.pagination li.next > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
+body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}
+body > div.pagination li.previous > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
+body > div.pagination li.previous,
+body > div.pagination li.next {z-index: 100; position: absolute; top: 0; /*margin-top: -20px;*/ height: 40px; /*width: 0;*/ overflow: hidden; /*border: 1px solid #26962d;*/cursor: pointer; background: rgba(255, 255, 255, 0.5);}
+body > div.pagination li.previous {left: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left: none; padding-left: 30px;}
+body > div.pagination li.next {right: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none; padding-right: 30px;}
+body > div.pagination li.previous a,
+body > div.pagination li.next a {font-size: 12px; line-height: 16px; display: inline-block; vertical-align: top; padding: 11px 12px 13px; white-space: nowrap;
+ /*opacity: 0;*/}
+body > div.pagination li.previous a {padding-left: 0;}
+body > div.pagination li.next a {padding-right: 0;}

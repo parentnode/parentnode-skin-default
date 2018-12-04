@@ -87,18 +87,6 @@
 #content .scene ul.info li.longitude {display: none;}
 
 
-/* GEOLOCATION */
-#content .scene ul.info > li.place {font-size: 0;}
-#content .scene ul.geo.active li.location {cursor: pointer;}
-#content .scene ul.info ul.geo {padding: 0; display: inline-block; vertical-align: top; width: auto;}
-
-
-/* MAP */
-#content .scene div.geomap {height: 200px; margin: -15px 0 20px;}
-#content .scene div.geomap iframe {display: block; width: 100%; height: 100%; border: none; border-top: 1px solid #666666; border-bottom: 1px solid #666666; background-color: #ffffff;}
-#content .scene li div.geomap {padding-left: 0; padding-right: 0;}
-
-
 /* INLINE IMAGE */
 #content .scene div.image {padding: 0 0 20px;}
 #content .scene div.image img {width: 100%;}
@@ -110,24 +98,6 @@
 #content .scene div.media img {width: 100%;}
 #content .scene div.media p {padding: 2px 20px 0; font-size: 0;}
 #content .scene div.media p a {font-style: italic; line-height: 1.25em; font-size: 12px; display: block; color: #cccccc;}
-
-
-/* PAGINATION */
-#content .scene .pagination {display: none;}
-body > div.pagination {position: fixed; top: 60px; left: 0; width: 100%;}
-body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
-body > div.pagination li.next > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
-body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}
-body > div.pagination li.previous > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
-body > div.pagination li.previous,
-body > div.pagination li.next {z-index: 100; position: absolute; top: 0; /*margin-top: -20px;*/ height: 40px; /*width: 0;*/ overflow: hidden; /*border: 1px solid #26962d;*/cursor: pointer; background: rgba(255, 255, 255, 0.5);}
-body > div.pagination li.previous {left: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left: none; padding-left: 30px;}
-body > div.pagination li.next {right: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none; padding-right: 30px;}
-body > div.pagination li.previous a,
-body > div.pagination li.next a {font-size: 12px; line-height: 16px; display: inline-block; vertical-align: top; padding: 11px 12px 13px; white-space: nowrap;
- /*opacity: 0;*/}
-body > div.pagination li.previous a {padding-left: 0;}
-body > div.pagination li.next a {padding-right: 0;}
 
 
 /* CATEGORIES */
@@ -142,41 +112,6 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene div.categories ul.actions li {padding-bottom: 0; font-size: 15px; display: block;}
 #content .scene div.categories + div.categories{padding-top: 25px;}
 
-/* ARTICLE */
-#content .scene div.article {padding-bottom: 30px;}
-#content .scene div.article h2 br {display: none;}
-#content .scene div.article ul.tags li,
-#content .scene div.article ul.tags li a {color: #cccccc;}
-#content .scene div.article ul.tags {padding-bottom: 20px;}
-/*
-#content .scene div.article ul.tags li,
-#content .scene div.article ul.tags a {color: #dedede;}
-*/
-
-/* ARTICLE BODY */
-#content .scene .articlebody ul,
-#content .scene .articlebody ol {list-style-position: outside; margin-left: 20px;}
-#content .scene .articlebody ul {list-style-type: disc;}
-#content .scene .articlebody ol {list-style-type: decimal;}
-#content .scene .articlebody li {font-size: 13px; padding-bottom: 8px; padding-left: 3px; line-height: 1.538em;}
-
-#content .scene .articlebody ul.actions {list-style: none; margin: 0;}
-#content .scene .articlebody ul.actions li {padding-left: 0;}
-
-
-/* ARTICLES */
-#content .scene ul.articles {padding: 0;}
-#content .scene.articles ul.articles {padding: 0 0 30px;}
-
-#content .scene ul.articles li.article {padding: 20px 0 0; border-top: 1px solid #ccdbcd;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
-#content .scene ul.articles li.article ul.tags li,
-#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article h3 {font-size: 20px; line-height: 1em; padding-bottom: 10px;
-	font-family: "PT Serif", Times, serif;
-}
-
-
 
 
 /* RELATED */
@@ -185,12 +120,6 @@ body > div.pagination li.next a {padding-right: 0;}
 #content .scene div.related h2 a {font-size: 12px; display: inline-block; vertical-align: middle;
 	font-family: "OpenSans";
 }
-
-
-/* COMMENTS */
-#content .scene div.qnas {display: none;}
-#content .scene div.comments {display: none;}
-#content .scene div.readstate {display: none;}
 
 
 /* OFFER */
