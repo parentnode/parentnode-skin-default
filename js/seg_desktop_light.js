@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2018-12-04 14:48:53
+asset-builder @ 2018-12-04 15:32:17
 */
 
 /*seg_desktop_light_include.js*/
@@ -5145,10 +5145,11 @@ u._stepA2 = function() {
 
 /*u-settings.js*/
 u.txt = {};
-u.txt["share"] = "Share";
+u.txt["share"] = "Share this page";
 u.txt["share-info-headline"] = "(How do I share?)";
-u.txt["share-info-txt"] = "We have not includered social media plugins on this site, because they are frequently abused to collect data about you. Also we don't want to promote some channels over others. Instead, just copy the link and share it wherever you find relevant.";
+u.txt["share-info-txt"] = "We have not included social media plugins on this site, because they are frequently abused to collect data about you. Also we don't want to promote some channels over others. Instead, just copy the link and share it wherever you find relevant.";
 u.txt["share-info-ok"] = "OK";
+u.txt["readmore"] = "Read more.";
 u.txt["readstate-not_read"] = "Click to mark as read";
 u.txt["readstate-read"] = "Read";
 u.txt["add_comment"] = "Add comment";
