@@ -9,6 +9,7 @@
 @import url(../../lib/tablet/s-active.css);
 
 /* Optionals */
+@import url(../../lib/smartphone/s-article.css);
 @import url(../../lib/desktop/s-form.css);
 @import url(../../lib/desktop/s-documentation.css);
 @import url(../../lib/desktop/s-sharing.css);
