@@ -6,6 +6,7 @@ document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></scr
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-page.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-scene.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-article.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/smartphone/u-geolocation.js"></script>');
 
 
 // Optionals
@@ -17,7 +18,6 @@ document.write('<script type="text/javascript" src="/js/lib/smartphone/i-signup.
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-todolist.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-wishes.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/u-form-custom.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/smartphone/u-geolocation.js"></script>');
 
 
 

@@ -9,6 +9,7 @@ document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-n
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-page.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-scene.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-article.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-geolocation.js"></script>');
 
 
 // Optionals
@@ -38,5 +39,4 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/i-wishes.js"
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-checkmark.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-expandarrow.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/desktop/u-geolocation.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-sharing.js"></script>');
