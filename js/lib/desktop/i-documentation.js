@@ -98,6 +98,7 @@ Util.Objects["docsindex"] = new function() {
 			u.e.removeEvent(this, "keyup", this._keyup);
 		}
 
+		u.showScene(scene);
 	}
 }
 
@@ -345,6 +346,6 @@ Util.Objects["docpage"] = new function() {
 		}
 
 
-
+		u.showScene(scene);
 	}
 }
