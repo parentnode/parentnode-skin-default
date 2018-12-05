@@ -30,6 +30,8 @@ Util.Objects["signup"] = new function() {
 			// accept cookies?
 			page.acceptCookies();
 
+			u.showScene(this);
+
 			page.resized();
 		}
 
