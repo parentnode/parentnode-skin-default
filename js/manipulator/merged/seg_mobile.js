@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2018-11-30 12:29:48
+js-merged @ 2019-01-08 14:57:55
 */
 
 /*seg_mobile_include.js*/
@@ -290,7 +290,7 @@ Util.cookieReference = function(node, _options) {
 				classname = classname.replace(regex, " ").replace(/[ ]{2,4}/, " ");
 			}
 			if(ignore_classvars) {
-				classname = classname.replace(/(^| )[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+(^| )/g, " ").replace(/[ ]{2,4}/g, " ");
+				classname = classname.replace(/\b[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+\b/g, "").replace(/[ ]{2,4}/g, " ");
 			}
 			node_identifier = node.nodeName+"."+classname.trim().replace(/ /g, ".");
 		}
@@ -769,18 +769,14 @@ u.containsOrIs = function(node, scope) {
 /*u-events.js*/
 Util.Events = u.e = new function() {
 	this.event_pref = typeof(document.ontouchmove) == "undefined" || (navigator.maxTouchPoints > 1 && navigator.userAgent.match(/Windows/i)) ? "mouse" : "touch";
-	if(navigator.maxTouchPoints > 1) {
-		if((typeof(document.ontouchmove) == "undefined" && typeof(document.onmousemove) == "undefined") || (document.ontouchmove === null && document.onmousemove === null)) {
-			this.event_support = "multi";
-		}
+    if (navigator.userAgent.match(/Windows/i) && ((obj(document.ontouchmove) && obj(document.ontouchmove)) || (fun(document.ontouchmove) && fun(document.ontouchmove)))) {
+        this.event_support = "multi";
+    }
+    else if (obj(document.ontouchmove) || fun(document.ontouchmove)) {
+		this.event_support = "touch";
 	}
-	if(!this.event_support) {
-		if(typeof(document.ontouchmove) == "undefined") {
-			this.event_support = "mouse";
-		}
-		else {
-			this.event_support = "touch";
-		}
+	else {
+		this.event_support = "mouse";
 	}
 	this.events = {
 		"mouse": {
@@ -809,7 +805,7 @@ Util.Events = u.e = new function() {
 			node.addEventListener(type, action, false);
 		}
 		catch(exception) {
-			alert("exception in addEvent:" + node + "," + type + ":" + exception);
+			u.exception("u.e.addEvent", arguments, exception);
 		}
 	}
 	this.removeEvent = function(node, type, action) {
@@ -817,7 +813,7 @@ Util.Events = u.e = new function() {
 			node.removeEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.bug("exception in removeEvent:" + node + "," + type + ":" + exception);
+			u.exception("u.e.removeEvent", arguments, exception);
 		}
 	}
 	this.addStartEvent = this.addDownEvent = function(node, action) {
@@ -915,6 +911,8 @@ Util.Events = u.e = new function() {
 		u.t.resetTimer(node.t_clicked);
 		this.removeEvent(node, "mouseup", this._dblclicked);
 		this.removeEvent(node, "touchend", this._dblclicked);
+		this.removeEvent(node, "mouseup", this._rightclicked);
+		this.removeEvent(node, "touchend", this._rightclicked);
 		this.removeEvent(node, "mousemove", this._cancelClick);
 		this.removeEvent(node, "touchmove", this._cancelClick);
 		this.removeEvent(node, "mouseout", this._cancelClick);
@@ -944,35 +942,49 @@ Util.Events = u.e = new function() {
 		this.move_last_x = 0;
 		this.move_last_y = 0;
 		this.swiped = false;
-		if(this.e_click || this.e_dblclick || this.e_hold) {
-			if(event.type.match(/mouse/)) {
-				var node = this;
-				while(node) {
-					if(node.e_drag || node.e_swipe) {
-						u.e.addMoveEvent(this, u.e._cancelClick);
-						break;
+		if(!event.button) {
+			if(this.e_click || this.e_dblclick || this.e_hold) {
+				if(event.type.match(/mouse/)) {
+					var node = this;
+					while(node) {
+						if(node.e_drag || node.e_swipe) {
+							u.e.addMoveEvent(this, u.e._cancelClick);
+							break;
+						}
+						else {
+							node = node.parentNode;
+						}
 					}
-					else {
-						node = node.parentNode;
-					}
+					u.e.addEvent(this, "mouseout", u.e._cancelClick);
 				}
-				u.e.addEvent(this, "mouseout", u.e._cancelClick);
+				else {
+					u.e.addMoveEvent(this, u.e._cancelClick);
+				}
+				u.e.addMoveEvent(this, u.e._move);
+				u.e.addEndEvent(this, u.e._dblclicked);
+				if(this.e_hold) {
+					this.t_held = u.t.setTimer(this, u.e._held, 750);
+				}
 			}
-			else {
-				u.e.addMoveEvent(this, u.e._cancelClick);
+			if(this.e_drag || this.e_swipe) {
+				u.e.addMoveEvent(this, u.e._pick);
 			}
-			u.e.addMoveEvent(this, u.e._move);
-			u.e.addEndEvent(this, u.e._dblclicked);
+			if(this.e_scroll) {
+				u.e.addMoveEvent(this, u.e._scrollStart);
+				u.e.addEndEvent(this, u.e._scrollEnd);
+			}
 		}
-		if(this.e_hold) {
-			this.t_held = u.t.setTimer(this, u.e._held, 750);
-		}
-		if(this.e_drag || this.e_swipe) {
-			u.e.addMoveEvent(this, u.e._pick);
-		}
-		if(this.e_scroll) {
-			u.e.addMoveEvent(this, u.e._scrollStart);
-			u.e.addEndEvent(this, u.e._scrollEnd);
+		else if(event.button === 2) {
+			if(this.e_rightclick) {
+				if(event.type.match(/mouse/)) {
+					u.e.addEvent(this, "mouseout", u.e._cancelClick);
+				}
+				else {
+					u.e.addMoveEvent(this, u.e._cancelClick);
+				}
+				u.e.addMoveEvent(this, u.e._move);
+				u.e.addEndEvent(this, u.e._rightclicked);
+			}
 		}
 		if(fun(this.inputStarted)) {
 			this.inputStarted(event);
@@ -1030,7 +1042,25 @@ Util.Events = u.e = new function() {
 			this.clicked(event);
 		}
 	}
-	this.dblclick = this.doubletap = function(node, _options) {
+	this.rightclick = function(node, _options) {
+		node.e_rightclick_options = _options ? _options : {};
+		node.e_rightclick_options.eventAction = u.stringOr(node.e_rightclick_options.eventAction, "RightClicked");
+		node.e_rightclick = true;
+		u.e.addStartEvent(node, this._inputStart);
+		u.e.addEvent(node, "contextmenu", function(event){u.e.kill(event);});
+	}
+	this._rightclicked = function(event) {
+		u.bug("_rightclicked:", this);
+		if(this.e_rightclick_options) {
+			this.e_rightclick_options.event = event;
+			u.stats.event(this, this.e_rightclick_options);
+		}
+		u.e.resetNestedEvents(this);
+		if(fun(this.rightclicked)) {
+			this.rightclicked(event);
+		}
+	}
+	this.dblclick = this.doubleclick = this.doubletap = this.dbltap = function(node, _options) {
 		node.e_dblclick_options = _options ? _options : {};
 		node.e_dblclick_options.eventAction = u.stringOr(node.e_dblclick_options.eventAction, "DblClicked");
 		node.e_dblclick = true;
@@ -1306,522 +1336,6 @@ Util.round = function(number, decimals) {
 	return Math.round(round_number)/Math.pow(10, decimals);
 }
 
-/*u-preloader.js*/
-u.preloader = function(node, files, _options) {
-	var callback_preloader_loaded = "loaded";
-	var callback_preloader_loading = "loading";
-	var callback_preloader_waiting = "waiting";
-	node._callback_min_delay = 0;
-	if(obj(_options)) {
-		var _argument;
-		for(_argument in _options) {
-			switch(_argument) {
-				case "loaded"               : callback_preloader_loaded       = _options[_argument]; break;
-				case "loading"              : callback_preloader_loading      = _options[_argument]; break;
-				case "waiting"              : callback_preloader_waiting      = _options[_argument]; break;
-				case "callback_min_delay"   : node._callback_min_delay              = _options[_argument]; break;
-			}
-		}
-	}
-	if(!u._preloader_queue) {
-		u._preloader_queue = document.createElement("div");
-		u._preloader_processes = 0;
-		if(u.e && u.e.event_support == "touch") {
-			u._preloader_max_processes = 1;
-		}
-		else {
-			u._preloader_max_processes = 2;
-		}
-	}
-	if(node && files) {
-		var entry, file;
-		var new_queue = u.ae(u._preloader_queue, "ul");
-		new_queue._callback_loaded = callback_preloader_loaded;
-		new_queue._callback_loading = callback_preloader_loading;
-		new_queue._callback_waiting = callback_preloader_waiting;
-		new_queue._node = node;
-		new_queue._files = files;
-		new_queue.nodes = new Array();
-		new_queue._start_time = new Date().getTime();
-		for(i = 0; i < files.length; i++) {
-			file = files[i];
-			entry = u.ae(new_queue, "li", {"class":"waiting"});
-			entry.i = i;
-			entry._queue = new_queue
-			entry._file = file;
-		}
-		u.ac(node, "waiting");
-		if(fun(node[new_queue._callback_waiting])) {
-			node[new_queue._callback_waiting](new_queue.nodes);
-		}
-	}
-	u._queueLoader();
-	return u._preloader_queue;
-}
-u._queueLoader = function() {
-	if(u.qs("li.waiting", u._preloader_queue)) {
-		while(u._preloader_processes < u._preloader_max_processes) {
-			var next = u.qs("li.waiting", u._preloader_queue);
-			if(next) {
-				if(u.hc(next._queue._node, "waiting")) {
-					u.rc(next._queue._node, "waiting");
-					u.ac(next._queue._node, "loading");
-					if(fun(next._queue._node[next._queue._callback_loading])) {
-						next._queue._node[next._queue._callback_loading](next._queue.nodes);
-					}
-				}
-				u._preloader_processes++;
-				u.rc(next, "waiting");
-				u.ac(next, "loading");
-				if(next._file.match(/png|jpg|gif|svg/)) {
-					next.loaded = function(event) {
-						this.image = event.target;
-						this._image = this.image;
-						this._queue.nodes[this.i] = this;
-						u.rc(this, "loading");
-						u.ac(this, "loaded");
-						u._preloader_processes--;
-						if(!u.qs("li.waiting,li.loading", this._queue)) {
-							u.rc(this._queue._node, "loading");
-							if(fun(this._queue._node[this._queue._callback_loaded])) {
-								this._queue._node[this._queue._callback_loaded](this._queue.nodes);
-							}
-							// 
-						}
-						u._queueLoader();
-					}
-					u.loadImage(next, next._file);
-				}
-				else if(next._file.match(/mp3|aac|wav|ogg/)) {
-					next.loaded = function(event) {
-						console.log(event);
-						this._queue.nodes[this.i] = this;
-						u.rc(this, "loading");
-						u.ac(this, "loaded");
-						u._preloader_processes--;
-						if(!u.qs("li.waiting,li.loading", this._queue)) {
-							u.rc(this._queue._node, "loading");
-							if(fun(this._queue._node[this._queue._callback_loaded])) {
-								this._queue._node[this._queue._callback_loaded](this._queue.nodes);
-							}
-						}
-						u._queueLoader();
-					}
-					if(fun(u.audioPlayer)) {
-						next.audioPlayer = u.audioPlayer();
-						next.load(next._file);
-					}
-					else {
-						u.bug("You need u.audioPlayer to preload MP3s");
-					}
-				}
-				else {
-				}
-			}
-			else {
-				break
-			}
-		}
-	}
-}
-u.loadImage = function(node, src) {
-	var image = new Image();
-	image.node = node;
-	u.ac(node, "loading");
-    u.e.addEvent(image, 'load', u._imageLoaded);
-	u.e.addEvent(image, 'error', u._imageLoadError);
-	image.src = src;
-}
-u._imageLoaded = function(event) {
-	u.rc(this.node, "loading");
-	if(fun(this.node.loaded)) {
-		this.node.loaded(event);
-	}
-}
-u._imageLoadError = function(event) {
-	u.rc(this.node, "loading");
-	u.ac(this.node, "error");
-	if(fun(this.node.loaded) && typeof(this.node.failed) != "function") {
-		this.node.loaded(event);
-	}
-	else if(fun(this.node.failed)) {
-		this.node.failed(event);
-	}
-}
-u._imageLoadProgress = function(event) {
-	u.bug("progress")
-	if(fun(this.node.progress)) {
-		this.node.progress(event);
-	}
-}
-u._imageLoadDebug = function(event) {
-	u.bug("event:" + event.type);
-	u.xInObject(event);
-}
-
-
-/*u-request.js*/
-Util.createRequestObject = function() {
-	return new XMLHttpRequest();
-}
-Util.request = function(node, url, _options) {
-	var request_id = u.randomString(6);
-	node[request_id] = {};
-	node[request_id].request_url = url;
-	node[request_id].request_method = "GET";
-	node[request_id].request_async = true;
-	node[request_id].request_data = "";
-	node[request_id].request_headers = false;
-	node[request_id].request_credentials = false;
-	node[request_id].response_type = false;
-	node[request_id].callback_response = "response";
-	node[request_id].callback_error = "responseError";
-	node[request_id].jsonp_callback = "callback";
-	node[request_id].request_timeout = false;
-	if(obj(_options)) {
-		var argument;
-		for(argument in _options) {
-			switch(argument) {
-				case "method"				: node[request_id].request_method			= _options[argument]; break;
-				case "params"				: node[request_id].request_data				= _options[argument]; break;
-				case "data"					: node[request_id].request_data				= _options[argument]; break;
-				case "async"				: node[request_id].request_async			= _options[argument]; break;
-				case "headers"				: node[request_id].request_headers			= _options[argument]; break;
-				case "credentials"			: node[request_id].request_credentials		= _options[argument]; break;
-				case "responseType"			: node[request_id].response_type			= _options[argument]; break;
-				case "callback"				: node[request_id].callback_response		= _options[argument]; break;
-				case "error_callback"		: node[request_id].callback_error			= _options[argument]; break;
-				case "jsonp_callback"		: node[request_id].jsonp_callback			= _options[argument]; break;
-				case "timeout"				: node[request_id].request_timeout			= _options[argument]; break;
-			}
-		}
-	}
-	if(node[request_id].request_method.match(/GET|POST|PUT|PATCH/i)) {
-		node[request_id].HTTPRequest = this.createRequestObject();
-		node[request_id].HTTPRequest.node = node;
-		node[request_id].HTTPRequest.request_id = request_id;
-		if(node[request_id].response_type) {
-			node[request_id].HTTPRequest.responseType = node[request_id].response_type;
-		}
-		if(node[request_id].request_async) {
-			node[request_id].HTTPRequest.statechanged = function() {
-				if(this.readyState == 4 || this.IEreadyState) {
-					u.validateResponse(this);
-				}
-			}
-			if(fun(node[request_id].HTTPRequest.addEventListener)) {
-				u.e.addEvent(node[request_id].HTTPRequest, "readystatechange", node[request_id].HTTPRequest.statechanged);
-			}
-		}
-		try {
-			if(node[request_id].request_method.match(/GET/i)) {
-				var params = u.JSONtoParams(node[request_id].request_data);
-				node[request_id].request_url += params ? ((!node[request_id].request_url.match(/\?/g) ? "?" : "&") + params) : "";
-				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
-				if(node[request_id].request_timeout) {
-					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
-				}
-				if(node[request_id].request_credentials) {
-					node[request_id].HTTPRequest.withCredentials = true;
-				}
-				if(typeof(node[request_id].request_headers) != "object" || (!node[request_id].request_headers["Content-Type"] && !node[request_id].request_headers["content-type"])) {
-					node[request_id].HTTPRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				}
-				if(obj(node[request_id].request_headers)) {
-					var header;
-					for(header in node[request_id].request_headers) {
-						node[request_id].HTTPRequest.setRequestHeader(header, node[request_id].request_headers[header]);
-					}
-				}
-				node[request_id].HTTPRequest.send("");
-			}
-			else if(node[request_id].request_method.match(/POST|PUT|PATCH/i)) {
-				var params;
-				if(obj(node[request_id].request_data) && node[request_id].request_data.constructor.toString().match(/function Object/i)) {
-					params = JSON.stringify(node[request_id].request_data);
-				}
-				else {
-					params = node[request_id].request_data;
-				}
-				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
-				if(node[request_id].request_timeout) {
-					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
-				}
-				if(node[request_id].request_credentials) {
-					node[request_id].HTTPRequest.withCredentials = true;
-				}
-				if(!params.constructor.toString().match(/FormData/i) && (typeof(node[request_id].request_headers) != "object" || (!node[request_id].request_headers["Content-Type"] && !node[request_id].request_headers["content-type"]))) {
-					node[request_id].HTTPRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-				}
-				if(obj(node[request_id].request_headers)) {
-					var header;
-					for(header in node[request_id].request_headers) {
-						node[request_id].HTTPRequest.setRequestHeader(header, node[request_id].request_headers[header]);
-					}
-				}
-				node[request_id].HTTPRequest.send(params);
-			}
-		}
-		catch(exception) {
-			node[request_id].HTTPRequest.exception = exception;
-			u.validateResponse(node[request_id].HTTPRequest);
-			return;
-		}
-		if(!node[request_id].request_async) {
-			u.validateResponse(node[request_id].HTTPRequest);
-		}
-	}
-	else if(node[request_id].request_method.match(/SCRIPT/i)) {
-		if(node[request_id].request_timeout) {
-			node[request_id].timedOut = function(requestee) {
-				this.status = 0;
-				delete this.timedOut;
-				delete this.t_timeout;
-				Util.validateResponse({node: requestee.node, request_id: requestee.request_id});
-			}
-			node[request_id].t_timeout = u.t.setTimer(node[request_id], "timedOut", node[request_id].request_timeout, {node: node, request_id: request_id});
-		}
-		var key = u.randomString();
-		document[key] = new Object();
-		document[key].key = key;
-		document[key].node = node;
-		document[key].request_id = request_id;
-		document[key].responder = function(response) {
-			var response_object = new Object();
-			response_object.node = this.node;
-			response_object.request_id = this.request_id;
-			response_object.responseText = response;
-			u.t.resetTimer(this.node[this.request_id].t_timeout);
-			delete this.node[this.request_id].timedOut;
-			delete this.node[this.request_id].t_timeout;
-			u.qs("head").removeChild(this.node[this.request_id].script_tag);
-			delete this.node[this.request_id].script_tag;
-			delete document[this.key];
-			u.validateResponse(response_object);
-		}
-		var params = u.JSONtoParams(node[request_id].request_data);
-		node[request_id].request_url += params ? ((!node[request_id].request_url.match(/\?/g) ? "?" : "&") + params) : "";
-		node[request_id].request_url += (!node[request_id].request_url.match(/\?/g) ? "?" : "&") + node[request_id].jsonp_callback + "=document."+key+".responder";
-		node[request_id].script_tag = u.ae(u.qs("head"), "script", ({"type":"text/javascript", "src":node[request_id].request_url}));
-	}
-	return request_id;
-}
-Util.JSONtoParams = function(json) {
-	if(obj(json)) {
-		var params = "", param;
-		for(param in json) {
-			params += (params ? "&" : "") + param + "=" + json[param];
-		}
-		return params
-	}
-	var object = u.isStringJSON(json);
-	if(object) {
-		return u.JSONtoParams(object);
-	}
-	return json;
-}
-Util.evaluateResponseText = function(responseText) {
-	var object;
-	if(obj(responseText)) {
-		responseText.isJSON = true;
-		return responseText;
-	}
-	else {
-		var response_string;
-		if(responseText.trim().substr(0, 1).match(/[\"\']/i) && responseText.trim().substr(-1, 1).match(/[\"\']/i)) {
-			response_string = responseText.trim().substr(1, responseText.trim().length-2);
-		}
-		else {
-			response_string = responseText;
-		}
-		var json = u.isStringJSON(response_string);
-		if(json) {
-			return json;
-		}
-		var html = u.isStringHTML(response_string);
-		if(html) {
-			return html;
-		}
-		return responseText;
-	}
-}
-Util.validateResponse = function(HTTPRequest){
-	var object = false;
-	if(HTTPRequest) {
-		var node = HTTPRequest.node;
-		var request_id = HTTPRequest.request_id;
-		var request = node[request_id];
-		delete request.HTTPRequest;
-		if(request.finished) {
-			return;
-		}
-		request.finished = true;
-		try {
-			request.status = HTTPRequest.status;
-			if(HTTPRequest.status && !HTTPRequest.status.toString().match(/[45][\d]{2}/)) {
-				if(HTTPRequest.responseType && HTTPRequest.response) {
-					object = HTTPRequest.response;
-				}
-				else if(HTTPRequest.responseText) {
-					object = u.evaluateResponseText(HTTPRequest.responseText);
-				}
-			}
-			else if(HTTPRequest.responseText && typeof(HTTPRequest.status) == "undefined") {
-				object = u.evaluateResponseText(HTTPRequest.responseText);
-			}
-		}
-		catch(exception) {
-			request.exception = exception;
-		}
-	}
-	else {
-		console.log("Lost track of this request. There is no way of routing it back to requestee.")
-		return;
-	}
-	if(object !== false) {
-		if(fun(request.callback_response)) {
-			request.callback_response(object, request_id);
-		}
-		else if(fun(node[request.callback_response])) {
-			node[request.callback_response](object, request_id);
-		}
-	}
-	else {
-		if(fun(request.callback_error)) {
-			request.callback_error({error:true,status:request.status}, request_id);
-		}
-		else if(fun(node[request.callback_error])) {
-			node[request.callback_error]({error:true,status:request.status}, request_id);
-		}
-		else if(fun(request.callback_response)) {
-			request.callback_response({error:true,status:request.status}, request_id);
-		}
-		else if(fun(node[request.callback_response])) {
-			node[request.callback_response]({error:true,status:request.status}, request_id);
-		}
-	}
-}
-
-
-/*u-string.js*/
-Util.cutString = function(string, length) {
-	var matches, match, i;
-	if(string.length <= length) {
-		return string;
-	}
-	else {
-		length = length-3;
-	}
-	matches = string.match(/\&[\w\d]+\;/g);
-	if(matches) {
-		for(i = 0; i < matches.length; i++){
-			match = matches[i];
-			if(string.indexOf(match) < length){
-				length += match.length-1;
-			}
-		}
-	}
-	return string.substring(0, length) + (string.length > length ? "..." : "");
-}
-Util.prefix = function(string, length, prefix) {
-	string = string.toString();
-	prefix = prefix ? prefix : "0";
-	while(string.length < length) {
-		string = prefix + string;
-	}
-	return string;
-}
-Util.randomString = function(length) {
-	var key = "", i;
-	length = length ? length : 8;
-	var pattern = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
-	for(i = 0; i < length; i++) {
-		key += pattern[u.random(0,35)];
-	}
-	return key;
-}
-Util.uuid = function() {
-	var chars = '0123456789abcdef'.split('');
-	var uuid = [], rnd = Math.random, r, i;
-	uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-	uuid[14] = '4';
-	for(i = 0; i < 36; i++) {
-		if(!uuid[i]) {
-			r = 0 | rnd()*16;
-			uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r & 0xf];
-		}
- 	}
-	return uuid.join('');
-}
-Util.stringOr = u.eitherOr = function(value, replacement) {
-	if(value !== undefined && value !== null) {
-		return value;
-	}
-	else {
-		return replacement ? replacement : "";
-	}	
-}
-Util.getMatches = function(string, regex) {
-	var match, matches = [];
-	while(match = regex.exec(string)) {
-		matches.push(match[1]);
-	}
-	return matches;
-}
-Util.upperCaseFirst = u.ucfirst = function(string) {
-	return string.replace(/^(.){1}/, function($1) {return $1.toUpperCase()});
-}
-Util.lowerCaseFirst = u.lcfirst = function(string) {
-	return string.replace(/^(.){1}/, function($1) {return $1.toLowerCase()});
-}
-Util.normalize = function(string) {
-	string = string.toLowerCase();
-	string = string.replace(/[^a-z0-9\_]/g, '-');
-	string = string.replace(/-+/g, '-');
-	string = string.replace(/^-|-$/g, '');
-	return string;
-}
-Util.pluralize = function(count, singular, plural) {
-	if(count != 1) {
-		return count + " " + plural;
-	}
-	return count + " " + singular;
-}
-Util.isStringJSON = function(string) {
-	if(string.trim().substr(0, 1).match(/[\{\[]/i) && string.trim().substr(-1, 1).match(/[\}\]]/i)) {
-		try {
-			var test = JSON.parse(string);
-			if(obj(test)) {
-				test.isJSON = true;
-				return test;
-			}
-		}
-		catch(exception) {
-			console.log(exception)
-		}
-	}
-	return false;
-}
-Util.isStringHTML = function(string) {
-	if(string.trim().substr(0, 1).match(/[\<]/i) && string.trim().substr(-1, 1).match(/[\>]/i)) {
-		try {
-			var test = document.createElement("div");
-			test.innerHTML = string;
-			if(test.childNodes.length) {
-				var body_class = string.match(/<body class="([a-z0-9A-Z_: ]+)"/);
-				test.body_class = body_class ? body_class[1] : "";
-				var head_title = string.match(/<title>([^$]+)<\/title>/);
-				test.head_title = head_title ? head_title[1] : "";
-				test.isHTML = true;
-				return test;
-			}
-		}
-		catch(exception) {}
-	}
-	return false;
-}
-
-
 /*u-system.js*/
 Util.browser = function(model, version) {
 	var current_version = false;
@@ -2016,93 +1530,6 @@ Util.vendorPrefix = function() {
 		}
 	}
 	return Util.vendor_prefix;
-}
-
-
-/*u-timer.js*/
-Util.Timer = u.t = new function() {
-	this._timers = new Array();
-	this.setTimer = function(node, action, timeout, param) {
-		var id = this._timers.length;
-		param = param ? param : {"target":node, "type":"timeout"};
-		this._timers[id] = {"_a":action, "_n":node, "_p":param, "_t":setTimeout("u.t._executeTimer("+id+")", timeout)};
-		return id;
-	}
-	this.resetTimer = function(id) {
-		if(this._timers[id]) {
-			clearTimeout(this._timers[id]._t);
-			this._timers[id] = false;
-		}
-	}
-	this._executeTimer = function(id) {
-		var timer = this._timers[id];
-		this._timers[id] = false;
-		var node = timer._n;
-		if(fun(timer._a)) {
-			node._timer_action = timer._a;
-			node._timer_action(timer._p);
-			node._timer_action = null;
-		}
-		else if(fun(node[timer._a])) {
-			node[timer._a](timer._p);
-		}
-	}
-	this.setInterval = function(node, action, interval, param) {
-		var id = this._timers.length;
-		param = param ? param : {"target":node, "type":"timeout"};
-		this._timers[id] = {"_a":action, "_n":node, "_p":param, "_i":setInterval("u.t._executeInterval("+id+")", interval)};
-		return id;
-	}
-	this.resetInterval = function(id) {
-		if(this._timers[id]) {
-			clearInterval(this._timers[id]._i);
-			this._timers[id] = false;
-		}
-	}
-	this._executeInterval = function(id) {
-		var node = this._timers[id]._n;
-		if(fun(this._timers[id]._a)) {
-			node._interval_action = this._timers[id]._a;
-			node._interval_action(this._timers[id]._p);
-			node._interval_action = null;
-		}
-		else if(fun(node[this._timers[id]._a])) {
-			node[this._timers[id]._a](this._timers[id]._p);
-		}
-	}
-	this.valid = function(id) {
-		return this._timers[id] ? true : false;
-	}
-	this.resetAllTimers = function() {
-		var i, t;
-		for(i = 0; i < this._timers.length; i++) {
-			if(this._timers[i] && this._timers[i]._t) {
-				this.resetTimer(i);
-			}
-		}
-	}
-	this.resetAllIntervals = function() {
-		var i, t;
-		for(i = 0; i < this._timers.length; i++) {
-			if(this._timers[i] && this._timers[i]._i) {
-				this.resetInterval(i);
-			}
-		}
-	}
-}
-
-
-/*u-url.js*/
-Util.getVar = function(param, url) {
-	var string = url ? url.split("#")[0] : location.search;
-	var regexp = new RegExp("[\&\?\b]{1}"+param+"\=([^\&\b]+)");
-	var match = string.match(regexp);
-	if(match && match.length > 1) {
-		return match[1];
-	}
-	else {
-		return "";
-	}
 }
 
 
@@ -3810,111 +3237,4 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
-
-
-/*u-preloader-desktop_light.js*/
-if(document.all || (new Image().onerror) === undefined) {
-	u.loadImage = function(node, src) {
-		var image = new Image();
-		image.node = node;
-		u.addClass(node, "loading");
-		image.onload = function() {
-			var event = new Object();
-			event.target = this;
-			u.rc(this.node, "loading");
-			if(fun(this.node.loaded)) {
-				this.node.loaded(event);
-			}
-		}
-		image.src = src;
-	}
-}
-
-/*u-request-desktop_light.js*/
-if(typeof(window.XMLHttpRequest) == "undefined" || function(){return (typeof(window.XMLHttpRequest.addEventListener) != "function")}() || function(){try {new XMLHttpRequest().channel; return false;} catch(exception) {return true;}}()) {
-	Util.createRequestObject = function() {
-		var xmlhttp;
-		if(window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-		}
-		else if(window.ActiveXObject) {
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		else {
-			return {
-				"open":function() {}, 
-				"setRequestHeader":function() {}, 
-				"send":function(){
-					this.response({"status":"404", "responseText":"No Ajax support"});
-				}
-			};
-		}
-		if(xmlhttp) {
-			var wrapper = u.ae(document.body, "div", {"style":"display: none;"});
-			wrapper.xmlhttp = xmlhttp;
-			wrapper.xmlhttp.onreadystatechange = function() {
-				if(wrapper.xmlhttp.readyState == 4) {
-					wrapper.responseText = wrapper.xmlhttp.responseText;
-					wrapper.status = wrapper.xmlhttp.status;
-					try {
-						wrapper.readyState = 4;
-					}
-					catch(exception) {
-						wrapper.IEreadyState = true;
-					}
-					if(fun(wrapper.statechanged)) {
-						wrapper.statechanged();
-						wrapper.parentNode.removeChild(wrapper);
-					}
-				}
-			}
-			wrapper.setRequestHeader = function(type, value) {
-				this.xmlhttp.setRequestHeader(type, value);
-			}
-			wrapper.open = function(method, url, async) {
-				this.async = async;
-				url += (url.match(/\?/) ? "&" : "?") + "refresh_activex=" + u.randomString();
-				try {
-					this.xmlhttp.open(method, url, async);
-				}
-				catch(exception) {
-					if(fun(wrapper.statechanged)) {
-						this.status = 400;
-						this.IEreadyState = true;
-						this.statechanged();
-						this.parentNode.removeChild(wrapper);
-					}
-				}
-			}
-			wrapper.send = function(params) {
-				this.xmlhttp.send(params);
-				if(!this.async) {
-					this.responseText = this.xmlhttp.responseText;
-					this.status = this.xmlhttp.status;
-				}
-			}
-			return wrapper;
-		}
-		else {
-			u.bug("NO XMLHTTP");
-			return false;
-		}
-	}
-}
-
-
-/*u-string-desktop_light.js*/
-if(String.prototype.trim == undefined) {
-	String.prototype.trim = function() {
-		return this.replace(/^\s+|\s+$/g, "");
-	};
-}
-if(String.prototype.substr == undefined || "ABC".substr(-1,1) == "A") {
-	String.prototype.substr = function(start_index, length) {
-		start_index = start_index < 0 ? this.length + start_index : start_index;
-		start_index = start_index < 0 ? 0 : start_index;
-		length = length ? start_index + length : this.length;
-		return this.substring(start_index, length);
-	};
-}
 

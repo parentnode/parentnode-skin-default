@@ -1,9 +1,9 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2019-01-08 14:57:54
+js-merged @ 2018-11-30 12:29:48
 */
 
-/*seg_desktop_include.js*/
+/*seg_desktop_light_include.js*/
 
 /*u.js*/
 if(!u || !Util) {
@@ -144,214 +144,6 @@ Util.xInObject = function(object, _options) {
 		}
 		else {
 			u.bug(s);
-		}
-	}
-}
-
-
-/*u-animation.js*/
-Util.Animation = u.a = new function() {
-	this.support3d = function() {
-		if(this._support3d === undefined) {
-			var node = u.ae(document.body, "div");
-			try {
-				u.as(node, "transform", "translate3d(10px, 10px, 10px)");
-				if(u.gcs(node, "transform").match(/matrix3d\(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 10, 10, 10, 1\)/)) {
-					this._support3d = true;
-				}
-	 			else {
-					this._support3d = false;
-				}
-			}
-			catch(exception) {
-				this._support3d = false;
-			}
-			document.body.removeChild(node);
-		}
-		return this._support3d;
-	}
-	this.transition = function(node, transition, callback) {
-		try {
-			var duration = transition.match(/[0-9.]+[ms]+/g);
-			if(duration) {
-				node.duration = duration[0].match("ms") ? parseFloat(duration[0]) : (parseFloat(duration[0]) * 1000);
-				if(callback) {
-					var transitioned;
-					transitioned = (function(event) {
-						u.e.removeEvent(event.target, u.a.transitionEndEventName(), transitioned);
-						if(event.target == this) {
-							u.a.transition(this, "none");
-							if(fun(callback)) {
-								var key = u.randomString(4);
-								node[key] = callback;
-								node[key](event);
-								node[key] = null;
-								callback = null;
-							}
-							else if(fun(this[callback])) {
-								this[callback](event);
-								this[callback] = null;
-							}
-						}
-						else {
-						}
-					});
-					u.e.addEvent(node, u.a.transitionEndEventName(), transitioned);
-				}
-				else {
-					u.e.addEvent(node, u.a.transitionEndEventName(), this._transitioned);
-				}
-			}
-			else {
-				node.duration = false;
-			}
-			u.as(node, "transition", transition);
-		}
-		catch(exception) {
-			u.exception("u.a.transition", arguments, exception);
-		}
-	}
-	this.transitionEndEventName = function() {
-		if(!this._transition_end_event_name) {
-			this._transition_end_event_name = "transitionend";
-			var transitions = {
-				"transition": "transitionend",
-				"MozTransition": "transitionend",
-				"msTransition": "transitionend",
-				"webkitTransition": "webkitTransitionEnd",
-				"OTransition": "otransitionend"
-			};
-			var x, div = document.createElement("div");
-			for(x in transitions){
-				if(typeof(div.style[x]) !== "undefined") {
-					this._transition_end_event_name = transitions[x];
-					break;
-				}
-			}
-		}
-		return this._transition_end_event_name;
-	}
-	this._transitioned = function(event) {
-		u.e.removeEvent(event.target, u.a.transitionEndEventName(), u.a._transitioned);
-		u.a.transition(event.target, "none");
-		if(event.target == this && fun(this.transitioned)) {
-			this.transitioned(event);
-			this.transitioned = null;
-		}
-	}
-	this.removeTransform = function(node) {
-		u.as(node, "transform", "none");
-	}
-	this.translate = function(node, x, y) {
-		if(this.support3d()) {
-			u.as(node, "transform", "translate3d("+x+"px, "+y+"px, 0)");
-		}
-		else {
-			u.as(node, "transform", "translate("+x+"px, "+y+"px)");
-		}
-		node._x = x;
-		node._y = y;
-	}
-	this.rotate = function(node, deg) {
-		u.as(node, "transform", "rotate("+deg+"deg)");
-		node._rotation = deg;
-	}
-	this.scale = function(node, scale) {
-		u.as(node, "transform", "scale("+scale+")");
-		node._scale = scale;
-	}
-	this.setOpacity = this.opacity = function(node, opacity) {
-		u.as(node, "opacity", opacity);
-		node._opacity = opacity;
-	}
-	this.setWidth = this.width = function(node, width) {
-		width = width.toString().match(/\%|auto|px/) ? width : (width + "px");
-		node.style.width = width;
-		node._width = width;
-		node.offsetHeight;
-	}
-	this.setHeight = this.height = function(node, height) {
-		height = height.toString().match(/\%|auto|px/) ? height : (height + "px");
-		node.style.height = height;
-		node._height = height;
-		node.offsetHeight;
-	}
-	this.setBgPos = this.bgPos = function(node, x, y) {
-		x = x.toString().match(/\%|auto|px|center|top|left|bottom|right/) ? x : (x + "px");
-		y = y.toString().match(/\%|auto|px|center|top|left|bottom|right/) ? y : (y + "px");
-		node.style.backgroundPosition = x + " " + y;
-		node._bg_x = x;
-		node._bg_y = y;
-		node.offsetHeight;
-	}
-	this.setBgColor = this.bgColor = function(node, color) {
-		node.style.backgroundColor = color;
-		node._bg_color = color;
-		node.offsetHeight;
-	}
-	// 
-	// 	
-	// 
-	// 	
-	// 	
-	this._animationqueue = {};
-	this.requestAnimationFrame = function(node, callback, duration) {
-		if(!u.a.__animation_frame_start) {
-			u.a.__animation_frame_start = Date.now();
-		}
-		var id = u.randomString();
-		u.a._animationqueue[id] = {};
-		u.a._animationqueue[id].id = id;
-		u.a._animationqueue[id].node = node;
-		u.a._animationqueue[id].callback = callback;
-		u.a._animationqueue[id].duration = duration;
-		u.t.setTimer(u.a, function() {u.a.finalAnimationFrame(id)}, duration);
-		if(!u.a._animationframe) {
-			window._requestAnimationFrame = eval(u.vendorProperty("requestAnimationFrame"));
-			window._cancelAnimationFrame = eval(u.vendorProperty("cancelAnimationFrame"));
-			u.a._animationframe = function(timestamp) {
-				var id, animation;
-				for(id in u.a._animationqueue) {
-					animation = u.a._animationqueue[id];
-					if(!animation["__animation_frame_start_"+id]) {
-						animation["__animation_frame_start_"+id] = timestamp;
-					}
-					if(fun(animation.node[animation.callback])) {
-						animation.node[animation.callback]((timestamp-animation["__animation_frame_start_"+id]) / animation.duration);
-					}
-				}
-				if(Object.keys(u.a._animationqueue).length) {
-					u.a._requestAnimationId = window._requestAnimationFrame(u.a._animationframe);
-				}
-			}
-		}
-		if(!u.a._requestAnimationId) {
-			u.a._requestAnimationId = window._requestAnimationFrame(u.a._animationframe);
-		}
-		return id;
-	}
-	this.finalAnimationFrame = function(id) {
-		var animation = u.a._animationqueue[id];
-		animation["__animation_frame_start_"+id] = false;
-		if(fun(animation.node[animation.callback])) {
-			animation.node[animation.callback](1);
-		}
-		if(fun(animation.node.transitioned)) {
-			animation.node.transitioned({});
-		}
-		delete u.a._animationqueue[id];
-		if(!Object.keys(u.a._animationqueue).length) {
-			this.cancelAnimationFrame(id);
-		}
-	}
-	this.cancelAnimationFrame = function(id) {
-		if(id && u.a._animationqueue[id]) {
-			delete u.a._animationqueue[id];
-		}
-		if(u.a._requestAnimationId) {
-			window._cancelAnimationFrame(u.a._requestAnimationId);
-			u.a.__animation_frame_start = false;
-			u.a._requestAnimationId = false;
 		}
 	}
 }
@@ -498,7 +290,7 @@ Util.cookieReference = function(node, _options) {
 				classname = classname.replace(regex, " ").replace(/[ ]{2,4}/, " ");
 			}
 			if(ignore_classvars) {
-				classname = classname.replace(/\b[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+\b/g, "").replace(/[ ]{2,4}/g, " ");
+				classname = classname.replace(/(^| )[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+(^| )/g, " ").replace(/[ ]{2,4}/g, " ");
 			}
 			node_identifier = node.nodeName+"."+classname.trim().replace(/ /g, ".");
 		}
@@ -518,44 +310,6 @@ Util.cookieReference = function(node, _options) {
 	}
 	return ref;
 }
-
-
-/*u-date.js*/
-Util.date = function(format, timestamp, months) {
-	var date = timestamp ? new Date(timestamp) : new Date();
-	if(isNaN(date.getTime())) {
-		if(new Date(timestamp.replace(/ /, "T"))) {
-			date = new Date(timestamp.replace(/ /, "T"));
-		}
-		else {
-			if(!timestamp.match(/[A-Z]{3}\+[0-9]{4}/)) {
-				if(timestamp.match(/ \+[0-9]{4}/)) {
-					date = new Date(timestamp.replace(/ (\+[0-9]{4})/, " GMT$1"));
-				}
-			}
-		}
-		if(isNaN(date.getTime())) {
-			date = new Date();
-		}
-	}
-	var tokens = /d|j|m|n|F|Y|G|H|i|s/g;
-	var chars = new Object();
-	chars.j = date.getDate();
-	chars.d = (chars.j > 9 ? "" : "0") + chars.j;
-	chars.n = date.getMonth()+1;
-	chars.m = (chars.n > 9 ? "" : "0") + chars.n;
-	chars.F = months ? months[date.getMonth()] : "";
-	chars.Y = date.getFullYear();
-	chars.G = date.getHours();
-	chars.H = (chars.G > 9 ? "" : "0") + chars.G;
-	var i = date.getMinutes();
-	chars.i = (i > 9 ? "" : "0") + i;
-	var s = date.getSeconds();
-	chars.s = (s > 9 ? "" : "0") + s;
-	return format.replace(tokens, function (_) {
-		return _ in chars ? chars[_] : _.slice(1, _.length - 1);
-	});
-};
 
 
 /*u-dom.js*/
@@ -1012,57 +766,21 @@ u.containsOrIs = function(node, scope) {
 	return false;
 }
 
-/*u-easings.js*/
-u.easings = new function() {
-	this["ease-in"] = function(progress) {
-		return Math.pow((progress), 3);
-	}
-	this["linear"] = function(progress) {
-		return progress;
-	}
-	this["ease-out"] = function(progress) {
-		return 1 - Math.pow(1 - ((progress)), 3);
-	}
-	this["linear"] = function(progress) {
-		return (progress);
-	}
-	this["ease-in-out-veryslow"] = function(progress) {
-		if(progress > 0.5) {
-			return 4*Math.pow((progress-1),3)+1;
-		}
-		return 4*Math.pow(progress,3);  
-	}
-	this["ease-in-out"] = function(progress) {
-		if(progress > 0.5) {
-			return 1 - Math.pow(1 - ((progress)), 2);
-		}
-		return Math.pow((progress), 2);
-	}
-	this["ease-out-slow"] = function(progress) {
-		return 1 - Math.pow(1 - ((progress)), 2);
-	}
-	this["ease-in-slow"] = function(progress) {
-		return Math.pow((progress), 2);
-	}
-	this["ease-in-veryslow"] = function(progress) {
-		return Math.pow((progress), 1.5);
-	}
-	this["ease-in-fast"] = function(progress) {
-		return Math.pow((progress), 4);
-	}
-}
-
 /*u-events.js*/
 Util.Events = u.e = new function() {
 	this.event_pref = typeof(document.ontouchmove) == "undefined" || (navigator.maxTouchPoints > 1 && navigator.userAgent.match(/Windows/i)) ? "mouse" : "touch";
-    if (navigator.userAgent.match(/Windows/i) && ((obj(document.ontouchmove) && obj(document.ontouchmove)) || (fun(document.ontouchmove) && fun(document.ontouchmove)))) {
-        this.event_support = "multi";
-    }
-    else if (obj(document.ontouchmove) || fun(document.ontouchmove)) {
-		this.event_support = "touch";
+	if(navigator.maxTouchPoints > 1) {
+		if((typeof(document.ontouchmove) == "undefined" && typeof(document.onmousemove) == "undefined") || (document.ontouchmove === null && document.onmousemove === null)) {
+			this.event_support = "multi";
+		}
 	}
-	else {
-		this.event_support = "mouse";
+	if(!this.event_support) {
+		if(typeof(document.ontouchmove) == "undefined") {
+			this.event_support = "mouse";
+		}
+		else {
+			this.event_support = "touch";
+		}
 	}
 	this.events = {
 		"mouse": {
@@ -1091,7 +809,7 @@ Util.Events = u.e = new function() {
 			node.addEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.exception("u.e.addEvent", arguments, exception);
+			alert("exception in addEvent:" + node + "," + type + ":" + exception);
 		}
 	}
 	this.removeEvent = function(node, type, action) {
@@ -1099,7 +817,7 @@ Util.Events = u.e = new function() {
 			node.removeEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.exception("u.e.removeEvent", arguments, exception);
+			u.bug("exception in removeEvent:" + node + "," + type + ":" + exception);
 		}
 	}
 	this.addStartEvent = this.addDownEvent = function(node, action) {
@@ -1197,8 +915,6 @@ Util.Events = u.e = new function() {
 		u.t.resetTimer(node.t_clicked);
 		this.removeEvent(node, "mouseup", this._dblclicked);
 		this.removeEvent(node, "touchend", this._dblclicked);
-		this.removeEvent(node, "mouseup", this._rightclicked);
-		this.removeEvent(node, "touchend", this._rightclicked);
 		this.removeEvent(node, "mousemove", this._cancelClick);
 		this.removeEvent(node, "touchmove", this._cancelClick);
 		this.removeEvent(node, "mouseout", this._cancelClick);
@@ -1228,49 +944,35 @@ Util.Events = u.e = new function() {
 		this.move_last_x = 0;
 		this.move_last_y = 0;
 		this.swiped = false;
-		if(!event.button) {
-			if(this.e_click || this.e_dblclick || this.e_hold) {
-				if(event.type.match(/mouse/)) {
-					var node = this;
-					while(node) {
-						if(node.e_drag || node.e_swipe) {
-							u.e.addMoveEvent(this, u.e._cancelClick);
-							break;
-						}
-						else {
-							node = node.parentNode;
-						}
+		if(this.e_click || this.e_dblclick || this.e_hold) {
+			if(event.type.match(/mouse/)) {
+				var node = this;
+				while(node) {
+					if(node.e_drag || node.e_swipe) {
+						u.e.addMoveEvent(this, u.e._cancelClick);
+						break;
 					}
-					u.e.addEvent(this, "mouseout", u.e._cancelClick);
+					else {
+						node = node.parentNode;
+					}
 				}
-				else {
-					u.e.addMoveEvent(this, u.e._cancelClick);
-				}
-				u.e.addMoveEvent(this, u.e._move);
-				u.e.addEndEvent(this, u.e._dblclicked);
-				if(this.e_hold) {
-					this.t_held = u.t.setTimer(this, u.e._held, 750);
-				}
+				u.e.addEvent(this, "mouseout", u.e._cancelClick);
 			}
-			if(this.e_drag || this.e_swipe) {
-				u.e.addMoveEvent(this, u.e._pick);
+			else {
+				u.e.addMoveEvent(this, u.e._cancelClick);
 			}
-			if(this.e_scroll) {
-				u.e.addMoveEvent(this, u.e._scrollStart);
-				u.e.addEndEvent(this, u.e._scrollEnd);
-			}
+			u.e.addMoveEvent(this, u.e._move);
+			u.e.addEndEvent(this, u.e._dblclicked);
 		}
-		else if(event.button === 2) {
-			if(this.e_rightclick) {
-				if(event.type.match(/mouse/)) {
-					u.e.addEvent(this, "mouseout", u.e._cancelClick);
-				}
-				else {
-					u.e.addMoveEvent(this, u.e._cancelClick);
-				}
-				u.e.addMoveEvent(this, u.e._move);
-				u.e.addEndEvent(this, u.e._rightclicked);
-			}
+		if(this.e_hold) {
+			this.t_held = u.t.setTimer(this, u.e._held, 750);
+		}
+		if(this.e_drag || this.e_swipe) {
+			u.e.addMoveEvent(this, u.e._pick);
+		}
+		if(this.e_scroll) {
+			u.e.addMoveEvent(this, u.e._scrollStart);
+			u.e.addEndEvent(this, u.e._scrollEnd);
 		}
 		if(fun(this.inputStarted)) {
 			this.inputStarted(event);
@@ -1328,25 +1030,7 @@ Util.Events = u.e = new function() {
 			this.clicked(event);
 		}
 	}
-	this.rightclick = function(node, _options) {
-		node.e_rightclick_options = _options ? _options : {};
-		node.e_rightclick_options.eventAction = u.stringOr(node.e_rightclick_options.eventAction, "RightClicked");
-		node.e_rightclick = true;
-		u.e.addStartEvent(node, this._inputStart);
-		u.e.addEvent(node, "contextmenu", function(event){u.e.kill(event);});
-	}
-	this._rightclicked = function(event) {
-		u.bug("_rightclicked:", this);
-		if(this.e_rightclick_options) {
-			this.e_rightclick_options.event = event;
-			u.stats.event(this, this.e_rightclick_options);
-		}
-		u.e.resetNestedEvents(this);
-		if(fun(this.rightclicked)) {
-			this.rightclicked(event);
-		}
-	}
-	this.dblclick = this.doubleclick = this.doubletap = this.dbltap = function(node, _options) {
+	this.dblclick = this.doubletap = function(node, _options) {
 		node.e_dblclick_options = _options ? _options : {};
 		node.e_dblclick_options.eventAction = u.stringOr(node.e_dblclick_options.eventAction, "DblClicked");
 		node.e_dblclick = true;
@@ -2352,15 +2036,9 @@ Util.Form = u.f = new function() {
 			}
 			else if(u.hc(iN.field, "tel")) {
 				pattern = iN.getAttribute("pattern");
-				compare_to = iN.getAttribute("data-compare-to");
 				if(
-					(
-						!pattern && iN.val().match(/^([\+0-9\-\.\s\(\)]){5,18}$/)
-						||
-						(pattern && iN.val().match("^"+pattern+"$"))
-					)
-					&&
-					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
+					!pattern && iN.val().match(/^([\+0-9\-\.\s\(\)]){5,18}$/) ||
+					(pattern && iN.val().match("^"+pattern+"$"))
 				) {
 					this.fieldCorrect(iN);
 				}
@@ -2369,16 +2047,9 @@ Util.Form = u.f = new function() {
 				}
 			}
 			else if(u.hc(iN.field, "email")) {
-				compare_to = iN.getAttribute("data-compare-to");
-				pattern = iN.getAttribute("pattern");
 				if(
-					(
-						!pattern && iN.val().match(/^([^<>\\\/%$])+\@([^<>\\\/%$])+\.([^<>\\\/%$]{2,20})$/)
-						 ||
-						(pattern && iN.val().match("^"+pattern+"$"))
-					)
-					&&
-					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
+					!pattern && iN.val().match(/^([^<>\\\/%$])+\@([^<>\\\/%$])+\.([^<>\\\/%$]{2,20})$/) ||
+					(pattern && iN.val().match("^"+pattern+"$"))
 				) {
 					this.fieldCorrect(iN);
 				}
@@ -3165,128 +2836,6 @@ Util.validateResponse = function(HTTPRequest){
 }
 
 
-/*u-scrollto.js*/
-u.scrollTo = function(node, _options) {
-	node.callback_scroll_to = "scrolledTo";
-	node.callback_scroll_cancelled = "scrolledToCancelled";
-	var offset_y = 0;
-	var offset_x = 0;
-	var scroll_to_x = 0;
-	var scroll_to_y = 0;
-	var to_node = false;
-	node._force_scroll_to = false;
-	if(obj(_options)) {
-		var _argument;
-		for(_argument in _options) {
-			switch(_argument) {
-				case "callback"             : node.callback_scroll_to            = _options[_argument]; break;
-				case "callback_cancelled"   : node.callback_scroll_cancelled     = _options[_argument]; break;
-				case "offset_y"             : offset_y                           = _options[_argument]; break;
-				case "offset_x"             : offset_x                           = _options[_argument]; break;
-				case "node"                 : to_node                            = _options[_argument]; break;
-				case "x"                    : scroll_to_x                        = _options[_argument]; break;
-				case "y"                    : scroll_to_y                        = _options[_argument]; break;
-				case "scrollIn"             : scrollIn                           = _options[_argument]; break;
-				case "force"                : node._force_scroll_to              = _options[_argument]; break;
-			}
-		}
-	}
-	if(to_node) {
-		node._to_x = u.absX(to_node);
-		node._to_y = u.absY(to_node);
-	}
-	else {
-		node._to_x = scroll_to_x;
-		node._to_y = scroll_to_y;
-	}
-	node._to_x = offset_x ? node._to_x - offset_x : node._to_x;
-	node._to_y = offset_y ? node._to_y - offset_y : node._to_y;
-	if(node._to_y > (node == window ? document.body.scrollHeight : node.scrollHeight)-u.browserH()) {
-		node._to_y = (node == window ? document.body.scrollHeight : node.scrollHeight)-u.browserH();
-	}
-	if(node._to_x > (node == window ? document.body.scrollWidth : node.scrollWidth)-u.browserW()) {
-		node._to_x = (node == window ? document.body.scrollWidth : node.scrollWidth)-u.browserW();
-	}
-	node._to_x = node._to_x < 0 ? 0 : node._to_x;
-	node._to_y = node._to_y < 0 ? 0 : node._to_y;
-	node._x_scroll_direction = node._to_x - u.scrollX();
-	node._y_scroll_direction = node._to_y - u.scrollY();
-	node._scroll_to_x = u.scrollX();
-	node._scroll_to_y = u.scrollY();
-	node.ignoreWheel = function(event) {
-		u.e.kill(event);
-	}
-	if(node._force_scroll_to) {
-		u.e.addEvent(node, "wheel", node.ignoreWheel);
-	}
-	node.scrollToHandler = function(event) {
-		u.t.resetTimer(this.t_scroll);
-		this.t_scroll = u.t.setTimer(this, this._scrollTo, 50);
-	}
-	u.e.addEvent(node, "scroll", node.scrollToHandler);
-	node.cancelScrollTo = function() {
-		if(!this._force_scroll_to) {
-			u.t.resetTimer(this.t_scroll);
-			u.e.removeEvent(this, "scroll", this.scrollToHandler);
-			this._scrollTo = null;
-		}
-	}
-	node.scrollToFinished = function() {
-		u.t.resetTimer(this.t_scroll);
-		u.e.removeEvent(this, "scroll", this.scrollToHandler);
-		u.e.removeEvent(this, "wheel", this.ignoreWheel);
-		this._scrollTo = null;
-	}
-	node.IEScrollFix = function(s_x, s_y) {
-		if(!u.browser("ie")) {
-			return false;
-		}
-		else if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
-			return true;
-		}
-	}
-	node._scrollTo = function(start) {
-		var s_x = u.scrollX();
-		var s_y = u.scrollY();
-		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.IEScrollFix(s_x, s_y)) {
-			if(this._x_scroll_direction > 0 && this._to_x > s_x) {
-				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/4);
-			}
-			else if(this._x_scroll_direction < 0 && this._to_x < s_x) {
-				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/4);
-			}
-			else {
-				this._scroll_to_x = this._to_x;
-			}
-			if(this._y_scroll_direction > 0 && this._to_y > s_y) {
-				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/4);
-			}
-			else if(this._y_scroll_direction < 0 && this._to_y < s_y) {
-				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/4);
-			}
-			else {
-				this._scroll_to_y = this._to_y;
-			}
-			if(this._scroll_to_x == this._to_x && this._scroll_to_y == this._to_y) {
-				this.scrollToFinished();
-				this.scrollTo(this._to_x, this._to_y);
-				if(fun(this[this.callback_scroll_to])) {
-					this[this.callback_scroll_to]();
-				}
-				return;
-			}
-			this.scrollTo(this._scroll_to_x, this._scroll_to_y);
-		}
-		else {
-			this.cancelScrollTo();
-			if(fun(this[this.callback_scroll_cancelled])) {
-				this[this.callback_scroll_cancelled]();
-			}
-		}	
-	}
-	node._scrollTo();
-}
-
 /*u-string.js*/
 Util.cutString = function(string, length) {
 	var matches, match, i;
@@ -3403,58 +2952,6 @@ Util.isStringHTML = function(string) {
 		catch(exception) {}
 	}
 	return false;
-}
-
-
-/*u-svg.js*/
-Util.svg = function(svg_object) {
-	var svg, shape, svg_shape;
-	if(svg_object.name && u._svg_cache && u._svg_cache[svg_object.name]) {
-		svg = u._svg_cache[svg_object.name].cloneNode(true);
-	}
-	if(!svg) {
-		svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		for(shape in svg_object.shapes) {
-			Util.svgShape(svg, svg_object.shapes[shape]);
-		}
-		if(svg_object.name) {
-			if(!u._svg_cache) {
-				u._svg_cache = {};
-			}
-			u._svg_cache[svg_object.name] = svg.cloneNode(true);
-		}
-	}
-	if(svg_object.title) {
-		svg.setAttributeNS(null, "title", svg_object.title);
-	}
-	if(svg_object["class"]) {
-		svg.setAttributeNS(null, "class", svg_object["class"]);
-	}
-	if(svg_object.width) {
-		svg.setAttributeNS(null, "width", svg_object.width);
-	}
-	if(svg_object.height) {
-		svg.setAttributeNS(null, "height", svg_object.height);
-	}
-	if(svg_object.id) {
-		svg.setAttributeNS(null, "id", svg_object.id);
-	}
-	if(svg_object.node) {
-		svg.node = svg_object.node;
-	}
-	if(svg_object.node) {
-		svg_object.node.appendChild(svg);
-	}
-	return svg;
-}
-Util.svgShape = function(svg, svg_object) {
-	svg_shape = document.createElementNS("http://www.w3.org/2000/svg", svg_object["type"]);
-	svg_object["type"] = null;
-	delete svg_object["type"];
-	for(detail in svg_object) {
-		svg_shape.setAttributeNS(null, detail, svg_object[detail]);
-	}
-	return svg.appendChild(svg_shape);
 }
 
 
@@ -3728,6 +3225,62 @@ Util.Timer = u.t = new function() {
 }
 
 
+/*u-url.js*/
+Util.getVar = function(param, url) {
+	var string = url ? url.split("#")[0] : location.search;
+	var regexp = new RegExp("[\&\?\b]{1}"+param+"\=([^\&\b]+)");
+	var match = string.match(regexp);
+	if(match && match.length > 1) {
+		return match[1];
+	}
+	else {
+		return "";
+	}
+}
+
+
+/*u-array-desktop_light.js*/
+if(!Array.prototype.unshift || new Array(1,2).unshift(0) != 3) {
+	Array.prototype.unshift = function(a) {
+		var b;
+		this.reverse();
+		b = this.push(a);
+		this.reverse();
+		return b
+	};
+}
+if(!Array.prototype.shift) {
+	Array.prototype.shift = function() {
+		for(var i = 0, b = this[0], l = this.length-1; i < l; i++ ) {
+			this[i] = this[i+1];
+		}
+		this.length--;
+		return b;
+	};
+}
+if(!Array.prototype.indexOf) {
+	Array.prototype.indexOf = function (obj, start) {
+		for(var i = (start || 0); i < this.length; i++) {
+			if(this[i] == obj) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+if(!Object.keys) {
+	Object.keys = function(object) {
+		var keys = [];
+		var x;
+		for(x in object) {
+			if(object.hasOwnProperty(x)) {
+				keys.push(x);
+			}
+		}
+		return keys;
+	};
+}
+
 /*u-dom-desktop_ie10.js*/
 if(false && document.documentMode <= 10) {
 	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
@@ -3783,3 +3336,1718 @@ if(false && document.documentMode <= 10) {
 		}
 	}
 }
+
+/*u-dom-desktop_light.js*/
+if(typeof(document.defaultView) == "undefined") {
+	Util.getComputedStyle = u.gcs = function(e, attribute) {
+		e.offsetHeight;
+		if(attribute == "opacity" && e._opacity != undefined) {
+			return e._opacity;
+		}
+		// 
+		if(document.body.currentStyle && attribute != "opacity") {
+			attribute = attribute.replace(/(-\w)/g, function(word){return word.replace(/-/, "").toUpperCase()});
+			if(e.currentStyle[attribute] == "medium") {
+				return 0;
+			}
+			return e.currentStyle[attribute];
+		}
+		else if(document.body.currentStyle && attribute == "opacity" && e.currentStyle["filter"]) {
+			var match = e.currentStyle["filter"].match(/Opacity=([0-9]+)/);
+			if(match) {
+				return match[1]/100;
+			}
+		}
+		return false;
+	}
+}
+if(document.all && document.addEventListener == undefined) {
+	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
+		try {
+			var node = (obj(node_type)) ? node_type : document.createElement(node_type);
+			if(attributes) {
+				var attribute;
+				for(attribute in attributes) {
+					if(!attribute.match(/^(class|type|value|html|checked)$/)) {
+						node.setAttribute(attribute, attributes[attribute]);
+					}
+				}
+				if(attributes["class"]) {
+					u.setClass(node, attributes["class"]);
+				}
+				if(attributes["type"]) {
+					node.type = attributes["type"].replace(/email|date|datetime|number|tel/, "text");
+				}
+			}
+			node = _parent.appendChild(node);
+			if(attributes) {
+				if(attributes["value"]) {
+					node.value = attributes["value"];
+				}
+				if(attributes["checked"]) {
+					node.checked = attributes["checked"];
+				}
+				if(attributes["html"]) {
+					node.innerHTML = attributes["html"];
+					if(attributes["html"].match(/(src|href)\=\"\{/i)) {
+						var nodes, matches, n, i;
+						matches = u.getMatches(attributes["html"], new RegExp("src\=\"([^\"]+)\"", "ig") );
+						nodes = u.qsa("[src]", node);
+						for(i = 0; i < nodes.length; i++) {
+							n = nodes[i];
+							n.src = matches[i];
+						}
+						matches = u.getMatches(attributes["html"], new RegExp("href\=\"([^\"]+)\"", "ig") );
+						nodes = u.qsa("[href]", node);
+						for(i = 0; i < nodes; i++) {
+							n = nodes[i];
+							n.href = matches[i];
+						}
+					}
+				}
+			}
+			return node;
+		}
+		catch(exception) {
+			u.exception("u.ae (desktop_light)", arguments, exception);
+		}
+	}
+	Util.insertElement = u.ie = function(_parent, node_type, attributes) {
+		try {
+			var node = (obj(node_type)) ? node_type : document.createElement(node_type);
+			if(attributes) {
+				var attribute;
+				for(attribute in attributes) {
+					if(!attribute.match(/^(class|type|value|html)$/)) {
+						node.setAttribute(attribute, attributes[attribute]);
+					}
+				}
+				if(attributes["class"]) {
+					u.setClass(node, attributes["class"]);
+				}
+				if(attributes["type"]) {
+					node.type = attributes["type"].replace(/email|date|datetime|number|tel/, "text");
+				}
+			}
+			node = _parent.insertBefore(node, _parent.firstChild);
+			if(attributes) {
+				if(attributes["value"]) {
+					node.value = attributes["value"];
+				}
+				if(attributes["checked"]) {
+					node.checked = attributes["checked"];
+				}
+				if(attributes["html"]) {
+					node.innerHTML = attributes["html"];
+					if(attributes["html"].match(/(src|href)\=\"\{/i)) {
+						var nodes, matches, n, i;
+						matches = u.getMatches(attributes["html"], new RegExp("src\=\"([^\"]+)\"", "ig") );
+						nodes = u.qsa("[src]", node);
+						for(i = 0; i < nodes.length; i++) {
+							n = nodes[i];
+							n.src = matches[i];
+						}
+						matches = u.getMatches(attributes["html"], new RegExp("href\=\"([^\"]+)\"", "ig") );
+						nodes = u.qsa("[href]", node);
+						for(i = 0; i < nodes.length; i++) {
+							n = nodes[i];
+							n.href = matches[i];
+						}
+					}
+				}
+			}
+			return node;
+		}
+		catch(exception) {
+			u.exception("u.ie (desktop_light)", arguments, exception);
+		}
+	}
+	Util.wrapElement = u.we = function(node, node_type, attributes) {
+		try {
+			var wrapper_node = node.parentNode.insertBefore(document.createElement(node_type), node);
+			if(attributes) {
+				var attribute;
+				for(attribute in attributes) {
+					if(attribute != "class") {
+						wrapper_node.setAttribute(attribute, attributes[attribute]);
+					}
+				}
+				if(attributes["class"]) {
+					u.setClass(wrapper_node, attributes["class"]);
+				}
+			}
+			wrapper_node.appendChild(node);
+			return wrapper_node;
+		}
+		catch(exception) {
+			u.exception("u.we (desktop_light)", arguments, exception);
+		}
+		return false;
+	}
+	Util.wrapContent = u.wc = function(node, node_type, attributes) {
+		try {
+			var wrapper_node = document.createElement(node_type);
+			if(attributes) {
+				var attribute;
+				for(attribute in attributes) {
+					if(attribute != "class") {
+						wrapper_node.setAttribute(attribute, attributes[attribute]);
+					}
+				}
+			}	
+			if(attributes["class"]) {
+				u.setClass(wrapper_node, attributes["class"]);
+			}
+			while(node.childNodes.length) {
+				wrapper_node.appendChild(node.childNodes[0]);
+			}
+			node.appendChild(wrapper_node);
+			return wrapper_node;
+		}
+		catch(exception) {
+			u.exception("u.wc (desktop_light)", arguments, exception);
+		}
+		return false;
+	}
+}
+if(typeof(document.textContent) == "undefined") {
+	Util.textContent = u.text = function(node) {
+		if(node.textContent) {
+			return node.textContent;
+		}
+		else if(node.innerText) {
+			return node.innerText;
+		}
+		else {
+			return node.innerHTML.replace(/\<[^\>]*\>/g, "");
+		}
+	}
+}
+u.contains = Util.nodeWithin = u.nw = function(node, scope) {
+	if(scope != node) {
+		if(fun(scope.contains)) {
+			if(scope.contains(node)) {
+				return true
+			}
+		}
+		else {
+			while(node != null) {
+				if(node == scope) {
+					return true;
+				}
+				node = node.parentNode;
+			}
+		}
+	}
+	return false;
+}
+if(document.querySelector == undefined) {
+	(function(){
+	var chunker = /((?:\((?:\([^()]+\)|[^()]+)+\)|\[(?:\[[^\[\]]*\]|['"][^'"]*['"]|[^\[\]'"]+)+\]|\\.|[^ >+~,(\[\\]+)+|[>+~])(\s*,\s*)?((?:.|\r|\n)*)/g,
+		expando = "sizcache" + (Math.random() + '').replace('.', ''),
+		done = 0,
+		toString = Object.prototype.toString,
+		hasDuplicate = false,
+		baseHasDuplicate = true,
+		rBackslash = /\\/g,
+		rReturn = /\r\n/g,
+		rNonWord = /\W/;
+	[0, 0].sort(function() {
+		baseHasDuplicate = false;
+		return 0;
+	});
+	var Sizzle = function( selector, context, results, seed ) {
+		results = results || [];
+		context = context || document;
+		var origContext = context;
+		if ( context.nodeType !== 1 && context.nodeType !== 9 ) {
+			return [];
+		}
+		if ( !selector || typeof selector !== "string" ) {
+			return results;
+		}
+		var m, set, checkSet, extra, ret, cur, pop, i,
+			prune = true,
+			contextXML = Sizzle.isXML( context ),
+			parts = [],
+			soFar = selector;
+		do {
+			chunker.exec( "" );
+			m = chunker.exec( soFar );
+			if ( m ) {
+				soFar = m[3];
+				parts.push( m[1] );
+				if ( m[2] ) {
+					extra = m[3];
+					break;
+				}
+			}
+		} while ( m );
+		if ( parts.length > 1 && origPOS.exec( selector ) ) {
+			if ( parts.length === 2 && Expr.relative[ parts[0] ] ) {
+				set = posProcess( parts[0] + parts[1], context, seed );
+			} else {
+				set = Expr.relative[ parts[0] ] ?
+					[ context ] :
+					Sizzle( parts.shift(), context );
+				while ( parts.length ) {
+					selector = parts.shift();
+					if ( Expr.relative[ selector ] ) {
+						selector += parts.shift();
+					}
+					set = posProcess( selector, set, seed );
+				}
+			}
+		} else {
+			if ( !seed && parts.length > 1 && context.nodeType === 9 && !contextXML &&
+					Expr.match.ID.test(parts[0]) && !Expr.match.ID.test(parts[parts.length - 1]) ) {
+				ret = Sizzle.find( parts.shift(), context, contextXML );
+				context = ret.expr ?
+					Sizzle.filter( ret.expr, ret.set )[0] :
+					ret.set[0];
+			}
+			if ( context ) {
+				ret = seed ?
+					{ expr: parts.pop(), set: makeArray(seed) } :
+					Sizzle.find( parts.pop(), parts.length === 1 && (parts[0] === "~" || parts[0] === "+") && context.parentNode ? context.parentNode : context, contextXML );
+				set = ret.expr ?
+					Sizzle.filter( ret.expr, ret.set ) :
+					ret.set;
+				if ( parts.length > 0 ) {
+					checkSet = makeArray( set );
+				} else {
+					prune = false;
+				}
+				while ( parts.length ) {
+					cur = parts.pop();
+					pop = cur;
+					if ( !Expr.relative[ cur ] ) {
+						cur = "";
+					} else {
+						pop = parts.pop();
+					}
+					if ( pop == null ) {
+						pop = context;
+					}
+					Expr.relative[ cur ]( checkSet, pop, contextXML );
+				}
+			} else {
+				checkSet = parts = [];
+			}
+		}
+		if ( !checkSet ) {
+			checkSet = set;
+		}
+		if ( !checkSet ) {
+			Sizzle.error( cur || selector );
+		}
+		if ( toString.call(checkSet) === "[object Array]" ) {
+			if ( !prune ) {
+				results.push.apply( results, checkSet );
+			} else if ( context && context.nodeType === 1 ) {
+				for ( i = 0; checkSet[i] != null; i++ ) {
+					if ( checkSet[i] && (checkSet[i] === true || checkSet[i].nodeType === 1 && Sizzle.contains(context, checkSet[i])) ) {
+						results.push( set[i] );
+					}
+				}
+			} else {
+				for ( i = 0; checkSet[i] != null; i++ ) {
+					if ( checkSet[i] && checkSet[i].nodeType === 1 ) {
+						results.push( set[i] );
+					}
+				}
+			}
+		} else {
+			makeArray( checkSet, results );
+		}
+		if ( extra ) {
+			Sizzle( extra, origContext, results, seed );
+			Sizzle.uniqueSort( results );
+		}
+		return results;
+	};
+	Sizzle.uniqueSort = function( results ) {
+		if ( sortOrder ) {
+			hasDuplicate = baseHasDuplicate;
+			results.sort( sortOrder );
+			if ( hasDuplicate ) {
+				for ( var i = 1; i < results.length; i++ ) {
+					if ( results[i] === results[ i - 1 ] ) {
+						results.splice( i--, 1 );
+					}
+				}
+			}
+		}
+		return results;
+	};
+	Sizzle.matches = function( expr, set ) {
+		return Sizzle( expr, null, null, set );
+	};
+	Sizzle.matchesSelector = function( node, expr ) {
+		return Sizzle( expr, null, null, [node] ).length > 0;
+	};
+	Sizzle.find = function( expr, context, isXML ) {
+		var set, i, len, match, type, left;
+		if ( !expr ) {
+			return [];
+		}
+		for ( i = 0, len = Expr.order.length; i < len; i++ ) {
+			type = Expr.order[i];
+			if ( (match = Expr.leftMatch[ type ].exec( expr )) ) {
+				left = match[1];
+				match.splice( 1, 1 );
+				if ( left.substr( left.length - 1 ) !== "\\" ) {
+					match[1] = (match[1] || "").replace( rBackslash, "" );
+					set = Expr.find[ type ]( match, context, isXML );
+					if ( set != null ) {
+						expr = expr.replace( Expr.match[ type ], "" );
+						break;
+					}
+				}
+			}
+		}
+		if ( !set ) {
+			set = typeof context.getElementsByTagName !== "undefined" ?
+				context.getElementsByTagName( "*" ) :
+				[];
+		}
+		return { set: set, expr: expr };
+	};
+	Sizzle.filter = function( expr, set, inplace, not ) {
+		var match, anyFound,
+			type, found, item, filter, left,
+			i, pass,
+			old = expr,
+			result = [],
+			curLoop = set,
+			isXMLFilter = set && set[0] && Sizzle.isXML( set[0] );
+		while ( expr && set.length ) {
+			for ( type in Expr.filter ) {
+				if ( (match = Expr.leftMatch[ type ].exec( expr )) != null && match[2] ) {
+					filter = Expr.filter[ type ];
+					left = match[1];
+					anyFound = false;
+					match.splice(1,1);
+					if ( left.substr( left.length - 1 ) === "\\" ) {
+						continue;
+					}
+					if ( curLoop === result ) {
+						result = [];
+					}
+					if ( Expr.preFilter[ type ] ) {
+						match = Expr.preFilter[ type ]( match, curLoop, inplace, result, not, isXMLFilter );
+						if ( !match ) {
+							anyFound = found = true;
+						} else if ( match === true ) {
+							continue;
+						}
+					}
+					if ( match ) {
+						for ( i = 0; (item = curLoop[i]) != null; i++ ) {
+							if ( item ) {
+								found = filter( item, match, i, curLoop );
+								pass = not ^ found;
+								if ( inplace && found != null ) {
+									if ( pass ) {
+										anyFound = true;
+									} else {
+										curLoop[i] = false;
+									}
+								} else if ( pass ) {
+									result.push( item );
+									anyFound = true;
+								}
+							}
+						}
+					}
+					if ( found !== undefined ) {
+						if ( !inplace ) {
+							curLoop = result;
+						}
+						expr = expr.replace( Expr.match[ type ], "" );
+						if ( !anyFound ) {
+							return [];
+						}
+						break;
+					}
+				}
+			}
+			if ( expr === old ) {
+				if ( anyFound == null ) {
+					Sizzle.error( expr );
+				} else {
+					break;
+				}
+			}
+			old = expr;
+		}
+		return curLoop;
+	};
+	Sizzle.error = function( msg ) {
+		throw new Error( "Syntax error, unrecognized expression: " + msg );
+	};
+	var getText = Sizzle.getText = function( elem ) {
+	    var i, node,
+			nodeType = elem.nodeType,
+			ret = "";
+		if ( nodeType ) {
+			if ( nodeType === 1 || nodeType === 9 ) {
+				if ( typeof elem.textContent === 'string' ) {
+					return elem.textContent;
+				} else if ( typeof elem.innerText === 'string' ) {
+					return elem.innerText.replace( rReturn, '' );
+				} else {
+					for ( elem = elem.firstChild; elem; elem = elem.nextSibling) {
+						ret += getText( elem );
+					}
+				}
+			} else if ( nodeType === 3 || nodeType === 4 ) {
+				return elem.nodeValue;
+			}
+		} else {
+			for ( i = 0; (node = elem[i]); i++ ) {
+				if ( node.nodeType !== 8 ) {
+					ret += getText( node );
+				}
+			}
+		}
+		return ret;
+	};
+	var Expr = Sizzle.selectors = {
+		order: [ "ID", "NAME", "TAG" ],
+		match: {
+			ID: /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+			CLASS: /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/,
+			NAME: /\[name=['"]*((?:[\w\u00c0-\uFFFF\-]|\\.)+)['"]*\]/,
+			ATTR: /\[\s*((?:[\w\u00c0-\uFFFF\-]|\\.)+)\s*(?:(\S?=)\s*(?:(['"])(.*?)\3|(#?(?:[\w\u00c0-\uFFFF\-]|\\.)*)|)|)\s*\]/,
+			TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
+			CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
+			POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
+			PSEUDO: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
+		},
+		leftMatch: {},
+		attrMap: {
+			"class": "className",
+			"for": "htmlFor"
+		},
+		attrHandle: {
+			href: function( elem ) {
+				return elem.getAttribute( "href" );
+			},
+			type: function( elem ) {
+				return elem.getAttribute( "type" );
+			}
+		},
+		relative: {
+			"+": function(checkSet, part){
+				var isPartStr = str(part),
+					isTag = isPartStr && !rNonWord.test( part ),
+					isPartStrNotTag = isPartStr && !isTag;
+				if ( isTag ) {
+					part = part.toLowerCase();
+				}
+				for ( var i = 0, l = checkSet.length, elem; i < l; i++ ) {
+					if ( (elem = checkSet[i]) ) {
+						while ( (elem = elem.previousSibling) && elem.nodeType !== 1 ) {}
+						checkSet[i] = isPartStrNotTag || elem && elem.nodeName.toLowerCase() === part ?
+							elem || false :
+							elem === part;
+					}
+				}
+				if ( isPartStrNotTag ) {
+					Sizzle.filter( part, checkSet, true );
+				}
+			},
+			">": function( checkSet, part ) {
+				var elem,
+					isPartStr = str(part),
+					i = 0,
+					l = checkSet.length;
+				if ( isPartStr && !rNonWord.test( part ) ) {
+					part = part.toLowerCase();
+					for ( ; i < l; i++ ) {
+						elem = checkSet[i];
+						if ( elem ) {
+							var parent = elem.parentNode;
+							checkSet[i] = parent.nodeName.toLowerCase() === part ? parent : false;
+						}
+					}
+				} else {
+					for ( ; i < l; i++ ) {
+						elem = checkSet[i];
+						if ( elem ) {
+							checkSet[i] = isPartStr ?
+								elem.parentNode :
+								elem.parentNode === part;
+						}
+					}
+					if ( isPartStr ) {
+						Sizzle.filter( part, checkSet, true );
+					}
+				}
+			},
+			"": function(checkSet, part, isXML){
+				var nodeCheck,
+					doneName = done++,
+					checkFn = dirCheck;
+				if ( str(part) && !rNonWord.test( part ) ) {
+					part = part.toLowerCase();
+					nodeCheck = part;
+					checkFn = dirNodeCheck;
+				}
+				checkFn( "parentNode", part, doneName, checkSet, nodeCheck, isXML );
+			},
+			"~": function( checkSet, part, isXML ) {
+				var nodeCheck,
+					doneName = done++,
+					checkFn = dirCheck;
+				if ( str(part) && !rNonWord.test( part ) ) {
+					part = part.toLowerCase();
+					nodeCheck = part;
+					checkFn = dirNodeCheck;
+				}
+				checkFn( "previousSibling", part, doneName, checkSet, nodeCheck, isXML );
+			}
+		},
+		find: {
+			ID: function( match, context, isXML ) {
+				if ( typeof context.getElementById !== "undefined" && !isXML ) {
+					var m = context.getElementById(match[1]);
+					return m && m.parentNode ? [m] : [];
+				}
+			},
+			NAME: function( match, context ) {
+				if ( typeof context.getElementsByName !== "undefined" ) {
+					var ret = [],
+						results = context.getElementsByName( match[1] );
+					for ( var i = 0, l = results.length; i < l; i++ ) {
+						if ( results[i].getAttribute("name") === match[1] ) {
+							ret.push( results[i] );
+						}
+					}
+					return ret.length === 0 ? null : ret;
+				}
+			},
+			TAG: function( match, context ) {
+				if ( typeof context.getElementsByTagName !== "undefined" ) {
+					return context.getElementsByTagName( match[1] );
+				}
+			}
+		},
+		preFilter: {
+			CLASS: function( match, curLoop, inplace, result, not, isXML ) {
+				match = " " + match[1].replace( rBackslash, "" ) + " ";
+				if ( isXML ) {
+					return match;
+				}
+				for ( var i = 0, elem; (elem = curLoop[i]) != null; i++ ) {
+					if ( elem ) {
+						if ( not ^ (elem.className && (" " + elem.className + " ").replace(/[\t\n\r]/g, " ").indexOf(match) >= 0) ) {
+							if ( !inplace ) {
+								result.push( elem );
+							}
+						} else if ( inplace ) {
+							curLoop[i] = false;
+						}
+					}
+				}
+				return false;
+			},
+			ID: function( match ) {
+				return match[1].replace( rBackslash, "" );
+			},
+			TAG: function( match, curLoop ) {
+				return match[1].replace( rBackslash, "" ).toLowerCase();
+			},
+			CHILD: function( match ) {
+				if ( match[1] === "nth" ) {
+					if ( !match[2] ) {
+						Sizzle.error( match[0] );
+					}
+					match[2] = match[2].replace(/^\+|\s*/g, '');
+					var test = /(-?)(\d*)(?:n([+\-]?\d*))?/.exec(
+						match[2] === "even" && "2n" || match[2] === "odd" && "2n+1" ||
+						!/\D/.test( match[2] ) && "0n+" + match[2] || match[2]);
+					match[2] = (test[1] + (test[2] || 1)) - 0;
+					match[3] = test[3] - 0;
+				}
+				else if ( match[2] ) {
+					Sizzle.error( match[0] );
+				}
+				match[0] = done++;
+				return match;
+			},
+			ATTR: function( match, curLoop, inplace, result, not, isXML ) {
+				var name = match[1] = match[1].replace( rBackslash, "" );
+				if ( !isXML && Expr.attrMap[name] ) {
+					match[1] = Expr.attrMap[name];
+				}
+				match[4] = ( match[4] || match[5] || "" ).replace( rBackslash, "" );
+				if ( match[2] === "~=" ) {
+					match[4] = " " + match[4] + " ";
+				}
+				return match;
+			},
+			PSEUDO: function( match, curLoop, inplace, result, not ) {
+				if ( match[1] === "not" ) {
+					if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
+						match[3] = Sizzle(match[3], null, null, curLoop);
+					} else {
+						var ret = Sizzle.filter(match[3], curLoop, inplace, true ^ not);
+						if ( !inplace ) {
+							result.push.apply( result, ret );
+						}
+						return false;
+					}
+				} else if ( Expr.match.POS.test( match[0] ) || Expr.match.CHILD.test( match[0] ) ) {
+					return true;
+				}
+				return match;
+			},
+			POS: function( match ) {
+				match.unshift( true );
+				return match;
+			}
+		},
+		filters: {
+			enabled: function( elem ) {
+				return elem.disabled === false && elem.type !== "hidden";
+			},
+			disabled: function( elem ) {
+				return elem.disabled === true;
+			},
+			checked: function( elem ) {
+				return elem.checked === true;
+			},
+			selected: function( elem ) {
+				if ( elem.parentNode ) {
+					elem.parentNode.selectedIndex;
+				}
+				return elem.selected === true;
+			},
+			parent: function( elem ) {
+				return !!elem.firstChild;
+			},
+			empty: function( elem ) {
+				return !elem.firstChild;
+			},
+			has: function( elem, i, match ) {
+				return !!Sizzle( match[3], elem ).length;
+			},
+			header: function( elem ) {
+				return (/h\d/i).test( elem.nodeName );
+			},
+			text: function( elem ) {
+				var attr = elem.getAttribute( "type" ), type = elem.type;
+				return elem.nodeName.toLowerCase() === "input" && "text" === type && ( attr === type || attr === null );
+			},
+			radio: function( elem ) {
+				return elem.nodeName.toLowerCase() === "input" && "radio" === elem.type;
+			},
+			checkbox: function( elem ) {
+				return elem.nodeName.toLowerCase() === "input" && "checkbox" === elem.type;
+			},
+			file: function( elem ) {
+				return elem.nodeName.toLowerCase() === "input" && "file" === elem.type;
+			},
+			password: function( elem ) {
+				return elem.nodeName.toLowerCase() === "input" && "password" === elem.type;
+			},
+			submit: function( elem ) {
+				var name = elem.nodeName.toLowerCase();
+				return (name === "input" || name === "button") && "submit" === elem.type;
+			},
+			image: function( elem ) {
+				return elem.nodeName.toLowerCase() === "input" && "image" === elem.type;
+			},
+			reset: function( elem ) {
+				var name = elem.nodeName.toLowerCase();
+				return (name === "input" || name === "button") && "reset" === elem.type;
+			},
+			button: function( elem ) {
+				var name = elem.nodeName.toLowerCase();
+				return name === "input" && "button" === elem.type || name === "button";
+			},
+			input: function( elem ) {
+				return (/input|select|textarea|button/i).test( elem.nodeName );
+			},
+			focus: function( elem ) {
+				return elem === elem.ownerDocument.activeElement;
+			}
+		},
+		setFilters: {
+			first: function( elem, i ) {
+				return i === 0;
+			},
+			last: function( elem, i, match, array ) {
+				return i === array.length - 1;
+			},
+			even: function( elem, i ) {
+				return i % 2 === 0;
+			},
+			odd: function( elem, i ) {
+				return i % 2 === 1;
+			},
+			lt: function( elem, i, match ) {
+				return i < match[3] - 0;
+			},
+			gt: function( elem, i, match ) {
+				return i > match[3] - 0;
+			},
+			nth: function( elem, i, match ) {
+				return match[3] - 0 === i;
+			},
+			eq: function( elem, i, match ) {
+				return match[3] - 0 === i;
+			}
+		},
+		filter: {
+			PSEUDO: function( elem, match, i, array ) {
+				var name = match[1],
+					filter = Expr.filters[ name ];
+				if ( filter ) {
+					return filter( elem, i, match, array );
+				} else if ( name === "contains" ) {
+					return (elem.textContent || elem.innerText || getText([ elem ]) || "").indexOf(match[3]) >= 0;
+				} else if ( name === "not" ) {
+					var not = match[3];
+					for ( var j = 0, l = not.length; j < l; j++ ) {
+						if ( not[j] === elem ) {
+							return false;
+						}
+					}
+					return true;
+				} else {
+					Sizzle.error( name );
+				}
+			},
+			CHILD: function( elem, match ) {
+				var first, last,
+					doneName, parent, cache,
+					count, diff,
+					type = match[1],
+					node = elem;
+				switch ( type ) {
+					case "only":
+					case "first":
+						while ( (node = node.previousSibling) ) {
+							if ( node.nodeType === 1 ) {
+								return false;
+							}
+						}
+						if ( type === "first" ) {
+							return true;
+						}
+						node = elem;
+					case "last":
+						while ( (node = node.nextSibling) ) {
+							if ( node.nodeType === 1 ) {
+								return false;
+							}
+						}
+						return true;
+					case "nth":
+						first = match[2];
+						last = match[3];
+						if ( first === 1 && last === 0 ) {
+							return true;
+						}
+						doneName = match[0];
+						parent = elem.parentNode;
+						if ( parent && (parent[ expando ] !== doneName || !elem.nodeIndex) ) {
+							count = 0;
+							for ( node = parent.firstChild; node; node = node.nextSibling ) {
+								if ( node.nodeType === 1 ) {
+									node.nodeIndex = ++count;
+								}
+							}
+							parent[ expando ] = doneName;
+						}
+						diff = elem.nodeIndex - last;
+						if ( first === 0 ) {
+							return diff === 0;
+						} else {
+							return ( diff % first === 0 && diff / first >= 0 );
+						}
+				}
+			},
+			ID: function( elem, match ) {
+				return elem.nodeType === 1 && elem.getAttribute("id") === match;
+			},
+			TAG: function( elem, match ) {
+				return (match === "*" && elem.nodeType === 1) || !!elem.nodeName && elem.nodeName.toLowerCase() === match;
+			},
+			CLASS: function( elem, match ) {
+				return (" " + (elem.className || elem.getAttribute("class")) + " ")
+					.indexOf( match ) > -1;
+			},
+			ATTR: function( elem, match ) {
+				var name = match[1],
+					result = Sizzle.attr ?
+						Sizzle.attr( elem, name ) :
+						Expr.attrHandle[ name ] ?
+						Expr.attrHandle[ name ]( elem ) :
+						elem[ name ] != null ?
+							elem[ name ] :
+							elem.getAttribute( name ),
+					value = result + "",
+					type = match[2],
+					check = match[4];
+				return result == null ?
+					type === "!=" :
+					!type && Sizzle.attr ?
+					result != null :
+					type === "=" ?
+					value === check :
+					type === "*=" ?
+					value.indexOf(check) >= 0 :
+					type === "~=" ?
+					(" " + value + " ").indexOf(check) >= 0 :
+					!check ?
+					value && result !== false :
+					type === "!=" ?
+					value !== check :
+					type === "^=" ?
+					value.indexOf(check) === 0 :
+					type === "$=" ?
+					value.substr(value.length - check.length) === check :
+					type === "|=" ?
+					value === check || value.substr(0, check.length + 1) === check + "-" :
+					false;
+			},
+			POS: function( elem, match, i, array ) {
+				var name = match[2],
+					filter = Expr.setFilters[ name ];
+				if ( filter ) {
+					return filter( elem, i, match, array );
+				}
+			}
+		}
+	};
+	var origPOS = Expr.match.POS,
+		fescape = function(all, num){
+			return "\\" + (num - 0 + 1);
+		};
+	for ( var type in Expr.match ) {
+		Expr.match[ type ] = new RegExp( Expr.match[ type ].source + (/(?![^\[]*\])(?![^\(]*\))/.source) );
+		Expr.leftMatch[ type ] = new RegExp( /(^(?:.|\r|\n)*?)/.source + Expr.match[ type ].source.replace(/\\(\d+)/g, fescape) );
+	}
+	Expr.match.globalPOS = origPOS;
+	var makeArray = function( array, results ) {
+		array = Array.prototype.slice.call( array, 0 );
+		if ( results ) {
+			results.push.apply( results, array );
+			return results;
+		}
+		return array;
+	};
+	try {
+		Array.prototype.slice.call( document.documentElement.childNodes, 0 )[0].nodeType;
+	} catch( e ) {
+		makeArray = function( array, results ) {
+			var i = 0,
+				ret = results || [];
+			if ( toString.call(array) === "[object Array]" ) {
+				Array.prototype.push.apply( ret, array );
+			} else {
+				if ( typeof array.length === "number" ) {
+					for ( var l = array.length; i < l; i++ ) {
+						ret.push( array[i] );
+					}
+				} else {
+					for ( ; array[i]; i++ ) {
+						ret.push( array[i] );
+					}
+				}
+			}
+			return ret;
+		};
+	}
+	var sortOrder, siblingCheck;
+	if ( document.documentElement.compareDocumentPosition ) {
+		sortOrder = function( a, b ) {
+			if ( a === b ) {
+				hasDuplicate = true;
+				return 0;
+			}
+			if ( !a.compareDocumentPosition || !b.compareDocumentPosition ) {
+				return a.compareDocumentPosition ? -1 : 1;
+			}
+			return a.compareDocumentPosition(b) & 4 ? -1 : 1;
+		};
+	} else {
+		sortOrder = function( a, b ) {
+			if ( a === b ) {
+				hasDuplicate = true;
+				return 0;
+			} else if ( a.sourceIndex && b.sourceIndex ) {
+				return a.sourceIndex - b.sourceIndex;
+			}
+			var al, bl,
+				ap = [],
+				bp = [],
+				aup = a.parentNode,
+				bup = b.parentNode,
+				cur = aup;
+			if ( aup === bup ) {
+				return siblingCheck( a, b );
+			} else if ( !aup ) {
+				return -1;
+			} else if ( !bup ) {
+				return 1;
+			}
+			while ( cur ) {
+				ap.unshift( cur );
+				cur = cur.parentNode;
+			}
+			cur = bup;
+			while ( cur ) {
+				bp.unshift( cur );
+				cur = cur.parentNode;
+			}
+			al = ap.length;
+			bl = bp.length;
+			for ( var i = 0; i < al && i < bl; i++ ) {
+				if ( ap[i] !== bp[i] ) {
+					return siblingCheck( ap[i], bp[i] );
+				}
+			}
+			return i === al ?
+				siblingCheck( a, bp[i], -1 ) :
+				siblingCheck( ap[i], b, 1 );
+		};
+		siblingCheck = function( a, b, ret ) {
+			if ( a === b ) {
+				return ret;
+			}
+			var cur = a.nextSibling;
+			while ( cur ) {
+				if ( cur === b ) {
+					return -1;
+				}
+				cur = cur.nextSibling;
+			}
+			return 1;
+		};
+	}
+	(function(){
+		var form = document.createElement("div"),
+			id = "script" + (new Date()).getTime(),
+			root = document.documentElement;
+		form.innerHTML = "<a name='" + id + "'/>";
+		root.insertBefore( form, root.firstChild );
+		if ( document.getElementById( id ) ) {
+			Expr.find.ID = function( match, context, isXML ) {
+				if ( typeof context.getElementById !== "undefined" && !isXML ) {
+					var m = context.getElementById(match[1]);
+					return m ?
+						m.id === match[1] || typeof m.getAttributeNode !== "undefined" && m.getAttributeNode("id").nodeValue === match[1] ?
+							[m] :
+							undefined :
+						[];
+				}
+			};
+			Expr.filter.ID = function( elem, match ) {
+				var node = typeof elem.getAttributeNode !== "undefined" && elem.getAttributeNode("id");
+				return elem.nodeType === 1 && node && node.nodeValue === match;
+			};
+		}
+		root.removeChild( form );
+		root = form = null;
+	})();
+	(function(){
+		var div = document.createElement("div");
+		div.appendChild( document.createComment("") );
+		if ( div.getElementsByTagName("*").length > 0 ) {
+			Expr.find.TAG = function( match, context ) {
+				var results = context.getElementsByTagName( match[1] );
+				if ( match[1] === "*" ) {
+					var tmp = [];
+					for ( var i = 0; results[i]; i++ ) {
+						if ( results[i].nodeType === 1 ) {
+							tmp.push( results[i] );
+						}
+					}
+					results = tmp;
+				}
+				return results;
+			};
+		}
+		div.innerHTML = "<a href='#'></a>";
+		if ( div.firstChild && typeof div.firstChild.getAttribute !== "undefined" &&
+				div.firstChild.getAttribute("href") !== "#" ) {
+			Expr.attrHandle.href = function( elem ) {
+				return elem.getAttribute( "href", 2 );
+			};
+		}
+		div = null;
+	})();
+	if ( document.querySelectorAll ) {
+		(function(){
+			var oldSizzle = Sizzle,
+				div = document.createElement("div"),
+				id = "__sizzle__";
+			div.innerHTML = "<p class='TEST'></p>";
+			if ( div.querySelectorAll && div.querySelectorAll(".TEST").length === 0 ) {
+				return;
+			}
+			Sizzle = function( query, context, extra, seed ) {
+				context = context || document;
+				if ( !seed && !Sizzle.isXML(context) ) {
+					var match = /^(\w+$)|^\.([\w\-]+$)|^#([\w\-]+$)/.exec( query );
+					if ( match && (context.nodeType === 1 || context.nodeType === 9) ) {
+						if ( match[1] ) {
+							return makeArray( context.getElementsByTagName( query ), extra );
+						} else if ( match[2] && Expr.find.CLASS && context.getElementsByClassName ) {
+							return makeArray( context.getElementsByClassName( match[2] ), extra );
+						}
+					}
+					if ( context.nodeType === 9 ) {
+						if ( query === "body" && context.body ) {
+							return makeArray( [ context.body ], extra );
+						} else if ( match && match[3] ) {
+							var elem = context.getElementById( match[3] );
+							if ( elem && elem.parentNode ) {
+								if ( elem.id === match[3] ) {
+									return makeArray( [ elem ], extra );
+								}
+							} else {
+								return makeArray( [], extra );
+							}
+						}
+						try {
+							return makeArray( context.querySelectorAll(query), extra );
+						} catch(qsaError) {}
+					} else if ( context.nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
+						var oldContext = context,
+							old = context.getAttribute( "id" ),
+							nid = old || id,
+							hasParent = context.parentNode,
+							relativeHierarchySelector = /^\s*[+~]/.test( query );
+						if ( !old ) {
+							context.setAttribute( "id", nid );
+						} else {
+							nid = nid.replace( /'/g, "\\$&" );
+						}
+						if ( relativeHierarchySelector && hasParent ) {
+							context = context.parentNode;
+						}
+						try {
+							if ( !relativeHierarchySelector || hasParent ) {
+								return makeArray( context.querySelectorAll( "[id='" + nid + "'] " + query ), extra );
+							}
+						} catch(pseudoError) {
+						} finally {
+							if ( !old ) {
+								oldContext.removeAttribute( "id" );
+							}
+						}
+					}
+				}
+				return oldSizzle(query, context, extra, seed);
+			};
+			for ( var prop in oldSizzle ) {
+				Sizzle[ prop ] = oldSizzle[ prop ];
+			}
+			div = null;
+		})();
+	}
+	(function(){
+		var html = document.documentElement,
+			matches = html.matchesSelector || html.mozMatchesSelector || html.webkitMatchesSelector || html.msMatchesSelector;
+		if ( matches ) {
+			var disconnectedMatch = !matches.call( document.createElement( "div" ), "div" ),
+				pseudoWorks = false;
+			try {
+				matches.call( document.documentElement, "[test!='']:sizzle" );
+			} catch( pseudoError ) {
+				pseudoWorks = true;
+			}
+			Sizzle.matchesSelector = function( node, expr ) {
+				expr = expr.replace(/\=\s*([^'"\]]*)\s*\]/g, "='$1']");
+				if ( !Sizzle.isXML( node ) ) {
+					try {
+						if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
+							var ret = matches.call( node, expr );
+							if ( ret || !disconnectedMatch ||
+									node.document && node.document.nodeType !== 11 ) {
+								return ret;
+							}
+						}
+					} catch(e) {}
+				}
+				return Sizzle(expr, null, null, [node]).length > 0;
+			};
+		}
+	})();
+	(function(){
+		var div = document.createElement("div");
+		div.innerHTML = "<div class='test e'></div><div class='test'></div>";
+		if ( !div.getElementsByClassName || div.getElementsByClassName("e").length === 0 ) {
+			return;
+		}
+		div.lastChild.className = "e";
+		if ( div.getElementsByClassName("e").length === 1 ) {
+			return;
+		}
+		Expr.order.splice(1, 0, "CLASS");
+		Expr.find.CLASS = function( match, context, isXML ) {
+			if ( typeof context.getElementsByClassName !== "undefined" && !isXML ) {
+				return context.getElementsByClassName(match[1]);
+			}
+		};
+		div = null;
+	})();
+	function dirNodeCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
+		for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+			var elem = checkSet[i];
+			if ( elem ) {
+				var match = false;
+				elem = elem[dir];
+				while ( elem ) {
+					if ( elem[ expando ] === doneName ) {
+						match = checkSet[elem.sizset];
+						break;
+					}
+					if ( elem.nodeType === 1 && !isXML ){
+						elem[ expando ] = doneName;
+						elem.sizset = i;
+					}
+					if ( elem.nodeName.toLowerCase() === cur ) {
+						match = elem;
+						break;
+					}
+					elem = elem[dir];
+				}
+				checkSet[i] = match;
+			}
+		}
+	}
+	function dirCheck( dir, cur, doneName, checkSet, nodeCheck, isXML ) {
+		for ( var i = 0, l = checkSet.length; i < l; i++ ) {
+			var elem = checkSet[i];
+			if ( elem ) {
+				var match = false;
+				elem = elem[dir];
+				while ( elem ) {
+					if ( elem[ expando ] === doneName ) {
+						match = checkSet[elem.sizset];
+						break;
+					}
+					if ( elem.nodeType === 1 ) {
+						if ( !isXML ) {
+							elem[ expando ] = doneName;
+							elem.sizset = i;
+						}
+						if ( typeof cur !== "string" ) {
+							if ( elem === cur ) {
+								match = true;
+								break;
+							}
+						} else if ( Sizzle.filter( cur, [elem] ).length > 0 ) {
+							match = elem;
+							break;
+						}
+					}
+					elem = elem[dir];
+				}
+				checkSet[i] = match;
+			}
+		}
+	}
+	if ( document.documentElement.contains ) {
+		Sizzle.contains = function( a, b ) {
+			return a !== b && (a.contains ? a.contains(b) : true);
+		};
+	} else if ( document.documentElement.compareDocumentPosition ) {
+		Sizzle.contains = function( a, b ) {
+			return !!(a.compareDocumentPosition(b) & 16);
+		};
+	} else {
+		Sizzle.contains = function() {
+			return false;
+		};
+	}
+	Sizzle.isXML = function( elem ) {
+		var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
+		return documentElement ? documentElement.nodeName !== "HTML" : false;
+	};
+	var posProcess = function( selector, context, seed ) {
+		var match,
+			tmpSet = [],
+			later = "",
+			root = context.nodeType ? [context] : context;
+		while ( (match = Expr.match.PSEUDO.exec( selector )) ) {
+			later += match[0];
+			selector = selector.replace( Expr.match.PSEUDO, "" );
+		}
+		selector = Expr.relative[selector] ? selector + "*" : selector;
+		for ( var i = 0, l = root.length; i < l; i++ ) {
+			Sizzle( selector, root[i], tmpSet, seed );
+		}
+		return Sizzle.filter( later, tmpSet );
+	};
+	window.Sizzle = Sizzle;
+	})();
+	Util.querySelector = u.qs = function(query, target) {
+		var res = Sizzle(query, target);
+		return res[0];
+	}
+	Util.querySelectorAll = u.qsa = function(query, target) {
+		var res = Sizzle(query, target);
+		return res;
+	}
+}
+
+
+/*u-events-desktop_light.js*/
+if(document.all && document.addEventListener == undefined) {
+	window.attachedEvents = {};
+	window.eventHandler = function(eid) {
+		var element, i;
+		if(eid != "window") {
+			element = u.ge("eid:"+eid);
+		}
+		else {
+			element = window;
+		}
+		var win_event = new Object();
+		for(x in window.event) {
+			win_event[x] = window.event[x];
+		}
+		win_event.target = element;
+		win_event.currentTarget = element;
+		win_event.timeStamp = new Date().getTime();
+		if(element && eid && window.attachedEvents[eid] && window.attachedEvents[eid][window.event.type]) {
+			var i, attachedAction;
+			for(i = 0; i < window.attachedEvents[eid][window.event.type].length; i++) {
+				attachedAction = window.attachedEvents[eid][window.event.type][i];
+				element.ie_event_action = attachedAction;
+				element.ie_event_action(win_event);
+			}
+		}
+		return;
+	}
+	u.e.event_pref = "mouse";
+	u.e.event_support = "mouse";
+	u.e.kill = function(event) {
+		if(event) {
+			event.cancelBubble = true;
+			event.returnValue = false;
+		}
+	}
+	u.e.addEvent = function(node, type, action) {
+		if(obj(node) && typeof(node.childNodes) == "undefined") {
+			node["on"+ type] = action;
+			return;
+		}
+		else if(node != window) {
+			var eid = u.cv(node, "eid");
+			if(!eid) {
+				var eid = u.randomString();
+				u.ac(node, "eid:"+eid)
+			}
+		}
+		else {
+			eid = "window";
+		}
+		if(!window.attachedEvents[eid]) {
+			window.attachedEvents[eid] = {};
+		}
+		if(!window.attachedEvents[eid][type]) {
+			window.attachedEvents[eid][type] = new Array();
+		}
+		if(window.attachedEvents[eid][type].length == 0) {
+			eval('node._'+type+'eventhandler = function() {window.eventHandler("'+eid+'")}');
+			node.attachEvent("on"+type, node["_"+type+"eventhandler"]);
+		}
+		if(window.attachedEvents[eid][type].indexOf(action) == -1) {
+			window.attachedEvents[eid][type].push(action);
+		}
+	}
+	u.e.removeEvent = function(node, type, action) {
+		if(obj(node) && typeof(node.childNodes) == "undefined") {
+			node["on"+ type] = null;
+			return;
+		}
+		else if(node != window) {
+			var eid = u.cv(node, "eid");
+		}
+		else {
+			eid = "window";
+		}
+		if(eid && window.attachedEvents[eid] && window.attachedEvents[eid][type]) {
+			for(i in window.attachedEvents[eid][type]) {
+				if(window.attachedEvents[eid][type][i] == action) {
+					window.attachedEvents[eid][type].splice(i,1);
+					if(!window.attachedEvents[eid][type].length) {
+						node.detachEvent("on"+type, node["_"+type+"eventhandler"])
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*u-geometry-desktop_light.js*/
+Util.actualWidth = u.actualW = function(node) {
+	var width = parseInt(u.gcs(node, "width"));
+	if(isNaN(width) || u.browser("opera", "<=9")) {
+		return node.offsetWidth - parseInt(u.gcs(node, "padding-left")) - parseInt(u.gcs(node, "padding-right"));
+	}
+	else {
+		return width;
+	}
+}
+Util.actualHeight = u.actualH = function(node) {
+	var height = parseInt(u.gcs(node, "height"));
+	if(isNaN(height) || u.browser("opera", "<=9")) {
+		return node.offsetHeight - parseInt(u.gcs(node, "padding-top")) - parseInt(u.gcs(node, "padding-bottom"));
+	}
+	else {
+		return height;
+	}
+}
+Util.eventX = function(event){
+	if(event.targetTouches && event.targetTouches.length) {
+		return event.targetTouches[0].pageX;
+	}
+	else if(event.pageX != undefined) {
+		return event.pageX;
+	}
+	else if(event.clientX != undefined) {
+		return event.clientX + document.documentElement.scrollLeft;
+	}
+	else {
+		return 0;
+	}
+}
+Util.eventY = function(event){
+	if(event.targetTouches && event.targetTouches.length) {
+		return event.targetTouches[0].pageY;
+	}
+	else if(event.pageY != undefined) {
+		return event.pageY;
+	}
+	else if(event.clientY != undefined) {
+		return event.clientY + document.documentElement.scrollTop;
+	}
+	else {
+		return 0;
+	}
+}
+Util.pageScrollX = u.scrollX = function() {
+	if(window.pageXOffset != undefined) {
+		return window.pageXOffset;
+	}
+	else if(document.documentElement.scrollLeft != undefined) {
+		return document.documentElement.scrollLeft;
+	}
+	else {
+		return 0;
+	}
+}
+Util.pageScrollY = u.scrollY = function() {
+	if(window.pageYOffset != undefined) {
+		return window.pageYOffset;
+	}
+	else if(document.documentElement.scrollTop != undefined) {
+		return document.documentElement.scrollTop;
+	}
+	else {
+		return 0;
+	}
+}
+
+
+/*u-json-desktop_light.js*/
+if (typeof JSON !== 'object') {
+    JSON = {};
+}
+(function () {
+    'use strict';
+    function f(n) {
+        return n < 10 ? '0' + n : n;
+    }
+    if (typeof Date.prototype.toJSON !== 'function') {
+        Date.prototype.toJSON = function (key) {
+            return isFinite(this.valueOf())
+                ? this.getUTCFullYear()     + '-' +
+                    f(this.getUTCMonth() + 1) + '-' +
+                    f(this.getUTCDate())      + 'T' +
+                    f(this.getUTCHours())     + ':' +
+                    f(this.getUTCMinutes())   + ':' +
+                    f(this.getUTCSeconds())   + 'Z'
+                : null;
+        };
+        String.prototype.toJSON      =
+            Number.prototype.toJSON  =
+            Boolean.prototype.toJSON = function (key) {
+                return this.valueOf();
+            };
+    }
+    var cx = new RegExp("[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]", "g"),
+        escapable = new RegExp("[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]", "g"),
+        gap,
+        indent,
+        meta = {    
+            '\b': '\\b',
+            '\t': '\\t',
+            '\n': '\\n',
+            '\f': '\\f',
+            '\r': '\\r',
+            '"' : '\\"',
+            '\\': '\\\\'
+        },
+        rep;
+    function quote(string) {
+        escapable.lastIndex = 0;
+        return escapable.test(string) ? '"' + string.replace(escapable, function (a) {
+            var c = meta[a];
+            return typeof c === 'string'
+                ? c
+                : '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+        }) + '"' : '"' + string + '"';
+    }
+    function str(key, holder) {
+        var i,          
+            k,          
+            v,          
+            length,
+            mind = gap,
+            partial,
+            value = holder[key];
+        if (value && typeof value === 'object' &&
+                typeof value.toJSON === 'function') {
+            value = value.toJSON(key);
+        }
+        if (typeof rep === 'function') {
+            value = rep.call(holder, key, value);
+        }
+        switch (typeof value) {
+        case 'string':
+            return quote(value);
+        case 'number':
+            return isFinite(value) ? String(value) : 'null';
+        case 'boolean':
+        case 'null':
+            return String(value);
+        case 'object':
+            if (!value) {
+                return 'null';
+            }
+            gap += indent;
+            partial = [];
+            if (Object.prototype.toString.apply(value) === '[object Array]') {
+                length = value.length;
+                for (i = 0; i < length; i += 1) {
+                    partial[i] = str(i, value) || 'null';
+                }
+                v = partial.length === 0
+                    ? '[]'
+                    : gap
+                    ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
+                    : '[' + partial.join(',') + ']';
+                gap = mind;
+                return v;
+            }
+            if (rep && typeof rep === 'object') {
+                length = rep.length;
+                for (i = 0; i < length; i += 1) {
+                    if (typeof rep[i] === 'string') {
+                        k = rep[i];
+                        v = str(k, value);
+                        if (v) {
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                        }
+                    }
+                }
+            } else {
+                for (k in value) {
+                    if (Object.prototype.hasOwnProperty.call(value, k)) {
+                        v = str(k, value);
+                        if (v) {
+                            partial.push(quote(k) + (gap ? ': ' : ':') + v);
+                        }
+                    }
+                }
+            }
+            v = partial.length === 0
+                ? '{}'
+                : gap
+                ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
+                : '{' + partial.join(',') + '}';
+            gap = mind;
+            return v;
+        }
+    }
+    if (typeof JSON.stringify !== 'function') {
+        JSON.stringify = function (value, replacer, space) {
+            var i;
+            gap = '';
+            indent = '';
+            if (typeof space === 'number') {
+                for (i = 0; i < space; i += 1) {
+                    indent += ' ';
+                }
+            } else if (typeof space === 'string') {
+                indent = space;
+            }
+            rep = replacer;
+            if (replacer && typeof replacer !== 'function' &&
+                    (typeof replacer !== 'object' ||
+                    typeof replacer.length !== 'number')) {
+                throw new Error('JSON.stringify');
+            }
+            return str('', {'': value});
+        };
+    }
+    if (typeof JSON.parse !== 'function') {
+        JSON.parse = function (text, reviver) {
+            var j;
+            function walk(holder, key) {
+                var k, v, value = holder[key];
+                if (value && typeof value === 'object') {
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = walk(value, k);
+                            if (v !== undefined) {
+                                value[k] = v;
+                            } else {
+                                delete value[k];
+                            }
+                        }
+                    }
+                }
+                return reviver.call(holder, key, value);
+            }
+            text = String(text);
+            cx.lastIndex = 0;
+            if (cx.test(text)) {
+                text = text.replace(cx, function (a) {
+                    return '\\u' +
+                        ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
+                });
+            }
+            if (/^[\],:{}\s]*$/
+                    .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                j = eval('(' + text + ')');
+                return typeof reviver === 'function'
+                    ? walk({'': j}, '')
+                    : j;
+            }
+            throw new SyntaxError('JSON.parse');
+        };
+    }
+}());
+
+
+/*u-preloader-desktop_light.js*/
+if(document.all || (new Image().onerror) === undefined) {
+	u.loadImage = function(node, src) {
+		var image = new Image();
+		image.node = node;
+		u.addClass(node, "loading");
+		image.onload = function() {
+			var event = new Object();
+			event.target = this;
+			u.rc(this.node, "loading");
+			if(fun(this.node.loaded)) {
+				this.node.loaded(event);
+			}
+		}
+		image.src = src;
+	}
+}
+
+/*u-request-desktop_light.js*/
+if(typeof(window.XMLHttpRequest) == "undefined" || function(){return (typeof(window.XMLHttpRequest.addEventListener) != "function")}() || function(){try {new XMLHttpRequest().channel; return false;} catch(exception) {return true;}}()) {
+	Util.createRequestObject = function() {
+		var xmlhttp;
+		if(window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		}
+		else if(window.ActiveXObject) {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		else {
+			return {
+				"open":function() {}, 
+				"setRequestHeader":function() {}, 
+				"send":function(){
+					this.response({"status":"404", "responseText":"No Ajax support"});
+				}
+			};
+		}
+		if(xmlhttp) {
+			var wrapper = u.ae(document.body, "div", {"style":"display: none;"});
+			wrapper.xmlhttp = xmlhttp;
+			wrapper.xmlhttp.onreadystatechange = function() {
+				if(wrapper.xmlhttp.readyState == 4) {
+					wrapper.responseText = wrapper.xmlhttp.responseText;
+					wrapper.status = wrapper.xmlhttp.status;
+					try {
+						wrapper.readyState = 4;
+					}
+					catch(exception) {
+						wrapper.IEreadyState = true;
+					}
+					if(fun(wrapper.statechanged)) {
+						wrapper.statechanged();
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
+			}
+			wrapper.setRequestHeader = function(type, value) {
+				this.xmlhttp.setRequestHeader(type, value);
+			}
+			wrapper.open = function(method, url, async) {
+				this.async = async;
+				url += (url.match(/\?/) ? "&" : "?") + "refresh_activex=" + u.randomString();
+				try {
+					this.xmlhttp.open(method, url, async);
+				}
+				catch(exception) {
+					if(fun(wrapper.statechanged)) {
+						this.status = 400;
+						this.IEreadyState = true;
+						this.statechanged();
+						this.parentNode.removeChild(wrapper);
+					}
+				}
+			}
+			wrapper.send = function(params) {
+				this.xmlhttp.send(params);
+				if(!this.async) {
+					this.responseText = this.xmlhttp.responseText;
+					this.status = this.xmlhttp.status;
+				}
+			}
+			return wrapper;
+		}
+		else {
+			u.bug("NO XMLHTTP");
+			return false;
+		}
+	}
+}
+
+
+/*u-string-desktop_light.js*/
+if(String.prototype.trim == undefined) {
+	String.prototype.trim = function() {
+		return this.replace(/^\s+|\s+$/g, "");
+	};
+}
+if(String.prototype.substr == undefined || "ABC".substr(-1,1) == "A") {
+	String.prototype.substr = function(start_index, length) {
+		start_index = start_index < 0 ? this.length + start_index : start_index;
+		start_index = start_index < 0 ? 0 : start_index;
+		length = length ? start_index + length : this.length;
+		return this.substring(start_index, length);
+	};
+}
+

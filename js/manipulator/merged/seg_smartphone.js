@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2018-11-30 12:29:49
+js-merged @ 2019-01-08 14:57:55
 */
 
 /*seg_smartphone_include.js*/
@@ -498,7 +498,7 @@ Util.cookieReference = function(node, _options) {
 				classname = classname.replace(regex, " ").replace(/[ ]{2,4}/, " ");
 			}
 			if(ignore_classvars) {
-				classname = classname.replace(/(^| )[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+(^| )/g, " ").replace(/[ ]{2,4}/g, " ");
+				classname = classname.replace(/\b[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+\b/g, "").replace(/[ ]{2,4}/g, " ");
 			}
 			node_identifier = node.nodeName+"."+classname.trim().replace(/ /g, ".");
 		}
@@ -1017,18 +1017,14 @@ u.easings = new function() {
 /*u-events.js*/
 Util.Events = u.e = new function() {
 	this.event_pref = typeof(document.ontouchmove) == "undefined" || (navigator.maxTouchPoints > 1 && navigator.userAgent.match(/Windows/i)) ? "mouse" : "touch";
-	if(navigator.maxTouchPoints > 1) {
-		if((typeof(document.ontouchmove) == "undefined" && typeof(document.onmousemove) == "undefined") || (document.ontouchmove === null && document.onmousemove === null)) {
-			this.event_support = "multi";
-		}
+    if (navigator.userAgent.match(/Windows/i) && ((obj(document.ontouchmove) && obj(document.ontouchmove)) || (fun(document.ontouchmove) && fun(document.ontouchmove)))) {
+        this.event_support = "multi";
+    }
+    else if (obj(document.ontouchmove) || fun(document.ontouchmove)) {
+		this.event_support = "touch";
 	}
-	if(!this.event_support) {
-		if(typeof(document.ontouchmove) == "undefined") {
-			this.event_support = "mouse";
-		}
-		else {
-			this.event_support = "touch";
-		}
+	else {
+		this.event_support = "mouse";
 	}
 	this.events = {
 		"mouse": {
@@ -1057,7 +1053,7 @@ Util.Events = u.e = new function() {
 			node.addEventListener(type, action, false);
 		}
 		catch(exception) {
-			alert("exception in addEvent:" + node + "," + type + ":" + exception);
+			u.exception("u.e.addEvent", arguments, exception);
 		}
 	}
 	this.removeEvent = function(node, type, action) {
@@ -1065,7 +1061,7 @@ Util.Events = u.e = new function() {
 			node.removeEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.bug("exception in removeEvent:" + node + "," + type + ":" + exception);
+			u.exception("u.e.removeEvent", arguments, exception);
 		}
 	}
 	this.addStartEvent = this.addDownEvent = function(node, action) {
@@ -1163,6 +1159,8 @@ Util.Events = u.e = new function() {
 		u.t.resetTimer(node.t_clicked);
 		this.removeEvent(node, "mouseup", this._dblclicked);
 		this.removeEvent(node, "touchend", this._dblclicked);
+		this.removeEvent(node, "mouseup", this._rightclicked);
+		this.removeEvent(node, "touchend", this._rightclicked);
 		this.removeEvent(node, "mousemove", this._cancelClick);
 		this.removeEvent(node, "touchmove", this._cancelClick);
 		this.removeEvent(node, "mouseout", this._cancelClick);
@@ -1192,35 +1190,49 @@ Util.Events = u.e = new function() {
 		this.move_last_x = 0;
 		this.move_last_y = 0;
 		this.swiped = false;
-		if(this.e_click || this.e_dblclick || this.e_hold) {
-			if(event.type.match(/mouse/)) {
-				var node = this;
-				while(node) {
-					if(node.e_drag || node.e_swipe) {
-						u.e.addMoveEvent(this, u.e._cancelClick);
-						break;
+		if(!event.button) {
+			if(this.e_click || this.e_dblclick || this.e_hold) {
+				if(event.type.match(/mouse/)) {
+					var node = this;
+					while(node) {
+						if(node.e_drag || node.e_swipe) {
+							u.e.addMoveEvent(this, u.e._cancelClick);
+							break;
+						}
+						else {
+							node = node.parentNode;
+						}
 					}
-					else {
-						node = node.parentNode;
-					}
+					u.e.addEvent(this, "mouseout", u.e._cancelClick);
 				}
-				u.e.addEvent(this, "mouseout", u.e._cancelClick);
+				else {
+					u.e.addMoveEvent(this, u.e._cancelClick);
+				}
+				u.e.addMoveEvent(this, u.e._move);
+				u.e.addEndEvent(this, u.e._dblclicked);
+				if(this.e_hold) {
+					this.t_held = u.t.setTimer(this, u.e._held, 750);
+				}
 			}
-			else {
-				u.e.addMoveEvent(this, u.e._cancelClick);
+			if(this.e_drag || this.e_swipe) {
+				u.e.addMoveEvent(this, u.e._pick);
 			}
-			u.e.addMoveEvent(this, u.e._move);
-			u.e.addEndEvent(this, u.e._dblclicked);
+			if(this.e_scroll) {
+				u.e.addMoveEvent(this, u.e._scrollStart);
+				u.e.addEndEvent(this, u.e._scrollEnd);
+			}
 		}
-		if(this.e_hold) {
-			this.t_held = u.t.setTimer(this, u.e._held, 750);
-		}
-		if(this.e_drag || this.e_swipe) {
-			u.e.addMoveEvent(this, u.e._pick);
-		}
-		if(this.e_scroll) {
-			u.e.addMoveEvent(this, u.e._scrollStart);
-			u.e.addEndEvent(this, u.e._scrollEnd);
+		else if(event.button === 2) {
+			if(this.e_rightclick) {
+				if(event.type.match(/mouse/)) {
+					u.e.addEvent(this, "mouseout", u.e._cancelClick);
+				}
+				else {
+					u.e.addMoveEvent(this, u.e._cancelClick);
+				}
+				u.e.addMoveEvent(this, u.e._move);
+				u.e.addEndEvent(this, u.e._rightclicked);
+			}
 		}
 		if(fun(this.inputStarted)) {
 			this.inputStarted(event);
@@ -1278,7 +1290,25 @@ Util.Events = u.e = new function() {
 			this.clicked(event);
 		}
 	}
-	this.dblclick = this.doubletap = function(node, _options) {
+	this.rightclick = function(node, _options) {
+		node.e_rightclick_options = _options ? _options : {};
+		node.e_rightclick_options.eventAction = u.stringOr(node.e_rightclick_options.eventAction, "RightClicked");
+		node.e_rightclick = true;
+		u.e.addStartEvent(node, this._inputStart);
+		u.e.addEvent(node, "contextmenu", function(event){u.e.kill(event);});
+	}
+	this._rightclicked = function(event) {
+		u.bug("_rightclicked:", this);
+		if(this.e_rightclick_options) {
+			this.e_rightclick_options.event = event;
+			u.stats.event(this, this.e_rightclick_options);
+		}
+		u.e.resetNestedEvents(this);
+		if(fun(this.rightclicked)) {
+			this.rightclicked(event);
+		}
+	}
+	this.dblclick = this.doubleclick = this.doubletap = this.dbltap = function(node, _options) {
 		node.e_dblclick_options = _options ? _options : {};
 		node.e_dblclick_options.eventAction = u.stringOr(node.e_dblclick_options.eventAction, "DblClicked");
 		node.e_dblclick = true;
@@ -2651,9 +2681,15 @@ Util.Form = u.f = new function() {
 			}
 			else if(u.hc(iN.field, "tel")) {
 				pattern = iN.getAttribute("pattern");
+				compare_to = iN.getAttribute("data-compare-to");
 				if(
-					!pattern && iN.val().match(/^([\+0-9\-\.\s\(\)]){5,18}$/) ||
-					(pattern && iN.val().match("^"+pattern+"$"))
+					(
+						!pattern && iN.val().match(/^([\+0-9\-\.\s\(\)]){5,18}$/)
+						||
+						(pattern && iN.val().match("^"+pattern+"$"))
+					)
+					&&
+					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
 				) {
 					this.fieldCorrect(iN);
 				}
@@ -2662,9 +2698,16 @@ Util.Form = u.f = new function() {
 				}
 			}
 			else if(u.hc(iN.field, "email")) {
+				compare_to = iN.getAttribute("data-compare-to");
+				pattern = iN.getAttribute("pattern");
 				if(
-					!pattern && iN.val().match(/^([^<>\\\/%$])+\@([^<>\\\/%$])+\.([^<>\\\/%$]{2,20})$/) ||
-					(pattern && iN.val().match("^"+pattern+"$"))
+					(
+						!pattern && iN.val().match(/^([^<>\\\/%$])+\@([^<>\\\/%$])+\.([^<>\\\/%$]{2,20})$/)
+						 ||
+						(pattern && iN.val().match("^"+pattern+"$"))
+					)
+					&&
+					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
 				) {
 					this.fieldCorrect(iN);
 				}
@@ -3021,137 +3064,6 @@ Util.pageScrollY = u.scrollY = function() {
 }
 
 
-/*u-history.js*/
-Util.History = u.h = new function() {
-	this.popstate = ("onpopstate" in window);
-	this.callbacks = [];
-	this.is_listening = false;
-	this.navigate = function(url, node) {
-		if(this.popstate) {
-			history.pushState({}, url, url);
-			this.callback(url);
-		}
-		else {
-			location.hash = u.h.getCleanUrl(url);
-		}
-	}
-	this.callback = function(url) {
-		var i, recipient;
-		for(i = 0; i < this.callbacks.length; i++) {
-			recipient = this.callbacks[i];
-			if(fun(recipient.node[recipient.callback])) {
-				recipient.node[recipient.callback](url);
-			}
-		}
-	}
-	this.removeEvent = function(node, _options) {
-		var callback_urlchange = "navigate";
-		if(obj(_options)) {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "callback"		: callback_urlchange		= _options[argument]; break;
-				}
-			}
-		}
-		var i, recipient;
-		for(i = 0; recipient = this.callbacks[i]; i++) {
-			if(recipient.node == node && recipient.callback == callback_urlchange) {
-				this.callbacks.splice(i, 1);
-				break;
-			}
-		}
-	}
-	this.addEvent = function(node, _options) {
-		var callback_urlchange = "navigate";
-		if(obj(_options)) {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "callback"		: callback_urlchange		= _options[argument]; break;
-				}
-			}
-		}
-		if(!this.is_listening) {
-			this.is_listening = true;
-			if(this.popstate) {
-				u.e.addEvent(window, "popstate", this._urlChanged);
-			}
-			else if("onhashchange" in window && !u.browser("explorer", "<=7")) {
-				u.e.addEvent(window, "hashchange", this._hashChanged);
-			}
-			else {
-				u.h._current_hash = window.location.hash;
-				window.onhashchange = this._hashChanged;
-				setInterval(
-					function() {
-						if(window.location.hash !== u.h._current_hash) {
-							u.h._current_hash = window.location.hash;
-							window.onhashchange();
-						}
-					}, 200
-				);
-			}
-		}
-		this.callbacks.push({"node":node, "callback":callback_urlchange});
-	}
-	this._urlChanged = function(event) {
-		var url = u.h.getCleanUrl(location.href);
-		if(event.state || (!event.state && event.path)) {
-			u.h.callback(url);
-		}
-		else {
-			history.replaceState({}, url, url);
-		}
-	}
-	this._hashChanged = function(event) {
-		if(!location.hash || !location.hash.match(/^#\//)) {
-			location.hash = "#/"
-			return;
-		}
-		var url = u.h.getCleanHash(location.hash);
-		u.h.callback(url);
-	}
-	this.trail = [];
-	this.addToTrail = function(url, node) {
-		this.trail.push({"url":url, "node":node});
-	}
-	this.getCleanUrl = function(string, levels) {
-		string = string.replace(location.protocol+"//"+document.domain, "").match(/[^#$]+/)[0];
-		if(!levels) {
-			return string;
-		}
-		else {
-			var i, return_string = "";
-			var path = string.split("/");
-			levels = levels > path.length-1 ? path.length-1 : levels;
-			for(i = 1; i <= levels; i++) {
-				return_string += "/" + path[i];
-			}
-			return return_string;
-		}
-	}
-	this.getCleanHash = function(string, levels) {
-		string = string.replace("#", "");
-		if(!levels) {
-			return string;
-		}
-		else {
-			var i, return_string = "";
-			var hash = string.split("/");
-			levels = levels > hash.length-1 ? hash.length-1 : levels;
-			for(i = 1; i <= levels; i++) {
-				return_string += "/" + hash[i];
-			}
-			return return_string;
-		}
-	}
-	this.resolveCurrentUrl = function() {
-		return !location.hash ? this.getCleanUrl(location.href) : this.getCleanHash(location.hash);
-	}
-}
-
-
 /*u-init.js*/
 Util.Objects = u.o = new Object();
 Util.init = function(scope) {
@@ -3164,67 +3076,6 @@ Util.init = function(scope) {
 			u.rc(node, "i:"+object);
 			if(object && obj(u.o[object])) {
 				u.o[object].init(node);
-			}
-		}
-	}
-}
-
-
-/*u-keyboard.js*/
-Util.Keyboard = u.k = new function() {
-	this.shortcuts = {};
-	this.onkeydownCatcher = function(event) {
-		u.k.catchKey(event);
-	}
-	this.addKey = function(node, key, _options) {
-		node.callback_keyboard = "clicked";
-		node.metakey_required = true;
-		if(obj(_options)) {
-			var argument;
-			for(argument in _options) {
-				switch(argument) {
-					case "callback"		: node.callback_keyboard	= _options[argument]; break;
-					case "metakey"		: node.metakey_required		= _options[argument]; break;
-				}
-			}
-		}
-		if(!this.shortcuts.length) {
-			u.e.addEvent(document, "keydown", this.onkeydownCatcher);
-		}
-		if(!this.shortcuts[key.toString().toUpperCase()]) {
-			this.shortcuts[key.toString().toUpperCase()] = new Array();
-		}
-		this.shortcuts[key.toString().toUpperCase()].push(node);
-	}
-	this.catchKey = function(event) {
-		event = event ? event : window.event;
-		var key = String.fromCharCode(event.keyCode);
-		if(event.keyCode == 27) {
-			key = "ESC";
-		}
-		if(this.shortcuts[key]) {
-			var nodes, node, i;
-			nodes = this.shortcuts[key];
-			for(i = 0; i < nodes.length; i++) {
-				node = nodes[i];
-				if(u.nodeWithin(node, document.body)) {
-					if(node.offsetHeight && ((event.ctrlKey || event.metaKey) || (!node.metakey_required || key == "ESC"))) {
-						u.e.kill(event);
-						if(fun(node[node.callback_keyboard])) {
-							node[node.callback_keyboard](event);
-						}
-					}
-				}
-				else {
-					this.shortcuts[key].splice(i, 1);
-					if(!this.shortcuts[key].length) {
-						delete this.shortcuts[key];
-						break;
-					}
-					else {
-						i--;
-					}
-				}
 			}
 		}
 	}
@@ -3245,93 +3096,6 @@ Util.round = function(number, decimals) {
 	var round_number = number*Math.pow(10, decimals);
 	return Math.round(round_number)/Math.pow(10, decimals);
 }
-
-/*u-navigation.js*/
-u.navigation = function(_options) {
-	var navigation_node = page;
-	var callback_navigate = "_navigate";
-	var initialization_scope = page.cN;
-	if(obj(_options)) {
-		var argument;
-		for(argument in _options) {
-			switch(argument) {
-				case "callback"       : callback_navigate           = _options[argument]; break;
-				case "node"           : navigation_node             = _options[argument]; break;
-				case "scope"          : initialization_scope        = _options[argument]; break;
-			}
-		}
-	}
-	window._man_nav_path = window._man_nav_path ? window._man_nav_path : u.h.getCleanUrl(location.href, 1);
-	navigation_node._navigate = function(url) {
-		url = u.h.getCleanUrl(url);
-		u.stats.pageView(url);
-		if(
-			!window._man_nav_path || 
-			(!u.h.popstate && window._man_nav_path != u.h.getCleanHash(location.hash, 1)) || 
-			(u.h.popstate && window._man_nav_path != u.h.getCleanUrl(location.href, 1))
-		) {
-			if(this.cN && fun(this.cN.navigate)) {
-				this.cN.navigate(url);
-			}
-		}
-		else {
-			if(this.cN.scene && this.cN.scene.parentNode && fun(this.cN.scene.navigate)) {
-				this.cN.scene.navigate(url);
-			}
-			else if(this.cN && fun(this.cN.navigate)) {
-				this.cN.navigate(url);
-			}
-		}
-		if(!u.h.popstate) {
-			window._man_nav_path = u.h.getCleanHash(location.hash, 1);
-		}
-		else {
-			window._man_nav_path = u.h.getCleanUrl(location.href, 1);
-		}
-	}
-	if(location.hash.length && location.hash.match(/^#!/)) {
-		location.hash = location.hash.replace(/!/, "");
-	}
-	var callback_after_init = false;
-	if(!this.is_initialized) {
-		this.is_initialized = true;
-		if(!u.h.popstate) {
-			if(location.hash.length < 2) {
-				window._man_nav_path = u.h.getCleanUrl(location.href);
-				u.h.navigate(window._man_nav_path);
-				u.init(initialization_scope);
-			}
-			else if(location.hash.match(/^#\//) && u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
-				callback_after_init = u.h.getCleanHash(location.hash);
-			}
-			else {
-				u.init(initialization_scope);
-			}
-		}
-		else {
-			if(u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href) && location.hash.match(/^#\//)) {
-				window._man_nav_path = u.h.getCleanHash(location.hash);
-				u.h.navigate(window._man_nav_path);
-				callback_after_init = window._man_nav_path;
-			}
-			else {
-				u.init(initialization_scope);
-			}
-		}
-		var random_string = u.randomString(8);
-		if(callback_after_init) {
-			eval('navigation_node._initNavigation_'+random_string+' = function() {u.h.addEvent(this, {"callback":"'+callback_navigate+'"});u.h.callback("'+callback_after_init+'");}');
-		}
-		else {
-			eval('navigation_node._initNavigation_'+random_string+' = function() {u.h.addEvent(this, {"callback":"'+callback_navigate+'"});}');
-		}
-		u.t.setTimer(navigation_node, "_initNavigation_"+random_string, 100);
-	}
-	else {
-		u.h.callbacks.push({"node":navigation_node, "callback":callback_navigate});
-	}
-}
-
 
 /*u-preloader.js*/
 u.preloader = function(node, files, _options) {
@@ -4289,20 +4053,6 @@ Util.Timer = u.t = new function() {
 				this.resetInterval(i);
 			}
 		}
-	}
-}
-
-
-/*u-url.js*/
-Util.getVar = function(param, url) {
-	var string = url ? url.split("#")[0] : location.search;
-	var regexp = new RegExp("[\&\?\b]{1}"+param+"\=([^\&\b]+)");
-	var match = string.match(regexp);
-	if(match && match.length > 1) {
-		return match[1];
-	}
-	else {
-		return "";
 	}
 }
 

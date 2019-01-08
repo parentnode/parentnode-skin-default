@@ -1,9 +1,9 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2019-01-08 14:57:54
+js-merged @ 2018-11-30 12:29:48
 */
 
-/*seg_desktop_light_include.js*/
+/*seg_mobile_include.js*/
 
 /*u.js*/
 if(!u || !Util) {
@@ -290,7 +290,7 @@ Util.cookieReference = function(node, _options) {
 				classname = classname.replace(regex, " ").replace(/[ ]{2,4}/, " ");
 			}
 			if(ignore_classvars) {
-				classname = classname.replace(/\b[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+\b/g, "").replace(/[ ]{2,4}/g, " ");
+				classname = classname.replace(/(^| )[a-zA-Z_]+\:[\?\=\w\/\\#~\:\.\,\+\&\%\@\!\-]+(^| )/g, " ").replace(/[ ]{2,4}/g, " ");
 			}
 			node_identifier = node.nodeName+"."+classname.trim().replace(/ /g, ".");
 		}
@@ -769,14 +769,18 @@ u.containsOrIs = function(node, scope) {
 /*u-events.js*/
 Util.Events = u.e = new function() {
 	this.event_pref = typeof(document.ontouchmove) == "undefined" || (navigator.maxTouchPoints > 1 && navigator.userAgent.match(/Windows/i)) ? "mouse" : "touch";
-    if (navigator.userAgent.match(/Windows/i) && ((obj(document.ontouchmove) && obj(document.ontouchmove)) || (fun(document.ontouchmove) && fun(document.ontouchmove)))) {
-        this.event_support = "multi";
-    }
-    else if (obj(document.ontouchmove) || fun(document.ontouchmove)) {
-		this.event_support = "touch";
+	if(navigator.maxTouchPoints > 1) {
+		if((typeof(document.ontouchmove) == "undefined" && typeof(document.onmousemove) == "undefined") || (document.ontouchmove === null && document.onmousemove === null)) {
+			this.event_support = "multi";
+		}
 	}
-	else {
-		this.event_support = "mouse";
+	if(!this.event_support) {
+		if(typeof(document.ontouchmove) == "undefined") {
+			this.event_support = "mouse";
+		}
+		else {
+			this.event_support = "touch";
+		}
 	}
 	this.events = {
 		"mouse": {
@@ -805,7 +809,7 @@ Util.Events = u.e = new function() {
 			node.addEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.exception("u.e.addEvent", arguments, exception);
+			alert("exception in addEvent:" + node + "," + type + ":" + exception);
 		}
 	}
 	this.removeEvent = function(node, type, action) {
@@ -813,7 +817,7 @@ Util.Events = u.e = new function() {
 			node.removeEventListener(type, action, false);
 		}
 		catch(exception) {
-			u.exception("u.e.removeEvent", arguments, exception);
+			u.bug("exception in removeEvent:" + node + "," + type + ":" + exception);
 		}
 	}
 	this.addStartEvent = this.addDownEvent = function(node, action) {
@@ -911,8 +915,6 @@ Util.Events = u.e = new function() {
 		u.t.resetTimer(node.t_clicked);
 		this.removeEvent(node, "mouseup", this._dblclicked);
 		this.removeEvent(node, "touchend", this._dblclicked);
-		this.removeEvent(node, "mouseup", this._rightclicked);
-		this.removeEvent(node, "touchend", this._rightclicked);
 		this.removeEvent(node, "mousemove", this._cancelClick);
 		this.removeEvent(node, "touchmove", this._cancelClick);
 		this.removeEvent(node, "mouseout", this._cancelClick);
@@ -942,49 +944,35 @@ Util.Events = u.e = new function() {
 		this.move_last_x = 0;
 		this.move_last_y = 0;
 		this.swiped = false;
-		if(!event.button) {
-			if(this.e_click || this.e_dblclick || this.e_hold) {
-				if(event.type.match(/mouse/)) {
-					var node = this;
-					while(node) {
-						if(node.e_drag || node.e_swipe) {
-							u.e.addMoveEvent(this, u.e._cancelClick);
-							break;
-						}
-						else {
-							node = node.parentNode;
-						}
+		if(this.e_click || this.e_dblclick || this.e_hold) {
+			if(event.type.match(/mouse/)) {
+				var node = this;
+				while(node) {
+					if(node.e_drag || node.e_swipe) {
+						u.e.addMoveEvent(this, u.e._cancelClick);
+						break;
 					}
-					u.e.addEvent(this, "mouseout", u.e._cancelClick);
+					else {
+						node = node.parentNode;
+					}
 				}
-				else {
-					u.e.addMoveEvent(this, u.e._cancelClick);
-				}
-				u.e.addMoveEvent(this, u.e._move);
-				u.e.addEndEvent(this, u.e._dblclicked);
-				if(this.e_hold) {
-					this.t_held = u.t.setTimer(this, u.e._held, 750);
-				}
+				u.e.addEvent(this, "mouseout", u.e._cancelClick);
 			}
-			if(this.e_drag || this.e_swipe) {
-				u.e.addMoveEvent(this, u.e._pick);
+			else {
+				u.e.addMoveEvent(this, u.e._cancelClick);
 			}
-			if(this.e_scroll) {
-				u.e.addMoveEvent(this, u.e._scrollStart);
-				u.e.addEndEvent(this, u.e._scrollEnd);
-			}
+			u.e.addMoveEvent(this, u.e._move);
+			u.e.addEndEvent(this, u.e._dblclicked);
 		}
-		else if(event.button === 2) {
-			if(this.e_rightclick) {
-				if(event.type.match(/mouse/)) {
-					u.e.addEvent(this, "mouseout", u.e._cancelClick);
-				}
-				else {
-					u.e.addMoveEvent(this, u.e._cancelClick);
-				}
-				u.e.addMoveEvent(this, u.e._move);
-				u.e.addEndEvent(this, u.e._rightclicked);
-			}
+		if(this.e_hold) {
+			this.t_held = u.t.setTimer(this, u.e._held, 750);
+		}
+		if(this.e_drag || this.e_swipe) {
+			u.e.addMoveEvent(this, u.e._pick);
+		}
+		if(this.e_scroll) {
+			u.e.addMoveEvent(this, u.e._scrollStart);
+			u.e.addEndEvent(this, u.e._scrollEnd);
 		}
 		if(fun(this.inputStarted)) {
 			this.inputStarted(event);
@@ -1042,25 +1030,7 @@ Util.Events = u.e = new function() {
 			this.clicked(event);
 		}
 	}
-	this.rightclick = function(node, _options) {
-		node.e_rightclick_options = _options ? _options : {};
-		node.e_rightclick_options.eventAction = u.stringOr(node.e_rightclick_options.eventAction, "RightClicked");
-		node.e_rightclick = true;
-		u.e.addStartEvent(node, this._inputStart);
-		u.e.addEvent(node, "contextmenu", function(event){u.e.kill(event);});
-	}
-	this._rightclicked = function(event) {
-		u.bug("_rightclicked:", this);
-		if(this.e_rightclick_options) {
-			this.e_rightclick_options.event = event;
-			u.stats.event(this, this.e_rightclick_options);
-		}
-		u.e.resetNestedEvents(this);
-		if(fun(this.rightclicked)) {
-			this.rightclicked(event);
-		}
-	}
-	this.dblclick = this.doubleclick = this.doubletap = this.dbltap = function(node, _options) {
+	this.dblclick = this.doubletap = function(node, _options) {
 		node.e_dblclick_options = _options ? _options : {};
 		node.e_dblclick_options.eventAction = u.stringOr(node.e_dblclick_options.eventAction, "DblClicked");
 		node.e_dblclick = true;
@@ -1246,1152 +1216,6 @@ u.e.removeWindowEndEvent = function(node, id) {
 }
 
 
-/*u-form.js*/
-Util.Form = u.f = new function() {
-	this.customInit = {};
-	this.customValidate = {};
-	this.customSend = {};
-	this.customHintPosition = {};
-	this.init = function(_form, _options) {
-		var i, j, field, action, input, hidden_field;
-		if(_form.nodeName.toLowerCase() != "form") {
-			_form.native_form = u.pn(_form, {"include":"form"});
-			if(!_form.native_form) {
-				u.bug("there is no form in this document??");
-				return;
-			}
-		}
-		else {
-			_form.native_form = _form;
-		}
-		_form._focus_z_index = 50;
-		_form._hover_z_index = 49;
-		_form._validation = true;
-		_form._debug_init = false;
-		if(obj(_options)) {
-			var _argument;
-			for(_argument in _options) {
-				switch(_argument) {
-					case "validation"       : _form._validation      = _options[_argument]; break;
-					case "focus_z"          : _form._focus_z_index   = _options[_argument]; break;
-					case "debug"            : _form._debug_init      = _options[_argument]; break;
-				}
-			}
-		}
-		_form.native_form.onsubmit = function(event) {
-			if(event.target._form) {
-				return false;
-			}
-		}
-		_form.native_form.setAttribute("novalidate", "novalidate");
-		_form.DOMsubmit = _form.native_form.submit;
-		_form.submit = this._submit;
-		_form.DOMreset = _form.native_form.reset;
-		_form.reset = this._reset;
-		_form.fields = {};
-		_form.actions = {};
-		_form.error_fields = {};
-		_form.labelstyle = u.cv(_form, "labelstyle");
-		var fields = u.qsa(".field", _form);
-		for(i = 0; i < fields.length; i++) {
-			field = fields[i];
-			field._base_z_index = u.gcs(field, "z-index");
-			field._help = u.qs(".help", field);
-			field._hint = u.qs(".hint", field);
-			field._error = u.qs(".error", field);
-			field._indicator = u.ae(field, "div", {"class":"indicator"});
-			if(fun(u.f.fixFieldHTML)) {
-				u.f.fixFieldHTML(field);
-			}
-			field._initialized = false;
-			var custom_init;
-			for(custom_init in this.customInit) {
-				if(u.hc(field, custom_init)) {
-					this.customInit[custom_init](_form, field);
-					field._initialized = true;
-				}
-			}
-			if(!field._initialized) {
-				if(u.hc(field, "string|email|tel|number|integer|password|date|datetime")) {
-					field._input = u.qs("input", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					field._input.val = this._value;
-					u.e.addEvent(field._input, "keyup", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					this.inputOnEnter(field._input);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "text")) {
-					field._input = u.qs("textarea", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					field._input.val = this._value;
-					if(u.hc(field, "autoexpand")) {
-						var current_height = parseInt(u.gcs(field._input, "height"));
-						var current_value = field._input.val();
-						field._input.value = "";
-						u.as(field._input, "overflow", "hidden");
-						field._input.autoexpand_offset = 0;
-						if(parseInt(u.gcs(field._input, "height")) != field._input.scrollHeight) {
-							field._input.autoexpand_offset = field._input.scrollHeight - parseInt(u.gcs(field._input, "height"));
-						}
-						field._input.value = current_value;
-						field._input.setHeight = function() {
-							var textarea_height = parseInt(u.gcs(this, "height"));
-							if(this.val()) {
-								if(u.browser("webkit") || u.browser("firefox", ">=29")) {
-									if(this.scrollHeight - this.autoexpand_offset > textarea_height) {
-										u.a.setHeight(this, this.scrollHeight);
-									}
-								}
-								else if(u.browser("opera") || u.browser("explorer")) {
-									if(this.scrollHeight > textarea_height) {
-										u.a.setHeight(this, this.scrollHeight);
-									}
-								}
-								else {
-									u.a.setHeight(this, this.scrollHeight);
-								}
-							}
-						}
-						u.e.addEvent(field._input, "keyup", field._input.setHeight);
-						field._input.setHeight();
-					}
-					u.e.addEvent(field._input, "keyup", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "select")) {
-					field._input = u.qs("select", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					field._input.val = this._value_select;
-					u.e.addEvent(field._input, "change", this._updated);
-					u.e.addEvent(field._input, "keyup", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "checkbox|boolean")) {
-					field._input = u.qs("input[type=checkbox]", field);
-					field._input._form = _form;
-					field._input.field = field;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					_form.fields[field._input.name] = field._input;
-					field._input.val = this._value_checkbox;
-					if(u.browser("explorer", "<=8")) {
-						field._input.pre_state = field._input.checked;
-						field._input._changed = this._changed;
-						field._input._updated = this._updated;
-						field._input._update_checkbox_field = this._update_checkbox_field;
-						field._input._clicked = function(event) {
-							if(this.checked != this.pre_state) {
-								this._changed(window.event);
-								this._updated(window.event);
-								this._update_checkbox_field(window.event);
-							}
-							this.pre_state = this.checked;
-						}
-						u.e.addEvent(field._input, "click", field._input._clicked);
-					}
-					else {
-						u.e.addEvent(field._input, "change", this._changed);
-						u.e.addEvent(field._input, "change", this._updated);
-						u.e.addEvent(field._input, "change", this._update_checkbox_field);
-					}
-					this.inputOnEnter(field._input);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "radiobuttons")) {
-					field._inputs = u.qsa("input", field);
-					field._input = field._inputs[0];
-					_form.fields[field._input.name] = field._input;
-					for(j = 0; j < field._inputs.length; j++) {
-						input = field._inputs[j];
-						input.field = field;
-						input._form = _form;
-						input._label = u.qs("label[for='"+input.id+"']", field);
-						input.val = this._value_radiobutton;
-						if(u.browser("explorer", "<=8")) {
-							input.pre_state = input.checked;
-							input._changed = this._changed;
-							input._updated = this._updated;
-							input._clicked = function(event) {
-								var i, input;
-								if(this.checked != this.pre_state) {
-									this._changed(window.event);
-									this._updated(window.event);
-								}
-								for(i = 0; i < field._input.length; i++) {
-									input = this.field._input[i];
-									input.pre_state = input.checked;
-								}
-							}
-							u.e.addEvent(input, "click", input._clicked);
-						}
-						else {
-							u.e.addEvent(input, "change", this._changed);
-							u.e.addEvent(input, "change", this._updated);
-						}
-						this.inputOnEnter(input);
-						this.activateInput(input);
-					}
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "files")) {
-					field._input = u.qs("input", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					u.e.addEvent(field._input, "change", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					u.e.addEvent(field._input, "focus", this._focus);
-					u.e.addEvent(field._input, "blur", this._blur);
-					if(u.e.event_pref == "mouse") {
-						u.e.addEvent(field._input, "dragenter", this._focus);
-						u.e.addEvent(field._input, "dragleave", this._blur);
-						u.e.addEvent(field._input, "mouseenter", this._mouseenter);
-						u.e.addEvent(field._input, "mouseleave", this._mouseleave);
-					}
-					u.e.addEvent(field._input, "blur", this._validate);
-					field._input.val = this._value_file;
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "tags")) {
-					field._input = u.qs("input", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					field._input.val = this._value;
-					u.e.addEvent(field._input, "keyup", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					this.inputOnEnter(field._input);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else if(u.hc(field, "prices")) {
-					field._input = u.qs("input", field);
-					field._input._form = _form;
-					field._input.field = field;
-					_form.fields[field._input.name] = field._input;
-					field._input._label = u.qs("label[for='"+field._input.id+"']", field);
-					field._input.val = this._value;
-					u.e.addEvent(field._input, "keyup", this._updated);
-					u.e.addEvent(field._input, "change", this._changed);
-					this.inputOnEnter(field._input);
-					this.activateInput(field._input);
-					this.validate(field._input);
-				}
-				else {
-					u.bug("UNKNOWN FIELD IN FORM INITIALIZATION:" + u.nodeId(field));
-				}
-			}
-		}
-		var hidden_fields = u.qsa("input[type=hidden]", _form);
-		for(i = 0; i < hidden_fields.length; i++) {
-			hidden_field = hidden_fields[i];
-			if(!_form.fields[hidden_field.name]) {
-				_form.fields[hidden_field.name] = hidden_field;
-				hidden_field._form = _form;
-				hidden_field.val = this._value;
-			}
-		}
-		var actions = u.qsa(".actions li input[type=button],.actions li input[type=submit],.actions li input[type=reset],.actions li a.button", _form);
-		for(i = 0; i < actions.length; i++) {
-			action = actions[i];
-				action._form = _form;
-			this.activateButton(action);
-		}
-		if(_form._debug_init) {
-			u.bug(u.nodeId(_form) + ", fields:");
-			u.xInObject(_form.fields);
-			u.bug(u.nodeId(_form) + ", actions:");
-			u.xInObject(_form.actions);
-		}
-	}
-	this._reset = function (event, iN) {
-		for (name in this.fields) {
-			if (this.fields[name] && this.fields[name].field && this.fields[name].type != "hidden" && !this.fields[name].getAttribute("readonly")) {
-				this.fields[name].used = false;
-				this.fields[name].val("");
-			}
-		}
-	}
-	this._submit = function(event, iN) {
-		for(name in this.fields) {
-			if(this.fields[name] && this.fields[name].field && fun(this.fields[name].val)) {
-				this.fields[name].used = true;
-				u.f.validate(this.fields[name]);
-			}
-		}
-		if(!Object.keys(this.error_fields).length) {
-			if(fun(this.preSubmitted)) {
-				this.preSubmitted(iN);
-			}
-			if(fun(this.submitted)) {
-				this.submitted(iN);
-			}
-			else {
-				for(name in this.fields) {
-					if(this.fields[name] && this.fields[name].default_value && fun(this.fields[name].val) && !this.fields[name].val()) {
-						if(this.fields[name].nodeName.match(/^(input|textarea)$/i)) {
-							this.fields[name].value = "";
-						}
-					}
-				}
-				this.DOMsubmit();
-			}
-		}
-	}
-	this._value = function(value) {
-		if(value !== undefined) {
-			this.value = value;
-			if(value !== this.default_value) {
-				u.rc(this, "default");
-				if(this.pseudolabel) {
-					u.as(this.pseudolabel, "display", "none");
-				}
-			}
-			u.f.validate(this);
-		}
-		return (this.value != this.default_value) ? this.value : "";
-	}
-	this._value_radiobutton = function(value) {
-		var i, option;
-		if(value !== undefined) {
-			for(i = 0; i < this.field._inputs.length; i++) {
-				option = this.field._inputs[i];
-				if(option.value == value || (option.value == "true" && value) || (option.value == "false" && value === false)) {
-					option.checked = true;
-					u.f.validate(this);
-				}
-				else {
-					option.checked = false;
-				}
-			}
-		}
-		else {
-			for(i = 0; i < this.field._inputs.length; i++) {
-				option = this.field._inputs[i];
-				if(option.checked) {
-					return option.value;
-				}
-			}
-		}
-		return "";
-	}
-	this._value_checkbox = function(value) {
-		if(value !== undefined) {
-			if(value) {
-				this.checked = true
-				u.ac(this.field, "checked");
-			}
-			else {
-				this.checked = false;
-				u.rc(this.field, "checked");
-			}
-			u.f.validate(this);
-		}
-		else {
-			if(this.checked) {
-				return this.value;
-			}
-		}
-		return "";
-	}
-	this._value_select = function(value) {
-		if(value !== undefined) {
-			var i, option;
-			for(i = 0; i < this.options.length; i++) {
-				option = this.options[i];
-				if(option.value == value) {
-					this.selectedIndex = i;
-					u.f.validate(this);
-					return i;
-				}
-			}
-			if (value === "") {
-				this.selectedIndex = -1;
-				u.f.validate(this);
-				return -1;
-			}
-			return false;
-		}
-		else {
-			return (this.selectedIndex >= 0 && this.default_value != this.options[this.selectedIndex].value) ? this.options[this.selectedIndex].value : "";
-		}
-	}
-	this._value_file = function(value) {
-		if(value !== undefined) {
-			this.value = value;
-			if (value === "") {
-				this.value = null;
-			}
-		}
-		else {
-			if(this.value && this.files && this.files.length) {
-				var i, file, files = [];
-				for(i = 0; i < this.files.length; i++) {
-					file = this.files[i];
-					files.push(file);
-				}
-				return files;
-			}
-			else if(this.value) {
-				return this.value;
-			}
-			else if(u.hc(this, "uploaded")){
-				return true;
-			}
-			return "";
-		}
-	}
-	this.inputOnEnter = function(node) {
-		node.keyPressed = function(event) {
-			if(this.nodeName.match(/input/i) && (event.keyCode == 40 || event.keyCode == 38)) {
-				this._submit_disabled = true;
-			}
-			else if(this.nodeName.match(/input/i) && this._submit_disabled && (
-				event.keyCode == 46 || 
-				(event.keyCode == 39 && u.browser("firefox")) || 
-				(event.keyCode == 37 && u.browser("firefox")) || 
-				event.keyCode == 27 || 
-				event.keyCode == 13 || 
-				event.keyCode == 9 ||
-				event.keyCode == 8
-			)) {
-				this._submit_disabled = false;
-			}
-			else if(event.keyCode == 13 && !this._submit_disabled) {
-				u.e.kill(event);
-				this.blur();
-				this._form.submitInput = this;
-				this._form.submitButton = false;
-				this._form.submit(event, this);
-			}
-		}
-		u.e.addEvent(node, "keydown", node.keyPressed);
-	}
-	this.buttonOnEnter = function(node) {
-		node.keyPressed = function(event) {
-			if(event.keyCode == 13 && !u.hc(this, "disabled") && fun(this.clicked)) {
-				u.e.kill(event);
-				this.clicked(event);
-				// 
-				// 
-			}
-		}
-		u.e.addEvent(node, "keydown", node.keyPressed);
-	}
-	this._changed = function(event) {
-		this.used = true;
-		if(fun(this.changed)) {
-			this.changed(this);
-		}
-		else if(this.field._input && fun(this.field._input.changed)) {
-			this.field._input.changed(this);
-		}
-		if(fun(this.field.changed)) {
-			this.field.changed(this);
-		}
-		if(fun(this._form.changed)) {
-			this._form.changed(this);
-		}
-	}
-	this._updated = function(event) {
-		if(event.keyCode != 9 && event.keyCode != 13 && event.keyCode != 16 && event.keyCode != 17 && event.keyCode != 18) {
-			if(this.used || u.hc(this.field, "error")) {
-				u.f.validate(this);
-			}
-			if(fun(this.updated)) {
-				this.updated(this);
-			}
-			else if(this.field._input && fun(this.field._input.updated)) {
-				this.field._input.updated(this);
-			}
-			if(fun(this.field.updated)) {
-				this.field.updated(this);
-			}
-			if(fun(this._form.updated)) {
-				this._form.updated(this);
-			}
-		}
-	}
-	this._update_checkbox_field = function(event) {
-		if(this.checked) {
-			u.ac(this.field, "checked");
-		}
-		else {
-			u.rc(this.field, "checked");
-		}
-	}
-	this._validate = function(event) {
-		u.f.validate(this);
-	}
-	this._mouseenter = function(event) {
-		u.ac(this.field, "hover");
-		u.ac(this, "hover");
-		u.as(this.field, "zIndex", this.field._input._form._hover_z_index);
-		u.f.positionHint(this.field);
-	}
-	this._mouseleave = function(event) {
-		u.rc(this.field, "hover");
-		u.rc(this, "hover");
-		u.as(this.field, "zIndex", this.field._base_z_index);
-		u.f.positionHint(this.field);
-	}
-	this._focus = function(event) {
-		this.field.is_focused = true;
-		this.is_focused = true;
-		u.ac(this.field, "focus");
-		u.ac(this, "focus");
-		u.as(this.field, "zIndex", this._form._focus_z_index);
-		u.f.positionHint(this.field);
-		if(fun(this.focused)) {
-			this.focused();
-		}
-		else if(this.field._input && fun(this.field._input.focused)) {
-			this.field._input.focused(this);
-		}
-		if(fun(this._form.focused)) {
-			this._form.focused(this);
-		}
-	}
-	this._blur = function(event) {
-		this.field.is_focused = false;
-		this.is_focused = false;
-		u.rc(this.field, "focus");
-		u.rc(this, "focus");
-		u.as(this.field, "zIndex", this.field._base_z_index);
-		u.f.positionHint(this.field);
-		this.used = true;
-		if(fun(this.blurred)) {
-			this.blurred();
-		}
-		else if(this.field._input && fun(this.field._input.blurred)) {
-			this.field._input.blurred(this);
-		}
-		if(fun(this._form.blurred)) {
-			this._form.blurred(this);
-		}
-	}
-	this._button_focus = function(event) {
-		u.ac(this, "focus");
-		if(fun(this.focused)) {
-			this.focused();
-		}
-		if(fun(this._form.focused)) {
-			this._form.focused(this);
-		}
-	}
-	this._button_blur = function(event) {
-		u.rc(this, "focus");
-		if(fun(this.blurred)) {
-			this.blurred();
-		}
-		if(fun(this._form.blurred)) {
-			this._form.blurred(this);
-		}
-	}
-	this._changed_state = function() {
-		u.f.updateDefaultState(this);
-	}
-	this.positionHint = function(field) {
-		if(field._help) {
-			var custom_hint_position;
-			for(custom_hint_position in this.customHintPosition) {
-				if(u.hc(field, custom_hint_position)) {
-					this.customHintPosition[custom_hint_position](field._form, field);
-					return;
-				}
-			}
-			var input_middle, help_top;
- 			if(u.hc(field, "html")) {
-				input_middle = field._editor.offsetTop + (field._editor.offsetHeight / 2);
-			}
-			else {
-				input_middle = field._input.offsetTop + (field._input.offsetHeight / 2);
-			}
-			help_top = input_middle - field._help.offsetHeight / 2;
-			u.as(field._help, "top", help_top + "px");
-		}
-	}
-	this.activateInput = function(iN) {
-		u.e.addEvent(iN, "focus", this._focus);
-		u.e.addEvent(iN, "blur", this._blur);
-		if(u.e.event_pref == "mouse") {
-			u.e.addEvent(iN, "mouseenter", this._mouseenter);
-			u.e.addEvent(iN, "mouseleave", this._mouseleave);
-		}
-		u.e.addEvent(iN, "blur", this._validate);
-		if(iN._form.labelstyle == "inject") {
-			if(!iN.type || !iN.type.match(/file|radio|checkbox/)) {
-				iN.default_value = u.text(iN._label);
-				u.e.addEvent(iN, "focus", this._changed_state);
-				u.e.addEvent(iN, "blur", this._changed_state);
-				if(iN.type.match(/number|integer/)) {
-					iN.pseudolabel = u.ae(iN.parentNode, "span", {"class":"pseudolabel", "html":iN.default_value});
-					iN.pseudolabel.iN = iN;
-					u.as(iN.pseudolabel, "top", iN.offsetTop+"px");
-					u.as(iN.pseudolabel, "left", iN.offsetLeft+"px");
-					u.ce(iN.pseudolabel)
-					iN.pseudolabel.inputStarted = function(event) {
-						u.e.kill(event);
-						this.iN.focus();
-					}
-				}
-				u.f.updateDefaultState(iN);
-			}
-		}
-		else {
-			iN.default_value = "";
-		}
-	}
-	this.activateButton = function(action) {
-		if(action.type && action.type == "submit" || action.type == "reset") {
-			action.onclick = function(event) {
-				u.e.kill(event ? event : window.event);
-			}
-		}
-		u.ce(action);
-		if(!action.clicked) {
-			action.clicked = function(event) {
-				u.e.kill(event);
-				if(!u.hc(this, "disabled")) {
-					if(this.type && this.type.match(/submit/i)) {
-						this._form._submit_button = this;
-						this._form._submit_input = false;
-						this._form.submit(event, this);
-					}
-					else if (this.type && this.type.match(/reset/i)) {
-						this._form._submit_button = false;
-						this._form._submit_input = false;
-						this._form.reset(event, this);
-					}
-					else {
-						location.href = this.url;
-					}
-				}
-			}
-		}
-		this.buttonOnEnter(action);
-		var action_name = action.name ? action.name : action.parentNode.className;
-		if(action_name) {
-			action._form.actions[action_name] = action;
-		}
-		if(obj(u.k) && u.hc(action, "key:[a-z0-9]+")) {
-			u.k.addKey(action, u.cv(action, "key"));
-		}
-		u.e.addEvent(action, "focus", this._button_focus);
-		u.e.addEvent(action, "blur", this._button_blur);
-	}
-	this.updateDefaultState = function(iN) {
-		if(iN.is_focused || iN.val() !== "") {
-			u.rc(iN, "default");
-			if(iN.val() === "") {
-				iN.val("");
-			}
-			if(iN.pseudolabel) {
-				u.as(iN.pseudolabel, "display", "none");
-			}
-		}
-		else {
-			if(iN.val() === "") {
-				u.ac(iN, "default");
-				if(iN.pseudolabel) {
-					iN.val(iN.default_value);
-					u.as(iN.pseudolabel, "display", "block");
-				}
-				else {
-					iN.val(iN.default_value);
-				}
-			}
-		}
-	}
-	this.fieldError = function(iN) {
-		u.rc(iN, "correct");
-		u.rc(iN.field, "correct");
-		if(iN.used || iN.val() !== "") {
-			u.ac(iN, "error");
-			u.ac(iN.field, "error");
-			this.positionHint(iN.field);
-			iN._form.error_fields[iN.name] = true;
-			this.updateFormValidationState(iN);
-		}
-	}
-	this.fieldCorrect = function(iN) {
-		if(iN.val() !== "") {
-			u.ac(iN, "correct");
-			u.ac(iN.field, "correct");
-			u.rc(iN, "error");
-			u.rc(iN.field, "error");
-		}
-		else {
-			u.rc(iN, "correct");
-			u.rc(iN.field, "correct");
-			u.rc(iN, "error");
-			u.rc(iN.field, "error");
-		}
-		delete iN._form.error_fields[iN.name];
-		this.updateFormValidationState(iN);
-	}
-	this.checkFormValidation = function(form) {
-		if(Object.keys(form.error_fields).length) {
-			return false;
-		}
-		var x, field;
-		for(x in form.fields) {
-			input = form.fields[x];
-			if(input.field && u.hc(form.fields[x].field, "required") && !u.hc(form.fields[x].field, "correct")) {
-				return false;
-			}
-		}
-		return true;
-	}
-	this.updateFormValidationState = function(iN) {
-		if(this.checkFormValidation(iN._form)) {
-			if(fun(iN.validationPassed)) {
-				iN.validationPassed();
-			}
-			if(fun(iN.field.validationPassed)) {
-				iN.field.validationPassed();
-			}
-			if(fun(iN._form.validationPassed)) {
-				iN._form.validationPassed();
-			}
-			return true;
-		}
-		else {
-			if(fun(iN.validationFailed)) {
-				iN.validationFailed(iN._form.error_fields);
-			}
-			if(fun(iN.field.validationFailed)) {
-				iN.field.validationFailed(iN._form.error_fields);
-			}
-			if(fun(iN._form.validationFailed)) {
-				iN._form.validationFailed(iN._form.error_fields);
-			}
-			return false;
-		}
-	}
-	this.validate = function(iN) {
-		if(!iN._form._validation || !iN.field) {
-			return true;
-		}
-		var min, max, pattern, compare_to;
-		var validated = false;
-		if(!u.hc(iN.field, "required") && iN.val() === "") {
-			this.fieldCorrect(iN);
-			return true;
-		}
-		else if(u.hc(iN.field, "required") && iN.val() === "") {
-			this.fieldError(iN);
-			return false;
-		}
-		var custom_validate;
-		for(custom_validate in u.f.customValidate) {
-			if(u.hc(iN.field, custom_validate)) {
-				u.f.customValidate[custom_validate](iN);
-				validated = true;
-			}
-		}
-		if(!validated) {
-			if(u.hc(iN.field, "password")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 8;
-				max = max ? max : 20;
-				pattern = iN.getAttribute("pattern");
-				compare_to = iN.getAttribute("data-compare-to");
-				if(
-					iN.val().length >= min && 
-					iN.val().length <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$")) &&
-					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "number")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 0;
-				max = max ? max : 99999999999999999999999999999;
-				pattern = iN.getAttribute("pattern");
-				if(
-					!isNaN(iN.val()) && 
-					iN.val() >= min && 
-					iN.val() <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "integer")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 0;
-				max = max ? max : 99999999999999999999999999999;
-				pattern = iN.getAttribute("pattern");
-				if(
-					!isNaN(iN.val()) && 
-					Math.round(iN.val()) == iN.val() && 
-					iN.val() >= min && 
-					iN.val() <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "tel")) {
-				pattern = iN.getAttribute("pattern");
-				compare_to = iN.getAttribute("data-compare-to");
-				if(
-					(
-						!pattern && iN.val().match(/^([\+0-9\-\.\s\(\)]){5,18}$/)
-						||
-						(pattern && iN.val().match("^"+pattern+"$"))
-					)
-					&&
-					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "email")) {
-				compare_to = iN.getAttribute("data-compare-to");
-				pattern = iN.getAttribute("pattern");
-				if(
-					(
-						!pattern && iN.val().match(/^([^<>\\\/%$])+\@([^<>\\\/%$])+\.([^<>\\\/%$]{2,20})$/)
-						 ||
-						(pattern && iN.val().match("^"+pattern+"$"))
-					)
-					&&
-					(!compare_to || iN.val() == iN._form.fields[compare_to].val())
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "text")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 1;
-				max = max ? max : 10000000;
-				pattern = iN.getAttribute("pattern");
-				if(
-					iN.val().length >= min && 
-					iN.val().length <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "date")) {
-				pattern = iN.getAttribute("pattern");
-				if(
-					!pattern && iN.val().match(/^([\d]{4}[\-\/\ ]{1}[\d]{2}[\-\/\ ][\d]{2})$/) ||
-					(pattern && iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "datetime")) {
-				pattern = iN.getAttribute("pattern");
-				if(
-					!pattern && iN.val().match(/^([\d]{4}[\-\/\ ]{1}[\d]{2}[\-\/\ ][\d]{2} [\d]{2}[\-\/\ \:]{1}[\d]{2}[\-\/\ \:]{0,1}[\d]{0,2})$/) ||
-					(pattern && iN.val().match(pattern))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "files")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 1;
-				max = max ? max : 10000000;
-				if(
-					u.hc(iN, "uploaded") ||
-					(iN.val().length >= min && 
-					iN.val().length <= max)
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "select")) {
-				if(iN.val() !== "") {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "checkbox|boolean|radiobuttons")) {
-				if(iN.val() !== "") {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "string")) {
-				min = Number(u.cv(iN.field, "min"));
-				max = Number(u.cv(iN.field, "max"));
-				min = min ? min : 1;
-				max = max ? max : 255;
-				pattern = iN.getAttribute("pattern");
-				if(
-					iN.val().length >= min &&
-					iN.val().length <= max && 
-					(!pattern || iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "tags")) {
-				if(
-					!pattern && iN.val().match(/\:/) ||
-					(pattern && iN.val().match("^"+pattern+"$"))
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-			else if(u.hc(iN.field, "prices")) {
-				if(
-					!isNaN(iN.val())
-				) {
-					this.fieldCorrect(iN);
-				}
-				else {
-					this.fieldError(iN);
-				}
-			}
-		}
-		if(u.hc(iN.field, "error")) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-}
-u.f.getParams = function(_form, _options) {
-	var send_as = "params";
-	var ignore_inputs = "ignoreinput";
-	if(obj(_options)) {
-		var _argument;
-		for(_argument in _options) {
-			switch(_argument) {
-				case "ignore_inputs"    : ignore_inputs     = _options[_argument]; break;
-				case "send_as"          : send_as           = _options[_argument]; break;
-			}
-		}
-	}
-	var i, input, select, textarea, param, params;
-	if(send_as == "formdata" && (fun(window.FormData) || obj(window.FormData))) {
-		params = new FormData();
-	}
-	else {
-		if(send_as == "formdata") {
-			send_as == "params";
-		}
-		params = new Object();
-		params.append = function(name, value, filename) {
-			this[name] = value;
-		}
-	}
-	if(_form._submit_button && _form._submit_button.name) {
-		params.append(_form._submit_button.name, _form._submit_button.value);
-	}
-	var inputs = u.qsa("input", _form);
-	var selects = u.qsa("select", _form)
-	var textareas = u.qsa("textarea", _form)
-	for(i = 0; i < inputs.length; i++) {
-		input = inputs[i];
-		if(!u.hc(input, ignore_inputs)) {
-			if((input.type == "checkbox" || input.type == "radio") && input.checked) {
-				if(fun(input.val)) {
-					params.append(input.name, input.val());
-				}
-				else {
-					params.append(input.name, input.value);
-				}
-			}
-			else if(input.type == "file") {
-				var f, file, files;
-				if(fun(input.val)) {
-					files = input.val();
-				}
-				else {
-					files = input.value;
-				}
-				if(files) {
-					for(f = 0; i < files.length; f++) {
-						file = files[f];
-						params.append(input.name, file, file.name);
-					}
-				}
-				else {
-					params.append(input.name, "");
-				}
-			}
-			else if(!input.type.match(/button|submit|reset|file|checkbox|radio/i)) {
-				if(fun(input.val)) {
-					params.append(input.name, input.val());
-				}
-				else {
-					params.append(input.name, input.value);
-				}
-			}
-		}
-	}
-	for(i = 0; i < selects.length; i++) {
-		select = selects[i];
-		if(!u.hc(select, ignore_inputs)) {
-			if(fun(select.val)) {
-				params.append(select.name, select.val());
-			}
-			else {
-				params.append(select.name, select.options[select.selectedIndex].value);
-			}
-		}
-	}
-	for(i = 0; i < textareas.length; i++) {
-		textarea = textareas[i];
-		if(!u.hc(textarea, ignore_inputs)) {
-			if(fun(textarea.val)) {
-				params.append(textarea.name, textarea.val());
-			}
-			else {
-				params.append(textarea.name, textarea.value);
-			}
-		}
-	}
-	if(send_as && fun(this.customSend[send_as])) {
-		return this.customSend[send_as](params, _form);
-	}
-	else if(send_as == "json") {
-		return u.f.convertNamesToJsonObject(params);
-	}
-	else if(send_as == "formdata") {
-		return params;
-	}
-	else if(send_as == "object") {
-		delete params.append;
-		return params;
-	}
-	else {
-		var string = "";
-		for(param in params) {
-			if(!fun(params[param])) {
-				string += (string ? "&" : "") + param + "=" + encodeURIComponent(params[param]);
-			}
-		}
-		return string;
-	}
-}
-u.f.convertNamesToJsonObject = function(params) {
- 	var indexes, root, indexes_exsists, param;
-	var object = new Object();
-	for(param in params) {
-	 	indexes_exsists = param.match(/\[/);
-		if(indexes_exsists) {
-			root = param.split("[")[0];
-			indexes = param.replace(root, "");
-			if(typeof(object[root]) == "undefined") {
-				object[root] = new Object();
-			}
-			object[root] = this.recurseName(object[root], indexes, params[param]);
-		}
-		else {
-			object[param] = params[param];
-		}
-	}
-	return object;
-}
-u.f.recurseName = function(object, indexes, value) {
-	var index = indexes.match(/\[([a-zA-Z0-9\-\_]+)\]/);
-	var current_index = index[1];
-	indexes = indexes.replace(index[0], "");
- 	if(indexes.match(/\[/)) {
-		if(object.length !== undefined) {
-			var i;
-			var added = false;
-			for(i = 0; i < object.length; i++) {
-				for(exsiting_index in object[i]) {
-					if(exsiting_index == current_index) {
-						object[i][exsiting_index] = this.recurseName(object[i][exsiting_index], indexes, value);
-						added = true;
-					}
-				}
-			}
-			if(!added) {
-				temp = new Object();
-				temp[current_index] = new Object();
-				temp[current_index] = this.recurseName(temp[current_index], indexes, value);
-				object.push(temp);
-			}
-		}
-		else if(typeof(object[current_index]) != "undefined") {
-			object[current_index] = this.recurseName(object[current_index], indexes, value);
-		}
-		else {
-			object[current_index] = new Object();
-			object[current_index] = this.recurseName(object[current_index], indexes, value);
-		}
-	}
-	else {
-		object[current_index] = value;
-	}
-	return object;
-}
-
-
 /*u-geometry.js*/
 Util.absoluteX = u.absX = function(node) {
 	if(node.offsetParent) {
@@ -2482,127 +1306,402 @@ Util.round = function(number, decimals) {
 	return Math.round(round_number)/Math.pow(10, decimals);
 }
 
-/*u-scrollto.js*/
-u.scrollTo = function(node, _options) {
-	node.callback_scroll_to = "scrolledTo";
-	node.callback_scroll_cancelled = "scrolledToCancelled";
-	var offset_y = 0;
-	var offset_x = 0;
-	var scroll_to_x = 0;
-	var scroll_to_y = 0;
-	var to_node = false;
-	node._force_scroll_to = false;
+/*u-preloader.js*/
+u.preloader = function(node, files, _options) {
+	var callback_preloader_loaded = "loaded";
+	var callback_preloader_loading = "loading";
+	var callback_preloader_waiting = "waiting";
+	node._callback_min_delay = 0;
 	if(obj(_options)) {
 		var _argument;
 		for(_argument in _options) {
 			switch(_argument) {
-				case "callback"             : node.callback_scroll_to            = _options[_argument]; break;
-				case "callback_cancelled"   : node.callback_scroll_cancelled     = _options[_argument]; break;
-				case "offset_y"             : offset_y                           = _options[_argument]; break;
-				case "offset_x"             : offset_x                           = _options[_argument]; break;
-				case "node"                 : to_node                            = _options[_argument]; break;
-				case "x"                    : scroll_to_x                        = _options[_argument]; break;
-				case "y"                    : scroll_to_y                        = _options[_argument]; break;
-				case "scrollIn"             : scrollIn                           = _options[_argument]; break;
-				case "force"                : node._force_scroll_to              = _options[_argument]; break;
+				case "loaded"               : callback_preloader_loaded       = _options[_argument]; break;
+				case "loading"              : callback_preloader_loading      = _options[_argument]; break;
+				case "waiting"              : callback_preloader_waiting      = _options[_argument]; break;
+				case "callback_min_delay"   : node._callback_min_delay              = _options[_argument]; break;
 			}
 		}
 	}
-	if(to_node) {
-		node._to_x = u.absX(to_node);
-		node._to_y = u.absY(to_node);
-	}
-	else {
-		node._to_x = scroll_to_x;
-		node._to_y = scroll_to_y;
-	}
-	node._to_x = offset_x ? node._to_x - offset_x : node._to_x;
-	node._to_y = offset_y ? node._to_y - offset_y : node._to_y;
-	if(node._to_y > (node == window ? document.body.scrollHeight : node.scrollHeight)-u.browserH()) {
-		node._to_y = (node == window ? document.body.scrollHeight : node.scrollHeight)-u.browserH();
-	}
-	if(node._to_x > (node == window ? document.body.scrollWidth : node.scrollWidth)-u.browserW()) {
-		node._to_x = (node == window ? document.body.scrollWidth : node.scrollWidth)-u.browserW();
-	}
-	node._to_x = node._to_x < 0 ? 0 : node._to_x;
-	node._to_y = node._to_y < 0 ? 0 : node._to_y;
-	node._x_scroll_direction = node._to_x - u.scrollX();
-	node._y_scroll_direction = node._to_y - u.scrollY();
-	node._scroll_to_x = u.scrollX();
-	node._scroll_to_y = u.scrollY();
-	node.ignoreWheel = function(event) {
-		u.e.kill(event);
-	}
-	if(node._force_scroll_to) {
-		u.e.addEvent(node, "wheel", node.ignoreWheel);
-	}
-	node.scrollToHandler = function(event) {
-		u.t.resetTimer(this.t_scroll);
-		this.t_scroll = u.t.setTimer(this, this._scrollTo, 50);
-	}
-	u.e.addEvent(node, "scroll", node.scrollToHandler);
-	node.cancelScrollTo = function() {
-		if(!this._force_scroll_to) {
-			u.t.resetTimer(this.t_scroll);
-			u.e.removeEvent(this, "scroll", this.scrollToHandler);
-			this._scrollTo = null;
-		}
-	}
-	node.scrollToFinished = function() {
-		u.t.resetTimer(this.t_scroll);
-		u.e.removeEvent(this, "scroll", this.scrollToHandler);
-		u.e.removeEvent(this, "wheel", this.ignoreWheel);
-		this._scrollTo = null;
-	}
-	node.IEScrollFix = function(s_x, s_y) {
-		if(!u.browser("ie")) {
-			return false;
-		}
-		else if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
-			return true;
-		}
-	}
-	node._scrollTo = function(start) {
-		var s_x = u.scrollX();
-		var s_y = u.scrollY();
-		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.IEScrollFix(s_x, s_y)) {
-			if(this._x_scroll_direction > 0 && this._to_x > s_x) {
-				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/4);
-			}
-			else if(this._x_scroll_direction < 0 && this._to_x < s_x) {
-				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/4);
-			}
-			else {
-				this._scroll_to_x = this._to_x;
-			}
-			if(this._y_scroll_direction > 0 && this._to_y > s_y) {
-				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/4);
-			}
-			else if(this._y_scroll_direction < 0 && this._to_y < s_y) {
-				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/4);
-			}
-			else {
-				this._scroll_to_y = this._to_y;
-			}
-			if(this._scroll_to_x == this._to_x && this._scroll_to_y == this._to_y) {
-				this.scrollToFinished();
-				this.scrollTo(this._to_x, this._to_y);
-				if(fun(this[this.callback_scroll_to])) {
-					this[this.callback_scroll_to]();
-				}
-				return;
-			}
-			this.scrollTo(this._scroll_to_x, this._scroll_to_y);
+	if(!u._preloader_queue) {
+		u._preloader_queue = document.createElement("div");
+		u._preloader_processes = 0;
+		if(u.e && u.e.event_support == "touch") {
+			u._preloader_max_processes = 1;
 		}
 		else {
-			this.cancelScrollTo();
-			if(fun(this[this.callback_scroll_cancelled])) {
-				this[this.callback_scroll_cancelled]();
-			}
-		}	
+			u._preloader_max_processes = 2;
+		}
 	}
-	node._scrollTo();
+	if(node && files) {
+		var entry, file;
+		var new_queue = u.ae(u._preloader_queue, "ul");
+		new_queue._callback_loaded = callback_preloader_loaded;
+		new_queue._callback_loading = callback_preloader_loading;
+		new_queue._callback_waiting = callback_preloader_waiting;
+		new_queue._node = node;
+		new_queue._files = files;
+		new_queue.nodes = new Array();
+		new_queue._start_time = new Date().getTime();
+		for(i = 0; i < files.length; i++) {
+			file = files[i];
+			entry = u.ae(new_queue, "li", {"class":"waiting"});
+			entry.i = i;
+			entry._queue = new_queue
+			entry._file = file;
+		}
+		u.ac(node, "waiting");
+		if(fun(node[new_queue._callback_waiting])) {
+			node[new_queue._callback_waiting](new_queue.nodes);
+		}
+	}
+	u._queueLoader();
+	return u._preloader_queue;
 }
+u._queueLoader = function() {
+	if(u.qs("li.waiting", u._preloader_queue)) {
+		while(u._preloader_processes < u._preloader_max_processes) {
+			var next = u.qs("li.waiting", u._preloader_queue);
+			if(next) {
+				if(u.hc(next._queue._node, "waiting")) {
+					u.rc(next._queue._node, "waiting");
+					u.ac(next._queue._node, "loading");
+					if(fun(next._queue._node[next._queue._callback_loading])) {
+						next._queue._node[next._queue._callback_loading](next._queue.nodes);
+					}
+				}
+				u._preloader_processes++;
+				u.rc(next, "waiting");
+				u.ac(next, "loading");
+				if(next._file.match(/png|jpg|gif|svg/)) {
+					next.loaded = function(event) {
+						this.image = event.target;
+						this._image = this.image;
+						this._queue.nodes[this.i] = this;
+						u.rc(this, "loading");
+						u.ac(this, "loaded");
+						u._preloader_processes--;
+						if(!u.qs("li.waiting,li.loading", this._queue)) {
+							u.rc(this._queue._node, "loading");
+							if(fun(this._queue._node[this._queue._callback_loaded])) {
+								this._queue._node[this._queue._callback_loaded](this._queue.nodes);
+							}
+							// 
+						}
+						u._queueLoader();
+					}
+					u.loadImage(next, next._file);
+				}
+				else if(next._file.match(/mp3|aac|wav|ogg/)) {
+					next.loaded = function(event) {
+						console.log(event);
+						this._queue.nodes[this.i] = this;
+						u.rc(this, "loading");
+						u.ac(this, "loaded");
+						u._preloader_processes--;
+						if(!u.qs("li.waiting,li.loading", this._queue)) {
+							u.rc(this._queue._node, "loading");
+							if(fun(this._queue._node[this._queue._callback_loaded])) {
+								this._queue._node[this._queue._callback_loaded](this._queue.nodes);
+							}
+						}
+						u._queueLoader();
+					}
+					if(fun(u.audioPlayer)) {
+						next.audioPlayer = u.audioPlayer();
+						next.load(next._file);
+					}
+					else {
+						u.bug("You need u.audioPlayer to preload MP3s");
+					}
+				}
+				else {
+				}
+			}
+			else {
+				break
+			}
+		}
+	}
+}
+u.loadImage = function(node, src) {
+	var image = new Image();
+	image.node = node;
+	u.ac(node, "loading");
+    u.e.addEvent(image, 'load', u._imageLoaded);
+	u.e.addEvent(image, 'error', u._imageLoadError);
+	image.src = src;
+}
+u._imageLoaded = function(event) {
+	u.rc(this.node, "loading");
+	if(fun(this.node.loaded)) {
+		this.node.loaded(event);
+	}
+}
+u._imageLoadError = function(event) {
+	u.rc(this.node, "loading");
+	u.ac(this.node, "error");
+	if(fun(this.node.loaded) && typeof(this.node.failed) != "function") {
+		this.node.loaded(event);
+	}
+	else if(fun(this.node.failed)) {
+		this.node.failed(event);
+	}
+}
+u._imageLoadProgress = function(event) {
+	u.bug("progress")
+	if(fun(this.node.progress)) {
+		this.node.progress(event);
+	}
+}
+u._imageLoadDebug = function(event) {
+	u.bug("event:" + event.type);
+	u.xInObject(event);
+}
+
+
+/*u-request.js*/
+Util.createRequestObject = function() {
+	return new XMLHttpRequest();
+}
+Util.request = function(node, url, _options) {
+	var request_id = u.randomString(6);
+	node[request_id] = {};
+	node[request_id].request_url = url;
+	node[request_id].request_method = "GET";
+	node[request_id].request_async = true;
+	node[request_id].request_data = "";
+	node[request_id].request_headers = false;
+	node[request_id].request_credentials = false;
+	node[request_id].response_type = false;
+	node[request_id].callback_response = "response";
+	node[request_id].callback_error = "responseError";
+	node[request_id].jsonp_callback = "callback";
+	node[request_id].request_timeout = false;
+	if(obj(_options)) {
+		var argument;
+		for(argument in _options) {
+			switch(argument) {
+				case "method"				: node[request_id].request_method			= _options[argument]; break;
+				case "params"				: node[request_id].request_data				= _options[argument]; break;
+				case "data"					: node[request_id].request_data				= _options[argument]; break;
+				case "async"				: node[request_id].request_async			= _options[argument]; break;
+				case "headers"				: node[request_id].request_headers			= _options[argument]; break;
+				case "credentials"			: node[request_id].request_credentials		= _options[argument]; break;
+				case "responseType"			: node[request_id].response_type			= _options[argument]; break;
+				case "callback"				: node[request_id].callback_response		= _options[argument]; break;
+				case "error_callback"		: node[request_id].callback_error			= _options[argument]; break;
+				case "jsonp_callback"		: node[request_id].jsonp_callback			= _options[argument]; break;
+				case "timeout"				: node[request_id].request_timeout			= _options[argument]; break;
+			}
+		}
+	}
+	if(node[request_id].request_method.match(/GET|POST|PUT|PATCH/i)) {
+		node[request_id].HTTPRequest = this.createRequestObject();
+		node[request_id].HTTPRequest.node = node;
+		node[request_id].HTTPRequest.request_id = request_id;
+		if(node[request_id].response_type) {
+			node[request_id].HTTPRequest.responseType = node[request_id].response_type;
+		}
+		if(node[request_id].request_async) {
+			node[request_id].HTTPRequest.statechanged = function() {
+				if(this.readyState == 4 || this.IEreadyState) {
+					u.validateResponse(this);
+				}
+			}
+			if(fun(node[request_id].HTTPRequest.addEventListener)) {
+				u.e.addEvent(node[request_id].HTTPRequest, "readystatechange", node[request_id].HTTPRequest.statechanged);
+			}
+		}
+		try {
+			if(node[request_id].request_method.match(/GET/i)) {
+				var params = u.JSONtoParams(node[request_id].request_data);
+				node[request_id].request_url += params ? ((!node[request_id].request_url.match(/\?/g) ? "?" : "&") + params) : "";
+				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
+				if(node[request_id].request_timeout) {
+					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
+				}
+				if(node[request_id].request_credentials) {
+					node[request_id].HTTPRequest.withCredentials = true;
+				}
+				if(typeof(node[request_id].request_headers) != "object" || (!node[request_id].request_headers["Content-Type"] && !node[request_id].request_headers["content-type"])) {
+					node[request_id].HTTPRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				}
+				if(obj(node[request_id].request_headers)) {
+					var header;
+					for(header in node[request_id].request_headers) {
+						node[request_id].HTTPRequest.setRequestHeader(header, node[request_id].request_headers[header]);
+					}
+				}
+				node[request_id].HTTPRequest.send("");
+			}
+			else if(node[request_id].request_method.match(/POST|PUT|PATCH/i)) {
+				var params;
+				if(obj(node[request_id].request_data) && node[request_id].request_data.constructor.toString().match(/function Object/i)) {
+					params = JSON.stringify(node[request_id].request_data);
+				}
+				else {
+					params = node[request_id].request_data;
+				}
+				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
+				if(node[request_id].request_timeout) {
+					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
+				}
+				if(node[request_id].request_credentials) {
+					node[request_id].HTTPRequest.withCredentials = true;
+				}
+				if(!params.constructor.toString().match(/FormData/i) && (typeof(node[request_id].request_headers) != "object" || (!node[request_id].request_headers["Content-Type"] && !node[request_id].request_headers["content-type"]))) {
+					node[request_id].HTTPRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				}
+				if(obj(node[request_id].request_headers)) {
+					var header;
+					for(header in node[request_id].request_headers) {
+						node[request_id].HTTPRequest.setRequestHeader(header, node[request_id].request_headers[header]);
+					}
+				}
+				node[request_id].HTTPRequest.send(params);
+			}
+		}
+		catch(exception) {
+			node[request_id].HTTPRequest.exception = exception;
+			u.validateResponse(node[request_id].HTTPRequest);
+			return;
+		}
+		if(!node[request_id].request_async) {
+			u.validateResponse(node[request_id].HTTPRequest);
+		}
+	}
+	else if(node[request_id].request_method.match(/SCRIPT/i)) {
+		if(node[request_id].request_timeout) {
+			node[request_id].timedOut = function(requestee) {
+				this.status = 0;
+				delete this.timedOut;
+				delete this.t_timeout;
+				Util.validateResponse({node: requestee.node, request_id: requestee.request_id});
+			}
+			node[request_id].t_timeout = u.t.setTimer(node[request_id], "timedOut", node[request_id].request_timeout, {node: node, request_id: request_id});
+		}
+		var key = u.randomString();
+		document[key] = new Object();
+		document[key].key = key;
+		document[key].node = node;
+		document[key].request_id = request_id;
+		document[key].responder = function(response) {
+			var response_object = new Object();
+			response_object.node = this.node;
+			response_object.request_id = this.request_id;
+			response_object.responseText = response;
+			u.t.resetTimer(this.node[this.request_id].t_timeout);
+			delete this.node[this.request_id].timedOut;
+			delete this.node[this.request_id].t_timeout;
+			u.qs("head").removeChild(this.node[this.request_id].script_tag);
+			delete this.node[this.request_id].script_tag;
+			delete document[this.key];
+			u.validateResponse(response_object);
+		}
+		var params = u.JSONtoParams(node[request_id].request_data);
+		node[request_id].request_url += params ? ((!node[request_id].request_url.match(/\?/g) ? "?" : "&") + params) : "";
+		node[request_id].request_url += (!node[request_id].request_url.match(/\?/g) ? "?" : "&") + node[request_id].jsonp_callback + "=document."+key+".responder";
+		node[request_id].script_tag = u.ae(u.qs("head"), "script", ({"type":"text/javascript", "src":node[request_id].request_url}));
+	}
+	return request_id;
+}
+Util.JSONtoParams = function(json) {
+	if(obj(json)) {
+		var params = "", param;
+		for(param in json) {
+			params += (params ? "&" : "") + param + "=" + json[param];
+		}
+		return params
+	}
+	var object = u.isStringJSON(json);
+	if(object) {
+		return u.JSONtoParams(object);
+	}
+	return json;
+}
+Util.evaluateResponseText = function(responseText) {
+	var object;
+	if(obj(responseText)) {
+		responseText.isJSON = true;
+		return responseText;
+	}
+	else {
+		var response_string;
+		if(responseText.trim().substr(0, 1).match(/[\"\']/i) && responseText.trim().substr(-1, 1).match(/[\"\']/i)) {
+			response_string = responseText.trim().substr(1, responseText.trim().length-2);
+		}
+		else {
+			response_string = responseText;
+		}
+		var json = u.isStringJSON(response_string);
+		if(json) {
+			return json;
+		}
+		var html = u.isStringHTML(response_string);
+		if(html) {
+			return html;
+		}
+		return responseText;
+	}
+}
+Util.validateResponse = function(HTTPRequest){
+	var object = false;
+	if(HTTPRequest) {
+		var node = HTTPRequest.node;
+		var request_id = HTTPRequest.request_id;
+		var request = node[request_id];
+		delete request.HTTPRequest;
+		if(request.finished) {
+			return;
+		}
+		request.finished = true;
+		try {
+			request.status = HTTPRequest.status;
+			if(HTTPRequest.status && !HTTPRequest.status.toString().match(/[45][\d]{2}/)) {
+				if(HTTPRequest.responseType && HTTPRequest.response) {
+					object = HTTPRequest.response;
+				}
+				else if(HTTPRequest.responseText) {
+					object = u.evaluateResponseText(HTTPRequest.responseText);
+				}
+			}
+			else if(HTTPRequest.responseText && typeof(HTTPRequest.status) == "undefined") {
+				object = u.evaluateResponseText(HTTPRequest.responseText);
+			}
+		}
+		catch(exception) {
+			request.exception = exception;
+		}
+	}
+	else {
+		console.log("Lost track of this request. There is no way of routing it back to requestee.")
+		return;
+	}
+	if(object !== false) {
+		if(fun(request.callback_response)) {
+			request.callback_response(object, request_id);
+		}
+		else if(fun(node[request.callback_response])) {
+			node[request.callback_response](object, request_id);
+		}
+	}
+	else {
+		if(fun(request.callback_error)) {
+			request.callback_error({error:true,status:request.status}, request_id);
+		}
+		else if(fun(node[request.callback_error])) {
+			node[request.callback_error]({error:true,status:request.status}, request_id);
+		}
+		else if(fun(request.callback_response)) {
+			request.callback_response({error:true,status:request.status}, request_id);
+		}
+		else if(fun(node[request.callback_response])) {
+			node[request.callback_response]({error:true,status:request.status}, request_id);
+		}
+	}
+}
+
 
 /*u-string.js*/
 Util.cutString = function(string, length) {
@@ -2917,6 +2016,93 @@ Util.vendorPrefix = function() {
 		}
 	}
 	return Util.vendor_prefix;
+}
+
+
+/*u-timer.js*/
+Util.Timer = u.t = new function() {
+	this._timers = new Array();
+	this.setTimer = function(node, action, timeout, param) {
+		var id = this._timers.length;
+		param = param ? param : {"target":node, "type":"timeout"};
+		this._timers[id] = {"_a":action, "_n":node, "_p":param, "_t":setTimeout("u.t._executeTimer("+id+")", timeout)};
+		return id;
+	}
+	this.resetTimer = function(id) {
+		if(this._timers[id]) {
+			clearTimeout(this._timers[id]._t);
+			this._timers[id] = false;
+		}
+	}
+	this._executeTimer = function(id) {
+		var timer = this._timers[id];
+		this._timers[id] = false;
+		var node = timer._n;
+		if(fun(timer._a)) {
+			node._timer_action = timer._a;
+			node._timer_action(timer._p);
+			node._timer_action = null;
+		}
+		else if(fun(node[timer._a])) {
+			node[timer._a](timer._p);
+		}
+	}
+	this.setInterval = function(node, action, interval, param) {
+		var id = this._timers.length;
+		param = param ? param : {"target":node, "type":"timeout"};
+		this._timers[id] = {"_a":action, "_n":node, "_p":param, "_i":setInterval("u.t._executeInterval("+id+")", interval)};
+		return id;
+	}
+	this.resetInterval = function(id) {
+		if(this._timers[id]) {
+			clearInterval(this._timers[id]._i);
+			this._timers[id] = false;
+		}
+	}
+	this._executeInterval = function(id) {
+		var node = this._timers[id]._n;
+		if(fun(this._timers[id]._a)) {
+			node._interval_action = this._timers[id]._a;
+			node._interval_action(this._timers[id]._p);
+			node._interval_action = null;
+		}
+		else if(fun(node[this._timers[id]._a])) {
+			node[this._timers[id]._a](this._timers[id]._p);
+		}
+	}
+	this.valid = function(id) {
+		return this._timers[id] ? true : false;
+	}
+	this.resetAllTimers = function() {
+		var i, t;
+		for(i = 0; i < this._timers.length; i++) {
+			if(this._timers[i] && this._timers[i]._t) {
+				this.resetTimer(i);
+			}
+		}
+	}
+	this.resetAllIntervals = function() {
+		var i, t;
+		for(i = 0; i < this._timers.length; i++) {
+			if(this._timers[i] && this._timers[i]._i) {
+				this.resetInterval(i);
+			}
+		}
+	}
+}
+
+
+/*u-url.js*/
+Util.getVar = function(param, url) {
+	var string = url ? url.split("#")[0] : location.search;
+	var regexp = new RegExp("[\&\?\b]{1}"+param+"\=([^\&\b]+)");
+	var match = string.match(regexp);
+	if(match && match.length > 1) {
+		return match[1];
+	}
+	else {
+		return "";
+	}
 }
 
 
@@ -4624,6 +3810,97 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+
+
+/*u-preloader-desktop_light.js*/
+if(document.all || (new Image().onerror) === undefined) {
+	u.loadImage = function(node, src) {
+		var image = new Image();
+		image.node = node;
+		u.addClass(node, "loading");
+		image.onload = function() {
+			var event = new Object();
+			event.target = this;
+			u.rc(this.node, "loading");
+			if(fun(this.node.loaded)) {
+				this.node.loaded(event);
+			}
+		}
+		image.src = src;
+	}
+}
+
+/*u-request-desktop_light.js*/
+if(typeof(window.XMLHttpRequest) == "undefined" || function(){return (typeof(window.XMLHttpRequest.addEventListener) != "function")}() || function(){try {new XMLHttpRequest().channel; return false;} catch(exception) {return true;}}()) {
+	Util.createRequestObject = function() {
+		var xmlhttp;
+		if(window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		}
+		else if(window.ActiveXObject) {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		else {
+			return {
+				"open":function() {}, 
+				"setRequestHeader":function() {}, 
+				"send":function(){
+					this.response({"status":"404", "responseText":"No Ajax support"});
+				}
+			};
+		}
+		if(xmlhttp) {
+			var wrapper = u.ae(document.body, "div", {"style":"display: none;"});
+			wrapper.xmlhttp = xmlhttp;
+			wrapper.xmlhttp.onreadystatechange = function() {
+				if(wrapper.xmlhttp.readyState == 4) {
+					wrapper.responseText = wrapper.xmlhttp.responseText;
+					wrapper.status = wrapper.xmlhttp.status;
+					try {
+						wrapper.readyState = 4;
+					}
+					catch(exception) {
+						wrapper.IEreadyState = true;
+					}
+					if(fun(wrapper.statechanged)) {
+						wrapper.statechanged();
+						wrapper.parentNode.removeChild(wrapper);
+					}
+				}
+			}
+			wrapper.setRequestHeader = function(type, value) {
+				this.xmlhttp.setRequestHeader(type, value);
+			}
+			wrapper.open = function(method, url, async) {
+				this.async = async;
+				url += (url.match(/\?/) ? "&" : "?") + "refresh_activex=" + u.randomString();
+				try {
+					this.xmlhttp.open(method, url, async);
+				}
+				catch(exception) {
+					if(fun(wrapper.statechanged)) {
+						this.status = 400;
+						this.IEreadyState = true;
+						this.statechanged();
+						this.parentNode.removeChild(wrapper);
+					}
+				}
+			}
+			wrapper.send = function(params) {
+				this.xmlhttp.send(params);
+				if(!this.async) {
+					this.responseText = this.xmlhttp.responseText;
+					this.status = this.xmlhttp.status;
+				}
+			}
+			return wrapper;
+		}
+		else {
+			u.bug("NO XMLHTTP");
+			return false;
+		}
+	}
+}
 
 
 /*u-string-desktop_light.js*/

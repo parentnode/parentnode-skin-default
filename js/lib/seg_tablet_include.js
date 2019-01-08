@@ -18,3 +18,4 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/i-article.js
 // document.write('<script type="text/javascript" src="/js/lib/desktop/i-signup.js"></script>');
 // document.write('<script type="text/javascript" src="/js/lib/desktop/i-newsletter.js"></script>');
 // document.write('<script type="text/javascript" src="/js/lib/desktop/i-todolist.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/u-geolocation.js"></script>');
