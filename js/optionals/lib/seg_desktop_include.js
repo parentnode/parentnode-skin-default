@@ -16,7 +16,6 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/u-geolocatio
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-builder.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-geolocation.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-htmleditor.js"></script>');
-// document.write('<script type="text/javascript" src="/js/manipulator/src/u-sortable.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-textscaler.js"></script>');
 
 
