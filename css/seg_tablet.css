@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-01-08 15:12:12
+asset-builder @ 2019-01-09 10:12:06
 */
 
 /*seg_tablet_include.css*/
@@ -312,9 +312,6 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene .article div.geomap {position: relative; z-index: 1; height: 300px; width: 600px; margin-bottom: 20px;}
 #content .scene .article div.geomap iframe {display: block; width: 100%; height: 100%; border: 1px solid #666666; background-color: #ffffff; margin: 0 50px 30px; width: 540px; border-radius: 5px; }
 #content .scene .article li div.geomap {}
-
-/*s-header.css*/
-
 
 /*s-active.css*/
 #header .logo:active,
