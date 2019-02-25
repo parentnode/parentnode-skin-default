@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-01-09 10:50:26
+asset-builder @ 2019-02-25 16:41:01
 */
 
 /*seg_smartphone_include.js*/
@@ -178,12 +178,11 @@ Util.Animation = u.a = new function() {
 								var key = u.randomString(4);
 								node[key] = callback;
 								node[key](event);
-								node[key] = null;
+								delete node[key];
 								callback = null;
 							}
 							else if(fun(this[callback])) {
 								this[callback](event);
-								this[callback] = null;
 							}
 						}
 						else {
@@ -225,15 +224,17 @@ Util.Animation = u.a = new function() {
 		return this._transition_end_event_name;
 	}
 	this._transitioned = function(event) {
-		u.e.removeEvent(event.target, u.a.transitionEndEventName(), u.a._transitioned);
-		u.a.transition(event.target, "none");
-		if(event.target == this && fun(this.transitioned)) {
-			this.transitioned(event);
-			this.transitioned = null;
+		if(event.target == this) {
+			u.e.removeEvent(event.target, u.a.transitionEndEventName(), u.a._transitioned);
+			u.a.transition(event.target, "none");
+			if(fun(this.transitioned)) {
+				this.transitioned_before = this.transitioned;
+				this.transitioned(event);
+				if(this.transitioned === this.transitioned_before) {
+					this.transitioned = null;
+				}
+			}
 		}
-	}
-	this.removeTransform = function(node) {
-		u.as(node, "transform", "none");
 	}
 	this.translate = function(node, x, y) {
 		if(this.support3d()) {
@@ -518,14 +519,15 @@ Util.querySelectorAll = u.qsa = function(query, scope) {
 	return [];
 }
 Util.getElement = u.ge = function(identifier, scope) {
-	var node, i, regexp;
+	var node, nodes, i, regexp;
 	if(document.getElementById(identifier)) {
 		return document.getElementById(identifier);
 	}
 	scope = scope ? scope : document;
 	regexp = new RegExp("(^|\\s)" + identifier + "(\\s|$|\:)");
-	for(i = 0; i < scope.getElementsByTagName("*").length; i++) {
-		node = scope.getElementsByTagName("*")[i];
+	nodes = scope.getElementsByTagName("*");
+	for(i = 0; i < nodes.length; i++) {
+		node = nodes[i];
 		if(regexp.test(node.className)) {
 			return node;
 		}
@@ -533,17 +535,18 @@ Util.getElement = u.ge = function(identifier, scope) {
 	return scope.getElementsByTagName(identifier).length ? scope.getElementsByTagName(identifier)[0] : false;
 }
 Util.getElements = u.ges = function(identifier, scope) {
-	var node, i, regexp;
-	var nodes = new Array();
+	var node, nodes, i, regexp;
+	var return_nodes = new Array();
 	scope = scope ? scope : document;
 	regexp = new RegExp("(^|\\s)" + identifier + "(\\s|$|\:)");
-	for(i = 0; i < scope.getElementsByTagName("*").length; i++) {
-		node = scope.getElementsByTagName("*")[i];
+	nodes = scope.getElementsByTagName("*");
+	for(i = 0; i < nodes.length; i++) {
+		node = nodes[i];
 		if(regexp.test(node.className)) {
-			nodes.push(node);
+			return_nodes.push(node);
 		}
 	}
-	return nodes.length ? nodes : scope.getElementsByTagName(identifier);
+	return return_nodes.length ? return_nodes : scope.getElementsByTagName(identifier);
 }
 Util.parentNode = u.pn = function(node, _options) {
 	var exclude = "";
@@ -893,7 +896,12 @@ Util.applyStyles = u.ass = function(node, styles, dom_update) {
 	if(styles) {
 		var style;
 		for(style in styles) {
-			node.style[u.vendorProperty(style)] = styles[style];
+			if(obj(u.a) && style == "transition") {
+				u.a.transition(node, styles[style]);
+			}
+			else {
+				node.style[u.vendorProperty(style)] = styles[style];
+			}
 		}
 	}
 	dom_update === false ? false : node.offsetTop;
@@ -1522,9 +1530,11 @@ u.e.drag = function(node, boundaries, _options) {
 	}
 	node.distance_to_pick = 2;
 	node.drag_strict = true;
+	node.drag_overflow = false;
 	node.drag_elastica = 0;
 	node.drag_dropout = true;
 	node.show_bounds = false;
+	node.callback_ready = "ready";
 	node.callback_picked = "picked";
 	node.callback_moved = "moved";
 	node.callback_dropped = "dropped";
@@ -1533,6 +1543,7 @@ u.e.drag = function(node, boundaries, _options) {
 		for(_argument in _options) {
 			switch(_argument) {
 				case "strict"			: node.drag_strict			= _options[_argument]; break;
+				case "overflow"			: node.drag_overflow		= _options[_argument]; break;
 				case "elastica"			: node.drag_elastica		= Number(_options[_argument]); break;
 				case "dropout"			: node.drag_dropout			= _options[_argument]; break;
 				case "show_bounds"		: node.show_bounds			= _options[_argument]; break; 
@@ -1544,41 +1555,11 @@ u.e.drag = function(node, boundaries, _options) {
 			}
 		}
 	}
-	if((boundaries.constructor && boundaries.constructor.toString().match("Array")) || (boundaries.scopeName && boundaries.scopeName != "HTML")) {
-		node.start_drag_x = Number(boundaries[0]);
-		node.start_drag_y = Number(boundaries[1]);
-		node.end_drag_x = Number(boundaries[2]);
-		node.end_drag_y = Number(boundaries[3]);
-	}
-	else if((boundaries.constructor && boundaries.constructor.toString().match("HTML")) || (boundaries.scopeName && boundaries.scopeName == "HTML")) {
-		node.start_drag_x = u.absX(boundaries) - u.absX(node);
-		node.start_drag_y = u.absY(boundaries) - u.absY(node);
-		node.end_drag_x = node.start_drag_x + boundaries.offsetWidth;
-		node.end_drag_y = node.start_drag_y + boundaries.offsetHeight;
-	}
-	if(node.show_bounds) {
-		var debug_bounds = u.ae(document.body, "div", {"class":"debug_bounds"})
-		debug_bounds.style.position = "absolute";
-		debug_bounds.style.background = "red"
-		debug_bounds.style.left = (u.absX(node) + node.start_drag_x - 1) + "px";
-		debug_bounds.style.top = (u.absY(node) + node.start_drag_y - 1) + "px";
-		debug_bounds.style.width = (node.end_drag_x - node.start_drag_x) + "px";
-		debug_bounds.style.height = (node.end_drag_y - node.start_drag_y) + "px";
-		debug_bounds.style.border = "1px solid white";
-		debug_bounds.style.zIndex = 9999;
-		debug_bounds.style.opacity = .5;
-		if(document.readyState && document.readyState == "interactive") {
-			debug_bounds.innerHTML = "WARNING - injected on DOMLoaded"; 
-		}
-		u.bug("node: "+u.nodeId(node)+" in (" + u.absX(node) + "," + u.absY(node) + "), (" + (u.absX(node)+node.offsetWidth) + "," + (u.absY(node)+node.offsetHeight) +")");
-		u.bug("boundaries: (" + node.start_drag_x + "," + node.start_drag_y + "), (" + node.end_drag_x + ", " + node.end_drag_y + ")");
-	}
-	node._x = node._x ? node._x : 0;
-	node._y = node._y ? node._y : 0;
-	node.locked = ((node.end_drag_x - node.start_drag_x == node.offsetWidth) && (node.end_drag_y - node.start_drag_y == node.offsetHeight));
-	node.only_vertical = (node.vertical_lock || (!node.locked && node.end_drag_x - node.start_drag_x == node.offsetWidth));
-	node.only_horizontal = (node.horizontal_lock || (!node.locked && node.end_drag_y - node.start_drag_y == node.offsetHeight));
+	u.e.setDragBoundaries(node, boundaries);
 	u.e.addStartEvent(node, this._inputStart);
+	if(fun(node[node.callback_ready])) {
+		node[node.callback_ready](event);
+	}
 }
 u.e._pick = function(event) {
 	var init_speed_x = Math.abs(this.start_event_x - u.eventX(event));
@@ -1779,8 +1760,6 @@ u.e._drop = function(event) {
 			this.current_y = this.end_drag_y - this.offsetHeight;
 		}
 		this.transitioned = function() {
-			this.transitioned = null;
-			u.a.transition(this, "none");
 			if(fun(this.projected)) {
 				this.projected(event);
 			}
@@ -1789,7 +1768,7 @@ u.e._drop = function(event) {
 			u.a.transition(this, "all 1s cubic-bezier(0,0,0.25,1)");
 		}
 		else {
-			u.a.transition(this, "all 0.2s cubic-bezier(0,0,0.25,1)");
+			u.a.transition(this, "none");
 		}
 		u.a.translate(this, this.current_x, this.current_y);
 	}
@@ -1810,6 +1789,68 @@ u.e._drop_out = function(event) {
 	u.e.addEvent(document, "mousemove", document["_DroppedOutMove" + this._drop_out_id]);
 	u.e.addEvent(this, "mouseover", document["_DroppedOutOver" + this._drop_out_id]);
 	u.e.addEvent(document, "mouseup", document["_DroppedOutEnd" + this._drop_out_id]);
+}
+u.e.setDragBoundaries = function(node, boundaries) {
+	u.bug("initDragBoundaries", node, boundaries);
+	if((boundaries.constructor && boundaries.constructor.toString().match("Array")) || (boundaries.scopeName && boundaries.scopeName != "HTML")) {
+		node.start_drag_x = Number(boundaries[0]);
+		node.start_drag_y = Number(boundaries[1]);
+		node.end_drag_x = Number(boundaries[2]);
+		node.end_drag_y = Number(boundaries[3]);
+	}
+	else if((boundaries.constructor && boundaries.constructor.toString().match("HTML")) || (boundaries.scopeName && boundaries.scopeName == "HTML")) {
+		if(node.drag_overflow == "scroll") {
+			node.start_drag_x = node.offsetWidth > boundaries.offsetWidth ? boundaries.offsetWidth - node.offsetWidth : 0;
+			node.start_drag_y = node.offsetHeight > boundaries.offsetHeight ? boundaries.offsetHeight - node.offsetHeight : 0;
+			node.end_drag_x = node.offsetWidth > boundaries.offsetWidth ? node.offsetWidth : boundaries.offsetWidth;
+			node.end_drag_y = node.offsetHeight > boundaries.offsetHeight ? node.offsetHeight : boundaries.offsetHeight;
+		}
+		else {
+			node.start_drag_x = u.absX(boundaries) - u.absX(node);
+			node.start_drag_y = u.absY(boundaries) - u.absY(node);
+			node.end_drag_x = node.start_drag_x + boundaries.offsetWidth;
+			node.end_drag_y = node.start_drag_y + boundaries.offsetHeight;
+		}
+	}
+	if(node.show_bounds) {
+		var debug_bounds = u.ae(document.body, "div", {"class":"debug_bounds"})
+		debug_bounds.style.position = "absolute";
+		debug_bounds.style.background = "red"
+		debug_bounds.style.left = (u.absX(node) + node.start_drag_x - 1) + "px";
+		debug_bounds.style.top = (u.absY(node) + node.start_drag_y - 1) + "px";
+		debug_bounds.style.width = (node.end_drag_x - node.start_drag_x) + "px";
+		debug_bounds.style.height = (node.end_drag_y - node.start_drag_y) + "px";
+		debug_bounds.style.border = "1px solid white";
+		debug_bounds.style.zIndex = 9999;
+		debug_bounds.style.opacity = .5;
+		if(document.readyState && document.readyState == "interactive") {
+			debug_bounds.innerHTML = "WARNING - injected on DOMLoaded"; 
+		}
+		u.bug("node: "+u.nodeId(node)+" in (" + u.absX(node) + "," + u.absY(node) + "), (" + (u.absX(node)+node.offsetWidth) + "," + (u.absY(node)+node.offsetHeight) +")");
+		u.bug("boundaries: (" + node.start_drag_x + "," + node.start_drag_y + "), (" + node.end_drag_x + ", " + node.end_drag_y + ")");
+	}
+	node._x = node._x ? node._x : 0;
+	node._y = node._y ? node._y : 0;
+	if(node.drag_overflow == "scroll" && (boundaries.constructor && boundaries.constructor.toString().match("HTML")) || (boundaries.scopeName && boundaries.scopeName == "HTML")) {
+		node.locked = ((node.end_drag_x - node.start_drag_x <= boundaries.offsetWidth) && (node.end_drag_y - node.start_drag_y <= boundaries.offsetHeight));
+		node.only_vertical = (node.vertical_lock || (!node.locked && node.end_drag_x - node.start_drag_x <= boundaries.offsetWidth));
+		node.only_horizontal = (node.horizontal_lock || (!node.locked && node.end_drag_y - node.start_drag_y <= boundaries.offsetHeight));
+	}
+	else {
+		node.locked = ((node.end_drag_x - node.start_drag_x == node.offsetWidth) && (node.end_drag_y - node.start_drag_y == node.offsetHeight));
+		node.only_vertical = (node.vertical_lock || (!node.locked && node.end_drag_x - node.start_drag_x == node.offsetWidth));
+		node.only_horizontal = (node.horizontal_lock || (!node.locked && node.end_drag_y - node.start_drag_y == node.offsetHeight));
+	}
+}
+u.e.setDragPosition = function(node, x, y) {
+	node.current_xps = 0;
+	node.current_yps = 0;
+	node._x = x;
+	node._y = y;
+	u.a.translate(node, node._x, node._y);
+	if(fun(node[node.callback_moved])) {
+		node[node.callback_moved](event);
+	}
 }
 u.e.swipe = function(node, boundaries, _options) {
 	node.e_swipe_options = _options ? _options : {};
@@ -4187,6 +4228,7 @@ Util.Objects["page"] = new function() {
 		page.cN = u.qs("#content", page);
 		page.nN = u.qs("#navigation", page);
 		page.nN = u.ie(page.hN, page.nN);
+		page.nN.nav = u.qs("ul.navigation", page.nN)
 		page.fN = u.qs("#footer");
 		page.fN.service = u.qs(".servicenavigation", page.fN);
 		page.resized = function() {
@@ -4201,6 +4243,16 @@ Util.Objects["page"] = new function() {
 				this.cN.scene.resized();
 			}
 			this.offsetHeight;
+			if(this.bn_nav.is_open) {
+				u.ass(page.hN, {
+					"height":window.innerHeight + "px"
+				});
+				u.ass(page.nN, {
+					"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
+				});
+				u.e.setDragPosition(page.nN.nav, 0, 0);
+				u.e.setDragBoundaries(page.nN.nav, page.nN);
+			}
 		}
 		page.fixiOSScroll = function() {
 			u.ass(this.hN, {
@@ -4219,9 +4271,6 @@ Util.Objects["page"] = new function() {
 			}
 		}
 		page.orientationchanged = function() {
-			if(u.hc(page.bn_nav, "open")) {
-				u.as(page.hN, "height", window.innerHeight + "px");
-			}
 			if(page.cN && page.cN.scene && typeof(page.cN.scene.orientationchanged) == "function") {
 				page.cN.scene.orientationchanged();
 			}
@@ -4282,8 +4331,8 @@ Util.Objects["page"] = new function() {
 				u.ae(this.bn_nav, "div");
 				u.ce(this.bn_nav);
 				this.bn_nav.clicked = function(event) {
-					if(u.hc(this, "open")) {
-						u.rc(this, "open");
+					if(this.is_open) {
+						this.is_open = false;
 						var i, node;
 						for(i = 0; node = page.nN.nodes[i]; i++) {
 							u.a.transition(node, "all 0.2s ease-in "+(i*100)+"ms");
@@ -4301,9 +4350,16 @@ Util.Objects["page"] = new function() {
 						u.ass(page.hN, {
 							"height": "60px"
 						});
+						u.ass(page.nN, {
+							"overflow-y":"hidden"
+						});
+						u.ass(page.parentNode, {
+							"overflow-y":"scroll"
+						});
 					}
 					else {
-						u.ac(this, "open");
+						this.is_open = true;
+						console.log(this)
 						var i, node;
 						for(i = 0; node = page.nN.nodes[i]; i++) {
 							u.ass(node, {
@@ -4316,6 +4372,9 @@ Util.Objects["page"] = new function() {
 							"height": window.innerHeight+"px",
 						});
 						u.ass(page.nN, {
+							"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
+						});
+						u.ass(page.nN, {
 							"display": "block"
 						});
 						for(i = 0; node = page.nN.nodes[i]; i++) {
@@ -4325,11 +4384,17 @@ Util.Objects["page"] = new function() {
 								"transform":"translate(0, 0)"
 							});
 						}
+						u.ass(page.nN, {
+							"overflow-y":"scroll"
+						});
+						u.ass(page.parentNode, {
+							"overflow-y":"hidden"
+						});
 					}
-					page.nN.start_drag_y = (window.innerHeight - 100) - page.nN.offsetHeight;
-					page.nN.end_drag_y = page.nN.offsetHeight;
+					u.e.setDragPosition(page.nN.nav, 0, 0);
+					u.e.setDragBoundaries(page.nN.nav, page.nN);
 				}
-				u.e.drag(this.nN, [0, (window.innerHeight - 100) - this.nN.offsetHeight, this.hN.offsetWidth, this.nN.offsetHeight], {"strict":false, "elastica":200, "vertical_lock":true});
+				u.e.drag(this.nN.nav, this.nN, {"strict":false, "elastica":200, "vertical_lock":true, "overflow":"scroll"});
 			}
 			if(page.fN.service) {
 				nodes = u.qsa("li", page.fN.service);

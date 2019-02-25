@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-01-09 10:50:26
+asset-builder @ 2019-02-25 16:41:00
 */
 
 /*seg_desktop_include.js*/
@@ -178,12 +178,11 @@ Util.Animation = u.a = new function() {
 								var key = u.randomString(4);
 								node[key] = callback;
 								node[key](event);
-								node[key] = null;
+								delete node[key];
 								callback = null;
 							}
 							else if(fun(this[callback])) {
 								this[callback](event);
-								this[callback] = null;
 							}
 						}
 						else {
@@ -225,15 +224,17 @@ Util.Animation = u.a = new function() {
 		return this._transition_end_event_name;
 	}
 	this._transitioned = function(event) {
-		u.e.removeEvent(event.target, u.a.transitionEndEventName(), u.a._transitioned);
-		u.a.transition(event.target, "none");
-		if(event.target == this && fun(this.transitioned)) {
-			this.transitioned(event);
-			this.transitioned = null;
+		if(event.target == this) {
+			u.e.removeEvent(event.target, u.a.transitionEndEventName(), u.a._transitioned);
+			u.a.transition(event.target, "none");
+			if(fun(this.transitioned)) {
+				this.transitioned_before = this.transitioned;
+				this.transitioned(event);
+				if(this.transitioned === this.transitioned_before) {
+					this.transitioned = null;
+				}
+			}
 		}
-	}
-	this.removeTransform = function(node) {
-		u.as(node, "transform", "none");
 	}
 	this.translate = function(node, x, y) {
 		if(this.support3d()) {
@@ -553,14 +554,15 @@ Util.querySelectorAll = u.qsa = function(query, scope) {
 	return [];
 }
 Util.getElement = u.ge = function(identifier, scope) {
-	var node, i, regexp;
+	var node, nodes, i, regexp;
 	if(document.getElementById(identifier)) {
 		return document.getElementById(identifier);
 	}
 	scope = scope ? scope : document;
 	regexp = new RegExp("(^|\\s)" + identifier + "(\\s|$|\:)");
-	for(i = 0; i < scope.getElementsByTagName("*").length; i++) {
-		node = scope.getElementsByTagName("*")[i];
+	nodes = scope.getElementsByTagName("*");
+	for(i = 0; i < nodes.length; i++) {
+		node = nodes[i];
 		if(regexp.test(node.className)) {
 			return node;
 		}
@@ -568,17 +570,18 @@ Util.getElement = u.ge = function(identifier, scope) {
 	return scope.getElementsByTagName(identifier).length ? scope.getElementsByTagName(identifier)[0] : false;
 }
 Util.getElements = u.ges = function(identifier, scope) {
-	var node, i, regexp;
-	var nodes = new Array();
+	var node, nodes, i, regexp;
+	var return_nodes = new Array();
 	scope = scope ? scope : document;
 	regexp = new RegExp("(^|\\s)" + identifier + "(\\s|$|\:)");
-	for(i = 0; i < scope.getElementsByTagName("*").length; i++) {
-		node = scope.getElementsByTagName("*")[i];
+	nodes = scope.getElementsByTagName("*");
+	for(i = 0; i < nodes.length; i++) {
+		node = nodes[i];
 		if(regexp.test(node.className)) {
-			nodes.push(node);
+			return_nodes.push(node);
 		}
 	}
-	return nodes.length ? nodes : scope.getElementsByTagName(identifier);
+	return return_nodes.length ? return_nodes : scope.getElementsByTagName(identifier);
 }
 Util.parentNode = u.pn = function(node, _options) {
 	var exclude = "";
@@ -928,7 +931,12 @@ Util.applyStyles = u.ass = function(node, styles, dom_update) {
 	if(styles) {
 		var style;
 		for(style in styles) {
-			node.style[u.vendorProperty(style)] = styles[style];
+			if(obj(u.a) && style == "transition") {
+				u.a.transition(node, styles[style]);
+			}
+			else {
+				node.style[u.vendorProperty(style)] = styles[style];
+			}
 		}
 	}
 	dom_update === false ? false : node.offsetTop;
