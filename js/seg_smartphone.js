@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-03-04 10:04:57
+asset-builder @ 2019-03-04 13:26:14
 */
 
 /*seg_smartphone_include.js*/
@@ -3525,7 +3525,7 @@ u.scrollTo = function(node, _options) {
 	}
 	node.scrollToHandler = function(event) {
 		u.t.resetTimer(this.t_scroll);
-		this.t_scroll = u.t.setTimer(this, this._scrollTo, 50);
+		this.t_scroll = u.t.setTimer(this, this._scrollTo, 25);
 	}
 	u.e.addEvent(node, "scroll", node.scrollToHandler);
 	node.cancelScrollTo = function() {
@@ -3541,32 +3541,29 @@ u.scrollTo = function(node, _options) {
 		u.e.removeEvent(this, "wheel", this.ignoreWheel);
 		this._scrollTo = null;
 	}
-	node.IEScrollFix = function(s_x, s_y) {
-		if(!u.browser("ie")) {
-			return false;
-		}
-		else if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
+	node.ZoomScrollFix = function(s_x, s_y) {
+		if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
 			return true;
 		}
 	}
 	node._scrollTo = function(start) {
 		var s_x = u.scrollX();
 		var s_y = u.scrollY();
-		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.IEScrollFix(s_x, s_y)) {
+		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.ZoomScrollFix(s_x, s_y)) {
 			if(this._x_scroll_direction > 0 && this._to_x > s_x) {
-				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/4);
+				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/8);
 			}
 			else if(this._x_scroll_direction < 0 && this._to_x < s_x) {
-				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/4);
+				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/8);
 			}
 			else {
 				this._scroll_to_x = this._to_x;
 			}
 			if(this._y_scroll_direction > 0 && this._to_y > s_y) {
-				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/4);
+				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/8);
 			}
 			else if(this._y_scroll_direction < 0 && this._to_y < s_y) {
-				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/4);
+				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/8);
 			}
 			else {
 				this._scroll_to_y = this._to_y;
@@ -4333,6 +4330,7 @@ Util.Objects["page"] = new function() {
 				this.bn_nav.clicked = function(event) {
 					if(this.is_open) {
 						this.is_open = false;
+						u.rc(this, "open");
 						var i, node;
 						for(i = 0; node = page.nN.nodes[i]; i++) {
 							u.a.transition(node, "all 0.2s ease-in "+(i*100)+"ms");
@@ -4359,6 +4357,8 @@ Util.Objects["page"] = new function() {
 					}
 					else {
 						this.is_open = true;
+						u.ac(this, "open");
+						delete page.hN.transitioned;
 						var i, node;
 						for(i = 0; node = page.nN.nodes[i]; i++) {
 							u.ass(node, {
