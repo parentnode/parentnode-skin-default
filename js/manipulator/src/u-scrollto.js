@@ -98,7 +98,7 @@ u.scrollTo = function(node, _options) {
 		// u.bug("scrollToHandler:" + u.nodeId(this))
 
 		u.t.resetTimer(this.t_scroll);
-		this.t_scroll = u.t.setTimer(this, this._scrollTo, 50);
+		this.t_scroll = u.t.setTimer(this, this._scrollTo, 25);
 	}
 
 	// add scroll event
@@ -132,11 +132,13 @@ u.scrollTo = function(node, _options) {
 	}
 
 	// IEMobile is not completely precise in scrolling, so to make it work we have to allow a little offset
-	node.IEScrollFix = function(s_x, s_y) {
-		if(!u.browser("ie")) {
-			return false;
-		}
-		else if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
+	// Also an issue in Safari when browser is zoomed to non 100%
+	node.ZoomScrollFix = function(s_x, s_y) {
+		// if(!u.browser("ie")) {
+		// 	return false;
+		// }
+		// else
+		if((s_y == this._scroll_to_y && (s_x == this._scroll_to_x+1 || s_x == this._scroll_to_x-1)) ||	(s_x == this._scroll_to_x && (s_y == this._scroll_to_y+1 || s_y == this._scroll_to_y-1))) {
 			return true;
 		}
 
@@ -144,7 +146,6 @@ u.scrollTo = function(node, _options) {
 
 	// calculating scroll
 	node._scrollTo = function(start) {
-
 		// save current scroll postion for faster calculation
 		var s_x = u.scrollX();
 		var s_y = u.scrollY();
@@ -155,17 +156,17 @@ u.scrollTo = function(node, _options) {
 		// (no user interaction, thus current scroll is result of last scroll loop or initial state)
 		// then calculate new scrolling values
 		// allow more relaxed comparison for IEMobile
-		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.IEScrollFix(s_x, s_y)) {
+		if((s_y == this._scroll_to_y && s_x == this._scroll_to_x) || this.ZoomScrollFix(s_x, s_y)) {
 
 			// scrolling right
 			if(this._x_scroll_direction > 0 && this._to_x > s_x) {
 //				u.bug("right")
-				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/4);
+				this._scroll_to_x = Math.ceil(s_x + (this._to_x - s_x)/8);
 			}
 			// scrolling left
 			else if(this._x_scroll_direction < 0 && this._to_x < s_x) {
 //				u.bug("left")
-				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/4);
+				this._scroll_to_x = Math.floor(s_x - (s_x - this._to_x)/8);
 			}
 			else {
 				this._scroll_to_x = this._to_x;
@@ -175,12 +176,12 @@ u.scrollTo = function(node, _options) {
 			// scrolling down
 			if(this._y_scroll_direction > 0 && this._to_y > s_y) {
 //				u.bug("down")
-				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/4);
+				this._scroll_to_y = Math.ceil(s_y + (this._to_y - s_y)/8);
 			}
 			// scrolling up
 			else if(this._y_scroll_direction < 0 && this._to_y < s_y) {
 //				u.bug("up")
-				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/4);
+				this._scroll_to_y = Math.floor(s_y - (s_y - this._to_y)/8);
 			}
 			else {
 				this._scroll_to_y = this._to_y;
