@@ -261,7 +261,7 @@ Util.Objects["page"] = new function() {
 					else {
 						this.is_open = true;
 
-						console.log(this)
+						// console.log(this)
 
 						var i, node;
 						// set initial animation state for nav nodes

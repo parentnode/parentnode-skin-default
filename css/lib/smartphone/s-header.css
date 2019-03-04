@@ -14,7 +14,7 @@
 #header .servicenavigation li.navigation {position: absolute; right: 0; top: 0; width: 30px; height: 39px; padding: 21px 15px 0;}
 #header .servicenavigation li.navigation div {border-radius: 1px; height: 3px; margin: 0 0 5px; background: #888888;}
 #header .servicenavigation li.navigation.open div {background: #cccccc;}
-#header .servicenavigation li.navigation a {display: none;}
+#header .servicenavigation li.navigation a {display: none; background: #ffffff;}
 
 /*
 #header .servicenavigation li.user,
