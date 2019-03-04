@@ -220,7 +220,9 @@ Util.Objects["page"] = new function() {
 
 					// close navigation
 					if(this.is_open) {
+						// Update open state
 						this.is_open = false;
+						u.rc(this, "open");
 
 						var i, node;
 						// set hide animation for nav nodes
@@ -259,9 +261,12 @@ Util.Objects["page"] = new function() {
 					}
 					// open navigation
 					else {
+						// Update open state
 						this.is_open = true;
+						u.ac(this, "open");
 
-						// console.log(this)
+						// Clear hN transitioned, in order to prevent bugs
+						delete page.hN.transitioned;
 
 						var i, node;
 						// set initial animation state for nav nodes
