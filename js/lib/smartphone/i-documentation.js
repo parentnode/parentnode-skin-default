@@ -166,12 +166,12 @@ Util.Objects["docpage"] = new function() {
 
 			// FUNCTION USES
 
-			func._uses = u.qs(".uses", func);
-			u.as(func._uses, "height", "20px");
-			func._uses._func = func;
+			func._dependencies = u.qs(".dependencies", func);
+			u.as(func._dependencies, "height", "20px");
+			func._dependencies._func = func;
 
 			u.svg({
-				"node":func._uses,
+				"node":func._dependencies,
 				"width": "15px",
 				"height": "12px",
 				"shapes":[
@@ -192,8 +192,8 @@ Util.Objects["docpage"] = new function() {
 				]
 			});
 
-			u.e.click(func._uses);
-			func._uses.clicked = function(event) {
+			u.e.click(func._dependencies);
+			func._dependencies.clicked = function(event) {
 
 				if(u.hc(this, "open")) {
 
