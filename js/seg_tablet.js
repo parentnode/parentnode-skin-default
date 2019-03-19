@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-03-04 13:26:37
+asset-builder @ 2019-03-19 20:58:30
 */
 
 /*seg_tablet_include.js*/
@@ -4079,6 +4079,10 @@ Util.Objects["page"] = new function() {
 				this.initFooter();
 				this.resized();
 			}
+		}
+		page.cN.navigate = function(url) {
+			u.bug(url)
+			location.href = url;
 		}
 		page.acceptCookies = function() {
 			if(u.terms_version && !u.getCookie(u.terms_version)) {
