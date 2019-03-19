@@ -68,8 +68,8 @@
 #content .scene div.functions .function .body .example p {padding-bottom: 5px;}
 
 
-#content .scene div.functions .function .body .uses .javascript {padding: 5px 0 0 20px;}
-#content .scene div.functions .function .body .uses .manipulator {padding: 5px 0 0 20px;}
+#content .scene div.functions .function .body .dependencies .javascript {padding: 5px 0 0 20px;}
+#content .scene div.functions .function .body .dependencies .manipulator {padding: 5px 0 0 20px;}
 #content .scene div.functions dd {padding-bottom: 5px;}
 
 
