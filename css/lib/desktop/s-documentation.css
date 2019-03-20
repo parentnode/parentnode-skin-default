@@ -57,6 +57,8 @@
 
 #content .scene div.functions .function .body .parameters dl.options {margin-left: -80px; width: 475px;}
 #content .scene div.functions .function .body .parameters dl.options dt {width: 130px;}
+#content .scene div.functions .function .body .parameters > dt {width: 115px;}
+#content .scene div.functions .function .body .parameters > dd {width: 375px;}
 
 #content .scene div.functions .function .body .callbacks dl {padding-left: 70px;}
 #content .scene div.functions .function .body .callbacks dt {width: auto; display: block; text-align: left;}
