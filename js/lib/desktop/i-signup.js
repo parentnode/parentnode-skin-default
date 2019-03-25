@@ -86,7 +86,7 @@ Util.Objects["signup"] = new function() {
 						u.showScene(scene.replaceScene(response));
 
 						// Update url
-						u.h.navigate("/signup/confirm/receipt");
+						u.h.navigate("/signup/confirm/receipt", false, true);
 					}
 					// Error
 					else {
