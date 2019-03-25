@@ -166,6 +166,8 @@ Util.Objects["page"] = new function() {
 					u.smartphoneSwitch.init(this);
 				}
 
+				u.navigation();
+
 				this.initHeader();
 
 				this.initNavigation();
@@ -175,6 +177,12 @@ Util.Objects["page"] = new function() {
 				this.resized();
 
 			}
+		}
+
+		// Handle popstate url changes
+		page.cN.navigate = function(url) {
+			// u.bug(url)
+			location.href = url;
 		}
 
 		// show accept cookies dialogue
