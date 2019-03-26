@@ -14,8 +14,6 @@ Util.Objects["signup"] = new function() {
 		scene.ready = function() {
 //			u.bug("scene.ready:", this);
 
-			console.log("signup/ajax");
-
 			page.cN.scene = this;
 
 			var signup_form = u.qs("form.signup", this);
