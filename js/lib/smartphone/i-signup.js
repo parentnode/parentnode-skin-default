@@ -108,37 +108,20 @@ Util.Objects["signup"] = new function() {
 		}
 
 		scene.showMessage = function(form, response) {
-			// Getting new error and current error
-			var new_error;
-			var current_error;
 
-			// Find out what error class to search for
-			if (u.qs("p.errormessage", response)) {
-				new_error = u.qs("p.errormessage", response)
-				current_error = u.qs("p.errormessage", form);
-			}
-			else {
-				new_error = u.qs("p.error", response)
-				current_error = u.qs("p.error", form);
-			}
+			// Get error message
+			var new_error = (u.qs("p.errormessage", response) || u.qs("p.error", response));
+			var current_error = (u.qs("p.errormessage", form) || u.qs("p.error", form));
 
-			// Injecting error
+			// Inject initial error
 			if (!current_error) {
 				u.ie(form, new_error);
 			}
+			// Update error
 			else {
-				// Updating error message
 				form.replaceChild(new_error, current_error);
-
-				// Animating error message
-				u.a.transition(new_error, "all 0.15s linear", animationDone);
-				u.a.scale(new_error, 1.05);
-				
-				function animationDone() {
-					u.a.transition(this, "all 0.15s linear");
-					u.a.scale(this, 1);
-				}
 			}
+			
 		}
 
 
