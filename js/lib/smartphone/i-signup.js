@@ -25,30 +25,49 @@ Util.Objects["signup"] = new function() {
 
 			if(signup_form) {
 				u.f.init(signup_form);
-			
-				// Ajax janitor signup flow
-				signup_form.submitted = function() {
-					var data = u.f.getParams(this); // Get input
+			}
 
-					// signup controller
-					this.response = function(response) {
-						// Success
-						if (u.qs("form.verify_code", response)) {
-							// Update scene
-							scene.initVerify(response);
-							
-							// Update url
-							u.h.navigate("/signup/verify", false, true);
-						}
-						// Error
-						else {
-							scene.showMessage(this, response);
-						}
+			// Ajax janitor signup flow
+			signup_form.submitted = function() {
+				var data = u.f.getParams(this); // Get input
+
+				// signup controller
+				this.response = function(response) {
+					// Success
+					if (u.qs(".scene.verify", response)) {
+						// Update scene
+						scene.initVerify(response);
+						
+						// Update url
+						u.h.navigate("/verify", false, true);
 					}
+					// Error
+					else {
+						// Remove past error from DOM
+						if (this.error) {
+							this.error.parentNode.removeChild(this.error);
+						}
+						
+						// Append error to scene
+						this.error = scene.showMessage(this, response);
 
-					// Post input to action ("save" from signup controller)
-					u.request(this, this.action, {"data":data, "method":"POST"});
+						// Set inital state before animating
+						u.ass(this.error, {
+							transform:"translate3d(0, -15px, 0)",
+							opacity:0
+						});
+
+						// Animate error
+						u.a.transition(this.error, "all .5s ease-out");
+						u.ass(this.error, {
+							transform:"translate3d(0, 0, 0)",
+							opacity:1
+						});
+					}
 				}
+
+				// Post input to action ("save" from signup controller)
+				u.request(this, this.action, {"data":data, "method":"POST"});
 			}
 
 			// accept cookies?
@@ -62,41 +81,14 @@ Util.Objects["signup"] = new function() {
 
 		scene.initVerify = function(response) {
 
+			// Change scene to verify
 			var verify_scene = scene.replaceScene(response);
 
 			if(verify_scene) {
-				var verify_form = u.qs("form.verify_code", verify_scene);
-				u.f.init(verify_form);
+				// Initialize verify form
+				u.init();
 			}
 
-			// Using the new verify form
-			verify_form.submitted = function() {
-				data = u.f.getParams(this);
-
-				this.response = function(response) {
-					// User is already verified
-					if (u.qs(".login", response)) {
-						location.href = "/login";
-					}
-					// Verification success
-					else if (u.qs(".confirmed", response)) {
-						// Update scene
-						u.showScene(scene.replaceScene(response));
-
-						// Update url
-						u.h.navigate("/signup/confirm/receipt", false, true);
-					}
-					// Error
-					else {
-						scene.showMessage(this, response);
-					}
-				}
-
-				// Post to "confirm"
-				u.request(this, this.action, {"data":data, "method":"POST", "responseType":"document"});
-			}
-
-			u.showScene(verify_scene);
 		}
 
 		scene.replaceScene = function(response) {
@@ -108,7 +100,6 @@ Util.Objects["signup"] = new function() {
 		}
 
 		scene.showMessage = function(form, response) {
-
 			// Get error message
 			var new_error = (u.qs("p.errormessage", response) || u.qs("p.error", response));
 			var current_error = (u.qs("p.errormessage", form) || u.qs("p.error", form));
@@ -121,7 +112,8 @@ Util.Objects["signup"] = new function() {
 			else {
 				form.replaceChild(new_error, current_error);
 			}
-			
+
+			return new_error;
 		}
 
 
