@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-03-29 14:10:05
+asset-builder @ 2019-03-29 14:21:22
 */
 
 /*seg_mobile_include.css*/
@@ -197,6 +197,8 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.vcard dl.info dd {padding-bottom: 10px; color: #cccccc;}
 #content .scene div.vcard dl.info dd ul {padding: 0;}
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
 
 
 /*s-article.css*/
