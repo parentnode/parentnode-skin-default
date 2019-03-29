@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-03-26 17:30:51
+asset-builder @ 2019-03-29 14:10:05
 */
 
 /*seg_tablet_include.css*/
@@ -274,7 +274,8 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
 #content .scene.login form {padding-bottom: 20px;}
 #content .scene form li.forgot {padding-top: 5px;}
-#content .scene div.messages > p.error {color: #df0000;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
 
 
 /*s-article.css*/
