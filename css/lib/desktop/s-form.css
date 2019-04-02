@@ -201,9 +201,8 @@ ul.actions a.button,
 #content ul.actions a.button {font-size: 14px; background-color: #dedede; color: #333333; border: none; cursor: pointer; border-radius: 3px;}
 
 /* FORM IN SUBMITTING STATE */
-.submitting input.button,
-.submitting a.button,
-#content .submitting a.button {padding-left: 40px !important;
+.submitting input[type="submit"].button {
+	padding-left: 40px !important;
 	background-image: url(../../../img/gx_loader.gif);
 	background-position: 11px 5px;
 	background-repeat: no-repeat;

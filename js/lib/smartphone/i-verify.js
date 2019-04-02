@@ -16,14 +16,23 @@ Util.Objects["verify"] = new function() {
 
 			page.cN.scene = this;
 
-			var verify_form = u.qs("form.verify_code", this);
+			var form_verify = u.qs("form.verify_code", this);
 
-			if(verify_form) {
-				u.f.init(verify_form);
+			if(form_verify) {
+				u.f.init(form_verify);
+
+				form_verify.preSubmitted = function() {
+					this.is_submitting = true; 
+
+					this.actions["verify"].value = "Submitting";
+					u.ac(this, "submitting");
+					u.ac(this.actions["verify"], "disabled");
+					u.ac(this.actions["skip"], "disabled");
+				}
 			}
 
 			// Using the new verify form
-			verify_form.submitted = function() {
+			form_verify.submitted = function() {
 				data = u.f.getParams(this);
 
 				this.response = function(response) {
@@ -42,6 +51,14 @@ Util.Objects["verify"] = new function() {
 					}
 					// Error
 					else {
+						// Remove loader if present
+						if (this.is_submitting) {
+							this.actions["verify"].value = "Verify email";
+							u.rc(this, "submitting");
+							u.rc(this.actions["verify"], "disabled");
+							u.rc(this.actions["skip"], "disabled");
+						}
+
 						// Remove past error from DOM
 						if (this.error) {
 							this.error.parentNode.removeChild(this.error);
