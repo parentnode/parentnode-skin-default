@@ -24,7 +24,7 @@ Util.Objects["verify"] = new function() {
 				form_verify.preSubmitted = function() {
 					this.is_submitting = true; 
 
-					this.actions["verify"].value = "Submitting";
+				//	this.actions["verify"].value = "Submitting";
 					u.ac(this, "submitting");
 					u.ac(this.actions["verify"], "disabled");
 					u.ac(this.actions["skip"], "disabled");
@@ -33,18 +33,18 @@ Util.Objects["verify"] = new function() {
 
 			// Using the new verify form
 			form_verify.submitted = function() {
-				data = u.f.getParams(this);
+				var data = u.f.getParams(this);
 
 				this.response = function(response) {
 					// User is already verified
 					if (u.qs(".scene.login", response)) {
-						u.showScene(scene.replaceScene(response));
+						scene.replaceScene(response);
 						u.h.navigate("/login", false, true);
 					}
 					// Verification success
 					else if (u.qs(".scene.confirmed", response)) {
 						// Update scene
-						u.showScene(scene.replaceScene(response));
+						scene.replaceScene(response);
 
 						// Update url
 						u.h.navigate("/verify/receipt", false, true);
@@ -53,7 +53,9 @@ Util.Objects["verify"] = new function() {
 					else {
 						// Remove loader if present
 						if (this.is_submitting) {
-							this.actions["verify"].value = "Verify email";
+							this.is_submitting = false; 
+
+						//	this.actions["verify"].value = "Verify email";
 							u.rc(this, "submitting");
 							u.rc(this.actions["verify"], "disabled");
 							u.rc(this.actions["skip"], "disabled");
@@ -98,6 +100,9 @@ Util.Objects["verify"] = new function() {
 			var current_scene = u.qs(".scene", page);
 			var new_scene = u.qs(".scene", response);
 			page.cN.replaceChild(new_scene, current_scene); // Replace current scene with response scene
+
+			// Initialize new scene
+			u.init();
 
 			return new_scene;
 		}

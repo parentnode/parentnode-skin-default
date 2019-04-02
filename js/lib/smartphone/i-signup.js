@@ -1,4 +1,4 @@
-Util.Objects["verify"] = new function() {
+Util.Objects["signup"] = new function() {
 	this.init = function(scene) {
 //		u.bug("scene init:", scene);
 
@@ -16,46 +16,49 @@ Util.Objects["verify"] = new function() {
 
 			page.cN.scene = this;
 
-			var form_verify = u.qs("form.verify_code", this);
+			var form_signup = u.qs("form.signup", this);
+			var place_holder = u.qs("div.articlebody .placeholder.signup", this);
 
-			if(form_verify) {
-				u.f.init(form_verify);
+			if(form_signup && place_holder) {
+				place_holder.parentNode.replaceChild(form_signup, place_holder);
+			}
+
+			if(form_signup) {
+				u.f.init(form_signup);
 
 				// Loader
-				form_verify.preSubmitted = function() {
+				form_signup.preSubmitted = function() {
 					this.is_submitting = true; 
 
-					this.actions["verify"].value = "Submitting";
+				//	this.actions["signup"].value = "Submitting";
 					u.ac(this, "submitting");
-					u.ac(this.actions["verify"], "disabled");
+					u.ac(this.actions["signup"], "disabled");
 				}
 			}
 
-			// Using the new verify form
-			form_verify.submitted = function() {
-				data = u.f.getParams(this);
+			// Ajax janitor signup flow
+			form_signup.submitted = function() {
+				var data = u.f.getParams(this);
 
+				// signup controller
 				this.response = function(response) {
-					// User is already verified
-					if (u.qs(".scene.login", response)) {
-						u.showScene(scene.replaceScene(response));
-						u.h.navigate("/login", false, true);
-					}
-					// Verification success
-					else if (u.qs(".scene.confirmed", response)) {
+					// Success
+					if (u.qs(".scene.verify", response)) {
 						// Update scene
-						u.showScene(scene.replaceScene(response));
+						scene.replaceScene(response);
 
 						// Update url
-						u.h.navigate("/verify/receipt", false, true);
+						u.h.navigate("/verify", false, true);
 					}
 					// Error
 					else {
 						// Remove loader if present
 						if (this.is_submitting) {
-							this.actions["verify"].value = "Verify email";
+							this.is_submitting = false; 
+
+						//	this.actions["signup"].value = "Join";
 							u.rc(this, "submitting");
-							u.rc(this.actions["verify"], "disabled");
+							u.rc(this.actions["signup"], "disabled");
 						}
 
 						// Remove past error from DOM
@@ -81,8 +84,8 @@ Util.Objects["verify"] = new function() {
 					}
 				}
 
-				// Post to "confirm"
-				u.request(this, this.action, {"data":data, "method":"POST", "responseType":"document"});
+				// Post input to action ("save" from signup controller)
+				u.request(this, this.action, {"data":data, "method":"POST"});
 			}
 
 			// accept cookies?
@@ -97,6 +100,9 @@ Util.Objects["verify"] = new function() {
 			var current_scene = u.qs(".scene", page);
 			var new_scene = u.qs(".scene", response);
 			page.cN.replaceChild(new_scene, current_scene); // Replace current scene with response scene
+
+			// Initialize new scene
+			u.init();
 
 			return new_scene;
 		}
