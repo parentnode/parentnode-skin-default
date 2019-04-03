@@ -25,38 +25,37 @@ Util.Objects["signup"] = new function() {
 
 			if(form_signup) {
 				u.f.init(form_signup);
-
-				// Loader
-				form_signup.preSubmitted = function() {
-					this.is_submitting = true; 
-
-				//	this.actions["signup"].value = "Submitting";
-					u.ac(this, "submitting");
-					u.ac(this.actions["signup"], "disabled");
-				}
 			}
 
 			// Ajax janitor signup flow
 			form_signup.submitted = function() {
 				var data = u.f.getParams(this);
 
+				// submit state
+				this.is_submitting = true; 
+				u.ac(this, "submitting");
+				u.ac(this.actions["signup"], "disabled");
+
 				// signup controller
-				this.response = function(response) {
+				this.response = function(response, test) {
 					// Success
 					if (u.qs(".scene.verify", response)) {
+						u.bug(response);
+
 						// Update scene
 						scene.replaceScene(response);
 
+						// Get returned actions only
+						var url_actions = response.baseURI.replace(location.protocol + "://" + document.domain, "");
+
 						// Update url
-						u.h.navigate("/verify", false, true);
+						u.h.navigate(url_actions, false, true);
 					}
 					// Error
 					else {
-						// Remove loader if present
+						// Remove submit state if present
 						if (this.is_submitting) {
 							this.is_submitting = false; 
-
-						//	this.actions["signup"].value = "Join";
 							u.rc(this, "submitting");
 							u.rc(this.actions["signup"], "disabled");
 						}

@@ -20,20 +20,17 @@ Util.Objects["verify"] = new function() {
 
 			if(form_verify) {
 				u.f.init(form_verify);
-
-				form_verify.preSubmitted = function() {
-					this.is_submitting = true; 
-
-				//	this.actions["verify"].value = "Submitting";
-					u.ac(this, "submitting");
-					u.ac(this.actions["verify"], "disabled");
-					u.ac(this.actions["skip"], "disabled");
-				}
 			}
 
 			// Using the new verify form
 			form_verify.submitted = function() {
 				var data = u.f.getParams(this);
+
+				// submit state
+				this.is_submitting = true; 
+				u.ac(this, "submitting");
+				u.ac(this.actions["verify"], "disabled");
+				u.ac(this.actions["skip"], "disabled");
 
 				this.response = function(response) {
 					// User is already verified
@@ -46,16 +43,17 @@ Util.Objects["verify"] = new function() {
 						// Update scene
 						scene.replaceScene(response);
 
+						// Get returned actions only
+						var url_actions = response.baseURI.replace(location.protocol + "://" + document.domain, "");
+
 						// Update url
-						u.h.navigate("/verify/receipt", false, true);
+						u.h.navigate(url_actions, false, true);
 					}
 					// Error
 					else {
-						// Remove loader if present
+						// Remove submit state if present
 						if (this.is_submitting) {
 							this.is_submitting = false; 
-
-						//	this.actions["verify"].value = "Verify email";
 							u.rc(this, "submitting");
 							u.rc(this.actions["verify"], "disabled");
 							u.rc(this.actions["skip"], "disabled");
