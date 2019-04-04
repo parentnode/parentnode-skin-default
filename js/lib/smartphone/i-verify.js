@@ -32,7 +32,7 @@ Util.Objects["verify"] = new function() {
 				u.ac(this.actions["verify"], "disabled");
 				u.ac(this.actions["skip"], "disabled");
 
-				this.response = function(response) {
+				this.response = function(response, request_id) {
 					// User is already verified
 					if (u.qs(".scene.login", response)) {
 						scene.replaceScene(response);
@@ -44,7 +44,7 @@ Util.Objects["verify"] = new function() {
 						scene.replaceScene(response);
 
 						// Get returned actions only
-						var url_actions = response.baseURI.replace(location.protocol + "://" + document.domain, "");
+						var url_actions = this[request_id].response_url.replace(location.protocol + "://" + document.domain, "");
 
 						// Update url
 						u.h.navigate(url_actions, false, true);

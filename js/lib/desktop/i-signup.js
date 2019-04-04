@@ -37,7 +37,9 @@ Util.Objects["signup"] = new function() {
 				u.ac(this.actions["signup"], "disabled");
 
 				// signup controller
-				this.response = function(response, test) {
+				this.response = function(response, request_id) {
+					u.bug(this[request_id])
+
 					// Success
 					if (u.qs(".scene.verify", response)) {
 						u.bug(response);
@@ -46,7 +48,7 @@ Util.Objects["signup"] = new function() {
 						scene.replaceScene(response);
 
 						// Get returned actions only
-						var url_actions = response.baseURI.replace(location.protocol + "://" + document.domain, "");
+						var url_actions = this[request_id].response_url.replace(location.protocol + "://" + document.domain, "");
 
 						// Update url
 						u.h.navigate(url_actions, false, true);
