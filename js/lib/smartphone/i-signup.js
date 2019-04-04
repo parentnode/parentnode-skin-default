@@ -38,7 +38,6 @@ Util.Objects["signup"] = new function() {
 
 				// signup controller
 				this.response = function(response, request_id) {
-					u.bug(this[request_id])
 
 					// Success
 					if (u.qs(".scene.verify", response)) {
