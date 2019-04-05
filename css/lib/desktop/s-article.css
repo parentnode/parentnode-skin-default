@@ -8,8 +8,14 @@
 /* ARTICLE BODY */
 
 #content .scene .articlebody {position: relative; z-index: 1;}
+
 #content .scene .articlebody ul,
 #content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
+
+/* webkit adjustment */
+#content .scene .articlebody ul:not(*:root),
+#content .scene .articlebody ol:not(*:root) {margin-left: 18px;}
+
 #content .scene .articlebody ul {list-style-type: disc;}
 #content .scene .articlebody ol {list-style-type: decimal;}
 #content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px;}
