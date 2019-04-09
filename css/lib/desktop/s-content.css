@@ -182,4 +182,6 @@
 #content .scene form li.forgot {padding-top: 5px;}
 
 /* ERROR MESSAGES */
-#content .scene div.messages > p.error {color: #df0000;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
+

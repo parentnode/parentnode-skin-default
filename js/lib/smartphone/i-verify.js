@@ -1,4 +1,4 @@
-Util.Objects["signup"] = new function() {
+Util.Objects["verify"] = new function() {
 	this.init = function(scene) {
 //		u.bug("scene init:", scene);
 
@@ -16,33 +16,30 @@ Util.Objects["signup"] = new function() {
 
 			page.cN.scene = this;
 
-			var form_signup = u.qs("form.signup", this);
-			var place_holder = u.qs("div.articlebody .placeholder.signup", this);
+			var form_verify = u.qs("form.verify_code", this);
 
-			if(form_signup && place_holder) {
-				place_holder.parentNode.replaceChild(form_signup, place_holder);
+			if(form_verify) {
+				u.f.init(form_verify);
 			}
 
-			if(form_signup) {
-				u.f.init(form_signup);
-			}
-
-			// Ajax janitor signup flow
-			form_signup.submitted = function() {
+			// Using the new verify form
+			form_verify.submitted = function() {
 				var data = u.f.getParams(this);
 
 				// submit state
 				this.is_submitting = true; 
 				u.ac(this, "submitting");
-				u.ac(this.actions["signup"], "disabled");
+				u.ac(this.actions["verify"], "disabled");
+				u.ac(this.actions["skip"], "disabled");
 
-				// signup controller
 				this.response = function(response, request_id) {
-
-					// Success
-					if (u.qs(".scene.verify", response)) {
-						u.bug(response);
-
+					// User is already verified
+					if (u.qs(".scene.login", response)) {
+						scene.replaceScene(response);
+						u.h.navigate("/login", false, true);
+					}
+					// Verification success
+					else if (u.qs(".scene.confirmed", response)) {
 						// Update scene
 						scene.replaceScene(response);
 
@@ -58,7 +55,8 @@ Util.Objects["signup"] = new function() {
 						if (this.is_submitting) {
 							this.is_submitting = false; 
 							u.rc(this, "submitting");
-							u.rc(this.actions["signup"], "disabled");
+							u.rc(this.actions["verify"], "disabled");
+							u.rc(this.actions["skip"], "disabled");
 						}
 
 						// Remove past error from DOM
@@ -84,8 +82,8 @@ Util.Objects["signup"] = new function() {
 					}
 				}
 
-				// Post input to action ("save" from signup controller)
-				u.request(this, this.action, {"data":data, "method":"POST"});
+				// Post to "confirm"
+				u.request(this, this.action, {"data":data, "method":"POST", "responseType":"document"});
 			}
 
 			// accept cookies?

@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-01-08 15:12:12
+asset-builder @ 2019-04-05 10:00:02
 */
 
 /*seg_smartphone_include.css*/
@@ -125,10 +125,10 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 }
 #header .logo:active {text-decoration: none;}
 #header .servicenavigation {position: absolute; top: 0; left: 0; z-index: 9; width: 100%; height: 60px; background: #ffffff; opacity: 0;}
-#header .servicenavigation li.navigation {position: absolute; right: 0; top: 0; width: 30px; height: 39px; padding: 21px 15px 0;}
+#header .servicenavigation li.navigation {position: absolute; right: 0; top: 0; width: 30px; height: 39px; padding: 21px 15px 0; background: #ffffff;}
 #header .servicenavigation li.navigation div {border-radius: 1px; height: 3px; margin: 0 0 5px; background: #888888;}
 #header .servicenavigation li.navigation.open div {background: #cccccc;}
-#header .servicenavigation li.navigation a {display: none;}
+#header .servicenavigation li.navigation a {display: none; background: #ffffff;}
 #navigation {position: absolute; width: 100%; top: 75px; display: none;}
 #navigation ul {}
 #navigation ul li {padding: 10px 20px 10px 20px; font-size: 20px; color: #888888; display: block; text-align: center;
@@ -270,7 +270,8 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene div.vcard dl.info dd li a {padding-bottom: 10px; display: inline-block;}
 #content .scene.login form {padding-bottom: 20px;}
 #content .scene form li.forgot {padding-top: 5px;}
-#content .scene div.messages > p.error {color: #df0000;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
 
 
 /*s-article.css*/

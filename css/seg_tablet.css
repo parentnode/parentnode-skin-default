@@ -1,5 +1,5 @@
 /*
-asset-builder @ 2019-01-08 15:12:12
+asset-builder @ 2019-04-05 10:00:02
 */
 
 /*seg_tablet_include.css*/
@@ -274,7 +274,8 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
 #content .scene.login form {padding-bottom: 20px;}
 #content .scene form li.forgot {padding-top: 5px;}
-#content .scene div.messages > p.error {color: #df0000;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
 
 
 /*s-article.css*/
@@ -286,6 +287,8 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene .articlebody {position: relative; z-index: 1;}
 #content .scene .articlebody ul,
 #content .scene .articlebody ol {list-style-position: outside; margin-left: 15px; width: 485px;}
+#content .scene .articlebody ul:not(*:root),
+#content .scene .articlebody ol:not(*:root) {margin-left: 18px;}
 #content .scene .articlebody ul {list-style-type: disc;}
 #content .scene .articlebody ol {list-style-type: decimal;}
 #content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px;}
@@ -312,9 +315,6 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene .article div.geomap {position: relative; z-index: 1; height: 300px; width: 600px; margin-bottom: 20px;}
 #content .scene .article div.geomap iframe {display: block; width: 100%; height: 100%; border: 1px solid #666666; background-color: #ffffff; margin: 0 50px 30px; width: 540px; border-radius: 5px; }
 #content .scene .article li div.geomap {}
-
-/*s-header.css*/
-
 
 /*s-active.css*/
 #header .logo:active,

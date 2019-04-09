@@ -4,10 +4,9 @@ document.write('<script type="text/javascript" src="/js/manipulator/merged/seg_d
 document.write('<script type="text/javascript" src="/js/lib/u-basics.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
 
-
-
 // Include BETA modules separately
 document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-notifier.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-smartphoneswitch.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-page.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-scene.js"></script>');

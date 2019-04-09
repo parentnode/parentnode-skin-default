@@ -160,4 +160,5 @@
 #content .scene.login form {padding-bottom: 20px;}
 
 /* ERROR MESSAGES */
-#content .scene div.messages > p.error {color: #df0000;}
+#content .scene p.error,
+#content .scene p.errormessage {color: #df0000;}
