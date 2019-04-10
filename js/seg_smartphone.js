@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-04-05 10:00:01
+asset-builder @ 2019-04-10 12:53:20
 */
 
 /*seg_smartphone_include.js*/
@@ -4790,15 +4790,6 @@ Util.Objects["article"] = new function() {
 	}
 }
 
-
-/*u-form-custom.js*/
-u.f.fixFieldHTML = function(field) {
-	u.bug("fixFieldHTML");
-	var label = u.qs("label", field);
-	if(label) {
-		u.ae(label, field._indicator);
-	}
-}
 
 /*u-geolocation.js*/
 u.injectGeolocation = function(node) {
