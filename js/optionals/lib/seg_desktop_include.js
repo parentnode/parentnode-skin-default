@@ -19,8 +19,8 @@ document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-g
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-htmleditor.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-textscaler.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/lib/desktop/i-article_mini_list.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-dynamic-variables-post.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/desktop/i-article_mini_list.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-comments.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-documentation.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-generic.js"></script>');
