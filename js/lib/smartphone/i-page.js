@@ -61,20 +61,22 @@ Util.Objects["page"] = new function() {
 
 			this.offsetHeight;
 
-			// Update navigation if open
-			if(this.bn_nav.is_open) {
-				// Update heights
-				u.ass(page.hN, {
-					"height":window.innerHeight + "px"
-				});
+			if(this.bn_nav) {
+				// Update navigation if open
+				if (this.bn_nav.is_open) {
+					// Update heights
+					u.ass(page.hN, {
+						"height":window.innerHeight + "px"
+					});
 
-				u.ass(page.nN, {
-					"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
-				});
+					u.ass(page.nN, {
+						"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
+					});
 
-				// Update drag coordinates
-				u.e.setDragPosition(page.nN.nav, 0, 0);
-				u.e.setDragBoundaries(page.nN.nav, page.nN);
+					// Update drag coordinates
+					u.e.setDragPosition(page.nN.nav, 0, 0);
+					u.e.setDragBoundaries(page.nN.nav, page.nN);
+				}
 			}
 
 		}
