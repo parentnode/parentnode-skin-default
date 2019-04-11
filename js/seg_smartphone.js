@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-04-10 12:53:20
+asset-builder @ 2019-04-11 16:49:35
 */
 
 /*seg_smartphone_include.js*/
@@ -4516,15 +4516,17 @@ Util.Objects["page"] = new function() {
 				this.cN.scene.resized();
 			}
 			this.offsetHeight;
-			if(this.bn_nav.is_open) {
-				u.ass(page.hN, {
-					"height":window.innerHeight + "px"
-				});
-				u.ass(page.nN, {
-					"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
-				});
-				u.e.setDragPosition(page.nN.nav, 0, 0);
-				u.e.setDragBoundaries(page.nN.nav, page.nN);
+			if(this.bn_nav) {
+				if (this.bn_nav.is_open) {
+					u.ass(page.hN, {
+						"height":window.innerHeight + "px"
+					});
+					u.ass(page.nN, {
+						"height":(window.innerHeight - page.hN.service.offsetHeight) + "px"
+					});
+					u.e.setDragPosition(page.nN.nav, 0, 0);
+					u.e.setDragBoundaries(page.nN.nav, page.nN);
+				}
 			}
 		}
 		page.fixiOSScroll = function() {
