@@ -2,11 +2,11 @@
 #content .scene .pagination {display: none;}
 
 body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
-body > div.pagination li.next > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
+body > div.pagination li.next > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}
-body > div.pagination li.previous > svg.arrow line {stroke: #26962d; stroke-width: 3px;}
+body > div.pagination li.previous > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous,
-body > div.pagination li.next {z-index: 100; position: fixed; top: 50%; margin-top: -20px; height: 40px; width: 0; overflow: hidden; border: 1px solid #26962d; cursor: pointer; background: #ffffff;}
+body > div.pagination li.next {z-index: 100; position: fixed; top: 50%; margin-top: -20px; height: 40px; width: 0; overflow: hidden; border: 1px solid #888888; cursor: pointer; background: #ffffff;}
 body > div.pagination li.previous {left: 0; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left: none; padding-left: 30px;}
 body > div.pagination li.next {right: 0; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none; padding-right: 30px;}
 body > div.pagination li.previous a,
