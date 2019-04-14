@@ -3,7 +3,7 @@ Util.Objects["pagination"] = new function() {
 
 		if(pagination) {
 			u.ae(document.body, pagination);
-			u.a.removeTransform(pagination);
+			u.as(pagination, "transform", "none");
 		
 			var next = u.qs(".next", pagination);
 			if(next) {
