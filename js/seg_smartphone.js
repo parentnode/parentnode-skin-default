@@ -1,6 +1,6 @@
 /*
-Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-asset-builder @ 2019-04-12 09:34:39
+MIT license, 2019 parentNode.dk
+asset-builder @ 2019-04-17 13:20:02
 */
 
 /*seg_smartphone_include.js*/
@@ -4483,6 +4483,15 @@ u.txt["smartphone-switch-text"] = [
 u.txt["smartphone-switch-bn-hide"] = "Hide";
 u.txt["smartphone-switch-bn-switch"] = "Go to Smartphone version";
 
+
+/*u-form-custom.js*/
+u.f.fixFieldHTML = function(field) {
+	u.bug("fixFieldHTML");
+	var label = u.qs("label", field);
+	if(label) {
+		u.ae(label, field._indicator);
+	}
+}
 
 /*i-page.js*/
 u.bug_console_only = true;
