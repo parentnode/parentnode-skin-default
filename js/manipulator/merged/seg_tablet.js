@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2019-04-04 02:10:13
+js-merged @ 2019-04-17 16:45:34
 */
 
 /*seg_tablet_include.js*/
@@ -2342,7 +2342,7 @@ Util.Form = u.f = new function() {
 				min = Number(u.cv(iN.field, "min"));
 				max = Number(u.cv(iN.field, "max"));
 				min = min ? min : 8;
-				max = max ? max : 20;
+				max = max ? max : 255;
 				pattern = iN.getAttribute("pattern");
 				compare_to = iN.getAttribute("data-compare-to");
 				if(
