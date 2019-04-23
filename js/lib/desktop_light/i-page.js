@@ -83,7 +83,7 @@ Util.Objects["page"] = new function() {
 				this.resized();
 
 				// accept cookies
-				page.acceptCookies();
+				this.acceptCookies();
 			}
 		}
 

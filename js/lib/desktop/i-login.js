@@ -26,6 +26,8 @@ Util.Objects["login"] = new function() {
 			page.cN.scene = this;
 
 			u.showScene(this);
+			// accept cookies?
+			page.acceptCookies();
 
 			page.resized();
 		}
