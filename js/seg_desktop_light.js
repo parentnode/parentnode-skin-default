@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-04-18 08:54:59
+asset-builder @ 2019-04-23 21:57:40
 */
 
 /*seg_desktop_light_include.js*/
@@ -4789,7 +4789,7 @@ Util.Objects["page"] = new function() {
 				u.ac(this, "ready");
 				this.initNavigation();
 				this.resized();
-				page.acceptCookies();
+				this.acceptCookies();
 			}
 		}
 		page.acceptCookies = function() {
