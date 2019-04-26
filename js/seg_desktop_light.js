@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-04-23 21:57:40
+asset-builder @ 2019-04-26 12:57:03
 */
 
 /*seg_desktop_light_include.js*/
@@ -640,15 +640,15 @@ Util.removeClass = u.rc = function(node, classname, dom_update) {
 }
 Util.toggleClass = u.tc = function(node, classname, _classname, dom_update) {
 	if(u.hc(node, classname)) {
-		u.rc(node, classname);
+		u.rc(node, classname, dom_update);
 		if(_classname) {
-			u.ac(node, _classname);
+			u.ac(node, _classname, dom_update);
 		}
 	}
 	else {
 		u.ac(node, classname);
 		if(_classname) {
-			u.rc(node, _classname);
+			u.rc(node, _classname, dom_update);
 		}
 	}
 	dom_update = (dom_update === false) || (node.offsetTop);
