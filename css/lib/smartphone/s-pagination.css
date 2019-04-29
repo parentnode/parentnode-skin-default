@@ -9,7 +9,7 @@ body > div.pagination li.previous > svg.arrow line {stroke: #888888; stroke-widt
 body > div.pagination li.previous,
 body > div.pagination li.next {z-index: 100; position: absolute; top: 0; height: 50px; overflow: hidden; border: 1px solid #888888; cursor: pointer; background: #ffffff; width: 50%; box-sizing: border-box;}
 body > div.pagination li.previous {left: 0; text-align: left; border-left: none; padding-left: 50px;}
-body > div.pagination li.next {right: 0; text-align: right; border-right: none; border-left: none; padding-right: 50px;}
+body > div.pagination li.next {right: 0; text-align: right; border-right: none; border-left: none; padding-right: 57px;}
 body > div.pagination li.previous a,
 body > div.pagination li.next a {font-size: 13px; line-height: 16px; display: inline-block; vertical-align: top; padding: 16px 0 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; box-sizing: border-box;
  /*opacity: 0;*/}
