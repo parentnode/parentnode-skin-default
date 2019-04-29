@@ -4,7 +4,9 @@ Util.Objects["pagination"] = new function() {
 		if(pagination) {
 			u.ae(document.body, pagination);
 //			u.a.removeTransform(pagination);
-		
+			
+			u.ac(page, "paginated");
+
 			var next = u.qs(".next", pagination);
 			if(next) {
 				u.addNextArrow(next);
