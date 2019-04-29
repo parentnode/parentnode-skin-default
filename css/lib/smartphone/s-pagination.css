@@ -14,4 +14,4 @@ body > div.pagination li.previous a,
 body > div.pagination li.next a {font-size: 13px; line-height: 16px; display: inline-block; vertical-align: top; padding: 16px 0 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; box-sizing: border-box;
  /*opacity: 0;*/}
 body > div.pagination li.previous a {padding-left: 0; padding-right: 16px;}
-body > div.pagination li.next a {padding-right: 0; padding-left: 16px;}
+body > div.pagination li.next a {padding-right: 0; padding-left: 16px; text-align: right;}
