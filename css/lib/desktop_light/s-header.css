@@ -8,10 +8,7 @@
 #header .servicenavigation {position: absolute; top: 5px; right: 50px;}
 #header .servicenavigation li {display: inline; vertical-align: top; color: #bbbbbb; padding-left: 10px;}
 #header .servicenavigation li.navigation,
-#header .servicenavigation li.admin,
-#header .servicenavigation li.user,
-#header .servicenavigation li.cart {display: none;}
-
+#header .servicenavigation li.admin {display: none;}
 
 /* NAViGATION */
 #navigation {position: absolute; right: 50px; top: 75px;}
