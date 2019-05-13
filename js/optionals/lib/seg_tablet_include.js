@@ -35,4 +35,3 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/i-wishes.js"
 
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-checkmark.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/u-expandarrow.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/desktop/u-sharing.js"></script>');
