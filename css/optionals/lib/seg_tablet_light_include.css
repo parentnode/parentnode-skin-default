@@ -7,7 +7,7 @@
 @import url(../../lib/desktop_light/s-content.css);
 @import url(../../lib/desktop_light/s-article.css);
 
-@import url(../../lib/desktop_light/s-hovers.css);
+@import url(../../lib/tablet_light/s-active.css);
 
 /* Optionals */
 @import url(../../lib/desktop_light/s-comments.css);
