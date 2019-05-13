@@ -2,6 +2,7 @@
 #page.paginated #content {padding-top: 110px;}
 #content .scene .pagination {display: none;}
 body > div.pagination {position: fixed; top: 60px; left: 0; width: 100%;}
+body > div.pagination li h2 {display: none;}
 body > div.pagination li.next > svg.arrow {position: absolute; top: 18px; right: 20px;}
 body > div.pagination li.next > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous > svg.arrow {position: absolute; top: 18px; left: 20px;}

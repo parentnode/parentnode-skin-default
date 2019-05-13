@@ -1,6 +1,7 @@
 /* PAGINATION */
 #content .scene .pagination {display: none;}
 
+body > div.pagination li h2 {display: none;}
 body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
 body > div.pagination li.next > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}

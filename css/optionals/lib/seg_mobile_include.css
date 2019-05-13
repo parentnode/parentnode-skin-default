@@ -7,9 +7,11 @@
 @import url(../../lib/mobile/s-content.css);
 @import url(../../lib/mobile/s-article.css);
 
+
 /* Optionals */
 @import url(../../lib/mobile/s-form.css);
 @import url(../../lib/mobile/s-documentation.css);
+@import url(../../lib/mobile/s-pagination.css);
 @import url(../../lib/mobile/s-todos.css);
 @import url(../../lib/mobile/s-wishlist.css);
 @import url(../../lib/mobile/s-used_by.css);
