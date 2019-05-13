@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-05-06 10:25:14
+asset-builder @ 2019-05-13 10:19:06
 */
 
 /*seg_desktop_include.js*/
@@ -246,18 +246,22 @@ Util.Animation = u.a = new function() {
 		}
 		node._x = x;
 		node._y = y;
+		node.offsetHeight;
 	}
 	this.rotate = function(node, deg) {
 		u.as(node, "transform", "rotate("+deg+"deg)");
 		node._rotation = deg;
+		node.offsetHeight;
 	}
 	this.scale = function(node, scale) {
 		u.as(node, "transform", "scale("+scale+")");
 		node._scale = scale;
+		node.offsetHeight;
 	}
 	this.setOpacity = this.opacity = function(node, opacity) {
 		u.as(node, "opacity", opacity);
 		node._opacity = opacity;
+		node.offsetHeight;
 	}
 	this.setWidth = this.width = function(node, width) {
 		width = width.toString().match(/\%|auto|px/) ? width : (width + "px");
@@ -1269,6 +1273,7 @@ Util.Events = u.e = new function() {
 			}
 			if(this.e_drag || this.e_swipe) {
 				u.e.addMoveEvent(this, u.e._pick);
+				u.e.addEndEvent(this, u.e._cancelPick);
 			}
 			if(this.e_scroll) {
 				u.e.addMoveEvent(this, u.e._scrollStart);
@@ -2954,9 +2959,6 @@ Util.request = function(node, url, _options) {
 		node[request_id].HTTPRequest = this.createRequestObject();
 		node[request_id].HTTPRequest.node = node;
 		node[request_id].HTTPRequest.request_id = request_id;
-		if(node[request_id].response_type) {
-			node[request_id].HTTPRequest.responseType = node[request_id].response_type;
-		}
 		if(node[request_id].request_async) {
 			node[request_id].HTTPRequest.statechanged = function() {
 				if(this.readyState == 4 || this.IEreadyState) {
@@ -2972,6 +2974,9 @@ Util.request = function(node, url, _options) {
 				var params = u.JSONtoParams(node[request_id].request_data);
 				node[request_id].request_url += params ? ((!node[request_id].request_url.match(/\?/g) ? "?" : "&") + params) : "";
 				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
+				if(node[request_id].response_type) {
+					node[request_id].HTTPRequest.responseType = node[request_id].response_type;
+				}
 				if(node[request_id].request_timeout) {
 					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
 				}
@@ -2998,6 +3003,9 @@ Util.request = function(node, url, _options) {
 					params = node[request_id].request_data;
 				}
 				node[request_id].HTTPRequest.open(node[request_id].request_method, node[request_id].request_url, node[request_id].request_async);
+				if(node[request_id].response_type) {
+					node[request_id].HTTPRequest.responseType = node[request_id].response_type;
+				}
 				if(node[request_id].request_timeout) {
 					node[request_id].HTTPRequest.timeout = node[request_id].request_timeout;
 				}
@@ -3947,7 +3955,7 @@ u.txt["assign"] = function(obj) {
 		u.txt[x] = obj[x];
 	}
 }
-if(false && document.documentMode <= 10) {
+if(document.documentMode && document.documentMode <= 10 && document.documentMode >= 8) {
 	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
 		try {
 			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
@@ -4001,7 +4009,7 @@ if(false && document.documentMode <= 10) {
 		}
 	}
 }
-if(document.documentMode <= 11 && ((false) || ("-ms-scroll-limit" in document.documentElement.style && "-ms-ime-align" in document.documentElement.style))) {
+if(document.documentMode && document.documentMode <= 11 && document.documentMode >= 8) {
 	Util.hasClass = u.hc = function(node, classname) {
 		var regexp = new RegExp("(^|\\s)(" + classname + ")(\\s|$)");
 		if(node instanceof SVGElement) {

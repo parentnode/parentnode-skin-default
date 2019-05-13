@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-05-06 10:25:14
+asset-builder @ 2019-05-13 10:19:06
 */
 
 /*seg_mobile_include.js*/
@@ -927,6 +927,7 @@ Util.Events = u.e = new function() {
 			}
 			if(this.e_drag || this.e_swipe) {
 				u.e.addMoveEvent(this, u.e._pick);
+				u.e.addEndEvent(this, u.e._cancelPick);
 			}
 			if(this.e_scroll) {
 				u.e.addMoveEvent(this, u.e._scrollStart);
@@ -1720,7 +1721,7 @@ if(!Object.keys) {
 		return keys;
 	};
 }
-if(false && document.documentMode <= 10) {
+if(document.documentMode && document.documentMode <= 10 && document.documentMode >= 8) {
 	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
 		try {
 			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
@@ -1774,7 +1775,7 @@ if(false && document.documentMode <= 10) {
 		}
 	}
 }
-if(document.documentMode <= 11 && ((false) || ("-ms-scroll-limit" in document.documentElement.style && "-ms-ime-align" in document.documentElement.style))) {
+if(document.documentMode && document.documentMode <= 11 && document.documentMode >= 8) {
 	Util.hasClass = u.hc = function(node, classname) {
 		var regexp = new RegExp("(^|\\s)(" + classname + ")(\\s|$)");
 		if(node instanceof SVGElement) {

@@ -3,9 +3,9 @@ MIT license, 2019 parentNode.dk
 asset-builder @ 2019-05-13 10:19:06
 */
 
-/*seg_desktop_light_include.js*/
+/*seg_tablet_light_include.js*/
 
-/*seg_desktop_light.js*/
+/*seg_tablet_light.js*/
 if(!u || !Util) {
 	var u, Util = u = new function() {};
 	u.version = "0.9.2";
@@ -1720,102 +1720,6 @@ if(!Object.keys) {
 		}
 		return keys;
 	};
-}
-if(document.documentMode && document.documentMode <= 10 && document.documentMode >= 8) {
-	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.appendChild(node);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ae (desktop_ie10)", arguments, exception);
-		}
-	}
-	Util.insertElement = u.ie = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.insertBefore(node, _parent.firstChild);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ie (desktop_ie10)", arguments, exception);
-		}
-	}
-}
-if(document.documentMode && document.documentMode <= 11 && document.documentMode >= 8) {
-	Util.hasClass = u.hc = function(node, classname) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(\\s|$)");
-		if(node instanceof SVGElement) {
-			if(regexp.test(node.className.baseVal)) {
-				return true;
-			}
-		}
-		else {
-			if(regexp.test(node.className)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	Util.addClass = u.ac = function(node, classname, dom_update) {
-		var regexp = new RegExp("(^|\\s)" + classname + "(\\s|$)");
-		if(node instanceof SVGElement) {
-			if(!regexp.test(node.className.baseVal)) {
-				node.className.baseVal += node.className.baseVal ? " " + classname : classname;
-			}
-		}
-		else {
-			if(!regexp.test(node.className)) {
-				node.className += node.className ? " " + classname : classname;
-			}
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
-	}
-	Util.removeClass = u.rc = function(node, classname, dom_update) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(?=[\\s]|$)", "g");
-		if(node instanceof SVGElement) {
-			node.className.baseVal = node.className.baseVal.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		else {
-			node.className = node.className.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
-	}
 }
 Util.setClass = u.sc = function(node, classname, dom_update) {
 	var old_class;

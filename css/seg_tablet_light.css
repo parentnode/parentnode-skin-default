@@ -3,7 +3,7 @@ MIT license, 2019 parentNode.dk
 asset-builder @ 2019-05-13 10:19:06
 */
 
-/*seg_desktop_light_include.css*/
+/*seg_tablet_light_include.css*/
 
 /*s-fonts-desktop_light.css*/
 @font-face {
@@ -256,17 +256,17 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 }
 #content .scene .article ul.info ul.geo {padding: 0;}
 
-/*s-hovers.css*/
-#header .logo:hover,
-#navigation ul li a:hover {text-decoration: underline;}
-#content .scene ul.tags a:hover {color: #888888;}
-#content .scene a:hover {text-decoration: underline;}
-#content ul.actions input.button:hover,
-#content ul.actions a.button:hover {background-color: #bebebe;}
-#content ul.actions input.button.primary:hover,
-#content ul.actions a.button.primary:hover {background-color: #313942;}
-#content ul.actions input.button.secondary:hover,
-#content ul.actions a.button.secondary:hover {background-color: #313942;}
-#content form input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
-#content .scene.docsindex .search .results .function:hover {background: #ededed;}
+/*s-active.css*/
+#header .logo:active,
+#navigation ul li a:active {text-decoration: underline;}
+#content .scene ul.tags a:active {color: #888888;}
+#content .scene a:active {text-decoration: underline;}
+#content ul.actions input.button:active,
+#content ul.actions a.button:active {background-color: #bebebe;}
+#content ul.actions input.button.primary:active,
+#content ul.actions a.button.primary:active {background-color: #313942;}
+#content ul.actions input.button.secondary:active,
+#content ul.actions a.button.secondary:active {background-color: #313942;}
+#content form input.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+#content .scene.docsindex .search .results .function:active {background: #ededed;}
 
