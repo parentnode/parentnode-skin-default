@@ -10,7 +10,7 @@
 #content .scene div.qnas ul.qnas,
 #content .scene div.qnas ul.actions {display: none;}
 
-#content .scene div.qnas.open h2 {color: #00c90d;}
+#content .scene div.qnas.open h2 {color: #888888;}
 #content .scene div.qnas.open > p,
 #content .scene div.qnas.open ul.qnas,
 #content .scene div.qnas.open ul.actions {display: block;}
