@@ -1,9 +1,9 @@
 /*
 Manipulator v0.9.2-full Copyright 2017 http://manipulator.parentnode.dk
-js-merged @ 2019-05-13 09:55:03
+js-merged @ 2019-05-13 09:55:05
 */
 
-/*seg_mobile_include.js*/
+/*seg_tablet_light_include.js*/
 
 /*u.js*/
 if(!u || !Util) {
@@ -1760,105 +1760,6 @@ if(!Object.keys) {
 		return keys;
 	};
 }
-
-/*u-dom-desktop_ie.js*/
-if(document.documentMode && document.documentMode <= 10 && document.documentMode >= 8) {
-	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.appendChild(node);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ae (desktop_ie10)", arguments, exception);
-		}
-	}
-	Util.insertElement = u.ie = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.insertBefore(node, _parent.firstChild);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ie (desktop_ie10)", arguments, exception);
-		}
-	}
-}
-if(document.documentMode && document.documentMode <= 11 && document.documentMode >= 8) {
-	Util.hasClass = u.hc = function(node, classname) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(\\s|$)");
-		if(node instanceof SVGElement) {
-			if(regexp.test(node.className.baseVal)) {
-				return true;
-			}
-		}
-		else {
-			if(regexp.test(node.className)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	Util.addClass = u.ac = function(node, classname, dom_update) {
-		var regexp = new RegExp("(^|\\s)" + classname + "(\\s|$)");
-		if(node instanceof SVGElement) {
-			if(!regexp.test(node.className.baseVal)) {
-				node.className.baseVal += node.className.baseVal ? " " + classname : classname;
-			}
-		}
-		else {
-			if(!regexp.test(node.className)) {
-				node.className += node.className ? " " + classname : classname;
-			}
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
-	}
-	Util.removeClass = u.rc = function(node, classname, dom_update) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(?=[\\s]|$)", "g");
-		if(node instanceof SVGElement) {
-			node.className.baseVal = node.className.baseVal.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		else {
-			node.className = node.className.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
-	}
-}
-
 
 /*u-dom-desktop_light.js*/
 Util.setClass = u.sc = function(node, classname, dom_update) {
@@ -4606,4 +4507,20 @@ if (typeof JSON !== 'object') {
         };
     }
 }());
+
+
+/*u-string-desktop_light.js*/
+if(String.prototype.trim == undefined) {
+	String.prototype.trim = function() {
+		return this.replace(/^\s+|\s+$/g, "");
+	};
+}
+if(String.prototype.substr == undefined || "ABC".substr(-1,1) == "A") {
+	String.prototype.substr = function(start_index, length) {
+		start_index = start_index < 0 ? this.length + start_index : start_index;
+		start_index = start_index < 0 ? 0 : start_index;
+		length = length ? start_index + length : this.length;
+		return this.substring(start_index, length);
+	};
+}
 
