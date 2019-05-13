@@ -12,5 +12,7 @@
 #content ul.actions a.button.secondary:hover {background-color: #313942;}
 #content form input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 
-
 #content .scene.docsindex .search .results .function:hover {background: #ededed;}
+
+#content .scene .pagination .next a:hover,
+#content .scene .pagination .previous a:hover {background-color: #313942;}

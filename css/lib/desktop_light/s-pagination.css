@@ -1,9 +1,14 @@
 /* PAGINATION */
 #content .scene .pagination {margin: 0 70px 30px; padding: 20px 0;}
 #content .scene .pagination ul {padding: 0; overflow: hidden;}
-#content .scene .pagination .next,
-#content .scene .pagination .previous {background-color: #8c9399; text-decoration: none; height: 14px; padding: 6px 12px 10px; display: inline; float: right; color: #ffffff; border: none; cursor: pointer; font-size: 14px;}
-#content .scene .pagination .previous {float: left;}
+#content .scene .pagination ul li {display: inline-block; padding-bottom: 35px;}
+#content .scene .pagination li.next {float: right; text-align: right;}
+#content .scene .pagination li.previous {float: left; text-align: left;}
+#content .scene .pagination .next h2,
+#content .scene .pagination .previous h2 {padding: 3px 1px;	font-size: 13px; font-family: "OpenSans", Verdana, Arial, sans-serif;}
+#content .scene .pagination .next a,
+#content .scene .pagination .previous a {background-color: #8c9399; text-decoration: none; padding: 10px 12px 10px; display: inline; float: right; color: #ffffff; border: none; cursor: pointer; font-size: 14px;}
+#content .scene .pagination .previous a {float: left;}
 
 #content .scene .pagination .next a,
 #content .scene .pagination .previous a {color: #ffffff;}

@@ -14,3 +14,6 @@
 
 
 #content .scene.docsindex .search .results .function:active {background: #ededed;}
+
+#content .scene .pagination .next a:active,
+#content .scene .pagination .previous a:active {background-color: #313942;}
