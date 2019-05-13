@@ -220,7 +220,7 @@ ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
 
 /* DISABLED BUTTON */
 ul.actions a.button.disabled,
-ul.actions input.button.disabled
+ul.actions input.button.disabled {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 
 /* HELP - HINT AND ERROR MESSAGES */
 div.field div.help {position: absolute; left: 475px; top: 6px; width: 200px;}
