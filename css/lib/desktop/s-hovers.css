@@ -1,5 +1,4 @@
 /* HOVERS ARE SEPARATED FOR DESKTOP SEGMENT BECAUSE THE CSS IS REUSED FOR TABLET */
-
 #header .logo:hover,
 #navigation ul li:hover {text-decoration: none;}
 

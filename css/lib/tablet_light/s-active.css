@@ -1,0 +1,16 @@
+#header .logo:active,
+#navigation ul li a:active {text-decoration: underline;}
+
+#content .scene ul.tags a:active {color: #888888;}
+#content .scene a:active {text-decoration: underline;}
+
+#content ul.actions input.button:active,
+#content ul.actions a.button:active {background-color: #bebebe;}
+#content ul.actions input.button.primary:active,
+#content ul.actions a.button.primary:active {background-color: #313942;}
+#content ul.actions input.button.secondary:active,
+#content ul.actions a.button.secondary:active {background-color: #313942;}
+#content form input.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+
+
+#content .scene.docsindex .search .results .function:active {background: #ededed;}
