@@ -1,7 +1,6 @@
 /* ARTICLE */
 #content .scene div.article {padding-bottom: 30px;}
 #content .scene div.article ul.tags {padding-bottom: 20px;}
-#content .scene ul.tags a:hover {color: #888888;}
 
 /* ARTICLE BODY */
 #content .scene .articlebody ul,

@@ -3,7 +3,6 @@
 #header .logo {font-size: 30px; padding: 20px 50px 20px; color: #888888; cursor: pointer; display: block; width: 200px;
 	font-family: "PT Serif", Times, serif;
 }
-#header .logo:hover {text-decoration: underline;}
 
 #header .servicenavigation {position: absolute; top: 5px; right: 50px;}
 #header .servicenavigation li {display: inline; vertical-align: top; color: #bbbbbb; padding-left: 10px;}
@@ -17,7 +16,6 @@
 #navigation ul li a {
 	font-family: "PT Serif", Times, serif;
 }
-#navigation ul li a:hover {text-decoration: underline;}
 
 #navigation ul li.front {display: none;}
 
