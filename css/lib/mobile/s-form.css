@@ -7,6 +7,12 @@
 /* INLINE LABELS */
 #content label {display: block; font-size: 13px;}
 
+/* WEBKIT OVERRIDE */
+input,
+textarea {-webkit-appearance: none; border-radius: 0;}
+.boolean input,
+.checkbox input {-webkit-appearance: checkbox;}
+.radiobuttons input {-webkit-appearance: radio;}
 
 /* BASIC FORM INPUTS */
 #content .field input,
