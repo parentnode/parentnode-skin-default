@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-05-14 16:31:41
+asset-builder @ 2019-05-23 03:35:14
 */
 
 /*seg_smartphone_include.css*/
@@ -238,7 +238,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.offer li.description {padding-top: 4px; display: block;}
 #content .scene ul.offer li.description ul {list-style: disc;}
 #content .scene ul.offer li.description ul li {display: list-item; padding: 0 0 3px; font-size: 13px;}
-#content .scene code {color: #333333; padding: 10px 20px; margin: 0 0 15px; background-color: #ededed; font-size: 11px; display: block; overflow: hidden; white-space: pre-wrap;
+#content .scene code {color: #333333; padding: 10px 20px; margin: 0 0 15px; background-color: #ededed; font-size: 11px; display: block; overflow: hidden; white-space: pre-wrap; word-break: break-all;
 	font-family: "Monaco", "Courier New", "Courier";
 	-webkit-tab-size: 4;
 	-moz-tab-size: 4;
