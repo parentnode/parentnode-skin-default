@@ -137,7 +137,7 @@
 
 
 /* CODE AND TYPECASTING */
-#content .scene code {color: #333333; padding: 10px 20px; margin: 0 0 15px; background-color: #ededed; font-size: 11px; display: block; overflow: hidden; white-space: pre-wrap;
+#content .scene code {color: #333333; padding: 10px 20px; margin: 0 0 15px; background-color: #ededed; font-size: 11px; display: block; overflow: hidden; white-space: pre-wrap; word-break: break-all;
 	font-family: "Monaco", "Courier New", "Courier";
 	-webkit-tab-size: 4;
 	-moz-tab-size: 4;
