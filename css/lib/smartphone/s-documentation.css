@@ -31,7 +31,7 @@
 #content .scene.docsindex .search .results .function .parameters,
 #content .scene.docsindex .search .results .function .examples,
 #content .scene.docsindex .search .results .function .return,
-#content .scene.docsindex .search .results .function .uses,
+#content .scene.docsindex .search .results .function .dependencies,
 #content .scene.docsindex .search .results .function .description,
 #content .scene.docsindex .search .results .function .callbacks,
 #content .scene.docsindex .search .results .function .definition h4,
@@ -66,6 +66,20 @@
 #content .scene div.functions .function .body .callbacks dl {}
 #content .scene div.functions .function .body .callbacks dt {width: auto; display: block; text-align: left;}
 #content .scene div.functions .function .body .callbacks dd {width: auto; display: block;}
+
+#content .scene div.functions .function .body .methods dl {}
+#content .scene div.functions .function .body .methods dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .methods dd {width: auto; display: block;}
+
+#content .scene div.functions .function .body .properties dl {}
+#content .scene div.functions .function .body .properties dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .properties dd {width: auto; display: block;}
+
+#content .scene div.functions .function .body .inputtypes dl {}
+#content .scene div.functions .function .body .inputtypes dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .inputtypes dd {width: auto; display: block;}
+
+
 
 
 #content .scene div.functions .function .body .example {padding: 0 0 20px;}
