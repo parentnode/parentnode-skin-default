@@ -13,19 +13,19 @@ Util.Objects["docsindex"] = new function() {
 		var field = u.f.addField(fieldset, {"name":"search", "label":"Search term of minimum 3 chars"})
 		u.f.init(form);
 
-		u.as(field._input, "width", (u.browserW()-60)+"px");
+		u.as(field.input, "width", (u.browserW()-60)+"px");
 
 		// enable search
-		field._input.div_search = scene.div_search;
+		field.input.div_search = scene.div_search;
 
 		// content needs to be indexed
 		// inject result container
-		field._input.results = u.ae(scene.div_search, "div", {"class":"results"});
+		field.input.results = u.ae(scene.div_search, "div", {"class":"results"});
 		for(i = 0; node = files[i]; i++) {
 
 			u.ce(node, {"type":"link"});
 
-			node.results = field._input.results;
+			node.results = field.input.results;
 			node.response = function(response) {
 
 				var i, _function;
@@ -49,7 +49,7 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 		// auto complete handler
-		field._input._autocomplete = function() {
+		field.input._autocomplete = function() {
 
 			var i, _function;
 
@@ -77,18 +77,18 @@ Util.Objects["docsindex"] = new function() {
 
 		}
 
-		field._input._keyup = function(event) {
+		field.input._keyup = function(event) {
 
 			// reset existing timer
 			u.t.resetTimer(this.t_autocomplete);
 			this.t_autocomplete = u.t.setTimer(this, this._autocomplete, 300);
 		}
 
-		field._input.focused = function() {
+		field.input.focused = function() {
 			u.e.addEvent(this, "keyup", this._keyup)
 		}
 
-		field._input.blurred = function() {
+		field.input.blurred = function() {
 			u.t.resetTimer(this.t_autocomplete);
 			u.e.removeEvent(this, "keyup", this._keyup)
 		}

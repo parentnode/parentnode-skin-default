@@ -15,8 +15,10 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/u-geolocatio
 
 // Optionals
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-builder.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-geolocation.js"></script>');
-document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-htmleditor.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-field-location.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-field-html.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-labelstyle-inject.js"></script>');
+
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-textscaler.js"></script>');
 document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-animation-to.js"></script>');
 

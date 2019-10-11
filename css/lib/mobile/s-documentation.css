@@ -56,13 +56,26 @@
 #content .scene div.functions .function .body .callbacks dt {width: auto; display: block; text-align: left;}
 #content .scene div.functions .function .body .callbacks dd {width: auto; display: block;}
 
+#content .scene div.functions .function .body .methods dl {}
+#content .scene div.functions .function .body .methods dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .methods dd {width: auto; display: block;}
+
+#content .scene div.functions .function .body .properties dl {}
+#content .scene div.functions .function .body .properties dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .properties dd {width: auto; display: block;}
+
+#content .scene div.functions .function .body .inputtypes dl {}
+#content .scene div.functions .function .body .inputtypes dt {width: auto; display: block; text-align: left;}
+#content .scene div.functions .function .body .inputtypes dd {width: auto; display: block;}
+
+
 #content .scene div.functions .function .body .example {padding: 0 0 20px;}
 #content .scene div.functions .function .body .examples h4 {padding-bottom: 5px;}
 #content .scene div.functions .function .body .example h5 {padding-bottom: 5px; font-size: 13px;}
 #content .scene div.functions .function .body .example p {padding-bottom: 5px;}
 
-#content .scene div.functions .function .body .dependencies .javascript {padding: 5px 0 0 10px;}
-#content .scene div.functions .function .body .dependencies .manipulator {padding: 5px 0 0 10px;}
+#content .scene div.functions .function .body .dependencies .javascript {padding: 5px 0 0;}
+#content .scene div.functions .function .body .dependencies .manipulator {padding: 5px 0 0;}
 #content .scene div.functions dd {padding-bottom: 5px;}
 
 #content .scene div.includefiles {}

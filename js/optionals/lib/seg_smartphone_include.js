@@ -10,6 +10,11 @@ document.write('<script type="text/javascript" src="/js/lib/smartphone/u-geoloca
 
 
 // Optionals
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-builder.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-field-location.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-field-html.js"></script>');
+document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-labelstyle-inject.js"></script>');
+
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-documentation.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-login.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-newsletter.js"></script>');

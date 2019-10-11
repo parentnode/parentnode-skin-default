@@ -32,8 +32,8 @@ div.field.short textarea {height: 40px;}
 div.field textarea.autoexpand {width: 366px; padding: 6px 6px 2px; overflow: hidden;}
 
 /* PSEUDO LABEL - FAKE PLACEHOLDER FOR INTERGER AND NUMBER INPUTS */
-div.field .pseudolabel {position: absolute; font-size: 14px; display: inline-block; padding: 5px 6px; z-index: 2;}
-
+div.field .pseudolabel {z-index: 2; display: none; position: absolute; font-size: 14px; padding: 2px 5px 2px; margin: 3px 2px; background-color: #ffffff;}
+div.field input.default ~ .pseudolabel {display: inline-block;}
 
 /* BOOLEAN + CHECKBOX */
 div.field.checkbox,
@@ -52,7 +52,7 @@ div.field.radiobuttons div.item {padding: 10px 0 0;}
 div.field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 1px 10px 0 3px; border: 0;}
 div.field.radiobuttons div.item label {font-size: 14px; line-height: 1em; display: inline-block; vertical-align: top; text-align: left; width: auto;}
 
-/* REMOVE SPINNER FROM NUMBER */
+
 div.field input[type="integer"],
 div.field input[type="number"] {
 	-moz-appearance: textfield;
@@ -67,8 +67,25 @@ div.field input[type="number"]::-webkit-outer-spin-button {margin: 0;
 
 /* FILES */
 div.field.files {border: 3px dashed #dedede; display: block; width: 378px; border-radius: 5px; position: relative; margin: 2px 68px 17px; padding: 0;}
-div.field.files input[type=file] {opacity: 0; width: 360px; height: 49px; margin: 0; border: 0;}
-div.field.files label {color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;}
+div.field.files input[type=file] {opacity: 0; width: 360px; height: 49px; margin: 0; border: 0;
+
+	/* IE HACK TO CHANGE HEIGHT OF FILE INPUT */
+	/*	font-size: 130px;*/
+
+}
+
+div.field.files label {
+	color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;
+
+/*	display: none;*/
+}
+div.field.files ul.filelist {
+	color: #333333; 
+	font-size: 14px; 
+	display: block; 
+	position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;
+}
+
 div.field.files.loading label {display: none;}
 div.field.files.loading {background: transparent url(../../../img/gx_loader.gif) no-repeat center center;}
 

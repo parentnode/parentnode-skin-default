@@ -39,7 +39,9 @@ div.field.short textarea {height: 40px;}
 div.field textarea.autoexpand {width: calc(100% - 24px); padding: 6px 6px 2px; overflow: hidden;}
 
 /* PSEUDO LABEL - FAKE PLACEHOLDER FOR INTERGER AND NUMBER INPUTS */
-div.field .pseudolabel {position: absolute; font-size: 14px; display: inline-block; padding: 5px 6px; z-index: 2;}
+/*div.field .pseudolabel {position: absolute; font-size: 14px; display: inline-block; padding: 5px 6px; z-index: 2;}*/
+div.field .pseudolabel {z-index: 2; display: none; position: absolute; font-size: 14px; padding: 2px 5px 2px; margin: 3px 2px; background-color: #ffffff;}
+div.field input.default ~ .pseudolabel {display: inline-block;}
 
 
 /* BOOLEAN + CHECKBOX */

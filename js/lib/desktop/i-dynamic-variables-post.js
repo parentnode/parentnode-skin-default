@@ -56,8 +56,8 @@ Util.Objects["dynamicVariablesPost"] = new function() {
 		// let input updates update all dyn var occurences
 		for(i = 0; dyn_var = dyn_vars[i]; i++) {
 
-			form.fields[dyn_var.var_name].placeholders = u.qsa("span.dynvar."+dyn_var.var_name, post);
-			form.fields[dyn_var.var_name].updated = function() {
+			form.inputs[dyn_var.var_name].placeholders = u.qsa("span.dynvar."+dyn_var.var_name, post);
+			form.inputs[dyn_var.var_name].updated = function() {
 				var i, placeholder;
 				for(i = 0; placeholder = this.placeholders[i]; i++) {
 					placeholder.innerHTML = this.val();

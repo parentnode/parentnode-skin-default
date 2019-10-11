@@ -15,17 +15,21 @@ Util.Objects["docsindex"] = new function() {
 		var field = u.f.addField(fieldset, {"name":"search", "label":"Search term of minimum 3 chars"})
 		u.f.init(form);
 
+		form.submitted = function() {}
+
+		u.bug(field)
+
 		// enable search
-		field._input.div_search = scene.div_search;
+		field.input.div_search = scene.div_search;
 
 		// content needs to be indexed
 		// inject result container
-		field._input.results = u.ae(scene.div_search, "div", {"class":"results"});
+		field.input.results = u.ae(scene.div_search, "div", {"class":"results"});
 		for(i = 0; node = files[i]; i++) {
 
 			u.ce(node, {"type":"link"});
 
-			node.results = field._input.results;
+			node.results = field.input.results;
 			node.response = function(response) {
 
 				var i, _function;
@@ -49,9 +53,9 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 
-//		u.bug("field._input:" + field._input);
+//		u.bug("field.input:" + field.input);
 		// auto complete handler
-		field._input._autocomplete = function() {
+		field.input._autocomplete = function() {
 //			u.bug("autocomplete");
 
 
@@ -81,19 +85,19 @@ Util.Objects["docsindex"] = new function() {
 
 		}
 
-		field._input._keyup = function(event) {
+		field.input._keyup = function(event) {
 //			u.bug("keyup");
 			// reset existing timer
 			u.t.resetTimer(this.t_autocomplete);
 			this.t_autocomplete = u.t.setTimer(this, this._autocomplete, 300);
 		}
 
-		field._input.focused = function() {
+		field.input.focused = function() {
 //			u.bug("focused");
 			u.e.addEvent(this, "keyup", this._keyup);
 		}
 
-		field._input.blurred = function() {
+		field.input.blurred = function() {
 			u.t.resetTimer(this.t_autocomplete);
 			u.e.removeEvent(this, "keyup", this._keyup);
 		}
@@ -180,12 +184,15 @@ Util.Objects["docpage"] = new function() {
 			// FUNCTION DEPENDENCIES
 
 			func._dependencies = u.qs(".dependencies", func);
+			func._dependencies._header = u.qs("h4", func._dependencies);
+			func._dependencies._header._dependencies = func._dependencies;
+
 			u.as(func._dependencies, "height", "20px");
 			func._dependencies._func = func;
 
 			func._dependencies.expandarrow = u.svg({
 				"name":"expandarrow",
-				"node":func._dependencies,
+				"node":func._dependencies._header,
 				"class":"arrow",
 				"width":17,
 				"height":17,
@@ -208,18 +215,18 @@ Util.Objects["docpage"] = new function() {
 			});
 
 
-			u.e.click(func._dependencies);
-			func._dependencies.clicked = function(event) {
+			u.e.click(func._dependencies._header);
+			func._dependencies._header.clicked = function(event) {
 
-				if(u.hc(this, "open")) {
+				if(u.hc(this._dependencies, "open")) {
 
-					u.as(this, "height", "20px");
-					u.rc(this, "open");
+					u.as(this._dependencies, "height", "20px");
+					u.rc(this._dependencies, "open");
 				}
 				else {
 
-					u.as(this, "height", "auto");
-					u.ac(this, "open");
+					u.as(this._dependencies, "height", "auto");
+					u.ac(this._dependencies, "open");
 				}
 			}
 

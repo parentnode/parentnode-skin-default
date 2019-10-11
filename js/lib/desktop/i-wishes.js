@@ -106,14 +106,14 @@ Util.Objects["wishes"] = new function() {
 										location.reload(true);
 									}
 								}
-								u.request(this, this.action, {"method":this.method, "params":u.f.getParams(this)});
+								u.request(this, this.action, {"method":this.method, "data":this.getData()});
 
 							}
 							else {
 
 								this.actions["reserve"].value = this.node.scene.confirm_reserve_text;
 
-								u.ass(this.fields["reserved"], {
+								u.ass(this.inputs["reserved"], {
 									"display":"block"
 								});
 
@@ -138,7 +138,7 @@ Util.Objects["wishes"] = new function() {
 									location.reload(true);
 								}
 							}
-							u.request(this, this.form.action, {"method":this.form.method, "params":u.f.getParams(this.form)});
+							u.request(this, this.form.action, {"method":this.form.method, "data":this.form.getData()});
 						}
 					}
 

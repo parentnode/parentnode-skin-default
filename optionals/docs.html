@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="EN">
 <head>
-	<!-- (c) & (p) think.dk, parentnode.dk 2002-2018 -->
+	<!-- (c) & (p) think.dk, parentnode.dk 2002-2019 -->
 	<!-- If you want to use or contribute to this code, visit https://parentnode.dk -->
 	<title>Getting lost without losing my way</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -99,11 +99,8 @@
 												<dt><span class="value">rw_skip</span></dt>
 												<dd>Time in seconds to jump back for Rewind</dd>
 
-												<!--dt><span class="value">zoom</span></dt>
-												<dd>Inject custom controls div with Zoom/Fullscreen button</dd-->
-
-												<!--dt><span class="value">volume</span></dt>
-												<dd>Inject custom controls div with volume button</dd-->
+												<dt><span class="value">callback_validation_passed</span></dt>
+												<dd>Name of callback method when form or input passed validation. Default <em>validationPassed</em>.</dd>
 											</dl>
 										</div>
 									</dd>
@@ -119,29 +116,248 @@
 								</p>
 							</div>
 
+							<div class="properties">
+								<h4>Extended properties</h4>
+								<p>The form elements are indexed and made available on form, fields, inputs and actions as follows:</p>
+								<h5>Form</h5>
+								<dl>
+									<dt>form.inputs</dt>
+									<dd>Collection of inputs in form.</dd>
+									<dt>form.actions</dt>
+									<dd>
+										Collection of named actions in form. If action doesn't have a name attribute, then then
+										wrapping <span class="htmltag">li</span> classname will be used for naming action.
+									</dd>
+								</dl>
+
+								<h5>Field</h5>
+								<dl>
+									<dt>field._form</dt>
+									<dd>Reference to form or pseudo form. As the <em>form</em> property is reserved, we are using _form.</dd>
+									<dt>field.input</dt>
+									<dd>Reference to primary field input</dd>
+									<dt>field.inputs</dt>
+									<dd>Array of references to all field inputs for fields with multiple inputs, such as radiobuttons.</dd>
+									<dt>field.label</dt>
+									<dd>Reference to field's primary label.</dd>
+									<dt>field.indicator</dt>
+									<dd>
+										Reference to field's required indicator. See custom extensions below for more information.
+									</dd>
+									<dt>field.help</dt>
+									<dd>Reference to field help element.</dd>
+									<dt>field.hint</dt>
+									<dd>Reference to field hint element.</dd>
+									<dt>field.error</dt>
+									<dd>Reference to field error element.</dd>
+									<dt>field.type</dt>
+									<dd>String representation of field type.</dd>
+								</dl>
+
+								<h5>Input</h5>
+								<dl>
+									<dt>input._form</dt>
+									<dd>Reference to form or pseudo form. As the <em>form</em> property is reserved, we are using _form.</dd>
+									<dt>input.label</dt>
+									<dd>Reference to input label (not available for hidden inputs).</dd>
+									<dt>input.field</dt>
+									<dd>Reference to input field (not available for hidden inputs).</dd>
+								</dl>
+
+								<h5>Action</h5>
+								<dl>
+									<dt>action._form</dt>
+									<dd>Reference to form or pseudo form. As the <em>form</em> property is reserved, we are using _form.</dd>
+								</dl>
+							</div>
+
+							<div class="methods">
+								<h4>Extended methods</h4>
+								<p>
+									The form elements are extended with convenient helper methods to make form handling more
+									consistent and cross type/browser safe.
+								</p>
+
+								<h5>Form</h5>
+								<dl>
+									<dt>form.submit</dt>
+									<dd>
+										Validate all fields and submit form if validation passes.
+									</dd>
+									<dt>form.DOMsubmit</dt>
+									<dd>
+										Perform a native form submit.
+									</dd>
+									<dt>form.reset</dt>
+									<dd>
+										Reset all fields to their initial state.
+									</dd>
+									<dt>form.DOMreset</dt>
+									<dd>
+										Perform a native form reset.
+									</dd>
+									<dt>form.getData</dt>
+									<dd>
+										Shorthand method for getting form data set. See Util.Form.getFormData below for details
+										and note that when invoking this method directly on form, you should omit passing the form argument.
+									</dd>
+								</dl>
+
+								<h5>Input</h5>
+								<dl>
+									<dt>input.val([value])</dt>
+									<dd>
+										Function to get/set input value. Works with all types of inputs. If value 
+										is passed, value will be set for input. If no value is passed, current value will be 
+										returned.
+									</dd>
+								</dl>
+							</div>
+
+							<div class="inputtypes">
+								<h4>Input types</h4>
+								<p>
+									Util.Form comes with a range of default field/input types. The initialization of each field
+									relies on the presence of a type class, as listed below. Any field can be made <em>required</em>
+									simply by adding a <em>required</em> class to the field. Additional validation rules can be 
+									specified using classVars or attributes on the input element as specified below.
+								</p>
+								<dl>
+									<dt>string</dt>
+									<dd>
+										String input (input type="text"). Must be string. Optional min:[length] and max:[length] can be added as classVars on field. 
+										Default min length is 1, default max length is 255.
+										Regex pattern can be added using the pattern attribute.
+										Add a <em>data-compare-to</em> attribute to input containing the name of other input, to require 
+										both inputs to have same value. Useful for "re-type your xyz"-type fields.
+									</dd>
+
+									<dt>text</dt>
+									<dd>
+										Multiline text input (textarea). Must be string. Optional min:[length] and max:[length] can be added as classVars on field. 
+										Default min length is 1, default max length is 10000000.
+										Regex pattern can be added using the pattern attribute.
+									 </dd>
+
+									<dt>email</dt>
+									<dd>
+										Email input (input type="email"). Must be valid email syntax.
+										Alternate regex pattern can be added using the pattern attribute.
+										Add a <em>data-compare-to</em> attribute to input containing the name of other input, to require 
+										both inputs to have same value. Useful for "re-type your email"-type fields.
+									</dd>
+
+									<dt>password</dt>
+									<dd>
+										Password input (input type="password"). Must be between 8 and 20 chars. 
+										Optional min:[length] and max:[length] can be added as classVars on field.
+										Regex pattern can be added using the pattern attribute.
+										Add a <em>data-compare-to</em> attribute to input containing the name of other input, to require 
+										both inputs to have same value. Useful for "re-type your password"-type fields.
+									</dd>
+
+									<dt>numeric</dt>
+									<dd>
+										Numeric input (input type="number"). Must be numeric (integer or decimal number). 
+										Optional min:[value] and max:[value] can be added as classVars on field. Note that for 
+										numeric inputs min and max refers to the numeric value, not the length of the input.
+										Regex pattern can be added using the pattern attribute.
+									</dd>
+
+									<dt>integer</dt>
+									<dd>
+										Integer input (input type="number"). Must be integer. 
+										Optional min:[value] and max:[value] can be added as classVars on field. Note that for 
+										integer inputs min and max refers to the numeric value, not the length of the input.
+									</dd>
+
+									<dt>tel</dt>
+									<dd>
+										Phone input (input type="number"). Must be telephone (.-+ 0-9) and between 5 and 16 chars.
+										Alternate regex pattern can be added using the pattern attribute.
+										Add a <em>data-compare-to</em> attribute to input containing the name of other input, to require 
+										both inputs to have same value. Useful for "re-type your phonenumber"-type fields.
+									</dd>
+								</dl>
+
+							</div>
+
 							<div class="callbacks">
 								<h4>Callbacks</h4>
+								<p>
+									An extensive set of callback are dispatched to give you full control of form behaviour
+									 – just declare the appropriate callback methods on either form, input or action.
+								</p>
+								<h5>Form</h5>
 								<dl>
-									<dt>audioPlayer.loading(event)</dt>
-									<dd>when data is loading</dd>
-									<dt>audioPlayer.canplaythrough(event)</dt>
-									<dd>when enough data is loaded to perform uninterrupted playback</dd>
-									<dt>audioPlayer.playing(event)</dt>
-									<dd>when playback is begun</dd>
-									<dt>audioPlayer.paused(event)</dt>
-									<dd>when playback is paused</dd>
-									<dt>audioPlayer.stalled(event)</dt>
-									<dd>when playback is stalling</dd>
+									<dt>form.focused(input)</dt>
+									<dd>When form input gets focus.</dd>
+									<dt>form.blurred(input)</dt>
+									<dd>When form input loses focus.</dd>
 
-									<dt>audioPlayer.ended(event)</dt>
-									<dd>when playback has ended</dd>
-									<dt>audioPlayer.loadedmetadata(event)</dt>
-									<dd>when metadata is loaded (duration, title, etc.)</dd>
-									<dt>audioPlayer.loadeddata(event)</dt>
-									<dd>when entire source is loaded</dd>
-									<dt>audioPlayer.timeupdate(event)</dt>
-									<dd>when position is updated</dd>
+									<dt>form.updated(input)</dt>
+									<dd>When form input is updated.</dd>
+									<dt>form.changed(input)</dt>
+									<dd>When form input is changed.</dd>
+
+									<dt>form.submitted(input)</dt>
+									<dd>When form is submitted - if callback function is not declared, form will be submitted as regular HTML form.</dd>
+									<dt>form.preSubmitted(input)</dt>
+									<dd>Just before form submission is executed - last chance before sending data.</dd>
+									<dt>form.resat(input)</dt>
+									<dd>When form is reset.</dd>
+
+									<dt>form.validationFailed(JSON)</dt>
+									<dd>When form validation fails - sends errors object, containing names of all failed inputs.</dd>
+									<dt>form.validationPassed()</dt>
+									<dd>When form validation is passed - form contains no errors.</dd>
 								</dl>
+
+								<h5>Input</h5>
+								<dl>
+									<dt>input.updated(input)</dt>
+									<dd>When input is updated.</dd>
+									<dt>input.changed(input)</dt>
+									<dd>When input is changed.</dd>
+
+									<dt>input.focused(input)</dt>
+									<dd>When input gets focus.</dd>
+									<dt>input.blurred(input)</dt>
+									<dd>When input loses focus.</dd>
+
+									<dt>input.validationFailed()</dt>
+									<dd>When input failed validation.</dd>
+									<dt>input.validationPassed()</dt>
+									<dd>When input passed validation.</dd>
+								</dl>
+
+								<h5>Action</h5>
+								<dl>
+									<dt>action.focused(action)</dt>
+									<dd>When button gets focus.</dd>
+									<dt>action.blurred(action)</dt>
+									<dd>When button loses focus.</dd>
+									<dt>player.canplaythrough(event)</dt>
+									<dd>when enough data is loaded to perform uninterrupted playback</dd>
+									<dt>player.loadedmetadata(event)</dt>
+									<dd>when metadata is loaded (duration, title, etc.)</dd>
+									<dt>node.responseError(response)</dt>
+									<dd>if request fails</dd>
+									<dt>window.scrollToCancelled()</dt>
+									<dd>If scrolling was interupted</dd>
+								</dl>
+							</div>
+
+							<div class="extensions">
+								<h5>Extension modules</h5>
+								<p>
+									The default form behaviour can be modified by defining your own custom modifiers or initializers.
+									This allows you to build new input types, custom validations, label styles/behaviours, hint positioning, HTML pre-processors
+									as well as custom ways of compiling data on submit.
+								</p>
+								<p>
+									Please refer to <em>u-form-custom.js</em> for examples.
+								</p>
 							</div>
 
 							<div class="examples">
@@ -155,6 +371,7 @@
 								<div class="example">
 									<code>var player = u.audioPlayer({"playpause":true});</code>
 									<p>Return <span class="htmltag">div.audioplayer</span> with Play/Pause button</p>
+									<code>&lt;div class=&quot;audioplayer&quot;&gt;&lt;/div&gt;</code>
 								</div>
 							</div>
 
@@ -312,6 +529,77 @@ player.load("/media/audio/audio_1.mp3");
 				</div>
 			</div>
 
+			<div class="section includefiles">
+				<div class="header">
+					<h2>files</h2>
+				</div>
+				<div class="body">
+					<div class="files main">
+						<h3>Main file</h3>
+						<ul>
+							<li>none</li>
+						</ul>
+					</div>
+
+					<div class="files support">
+						<h3>Segment support files</h3>
+						<ul>
+							<li><span class="file">u-array-desktop_light.js</span></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="section segmentsupport">
+				<div class="header">
+					<h2>Segment dependencies</h2>
+				</div>
+				<div class="body">
+					<dl class="segments">
+						<dt>desktop_edge</dt>
+						<dd>No include required</dd>
+
+						<dt>desktop_ie11</dt>
+						<dd>No include required</dd>
+
+						<dt>desktop</dt>
+						<dd>No include required</dd>
+
+						<dt>desktop_ie10</dt>
+						<dd>No include required</dd>
+
+						<dt>desktop_ie9</dt>
+						<dd>No include required</dd>
+
+						<dt>desktop_light</dt>
+						<dd><span class="file">u-array-desktop_light.js</span></dd>
+
+						<dt>tablet</dt>
+						<dd>No include required</dd>
+
+						<dt>tablet_light</dt>
+						<dd>No include required</dd>
+
+						<dt>smartphone</dt>
+						<dd>No include required</dd>
+	
+						<dt>mobile</dt>
+						<dd class="todo">not tested</dd>
+	
+						<dt>mobile_light</dt>
+						<dd class="todo">not tested</dd>
+
+						<dt>tv</dt>
+						<dd><span class="file">u-array-desktop_light.js</span></dd>
+
+						<dt>seo</dt>
+						<dd>not supported</dd>
+					</dl>
+				</div>
+			</div>
+
+
 			<h2>Color syntax</h2>
 			<ul>
 				<li><span class="type">type</span></li>
@@ -326,7 +614,6 @@ player.load("/media/audio/audio_1.mp3");
 			<hr />
 
 		</div>
-
 	</div>
 
 	<div id="navigation">

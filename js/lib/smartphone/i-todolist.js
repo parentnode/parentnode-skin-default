@@ -47,7 +47,7 @@ Util.Objects["todolist"] = new function() {
 //								alert("server communication failed");
 							}
 						}
-						u.request(this, this.form.action, {"method":this.form.method, "params":u.f.getParams(this.form)});
+						u.request(this, this.form.action, {"method":this.form.method, "params":this.form.getData()});
 					}
 
 					node.open_form = u.qs("li.open form", node);
@@ -68,7 +68,7 @@ Util.Objects["todolist"] = new function() {
 //								alert("server communication failed");
 							}
 						}
-						u.request(this, this.form.action, {"method":this.form.method, "params":u.f.getParams(this.form)});
+						u.request(this, this.form.action, {"method":this.form.method, "data":this.form.getData()});
 					}
 				}
 			}

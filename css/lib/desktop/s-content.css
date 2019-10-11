@@ -43,14 +43,12 @@
 
 /* DEFINITION LIST */
 #content .scene dl {padding: 0 70px 15px; width: 500px;}
-#content .scene dt {width: 100px; text-align: right; padding: 0 5px 6px 0; color: #999999;}
+#content .scene dt {width: 115px; text-align: right; padding: 0 5px 6px 0; color: #999999;}
 #content .scene dt:after {content: ":";}
-/* one px off dd width, to support Androids */
-#content .scene dd {padding: 0 0 6px; width: 394px;}
+#content .scene dd {padding: 0 0 6px; width: 380px;}
 #content .scene dt span {text-transform: none;}
 #content .scene dl dl {padding: 0 0 10px; margin-left: -30px; width: 425px;}
 #content .scene dl dl dt {width: 80px;}
-/* one px off dd width, to support Androids */
 #content .scene dl dl dd {width: 339px;}
 #content .scene dl h3,
 #content .scene dl h4,

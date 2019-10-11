@@ -29,7 +29,7 @@ Util.Objects["signup"] = new function() {
 
 			// Ajax janitor signup flow
 			form_signup.submitted = function() {
-				var data = u.f.getParams(this);
+				var data = this.getData();
 
 				// submit state
 				this.is_submitting = true; 
