@@ -6,6 +6,7 @@ document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></scr
 
 document.write('<script type="text/javascript" src="/js/lib/smartphone/u-form-custom.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-page.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/smartphone/i-login.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-scene.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-article.js"></script>');
 

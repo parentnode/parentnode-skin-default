@@ -4,6 +4,7 @@ document.write('<script type="text/javascript" src="/js/manipulator/merged/seg_s
 document.write('<script type="text/javascript" src="/js/lib/u-basics.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-page.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/smartphone/i-login.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-scene.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-article.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/u-geolocation.js"></script>');
@@ -16,7 +17,6 @@ document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-f
 document.write('<script type="text/javascript" src="/js/manipulator/src/u-form-labelstyle-inject.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-documentation.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/smartphone/i-login.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-newsletter.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-pagination.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/smartphone/i-signup.js"></script>');

@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-10-12 16:22:10
+asset-builder @ 2019-10-12 22:15:07
 */
 
 /*seg_tablet_include.js*/
@@ -4601,6 +4601,28 @@ Util.Objects["page"] = new function() {
 	}
 }
 u.e.addDOMReadyEvent(u.init);
+
+
+/*i-login.js*/
+Util.Objects["login"] = new function() {
+	this.init = function(scene) {
+		u.bug("scene init:", scene);
+		scene.resized = function() {
+		}
+		scene.scrolled = function() {
+		}
+		scene.ready = function() {
+			this._form = u.qs("form", this);
+			u.f.init(this._form);
+			this._form.inputs["username"].focus();
+			page.cN.scene = this;
+			u.showScene(this);
+			page.acceptCookies();
+			page.resized();
+		}
+		scene.ready();
+	}
+}
 
 
 /*i-scene.js*/

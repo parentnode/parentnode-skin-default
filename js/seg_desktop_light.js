@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-10-12 16:22:10
+asset-builder @ 2019-10-12 22:15:07
 */
 
 /*seg_desktop_light_include.js*/
@@ -4934,4 +4934,23 @@ Util.Objects["page"] = new function() {
 	}
 }
 window.onload = u.init;
+
+
+/*i-login.js*/
+Util.Objects["login"] = new function() {
+	this.init = function(scene) {
+		scene.resized = function() {
+		}
+		scene.scrolled = function() {
+		}
+		scene.ready = function() {
+			u.ae(this, "p", {"html":"Your browser is not supported by the Administration system.<br />Please upgrade:"})
+			var ul = u.ae(this, "ul");
+			u.ae(ul, "li", {"html":'<a href="https://firefox.com/download" target="_blank">Firefox</a>'});
+			u.ae(ul, "li", {"html":'<a href="https://www.google.com/chrome/" target="_blank">Chrome</a>'});
+			page.cN.scene = this;
+		}
+		scene.ready();
+	}
+}
 

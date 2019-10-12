@@ -21,6 +21,8 @@ Util.Objects["newsletter"] = new function() {
 			this._form = u.qs("form", this);
 			u.f.init(this._form);
 
+			u.showScene(this);
+
 
 			page.cN.scene = this;
 			page.resized();
