@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-10-12 13:57:55
+asset-builder @ 2019-10-12 16:22:10
 */
 
 /*seg_tablet_include.js*/
@@ -4252,7 +4252,7 @@ u.notifier = function(node) {
 				login.overlay = overlay;
 				u.ae(login, "input", {"type":"hidden", "name":"ajaxlogin", "value":"true"})
 				u.f.init(login);
-				login.fields["username"].focus();
+				login.inputs["username"].focus();
 				login.submitted = function() {
 					this.response = function(response) {
 						if(response.isJSON && response.cms_status == "success") {
@@ -4290,8 +4290,8 @@ u.notifier = function(node) {
 							}
 						}
 						else {
-							this.fields["username"].focus();
-							this.fields["password"].val("");
+							this.inputs["username"].focus();
+							this.inputs["password"].val("");
 							var error_message = u.qs(".errormessage", response);
 							if(error_message) {
 								this.overlay.node.notify({"isJSON":true, "cms_status":"error", "cms_message":error_message.innerHTML});
@@ -4301,7 +4301,7 @@ u.notifier = function(node) {
 							}
 						}
 					}
-					u.request(this, this.action, {"method":this.method, "params":u.f.getParams(this)});
+					u.request(this, this.action, {"method":this.method, "data":this.getData()});
 				}
 			}
 			else if(messages) {
