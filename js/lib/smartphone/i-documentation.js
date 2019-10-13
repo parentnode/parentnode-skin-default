@@ -1,7 +1,8 @@
 Util.Objects["docsindex"] = new function() {
 	this.init = function(scene) {
+		// u.bug("init docsindex", scene);
 
-		var files = u.qsa(".files li", scene);
+		var files = u.qsa("div.files li", scene);
 		var i, node;
 
 		// initialize search field
@@ -12,6 +13,8 @@ Util.Objects["docsindex"] = new function() {
 		var fieldset = u.f.addFieldset(form);
 		var field = u.f.addField(fieldset, {"name":"search", "label":"Search term of minimum 3 chars"})
 		u.f.init(form);
+
+		form.submitted = function() {}
 
 		u.as(field.input, "width", (u.browserW()-60)+"px");
 
@@ -31,7 +34,7 @@ Util.Objects["docsindex"] = new function() {
 				var i, _function;
 				var functions = u.qsa(".functions .function", response);
 				for(i = 0; _function = functions[i]; i++) {
-					
+
 					_function.file_node = this;
 					_function = this.results.appendChild(_function);
 
@@ -48,8 +51,11 @@ Util.Objects["docsindex"] = new function() {
 			u.request(node, node.url);
 		}
 
+
+		// u.bug("field.input:", field.input);
 		// auto complete handler
 		field.input._autocomplete = function() {
+			// u.bug("autocomplete");
 
 			var i, _function;
 
@@ -59,9 +65,9 @@ Util.Objects["docsindex"] = new function() {
 			// perform search
 			for(i = 0; _function = this.results.childNodes[i]; i++) {
 				if(
-					this.value.length > 2 && 
+					this.value.length > 2 &&
 					(
-						escape(u.text(_function._definition).toLowerCase()).match(escape(this.value.toLowerCase())) || 
+						escape(u.text(_function._definition).toLowerCase()).match(escape(this.value.toLowerCase())) ||
 						escape(u.text(_function._description).toLowerCase()).match(escape(this.value.toLowerCase()))
 					)
 				) {
@@ -78,19 +84,20 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 		field.input._keyup = function(event) {
-
+			// u.bug("keyup");
 			// reset existing timer
 			u.t.resetTimer(this.t_autocomplete);
 			this.t_autocomplete = u.t.setTimer(this, this._autocomplete, 300);
 		}
 
 		field.input.focused = function() {
-			u.e.addEvent(this, "keyup", this._keyup)
+			// u.bug("focused");
+			u.e.addEvent(this, "keyup", this._keyup);
 		}
 
 		field.input.blurred = function() {
 			u.t.resetTimer(this.t_autocomplete);
-			u.e.removeEvent(this, "keyup", this._keyup)
+			u.e.removeEvent(this, "keyup", this._keyup);
 		}
 
 		u.showScene(scene);
@@ -110,30 +117,37 @@ Util.Objects["docpage"] = new function() {
 		// loop through functions in page
 		var functions = u.qsa(".function", scene);
 		for(i = 0; func = functions[i]; i++) {
+
+
+			// FUNCTION HEADER
+
 			func._header = u.qs(".header", func);
 			func._header._func = func;
 
-			u.svg({
+			func._header.expandarrow = u.svg({
+				"name":"expandarrow",
 				"node":func._header,
-				"width": "15px",
-				"height": "12px",
+				"class":"arrow",
+				"width":17,
+				"height":17,
 				"shapes":[
 					{
-						"type":"line",
-						"x1":1,
-						"y1":0,
-						"x2":7,
-						"y2":12
+						"type": "line",
+						"x1": 2,
+						"y1": 2,
+						"x2": 7,
+						"y2": 9
 					},
 					{
-						"type":"line",
-						"x1":6,
-						"y1":12,
-						"x2":12,
-						"y2":0
+						"type": "line",
+						"x1": 6,
+						"y1": 9,
+						"x2": 11,
+						"y2": 2
 					}
 				]
 			});
+
 
 			func._body = u.qs(".body", func);
 			u.as(func._body, "display", "none");
@@ -164,60 +178,76 @@ Util.Objects["docpage"] = new function() {
 				func._header.clicked();
 			}
 
-			// FUNCTION USES
+
+
+			// FUNCTION DEPENDENCIES
 
 			func._dependencies = u.qs(".dependencies", func);
+			func._dependencies._header = u.qs("h4", func._dependencies);
+			func._dependencies._header._dependencies = func._dependencies;
+
 			u.as(func._dependencies, "height", "20px");
 			func._dependencies._func = func;
 
-			u.svg({
-				"node":func._dependencies,
-				"width": "15px",
-				"height": "12px",
+			func._dependencies.expandarrow = u.svg({
+				"name":"expandarrow",
+				"node":func._dependencies._header,
+				"class":"arrow",
+				"width":17,
+				"height":17,
 				"shapes":[
 					{
-						"type":"line",
-						"x1":1,
-						"y1":0,
-						"x2":5,
-						"y2":9
+						"type": "line",
+						"x1": 2,
+						"y1": 2,
+						"x2": 7,
+						"y2": 9
 					},
 					{
-						"type":"line",
-						"x1":4,
-						"y1":9,
-						"x2":8,
-						"y2":0
+						"type": "line",
+						"x1": 6,
+						"y1": 9,
+						"x2": 11,
+						"y2": 2
 					}
 				]
 			});
 
-			u.e.click(func._dependencies);
-			func._dependencies.clicked = function(event) {
 
-				if(u.hc(this, "open")) {
+			u.e.click(func._dependencies._header);
+			func._dependencies._header.clicked = function(event) {
 
-					u.as(this, "height", "20px");
-					u.rc(this, "open");
+				if(u.hc(this._dependencies, "open")) {
+
+					u.as(this._dependencies, "height", "20px");
+					u.rc(this._dependencies, "open");
 				}
 				else {
 
-					u.as(this, "height", "auto");
-					u.ac(this, "open");
+					u.as(this._dependencies, "height", "auto");
+					u.ac(this._dependencies, "open");
 				}
+
 			}
 
 		}
 
-		// is specific function stated in url
+
+		// is specific function stated in location HASH
 		if(location.hash) {
+			// var selected_function = u.qs(location.hash);
+			// u.ge is a very tolerant selector tool
 			var selected_function = u.ge(location.hash.replace("#", ""))
 			if(selected_function) {
+
+				// Open first – makes scrollto work better if item is not collapsed
 				if(!u.hc(selected_function, "open")) {
 					selected_function._header.clicked();
 				}
 
-				window.scrollTo(0, u.absY(selected_function));
+				u.t.setTimer(selected_function, function() {
+					u.scrollTo(window, {node: this, offset_y: 100});
+				}, 700);
 			}
 		}
 
@@ -233,24 +263,26 @@ Util.Objects["docpage"] = new function() {
 			u.as(scene._files._body, "display", "none");
 			scene._files._body._files = scene._files;
 
-			u.svg({
+			scene._files._header.expandarrow = u.svg({
+				"name":"expandarrow",
 				"node":scene._files._header,
-				"width": "15px",
-				"height": "12px",
+				"class":"arrow",
+				"width":17,
+				"height":17,
 				"shapes":[
 					{
-						"type":"line",
-						"x1":1,
-						"y1":0,
-						"x2":7,
-						"y2":12
+						"type": "line",
+						"x1": 2,
+						"y1": 2,
+						"x2": 7,
+						"y2": 9
 					},
 					{
-						"type":"line",
-						"x1":6,
-						"y1":12,
-						"x2":12,
-						"y2":0
+						"type": "line",
+						"x1": 6,
+						"y1": 9,
+						"x2": 11,
+						"y2": 2
 					}
 				]
 			});
@@ -283,24 +315,26 @@ Util.Objects["docpage"] = new function() {
 			u.as(scene._segments._body, "display", "none");
 			scene._segments._body._segments = scene._segments;
 
-			u.svg({
+			scene._segments._header.expandarrow = u.svg({
+				"name":"expandarrow",
 				"node":scene._segments._header,
-				"width": "15px",
-				"height": "12px",
+				"class":"arrow",
+				"width":17,
+				"height":17,
 				"shapes":[
 					{
-						"type":"line",
-						"x1":1,
-						"y1":0,
-						"x2":7,
-						"y2":12
+						"type": "line",
+						"x1": 2,
+						"y1": 2,
+						"x2": 7,
+						"y2": 9
 					},
 					{
-						"type":"line",
-						"x1":6,
-						"y1":12,
-						"x2":12,
-						"y2":0
+						"type": "line",
+						"x1": 6,
+						"y1": 9,
+						"x2": 11,
+						"y2": 2
 					}
 				]
 			});

@@ -1,7 +1,6 @@
 Util.Objects["docsindex"] = new function() {
 	this.init = function(scene) {
-
-//		u.bug("init docsindex");
+		// u.bug("init docsindex", scene);
 
 		var files = u.qsa("div.files li", scene);
 		var i, node;
@@ -16,8 +15,6 @@ Util.Objects["docsindex"] = new function() {
 		u.f.init(form);
 
 		form.submitted = function() {}
-
-		u.bug(field)
 
 		// enable search
 		field.input.div_search = scene.div_search;
@@ -53,11 +50,10 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 
-//		u.bug("field.input:" + field.input);
+		// u.bug("field.input:", field.input);
 		// auto complete handler
 		field.input._autocomplete = function() {
-//			u.bug("autocomplete");
-
+			// u.bug("autocomplete");
 
 			var i, _function;
 
@@ -86,14 +82,14 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 		field.input._keyup = function(event) {
-//			u.bug("keyup");
+			// u.bug("keyup");
 			// reset existing timer
 			u.t.resetTimer(this.t_autocomplete);
 			this.t_autocomplete = u.t.setTimer(this, this._autocomplete, 300);
 		}
 
 		field.input.focused = function() {
-//			u.bug("focused");
+			// u.bug("focused");
 			u.e.addEvent(this, "keyup", this._keyup);
 		}
 
@@ -124,6 +120,7 @@ Util.Objects["docpage"] = new function() {
 			// FUNCTION HEADER
 
 			func._header = u.qs(".header", func);
+			func._header._func = func;
 
 			func._header.expandarrow = u.svg({
 				"name":"expandarrow",
@@ -150,10 +147,10 @@ Util.Objects["docpage"] = new function() {
 			});
 
 
-			func._header._func = func;
 			func._body = u.qs(".body", func);
 			u.as(func._body, "display", "none");
 			func._body._func = func;
+
 
 			u.e.click(func._header);
 			func._header.clicked = function(event) {
@@ -228,21 +225,27 @@ Util.Objects["docpage"] = new function() {
 					u.as(this._dependencies, "height", "auto");
 					u.ac(this._dependencies, "open");
 				}
+
 			}
-
-
 
 		}
 
-		// is specific function stated in url
+
+		// is specific function stated in location HASH
 		if(location.hash) {
+			// var selected_function = u.qs(location.hash);
+			// u.ge is a very tolerant selector tool
 			var selected_function = u.ge(location.hash.replace("#", ""))
 			if(selected_function) {
+
+				// Open first – makes scrollto work better if item is not collapsed
 				if(!u.hc(selected_function, "open")) {
 					selected_function._header.clicked();
 				}
 
-				window.scrollTo(0, u.absY(selected_function));
+				u.t.setTimer(selected_function, function() {
+					u.scrollTo(window, {node: this, offset_y: 100});
+				}, 700);
 			}
 		}
 
