@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-10-12 22:15:07
+asset-builder @ 2019-10-13 18:58:25
 */
 
 /*seg_tablet_include.js*/
@@ -3909,7 +3909,7 @@ u.navigation = function(_options) {
 	}
 	window._man_nav_path = window._man_nav_path ? window._man_nav_path : u.h.getCleanUrl(location.href, 1);
 	navigation_node._navigate = function(url) {
-		url = u.h.getCleanUrl(url);
+		var clean_url = u.h.getCleanUrl(url);
 		u.stats.pageView(url);
 		if(
 			!window._man_nav_path || 
@@ -3917,15 +3917,15 @@ u.navigation = function(_options) {
 			(u.h.popstate && window._man_nav_path != u.h.getCleanUrl(location.href, 1))
 		) {
 			if(this.cN && fun(this.cN.navigate)) {
-				this.cN.navigate(url);
+				this.cN.navigate(clean_url, url);
 			}
 		}
 		else {
 			if(this.cN.scene && this.cN.scene.parentNode && fun(this.cN.scene.navigate)) {
-				this.cN.scene.navigate(url);
+				this.cN.scene.navigate(clean_url, url);
 			}
 			else if(this.cN && fun(this.cN.navigate)) {
-				this.cN.navigate(url);
+				this.cN.navigate(clean_url, url);
 			}
 		}
 		if(!u.h.popstate) {
@@ -4478,8 +4478,13 @@ Util.Objects["page"] = new function() {
 				this.resized();
 			}
 		}
-		page.cN.navigate = function(url) {
-			location.href = url;
+		page.cN.navigate = function(url, raw_url) {
+			if(raw_url) {
+				location.reload(true);
+			}
+			else {
+				location.href = url;
+			}
 		}
 		page.acceptCookies = function() {
 			if(u.terms_version && !u.getCookie(u.terms_version)) {
