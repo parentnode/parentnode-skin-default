@@ -180,9 +180,13 @@ Util.Objects["page"] = new function() {
 		}
 
 		// Handle popstate url changes
-		page.cN.navigate = function(url) {
-			// u.bug(url)
-			location.href = url;
+		page.cN.navigate = function(url, raw_url) {
+			if(raw_url) {
+				location.reload(true);
+			}
+			else {
+				location.href = url;
+			}
 		}
 
 		// show accept cookies dialogue
