@@ -1,6 +1,3 @@
-// can be removed after updating to next version of Manipulator
-u.bug_console_only = true;
-
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		// u.bug("init page");
@@ -10,8 +7,9 @@ Util.Objects["page"] = new function() {
 		// show parentnode comment in console
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
-		u.bug("Visit https://parentnode.dk for more information");
-//		u.bug("Free lunch for new contributers ;-)");
+		if(document.domain !== "parentnode.dk") {
+			u.bug("Visit https://parentnode.dk for more information");
+		}
 		u.bug_force = false;
 
 
@@ -36,7 +34,6 @@ Util.Objects["page"] = new function() {
 		page.nN = u.ie(page.hN, page.nN);
 
 
-
 		// footer reference
 		page.fN = u.qs("#footer");
 		page.fN.service = u.qs("ul.servicenavigation", page.fN);
@@ -45,21 +42,22 @@ Util.Objects["page"] = new function() {
 
 		// global resize handler
 		page.resized = function(event) {
-//			u.bug("page resized");
+			// u.bug("page resized");
 
 			page.browser_h = u.browserH();
 			page.browser_w = u.browserW();
 
+
 			// adjust content height
 			page.available_height = page.browser_h - page.hN.offsetHeight - page.fN.offsetHeight;
-
-//			u.bug("page.cN.offsetHeight:" + page.cN.offsetHeight);
-
+			// Reset to auto height to be able to calculate real height
 			u.as(page.cN, "min-height", "auto", false);
 			if(page.available_height >= page.cN.offsetHeight) {
 				u.as(page.cN, "min-height", page.available_height+"px", false);
 			}
 
+
+			// Fixed width above 1300 px
 			if(page.browser_w > 1300) {
 				u.ac(page, "fixed");
 			}
@@ -67,11 +65,6 @@ Util.Objects["page"] = new function() {
 				u.rc(page, "fixed");
 			}
 
-
-			// u.bug(page.cN + "&&" + page.cN.scene + "&&" + (page.cN.scene ? typeof(page.cN.scene.resized) : "undefined"));
-			// if(page.cN.scene) {
-			// 	u.bug(u.nodeId(page.cN.scene));
-			// }
 
 			// forward resize event to current scene
 			if(page.cN && page.cN.scene && typeof(page.cN.scene.resized) == "function") {
@@ -86,66 +79,86 @@ Util.Objects["page"] = new function() {
 		// global scroll handler
 		page.scrolled = function(event) {
 
-			page.scrolled_y = u.scrollY();
+			this.scrolled_y = u.scrollY();
+
 
 			// allow for custom logo reduction (used on stopknappen)
-			if(typeof(u.logoScroller) == "function") {
+			if(fun(u.logoScroller)) {
 				u.logoScroller();
 			}
 			else {
 				// reduce logo
-				if(page.scrolled_y < page.logo.top_offset) {
+				if(this.scrolled_y < this.logo.top_offset) {
 
-					page.logo.is_reduced = false;
+					this.logo.is_reduced = false;
 
-					var reduce_font = (1-(page.logo.top_offset-page.scrolled_y)/page.logo.top_offset) * page.logo.font_size_gap;
-					page.logo.css_rule.style.setProperty("font-size", (page.logo.font_size-reduce_font)+"px", "important");
+					var reduce_font = (1-(this.logo.top_offset-this.scrolled_y)/this.logo.top_offset) * this.logo.font_size_gap;
+					this.logo.css_rule.style.setProperty("font-size", (this.logo.font_size-reduce_font)+"px", "important");
 				}
 				// claim end state, once
-				else if(!page.logo.is_reduced) {
+				else if(!this.logo.is_reduced) {
 
-					page.logo.is_reduced = true;
-					page.logo.css_rule.style.setProperty("font-size", (page.logo.font_size-page.logo.font_size_gap)+"px", "important");
+					this.logo.is_reduced = true;
+					this.logo.css_rule.style.setProperty("font-size", (this.logo.font_size-this.logo.font_size_gap)+"px", "important");
 				}
 			}
 
+
 			// reduce navigation
-			if(page.nN.top_offset && page.scrolled_y < page.nN.top_offset) {
+			if(this.nN.top_offset && this.scrolled_y < this.nN.top_offset) {
 
-				page.nN.is_reduced = false;
+				this.nN.is_reduced = false;
 
-				var factor = (1-(page.nN.top_offset-page.scrolled_y)/page.nN.top_offset);
+				var factor = (1-(this.nN.top_offset-this.scrolled_y)/this.nN.top_offset);
 
-				var reduce_font = factor * page.nN.font_size_gap;
-				page.nN.list.css_rule.style.setProperty("font-size", (page.nN.font_size-reduce_font)+"px", "important");
+				var reduce_font = factor * this.nN.font_size_gap;
+				this.nN.list.css_rule.style.setProperty("font-size", (this.nN.font_size-reduce_font)+"px", "important");
 
-				var reduce_top = factor * page.nN.top_offset_gap;
-				page.nN.css_rule.style.setProperty("top", (page.nN.top_offset-reduce_top)+"px", "important");
+				var reduce_top = factor * this.nN.top_offset_gap;
+				this.nN.css_rule.style.setProperty("top", (this.nN.top_offset-reduce_top)+"px", "important");
 
 			}
 			// claim end state, once
-			else if(page.nN.top_offset && !page.nN.is_reduced) {
+			else if(this.nN.top_offset && !this.nN.is_reduced) {
 
-				page.nN.is_reduced = true;
+				this.nN.is_reduced = true;
 
-				page.nN.list.css_rule.style.setProperty("font-size", (page.nN.font_size-page.nN.font_size_gap)+"px", "important");
-				page.nN.css_rule.style.setProperty("top", (page.nN.top_offset-page.nN.top_offset_gap)+"px", "important");
+				this.nN.list.css_rule.style.setProperty("font-size", (this.nN.font_size-this.nN.font_size_gap)+"px", "important");
+				this.nN.css_rule.style.setProperty("top", (this.nN.top_offset-this.nN.top_offset_gap)+"px", "important");
 			}
 
 
-
 			// forward scroll event to current scene
-			if(page.cN && page.cN.scene && typeof(page.cN.scene.scrolled) == "function") {
-				page.cN.scene.scrolled(event);
+			if(this.cN && this.cN.scene && typeof(this.cN.scene.scrolled) == "function") {
+				this.cN.scene.scrolled(event);
 			}
 
 		}
 
+		// Preload page assets
+		page.preload = function() {
+
+			// Local pagePreloader
+			if(fun(u.pagePreloader)) {
+				u.pagePreloader();
+			}
+			else {
+
+				// preload fonts
+				u.fontsReady(this, [
+					{"family":"OpenSans", "weight":"normal", "style":"normal"},
+					{"family":"OpenSans", "weight":"bold", "style":"normal"},
+					{"family":"OpenSans", "weight":"normal", "style":"italic"},
+					{"family":"PT Serif", "weight":"normal", "style":"normal"}
+				], {"callback": "ready"});
+
+			}
+		}
 
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
-//				u.bug("page ready");
+			// u.bug("page ready");
 
 			// page is ready to be shown - only initalize if not already shown
 			if(!this.is_ready) {
@@ -154,19 +167,20 @@ Util.Objects["page"] = new function() {
 				this.is_ready = true;
 
 				// set resize handler
-				u.e.addEvent(window, "resize", page.resized);
+				u.e.addWindowEvent(this, "resize", this.resized);
 				// set scroll handler
-				u.e.addEvent(window, "scroll", page.scrolled);
+				u.e.addWindowEvent(this, "scroll", this.scrolled);
 
 
-				if(typeof(u.notifier) == "function") {
+				if(fun(u.notifier)) {
 					u.notifier(this);
 				}
-				if(typeof(u.smartphoneSwitch) == "object") {
+				if(obj(u.smartphoneSwitch)) {
 					u.smartphoneSwitch.init(this);
 				}
-
-				u.navigation();
+				if(fun(u.navigation)) {
+					u.navigation();
+				}
 
 				this.initHeader();
 
@@ -175,6 +189,13 @@ Util.Objects["page"] = new function() {
 				this.initFooter();
 
 				this.resized();
+
+				// Start showing the page
+				if(!fun(this.cN.scene.revealPage)) {
+					this.revealPage();
+				}
+
+				this.cN.scene.ready();
 
 			}
 		}
@@ -191,6 +212,7 @@ Util.Objects["page"] = new function() {
 
 		// show accept cookies dialogue
 		page.acceptCookies = function() {
+			// u.bug("acceptCookies", u.terms_version);
 
 			// show terms notification
 			if(u.terms_version && !u.getCookie(u.terms_version)) {
@@ -242,6 +264,9 @@ Util.Objects["page"] = new function() {
 			page.style_tag.sheet.insertRule("#header a.logo {}", 0);
 			page.logo.css_rule = page.style_tag.sheet.cssRules[0];
 
+			if(fun(u.logoInjected)) {
+				u.logoInjected();
+			}
 
 		}
 
@@ -359,17 +384,34 @@ Util.Objects["page"] = new function() {
 		}
 
 		// initialize footer elements
-		page.initFooter = function() {
+		page.initFooter = function() {}
 
-			u.a.transition(page.fN, "all 0.5s ease-in");
+		// Show page elements (header, navigation, footer)
+		page.revealPage = function() {
+			// u.bug("page.revealPage");
+
+			u.a.transition(page.hN, "all 0.3s ease-in");
+			u.ass(page.hN, {
+				"opacity":1
+			});
+
+			u.a.transition(page.nN, "all 0.3s ease-in");
+			u.ass(page.nN, {
+				"opacity":1
+			});
+
+			u.a.transition(page.fN, "all 0.3s ease-in");
 			u.ass(page.fN, {
 				"opacity":1
 			});
 
+			// accept cookies?
+			this.acceptCookies();
+
 		}
 
-		// ready to start page builing process
-		page.ready();
+		// ready to start page preload process
+		page.preload();
 
 	}
 }

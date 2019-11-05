@@ -1,121 +1,3 @@
-
-// switch between segments handler
-u.smartphoneSwitch = new function() {
-
-	// Set initial state
-	this.state = 0;
-
-	this.init = function(node) {
-//			console.log("smartphoneSwitch on")
-		// map callback node
-		this.callback_node = node;
-		// set resize handler
-		this.event_id = u.e.addWindowEvent(this, "resize", this.resized);
-
-		this.resized();
-	}
-
-	this.resized = function() {
-//		console.log("u.smartphoneSwitch.resized" + u.browserW());
-//		console.log(this);
-
-		if(u.browserW() < 500 && !this.state) {
-//			console.log("switchOn");
-			this.switchOn();
-		}
-		else if(u.browserW() > 500 && this.state) {
-			this.switchOff();
-		}
-		
-	}
-
-	this.switchOn = function() {
-//		console.log("this.switchOn");
-
-		if(!this.panel) {
-//			console.log("create it");
-
-			this.state = true;
-			
-			this.panel = u.ae(document.body, "div", {"id":"smartphone_switch"});
-			u.ass(this.panel, {
-				opacity: 0
-			});
-
-			u.ae(this.panel, "h1", {html:u.stringOr(u.txt["smartphone-switch-headline"], "Hello curious")});
-			if(u.txt["smartphone-switch-text"].length) {
-				for(i = 0; i < u.txt["smartphone-switch-text"].length; i++) {
-					u.ae(this.panel, "p", {html:u.txt["smartphone-switch-text"][i]});
-				}
-			}
-
-			var ul_actions = u.ae(this.panel, "ul", {class:"actions"});
-			var li; 
-			li = u.ae(ul_actions, "li", {class:"hide"});
-			var bn_hide = u.ae(li, "a", {class:"hide button", html:u.txt["smartphone-switch-bn-hide"]});
-
-			li = u.ae(ul_actions, "li", {class:"switch"});
-			var bn_switch = u.ae(li, "a", {class:"switch button primary", html:u.txt["smartphone-switch-bn-switch"]});
-
-
-
-			u.e.click(bn_switch);
-			bn_switch.clicked = function() {
-				u.saveCookie("smartphoneSwitch", "on");
-				location.href = location.href.replace(/[&]segment\=desktop|segment\=desktop[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=smartphone";
-			}
-
-			u.e.click(bn_hide);
-			bn_hide.clicked = function() {
-				u.e.removeWindowEvent(u.smartphoneSwitch, "resize", u.smartphoneSwitch.event_id);
-				u.smartphoneSwitch.switchOff();
-			}
-
-
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 1
-			});
-
-		
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOn) == "function") {
-				this.callback_node.smartphoneSwitchedOn();
-			}
-		}
-	}
-
-
-	this.switchOff = function() {
-
-//		console.log("this.switchOff");
-
-		if(this.panel) {
-//			console.log("destroy it");
-
-			this.state = false;
-
-			this.panel.transitioned = function() {
-				this.parentNode.removeChild(this);
-				delete u.smartphoneSwitch.panel;
-			}
-
-
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 0
-			});
-
-
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOff) == "function") {
-				this.callback_node.smartphoneSwitchedOff();
-			}
-
-		}
-
-	}
-
-}
-
 // Fancy fade-in
 u.showScene = function(scene) {
 	var i, node;
@@ -194,13 +76,19 @@ u._stepA1 = function() {
 
 //	var chars = this.innerHTML.split(" ");
 
+	// Remove svg before indexing letters
+	var svg_icon = u.qs("svg", this);
+	if(svg_icon) {
+		this.removeChild(svg_icon);
+	}
+
 	// make sure there is spacing on each side of br.tag to get it indexed as word
 	this.innerHTML = this.innerHTML.replace(/[ ]?<br[ \/]?>[ ]?/, " <br /> ");
 	this.innerHTML = '<span class="word">'+this.innerHTML.split(" ").join('</span> <span class="word">')+'</span>'; 
 
 
 	var word_spans = u.qsa("span.word", this);
-	var i, span;
+	var i, span, letters, spanned_word;
 	// split each word into letter spans
 	for(i = 0; span = word_spans[i]; i++) {
 
@@ -210,7 +98,30 @@ u._stepA1 = function() {
 		}
 		// split letters into spans
 		else {
-			span.innerHTML = "<span>"+span.innerHTML.split("").join("</span><span>")+"</span>";
+			if(span.innerHTML.match(/&[a-zA-Z0-9#]+;/)) {
+
+				letters = span.innerHTML.split("");
+				span.innerHTML = "";
+
+				for(j = 0; j < letters.length; j++) {
+					if(letters[j] === "&") {
+						spanned_word = letters[j];
+						while(letters[++j] !== ";") {
+							spanned_word += letters[j];
+						}
+						spanned_word += letters[j];
+						span.innerHTML += "<span>" + spanned_word + "</span>";
+					}
+					else {
+						span.innerHTML += "<span>" + letters[j] + "</span>";
+					}
+				}
+
+			}
+			else {
+				span.innerHTML = "<span>"+span.innerHTML.split("").join("</span><span>")+"</span>";
+				
+			}
 		}
 	}
 
@@ -247,6 +158,10 @@ u._stepA1 = function() {
 			}
 		}
 
+	}
+
+	if(svg_icon) {
+		this.appendChild(svg_icon);
 	}
 
 }

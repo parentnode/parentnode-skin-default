@@ -1,14 +1,9 @@
 Util.Objects["wishes"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene);
-
-
-		scene.image_width = 250;
-
+		// u.bug("scene init:", scene);
 
 		scene.resized = function() {
-//			u.bug("scene.resized:", this);
-
+			// u.bug("scene.resized:", this);
 
 			// resize text nodes
 			if(this.nodes.length && this.has_images) {
@@ -23,13 +18,13 @@ Util.Objects["wishes"] = new function() {
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled");
+			// u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:", this);
+			// u.bug("scene.ready:", this);
 
-			page.cN.scene = this;
+			this.image_width = 250;
 
 			this.ul_wishes = u.qs("ul.wishes", this);
 
@@ -146,13 +141,11 @@ Util.Objects["wishes"] = new function() {
 			}
 
 			u.showScene(this);
-			// accept cookies?
-			page.acceptCookies();
 
-			page.resized();
 		}
 
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
+
 	}
 }

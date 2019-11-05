@@ -27,7 +27,6 @@ document.write('<script type="text/javascript" src="/js/lib/desktop/i-dynamic-va
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-article_mini_list.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-comments.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-documentation.js"></script>');
-document.write('<script type="text/javascript" src="/js/lib/desktop/i-generic.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-newsletter.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-pagination.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/desktop/i-qnas.js"></script>');

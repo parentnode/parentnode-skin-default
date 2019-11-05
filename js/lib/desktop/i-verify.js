@@ -1,20 +1,17 @@
 Util.Objects["verify"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene);
-
+		// u.bug("scene init:", scene);
 
 		scene.resized = function() {
-//			u.bug("scene.resized:", this);
+			// u.bug("scene.resized:", this);
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled:", this);
+			// u.bug("scrolled:", this);
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:", this);
-
-			page.cN.scene = this;
+			// u.bug("scene.ready:", this);
 
 			var form_verify = u.qs("form.verify_code", this);
 
@@ -86,12 +83,8 @@ Util.Objects["verify"] = new function() {
 				u.request(this, this.action, {"data":data, "method":"POST", "responseType":"document"});
 			}
 
-			// accept cookies?
-			page.acceptCookies();
-
 			u.showScene(this);
 
-			page.resized();
 		}
 
 		scene.replaceScene = function(response) {
@@ -101,6 +94,7 @@ Util.Objects["verify"] = new function() {
 
 			// Initialize new scene
 			u.init();
+			new_scene.ready();
 
 			return new_scene;
 		}
@@ -123,9 +117,8 @@ Util.Objects["verify"] = new function() {
 		}
 
 
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
 
 	}
-
 }

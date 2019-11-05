@@ -323,13 +323,26 @@ u.injectSharing = function(node) {
 		u.t.setTimer(this.sharing.svg, function() {this.hide = false;}, 250);
 
 	}
+	node.sharing.button.toggle = function(event) {
+		if(u.hc(this.sharing, "hover")) {
+			this.out(event);
+		}
+		else {
+			this.over(event);
+		}
+	}
 	node.sharing.autohide = function() {
 		u.t.resetTimer(this.button.t_hide);
 		this.button.t_hide = u.t.setTimer(this.button, this.button.out, 500);
 	}
 
-	u.e.addEvent(node.sharing.button, "mouseover", node.sharing.button.over);
-	u.e.addEvent(node.sharing, "mouseleave", node.sharing.autohide);
+	if(u.e.event_support == "mouse") {
+		u.e.addEvent(node.sharing.button, "mouseover", node.sharing.button.over);
+		u.e.addEvent(node.sharing, "mouseleave", node.sharing.autohide);
+	}
+	else {
+		u.e.addStartEvent(node.sharing.button, node.sharing.button.toggle);
+	}
 
 
 	if(typeof(node.sharingInjected) == "function") {

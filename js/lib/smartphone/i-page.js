@@ -1,6 +1,3 @@
-// can be removed after updating to next version of Manipulator
-u.bug_console_only = true;
-
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 
@@ -9,8 +6,9 @@ Util.Objects["page"] = new function() {
 		// show parentnode comment in console
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
-		u.bug("Visit https://parentnode.dk for more information");
-//		u.bug("Free lunch for new contributers ;-)");
+		if(document.domain !== "parentnode.dk") {
+			u.bug("Visit https://parentnode.dk for more information");
+		}
 		u.bug_force = false;
 
 
@@ -42,7 +40,7 @@ Util.Objects["page"] = new function() {
 
 		// global resize handler
 		page.resized = function() {
-//			u.bug("page resized");
+			// u.bug("page resized");
 
 			this.browser_h = u.browserH();
 			this.browser_w = u.browserW();
@@ -125,7 +123,7 @@ Util.Objects["page"] = new function() {
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
-//			u.bug("page ready");
+			// u.bug("page ready");
 
 			// page is ready to be shown - only initalize if not already shown
 			if(!this.is_ready) {
