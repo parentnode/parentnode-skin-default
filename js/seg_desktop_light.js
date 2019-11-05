@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-10-13 18:58:25
+asset-builder @ 2019-11-05 02:28:03
 */
 
 /*seg_desktop_light_include.js*/
@@ -553,7 +553,7 @@ Util.clickableElement = u.ce = function(node, _options) {
 				if(fun(node.preClicked)) {
 					node.preClicked();
 				}
-				if(event && (event.metaKey || event.ctrlKey)) {
+				if(event && (event.metaKey || event.ctrlKey || (this._a && this._a.target))) {
 					window.open(this.url);
 				}
 				else {
@@ -4667,76 +4667,6 @@ if(String.prototype.substr == undefined || "ABC".substr(-1,1) == "A") {
 
 
 /*u-basics.js*/
-u.smartphoneSwitch = new function() {
-	this.state = 0;
-	this.init = function(node) {
-		this.callback_node = node;
-		this.event_id = u.e.addWindowEvent(this, "resize", this.resized);
-		this.resized();
-	}
-	this.resized = function() {
-		if(u.browserW() < 500 && !this.state) {
-			this.switchOn();
-		}
-		else if(u.browserW() > 500 && this.state) {
-			this.switchOff();
-		}
-	}
-	this.switchOn = function() {
-		if(!this.panel) {
-			this.state = true;
-			this.panel = u.ae(document.body, "div", {"id":"smartphone_switch"});
-			u.ass(this.panel, {
-				opacity: 0
-			});
-			u.ae(this.panel, "h1", {html:u.stringOr(u.txt["smartphone-switch-headline"], "Hello curious")});
-			if(u.txt["smartphone-switch-text"].length) {
-				for(i = 0; i < u.txt["smartphone-switch-text"].length; i++) {
-					u.ae(this.panel, "p", {html:u.txt["smartphone-switch-text"][i]});
-				}
-			}
-			var ul_actions = u.ae(this.panel, "ul", {class:"actions"});
-			var li; 
-			li = u.ae(ul_actions, "li", {class:"hide"});
-			var bn_hide = u.ae(li, "a", {class:"hide button", html:u.txt["smartphone-switch-bn-hide"]});
-			li = u.ae(ul_actions, "li", {class:"switch"});
-			var bn_switch = u.ae(li, "a", {class:"switch button primary", html:u.txt["smartphone-switch-bn-switch"]});
-			u.e.click(bn_switch);
-			bn_switch.clicked = function() {
-				u.saveCookie("smartphoneSwitch", "on");
-				location.href = location.href.replace(/[&]segment\=desktop|segment\=desktop[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=smartphone";
-			}
-			u.e.click(bn_hide);
-			bn_hide.clicked = function() {
-				u.e.removeWindowEvent(u.smartphoneSwitch, "resize", u.smartphoneSwitch.event_id);
-				u.smartphoneSwitch.switchOff();
-			}
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 1
-			});
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOn) == "function") {
-				this.callback_node.smartphoneSwitchedOn();
-			}
-		}
-	}
-	this.switchOff = function() {
-		if(this.panel) {
-			this.state = false;
-			this.panel.transitioned = function() {
-				this.parentNode.removeChild(this);
-				delete u.smartphoneSwitch.panel;
-			}
-			u.a.transition(this.panel, "all 0.5s ease-in-out");
-			u.ass(this.panel, {
-				opacity: 0
-			});
-			if(this.callback_node && typeof(this.callback_node.smartphoneSwitchedOff) == "function") {
-				this.callback_node.smartphoneSwitchedOff();
-			}
-		}
-	}
-}
 u.showScene = function(scene) {
 	var i, node;
 	var nodes = u.cn(scene);
@@ -4775,16 +4705,39 @@ u.showScene = function(scene) {
 	}
 }
 u._stepA1 = function() {
+	var svg_icon = u.qs("svg", this);
+	if(svg_icon) {
+		this.removeChild(svg_icon);
+	}
 	this.innerHTML = this.innerHTML.replace(/[ ]?<br[ \/]?>[ ]?/, " <br /> ");
 	this.innerHTML = '<span class="word">'+this.innerHTML.split(" ").join('</span> <span class="word">')+'</span>'; 
 	var word_spans = u.qsa("span.word", this);
-	var i, span;
+	var i, span, letters, spanned_word;
 	for(i = 0; span = word_spans[i]; i++) {
 		if(span.innerHTML.match(/<br[ \/]?>/)) {
 			span.parentNode.replaceChild(document.createElement("br"), span);
 		}
 		else {
-			span.innerHTML = "<span>"+span.innerHTML.split("").join("</span><span>")+"</span>";
+			if(span.innerHTML.match(/&[a-zA-Z0-9#]+;/)) {
+				letters = span.innerHTML.split("");
+				span.innerHTML = "";
+				for(j = 0; j < letters.length; j++) {
+					if(letters[j] === "&") {
+						spanned_word = letters[j];
+						while(letters[++j] !== ";") {
+							spanned_word += letters[j];
+						}
+						spanned_word += letters[j];
+						span.innerHTML += "<span>" + spanned_word + "</span>";
+					}
+					else {
+						span.innerHTML += "<span>" + letters[j] + "</span>";
+					}
+				}
+			}
+			else {
+				span.innerHTML = "<span>"+span.innerHTML.split("").join("</span><span>")+"</span>";
+			}
 		}
 	}
 	this.spans = u.qsa("span:not(.word)", this);
@@ -4813,6 +4766,9 @@ u._stepA1 = function() {
 				});
 			}
 		}
+	}
+	if(svg_icon) {
+		this.appendChild(svg_icon);
 	}
 }
 u._stepA2 = function() {
