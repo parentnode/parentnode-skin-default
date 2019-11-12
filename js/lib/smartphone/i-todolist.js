@@ -1,21 +1,17 @@
 Util.Objects["todolist"] = new function() {
 	this.init = function(scene) {
-//		u.bug("scene init:", scene);
-
+		// u.bug("scene init:", scene);
 
 		scene.resized = function() {
-//			u.bug("scene.resized:", this);
-
-			// refresh dom
-//			this.offsetHeight;
+			// u.bug("scene.resized:", this);
 		}
 
 		scene.scrolled = function() {
-//			u.bug("scrolled");
+			// u.bug("scene.scrolled", this);
 		}
 
 		scene.ready = function() {
-//			u.bug("scene.ready:", this);
+			// u.bug("scene.ready:", this);
 
 			this.nodes = u.qsa("li.item", this);
 			if(this.nodes.length) {
@@ -74,11 +70,11 @@ Util.Objects["todolist"] = new function() {
 			}
 
 
-			page.cN.scene = this;
-			page.resized();
+			u.showScene(this);
 		}
 
-		// scene is ready
-		scene.ready();
+		// Map scene – page will call scene.ready
+		page.cN.scene = scene;
+
 	}
 }

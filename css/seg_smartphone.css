@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2019-11-05 02:28:03
+asset-builder @ 2019-11-13 00:24:13
 */
 
 /*seg_smartphone_include.css*/
@@ -74,9 +74,9 @@ h2 {padding: 0 20px 24px; font-size: 26px; line-height: 1.1em;
 	font-family: "PT Serif", Times, serif;
 }
 h3 {padding: 0 20px 10px; font-size: 18px; line-height: 1.25em;}
-h4 {padding: 0 20px 5px; font-size: 13px; line-height: 1em; font-weight: bold;}
-h5 {padding: 0 20px 2px; font-size: 13px; line-height: 1em; font-weight: bold;}
-h6 {padding: 0 20px 2px; font-size: 13px; line-height: 1em; font-weight: bold;}
+h4 {padding: 0 20px 5px; font-size: 13px; line-height: 1.25em; font-weight: bold;}
+h5 {padding: 0 20px 2px; font-size: 13px; line-height: 1.25em; font-weight: bold;}
+h6 {padding: 0 20px 2px; font-size: 13px; line-height: 1.25em; font-weight: bold;}
 p {padding: 0 20px 18px; font-size: 13px; line-height: 1.538em;} 
 ul,
 ol {font-size: 0;}
@@ -116,7 +116,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 
 
 /*s-header.css*/
-#header {z-index: 100; position: fixed; height: 60px; width: 100%; top: 0; left: 0; background: #ffffff; overflow: hidden;
+#header {opacity: 0; z-index: 100; position: fixed; height: 60px; width: 100%; top: 0; left: 0; background: #ffffff; overflow: hidden;
 	-moz-user-select: none;
 	-webkit-user-select: none;
 	user-select: none;
@@ -142,7 +142,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 
 
 /*s-footer.css*/
-#footer {text-align: center; border-top: 1px solid #888888; margin: 0;}
+#footer {opacity: 0; text-align: center; border-top: 1px solid #888888; margin: 0;}
 #footer p {padding: 10px; cursor: pointer;}
 
 /*s-content.css*/
@@ -196,8 +196,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.tags li.editing:after {content: "";}
 #content .scene ul.info {position: relative; z-index: 1; padding-bottom: 20px; padding-right: 0; display: inline-block; vertical-align: top; width: auto; font-size: 0;}
 #content .scene ul.info li {width: auto; font-size: 12px; line-height: 12px; color: #cccccc; display: inline-block; vertical-align: top;}
-#content .scene ul.info > li.author:before,
-#content .scene ul.info > li.place:before {content: "\00a0|\00a0"; color: #dedede; display: inline-block; vertical-align: top; font-size: 12px; line-height: 10px; }
+#content .scene ul.info > li.author:before {content: "\00a0|\00a0"; color: #dedede; display: inline-block; vertical-align: top; font-size: 12px; line-height: 10px; }
 #content .scene ul.info li.main_entity,
 #content .scene ul.info li.url,
 #content .scene ul.info li.publisher,
@@ -294,13 +293,14 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
 #content .scene ul.articles li.article ul.tags li,
 #content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article h3 {font-size: 20px; line-height: 1em; padding-bottom: 10px;
+#content .scene ul.articles li.article h3 {font-size: 20px; padding-bottom: 10px;
 	font-family: "PT Serif", Times, serif;
 }
-#content .scene .article ul.info > li.place {font-size: 0;}
-#content .scene .article ul.geo.active li.location {cursor: pointer;}
+#content .scene .article ul.info > li.place {font-size: 0; display: block; padding: 7px 0 0;}
+#content .scene .article ul.geo.active li.name {cursor: pointer; color: #888888;}
+#content .scene .article ul.geo.active li.name:active {text-decoration: underline;}
 #content .scene .article ul.info ul.geo {padding: 0; display: inline-block; vertical-align: top; width: auto;}
-#content .scene .article div.geomap {height: 200px; margin: -15px 0 20px;}
-#content .scene.article div.geomap iframe {display: block; width: 100%; height: 100%; border: none; border-top: 1px solid #666666; border-bottom: 1px solid #666666; background-color: #ffffff;}
+#content .scene .article div.geomap {height: 200px; margin: -12px 0 20px;}
+#content .scene .article div.geomap iframe {display: block; width: 100%; height: 100%; border: none; border-top: 1px solid #666666; border-bottom: 1px solid #666666; background-color: #ffffff;}
 #content .scene .article li div.geomap {padding-left: 0; padding-right: 0;}
 

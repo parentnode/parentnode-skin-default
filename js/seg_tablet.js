@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-11-05 02:28:03
+asset-builder @ 2019-11-13 00:24:13
 */
 
 /*seg_tablet_include.js*/
@@ -4505,7 +4505,6 @@ u.smartphoneSwitch = new function() {
 /*i-page.js*/
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
-		window.page = page;
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
 		if(document.domain !== "parentnode.dk") {

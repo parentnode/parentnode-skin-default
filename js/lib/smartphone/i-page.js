@@ -1,8 +1,6 @@
 Util.Objects["page"] = new function() {
 	this.init = function(page) {
 
-		window.page = page;
-
 		// show parentnode comment in console
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
@@ -119,7 +117,25 @@ Util.Objects["page"] = new function() {
 			}
 		}
 
+		// Preload page assets
+		page.preload = function() {
 
+			// Local pagePreloader
+			if(fun(u.pagePreloader)) {
+				u.pagePreloader();
+			}
+			else {
+
+				// preload fonts
+				u.fontsReady(this, [
+					{"family":"OpenSans", "weight":"normal", "style":"normal"},
+					{"family":"OpenSans", "weight":"bold", "style":"normal"},
+					{"family":"OpenSans", "weight":"normal", "style":"italic"},
+					{"family":"PT Serif", "weight":"normal", "style":"normal"}
+				], {"callback": "ready"});
+
+			}
+		}
 
 		// Page is ready - called from several places, evaluates when page is ready to be shown
 		page.ready = function() {
@@ -143,7 +159,6 @@ Util.Objects["page"] = new function() {
 					u.notifier(this);
 				}
 				if(u.getCookie("smartphoneSwitch") == "on") {
-					console.log("Back to desktop")
 					var bn_switch = u.ae(document.body, "div", {id:"desktop_switch", html:"Back to desktop"});
 					u.ce(bn_switch);
 					bn_switch.clicked = function() {
@@ -156,6 +171,13 @@ Util.Objects["page"] = new function() {
 				this.initNavigation();
 
 				this.resized();
+
+				// Start showing the page
+				if(!fun(this.cN.scene.revealPage)) {
+					this.revealPage();
+				}
+
+				this.cN.scene.ready();
 
 			}
 		}
@@ -325,6 +347,8 @@ Util.Objects["page"] = new function() {
 			}
 
 
+			var i, node;
+
 			// append footer servicenavigation to header servicenavigation
 			if(page.fN.service) {
 				nodes = u.qsa("li", page.fN.service);
@@ -396,8 +420,32 @@ Util.Objects["page"] = new function() {
 		}
 
 
-		// ready to start page builing process
-		page.ready();
+		// Show page elements (header, navigation, footer)
+		page.revealPage = function() {
+			// u.bug("page.revealPage");
+
+			u.a.transition(page.hN, "all 0.3s ease-in");
+			u.ass(page.hN, {
+				"opacity":1
+			});
+
+			u.a.transition(page.nN, "all 0.3s ease-in");
+			u.ass(page.nN, {
+				"opacity":1
+			});
+
+			u.a.transition(page.fN, "all 0.3s ease-in");
+			u.ass(page.fN, {
+				"opacity":1
+			});
+
+			// accept cookies?
+			this.acceptCookies();
+
+		}
+
+		// ready to start page preload process
+		page.preload();
 
 	}
 }
