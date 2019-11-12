@@ -7,7 +7,7 @@ Util.Objects["verify"] = new function() {
 		}
 
 		scene.scrolled = function() {
-			// u.bug("scrolled:", this);
+			// u.bug("scene.scrolled:", this);
 		}
 
 		scene.ready = function() {

@@ -7,7 +7,7 @@ Util.Objects["docsindex"] = new function() {
 		}
 
 		scene.scrolled = function() {
-			// u.bug("scrolled:", this);
+			// u.bug("scene.scrolled:", this);
 		}
 
 		scene.ready = function() {
@@ -128,7 +128,7 @@ Util.Objects["docpage"] = new function() {
 		}
 
 		scene.scrolled = function() {
-			// u.bug("scrolled:", this);
+			// u.bug("scene.scrolled:", this);
 		}
 
 		scene.ready = function() {

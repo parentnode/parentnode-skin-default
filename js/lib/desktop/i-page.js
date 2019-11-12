@@ -2,8 +2,6 @@ Util.Objects["page"] = new function() {
 	this.init = function(page) {
 		// u.bug("init page");
 
-		window.page = page;
-
 		// show parentnode comment in console
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
