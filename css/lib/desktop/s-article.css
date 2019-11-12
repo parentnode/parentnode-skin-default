@@ -47,7 +47,7 @@
 
 /* GEOLOCATION */
 #content .scene .article ul.info > li.place {font-size: 0;}
-#content .scene .article ul.geo.active li.location {cursor: pointer;}
+#content .scene .article ul.geo.active li.name {cursor: pointer; color: #888888;}
 #content .scene .article ul.info ul.geo {padding: 0; display: inline-block; vertical-align: top; width: auto;}
 
 /* MAP */

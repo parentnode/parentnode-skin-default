@@ -31,7 +31,7 @@ body #selection_options ul.actions a.button:active {background-color: #313942;}
 #content .scene div.qnas h2:active {color: #888888;}
 #content .scene div.comments h2:active svg.arrow line,
 #content .scene div.qnas h2:active svg.arrow line {stroke: #888888;}
-#content .scene ul.geo.active li.location:active {text-decoration: underline;}
+#content .scene ul.geo.active li.name:active {text-decoration: underline;}
 
 #content .scene .pagination .next:active,
 #content .scene .pagination .previous:active {background-color: #313942;}
