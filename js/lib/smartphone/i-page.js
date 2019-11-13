@@ -16,11 +16,6 @@ Util.Objects["page"] = new function() {
 		u.e.drag(page.hN, page.hN);
 
 
-		// add logo to navigation
-		page.logo = u.ie(page.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
-		page.logo.url = '/';
-
-
 		// content reference
 		page.cN = u.qs("#content", page);
 
@@ -112,8 +107,8 @@ Util.Objects["page"] = new function() {
 		page.orientationchanged = function() {
 
 			// forward scroll event to current scene
-			if(page.cN && page.cN.scene && typeof(page.cN.scene.orientationchanged) == "function") {
-				page.cN.scene.orientationchanged();
+			if(this.cN && this.cN.scene && typeof(this.cN.scene.orientationchanged) == "function") {
+				this.cN.scene.orientationchanged();
 			}
 		}
 
@@ -155,7 +150,7 @@ Util.Objects["page"] = new function() {
 				u.e.addWindowEvent(this, "orientationchange", this.orientationchanged);
 
 
-				if(typeof(u.notifier) == "function") {
+				if(fun(u.notifier)) {
 					u.notifier(this);
 				}
 				if(u.getCookie("smartphoneSwitch") == "on") {
@@ -167,6 +162,7 @@ Util.Objects["page"] = new function() {
 					}
 				}
 
+				this.initHeader();
 
 				this.initNavigation();
 
@@ -219,6 +215,16 @@ Util.Objects["page"] = new function() {
 				}
 
 			}
+
+		}
+
+
+		// initialize header elements
+		page.initHeader = function() {
+
+			// add logo to navigation
+			this.logo = u.ie(this.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
+			this.logo.url = '/';
 
 		}
 
@@ -416,6 +422,10 @@ Util.Objects["page"] = new function() {
 				u.ass(page.hN.service, {
 					"opacity":1
 				});
+			}
+
+			if(fun(u.logoInjected)) {
+				u.logoInjected();
 			}
 		}
 

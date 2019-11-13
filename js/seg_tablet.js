@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-11-13 00:24:13
+asset-builder @ 2019-11-13 02:19:48
 */
 
 /*seg_tablet_include.js*/
@@ -4651,9 +4651,6 @@ Util.Objects["page"] = new function() {
 			page.logo.top_offset = u.absY(page.nN) + parseInt(u.gcs(page.nN, "padding-top"));
 			page.style_tag.sheet.insertRule("#header a.logo {}", 0);
 			page.logo.css_rule = page.style_tag.sheet.cssRules[0];
-			if(fun(u.logoInjected)) {
-				u.logoInjected();
-			}
 		}
 		page.initNavigation = function() {
 			var i, node, nodes;
@@ -4730,6 +4727,9 @@ Util.Objects["page"] = new function() {
 			if(u.github_fork) {
 				var github = u.ae(page.hN.service, "li", {"html":'<a href="'+u.github_fork.url+'">'+u.github_fork.text+'</a>', "class":"github"});
 				u.ce(github, {"type":"link"});
+			}
+			if(fun(u.logoInjected)) {
+				u.logoInjected();
 			}
 		}
 		page.initFooter = function() {}

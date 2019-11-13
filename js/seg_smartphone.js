@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2019-11-13 00:24:13
+asset-builder @ 2019-11-13 02:19:48
 */
 
 /*seg_smartphone_include.js*/
@@ -4674,8 +4674,6 @@ Util.Objects["page"] = new function() {
 		page.hN = u.qs("#header");
 		page.hN.service = u.qs(".servicenavigation", page.hN);
 		u.e.drag(page.hN, page.hN);
-		page.logo = u.ie(page.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
-		page.logo.url = '/';
 		page.cN = u.qs("#content", page);
 		page.nN = u.qs("#navigation", page);
 		page.nN = u.ie(page.hN, page.nN);
@@ -4724,8 +4722,8 @@ Util.Objects["page"] = new function() {
 			}
 		}
 		page.orientationchanged = function() {
-			if(page.cN && page.cN.scene && typeof(page.cN.scene.orientationchanged) == "function") {
-				page.cN.scene.orientationchanged();
+			if(this.cN && this.cN.scene && typeof(this.cN.scene.orientationchanged) == "function") {
+				this.cN.scene.orientationchanged();
 			}
 		}
 		page.preload = function() {
@@ -4747,7 +4745,7 @@ Util.Objects["page"] = new function() {
 				u.e.addWindowEvent(this, "resize", this.resized);
 				u.e.addWindowEvent(this, "scroll", this.scrolled);
 				u.e.addWindowEvent(this, "orientationchange", this.orientationchanged);
-				if(typeof(u.notifier) == "function") {
+				if(fun(u.notifier)) {
 					u.notifier(this);
 				}
 				if(u.getCookie("smartphoneSwitch") == "on") {
@@ -4758,6 +4756,7 @@ Util.Objects["page"] = new function() {
 						location.href = location.href.replace(/[&]segment\=smartphone|segment\=smartphone[&]?/, "") + (location.href.match(/\?/) ? "&" : "?") + "segment=desktop";
 					}
 				}
+				this.initHeader();
 				this.initNavigation();
 				this.resized();
 				if(!fun(this.cN.scene.revealPage)) {
@@ -4790,6 +4789,10 @@ Util.Objects["page"] = new function() {
 					});
 				}
 			}
+		}
+		page.initHeader = function() {
+			this.logo = u.ie(this.hN, "a", {"class":"logo", "html":u.eitherOr(u.site_name, "Frontpage")});
+			this.logo.url = '/';
 		}
 		page.initNavigation = function() {
 			this.nN.list = u.qs("ul.navigation", this.nN);
@@ -4914,6 +4917,9 @@ Util.Objects["page"] = new function() {
 				u.ass(page.hN.service, {
 					"opacity":1
 				});
+			}
+			if(fun(u.logoInjected)) {
+				u.logoInjected();
 			}
 		}
 		page.revealPage = function() {

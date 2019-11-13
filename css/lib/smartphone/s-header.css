@@ -22,7 +22,7 @@
 */
 
 /* NAViGATION */
-#navigation {position: absolute; width: 100%; top: 75px; display: none;}
+#navigation {position: absolute; width: 100%; top: 75px; display: none; overflow-x: hidden;}
 #navigation ul {}
 #navigation ul li {padding: 10px 20px 10px 20px; font-size: 20px; color: #888888; display: block; text-align: center;
 	font-family: "PT Serif", Times, serif;

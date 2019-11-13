@@ -180,6 +180,7 @@ Util.Objects["page"] = new function() {
 					u.navigation();
 				}
 
+
 				this.initHeader();
 
 				this.initNavigation();
@@ -261,10 +262,6 @@ Util.Objects["page"] = new function() {
 			// create rule for logo
 			page.style_tag.sheet.insertRule("#header a.logo {}", 0);
 			page.logo.css_rule = page.style_tag.sheet.cssRules[0];
-
-			if(fun(u.logoInjected)) {
-				u.logoInjected();
-			}
 
 		}
 
@@ -377,6 +374,10 @@ Util.Objects["page"] = new function() {
 			if(u.github_fork) {
 				var github = u.ae(page.hN.service, "li", {"html":'<a href="'+u.github_fork.url+'">'+u.github_fork.text+'</a>', "class":"github"});
 				u.ce(github, {"type":"link"});
+			}
+
+			if(fun(u.logoInjected)) {
+				u.logoInjected();
 			}
 
 		}

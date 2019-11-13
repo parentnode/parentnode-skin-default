@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2019-11-13 00:24:13
+asset-builder @ 2019-11-13 02:19:48
 */
 
 /*seg_smartphone_include.css*/
@@ -130,7 +130,7 @@ dd {display: block; vertical-align: top; font-size: 13px; line-height: 1.25em;}
 #header .servicenavigation li.navigation div {border-radius: 1px; height: 3px; margin: 0 0 5px; background: #888888;}
 #header .servicenavigation li.navigation.open div {background: #cccccc;}
 #header .servicenavigation li.navigation a {display: none; background: #ffffff;}
-#navigation {position: absolute; width: 100%; top: 75px; display: none;}
+#navigation {position: absolute; width: 100%; top: 75px; display: none; overflow-x: hidden;}
 #navigation ul {}
 #navigation ul li {padding: 10px 20px 10px 20px; font-size: 20px; color: #888888; display: block; text-align: center;
 	font-family: "PT Serif", Times, serif;
