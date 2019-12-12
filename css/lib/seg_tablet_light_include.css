@@ -1,3 +1,4 @@
+/* BASE INCLUDES */
 @import url(s-fonts-desktop_light.css);
 
 @import url(desktop_light/s-page.css);
@@ -6,6 +7,7 @@
 
 @import url(desktop_light/s-content.css);
 @import url(desktop_light/s-article.css);
+@import url(desktop_light/s-form.css);
 
 @import url(tablet_light/s-active.css);
 

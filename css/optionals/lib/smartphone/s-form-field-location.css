@@ -1,0 +1,26 @@
+/* LOCATION */
+div.field.location {}
+div.field.location div.location {padding-bottom: 2px;}
+div.field.location div.latitude {padding-right: 2px;}
+div.field.location div.latitude,
+div.field.location div.longitude {display: inline-block; vertical-align: top;}
+div.field.location div.latitude input,
+div.field.location div.longitude input {width: 173px;}
+
+/* WITH GEOLOCATION BUTTON */
+div.field.location.geolocation div.geolocation {width: 30px; height: 30px; display: inline-block; vertical-align: top; cursor: pointer;
+	background: transparent url(../../../../img/gx_geolocation.png) no-repeat 5px 8px;
+}
+div.field.location.geolocation div.latitude input,
+div.field.location.geolocation div.longitude input {width: 158px;}
+iframe#geolocationmap {width: 300px; height: 300px; position: absolute; top: 0; left: 0; z-index: 100; border: 1px solid #666666; background-color: #ffffff;}
+
+
+/* FOCUS - LOCATION */
+div.field.location.focus input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.focus input.focus {margin: 0; border: 3px solid #5c5c5c;}
+
+
+/* ERROR - LOCATION */
+div.field.location.error input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}

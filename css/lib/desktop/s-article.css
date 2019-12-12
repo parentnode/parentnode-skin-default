@@ -35,9 +35,13 @@
 #content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
 #content .scene ul.articles li.article ul.tags li,
 #content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 10px;
+#content .scene ul.articles li.article div.articlebody h3 {line-height: 1.1em;}
+/* LIST HEADLINES - LOW LEVEL LISTS */
+#content .scene ul.articles li.article > h3 {line-height: 1.1em; padding-bottom: 12px;
 	font-family: "PT Serif", Times, serif;
 }
+#content .scene ul.articles li.article > h3 + ul.info {padding-bottom: 10px;}
+
 #content .scene ul.articles li.article ul.actions {margin-top: -10px;}
 #content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
 

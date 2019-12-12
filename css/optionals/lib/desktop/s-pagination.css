@@ -1,7 +1,20 @@
 /* PAGINATION */
-#content .scene .pagination {display: none;}
+/*#content .scene .pagination {display: none;}*/
+/* INLINE PAGINATION */
+#content .scene .pagination ul {text-align: center; padding: 30px 70px; width: 500px;}
+#content .scene .pagination li {width: auto; height: auto; display: inline-block; padding: 0 5px; vertical-align: top;}
+#content .scene .pagination li.next,
+#content .scene .pagination li.previous {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+#content .scene .pagination li.next a,
+#content .scene .pagination li.previous a {display: block; text-decoration: none; height: 16px; padding: 7px 12px; font-size: 14px; background-color: #dedede; color: #333333; border: none; cursor: pointer; border-radius: 3px;}
+#content .scene .pagination li.pages {line-height: 25px;}
 
-body > div.pagination li h2 {display: none;}
+
+/* SIDE-BOUND PAGINATION */
 body > div.pagination li.next > svg.arrow {position: absolute; top: 14px; right: 2px;}
 body > div.pagination li.next > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous > svg.arrow {position: absolute; top: 14px; left: 8px;}

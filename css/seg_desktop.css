@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2019-11-13 02:19:48
+asset-builder @ 2019-12-11 15:41:03
 */
 
 /*seg_desktop_include.css*/
@@ -69,7 +69,7 @@ h1 {padding: 0 70px 30px; font-size: 48px; line-height: 1.05em;
 h2 {padding: 0 70px 30px; font-size: 30px; line-height: 1.1em;
 	font-family: "PT Serif", Times, serif;
 }
-h3 {padding: 0 70px 10px; font-size: 20px; line-height: 1.25em;}
+h3 {padding: 0 70px 10px; font-size: 22px; line-height: 1.25em;}
 h4 {padding: 0 70px 5px; font-size: 17px; line-height: 1.2em; font-weight: bold;}
 h5 {padding: 0 70px 2px; font-size: 14px; line-height: 1.2em; font-weight: bold;}
 h6 {padding: 0 70px 2px; font-size: 14px; line-height: 1em; font-weight: normal; font-style: italic;}
@@ -303,9 +303,11 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
 #content .scene ul.articles li.article ul.tags li,
 #content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 10px;
+#content .scene ul.articles li.article div.articlebody h3 {line-height: 1.1em;}
+#content .scene ul.articles li.article > h3 {line-height: 1.1em; padding-bottom: 12px;
 	font-family: "PT Serif", Times, serif;
 }
+#content .scene ul.articles li.article > h3 + ul.info {padding-bottom: 10px;}
 #content .scene ul.articles li.article ul.actions {margin-top: -10px;}
 #content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
 #content .scene ul.articles li.article > svg.checkmark {position: absolute; top: 14px; left: 45px;}
@@ -327,11 +329,14 @@ ul.actions input.button:hover,
 ul.actions a.button:hover,
 #content ul.actions a.button:hover {background-color: #bebebe;}
 ul.actions input.button.primary:hover,
-ul.actions a.button.primary:hover {background-color: #313942;}
+ul.actions a.button.primary:hover,
+#content ul.actions a.button.primary:hover {background-color: #313942;}
 ul.actions input.button.secondary:hover,
-ul.actions a.button.secondary:hover {background-color: #313942;}
+ul.actions a.button.secondary:hover,
+#content ul.actions a.button.secondary:hover {background-color: #313942;}
 ul.actions a.button.disabled:hover,
-ul.actions input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+ul.actions input.button.disabled:hover,
+#content ul.actions input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 div.field.html ul.options li:hover {background-color: #64ad8e;}
 div.field.html .editor div.tag:hover .drag {display: block;}
 div.field.html .editor div.tag:hover .remove {display: block;}
@@ -344,7 +349,7 @@ body #selection_options ul.actions a.button:hover {background-color: #313942;}
 #content .scene div.comments h2:hover svg.arrow line,
 #content .scene div.qnas h2:hover svg.arrow line {stroke: #888888;}
 #content .scene ul.geo.active li.name:hover {text-decoration: underline;}
-#content .scene .pagination .next:hover,
-#content .scene .pagination .previous:hover {background-color: #313942;}
+#content .scene .pagination .next:hover a,
+#content .scene .pagination .previous:hover a {background-color: #313942; color: #ffffff;}
 #content .scene div.image p a:hover {text-decoration: none;}
 

@@ -1,3 +1,4 @@
+/* BASE INCLUDES */
 @import url(s-fonts.css);
 
 @import url(smartphone/s-page.css);
@@ -6,4 +7,5 @@
 
 @import url(smartphone/s-content.css);
 @import url(smartphone/s-article.css);
+@import url(smartphone/s-form.css);
 

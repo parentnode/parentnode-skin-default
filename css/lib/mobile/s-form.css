@@ -40,9 +40,6 @@ textarea {-webkit-appearance: none; border-radius: 0;}
 #content .field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 5px 0 3px; border: 0;}
 #content .field.radiobuttons div.item label {font-size: 13px; line-height: 1em; display: inline; vertical-align: top; }
 
-#content .field.location div.location,
-#content .field.location div.latitude {padding-bottom: 2px;}
-
 
 
 /* FOCUS */

@@ -43,8 +43,6 @@ div.field.radiobuttons div.item {padding: 0 0 5px;}
 div.field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 10px 0 3px; border: 0;}
 div.field.radiobuttons div.item label {font-size: 14px; line-height: 1em; display: inline; vertical-align: top; }
 
-div.field.location div.location,
-div.field.location div.latitude {padding-bottom: 2px;}
 
 
 /* FOCUS */
@@ -58,10 +56,6 @@ div.field.focus textarea {border-color: #5c5c5c;}
 div.field.radiobuttons.focus input,
 div.field.checkbox.focus input,
 div.field.boolean.focus input {margin: 0px 10px 0 3px; border: none;}
-
-/* FOCUS - LOCATION */
-div.field.location.focus input {margin: 2px; border: 1px solid #dcdcdc;}
-div.field.location.focus input.focus {margin: 0; border: 3px solid #5c5c5c;}
 
 
 div.field .indicator {display: none;}
@@ -84,33 +78,35 @@ div.field.radio_buttons.error input,
 div.field.checkbox.error input,
 div.field.boolean.error input {margin: 0px 10px 0 3px; border: none;}
 
-/* ERROR - LOCATION */
-div.field.location.error input {margin: 2px; border: 1px solid #dcdcdc;}
-div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}
 
 
 /* BUTTONS */
-#content ul.actions {overflow: hidden;}
+ul.actions {overflow: hidden;}
+ul.actions li,
 #content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
 
-#content ul.actions input.button {width: auto; height: 28px; line-height: 1em; padding: 3px 12px;}
-#content ul.actions a.button {text-decoration: none; display: block; font-size: 14px; padding: 6px 12px;}
+ul.actions input.button {width: auto; height: 30px; line-height: 1em; padding: 3px 12px;}
+ul.actions a.button,
+#content ul.actions a.button {text-decoration: none; display: block; line-height: 18px; padding: 6px 12px; height: 18px;}
 
 
 /* DEFAULT BUTTON */
-#content ul.actions input.button,
+ul.actions input.button,
+ul.actions a.button,
 #content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
 
 
 
 /* PRIMARY BUTTON */
-#content ul.actions input.button.primary,
+ul.actions input.button.primary,
+ul.actions a.button.primary,
 #content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
 
 
 
 /* SECONDARY BUTTON */
-#content ul.actions input.button.secondary,
+ul.actions input.button.secondary,
+ul.actions a.button.secondary,
 #content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
 
 /* DISABLED BUTTON */

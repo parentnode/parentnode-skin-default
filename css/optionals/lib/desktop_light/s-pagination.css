@@ -12,3 +12,5 @@
 
 #content .scene .pagination .next a,
 #content .scene .pagination .previous a {color: #ffffff;}
+
+#content .scene .pagination li.pages {display: none;}

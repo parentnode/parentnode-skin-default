@@ -1,0 +1,10 @@
+div.field.location div.location,
+div.field.location div.latitude {padding-bottom: 2px;}
+
+/* FOCUS - LOCATION */
+div.field.location.focus input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.focus input.focus {margin: 0; border: 3px solid #5c5c5c;}
+
+/* ERROR - LOCATION */
+div.field.location.error input {margin: 2px; border: 1px solid #dcdcdc;}
+div.field.location.error input.error {margin: 0; border: 3px solid #a62300;}
