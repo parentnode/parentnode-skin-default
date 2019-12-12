@@ -3,10 +3,10 @@ Util.Objects["wishes"] = new function() {
 		// u.bug("scene init:", scene);
 
 		scene.resized = function() {
-			// u.bug("scene.resized:", this);
+			u.bug("scene.resized:", this);
 
 			// resize text nodes
-			if(this.nodes.length && this.has_images) {
+			if(this.nodes && this.nodes.length && this.has_images) {
 				var text_width = this.nodes[0].offsetWidth - this.image_width;
 				for(i = 0; node = this.nodes[i]; i++) {
 					u.as(node.text_mask, "width", text_width+"px", false);
@@ -34,6 +34,7 @@ Util.Objects["wishes"] = new function() {
 
 
 			this.nodes = u.qsa("li.item", this);
+			u.bug("this.nodes", this.nodes);
 			if(this.nodes.length) {
 
 				var text_width = this.nodes[0].offsetWidth - this.image_width;

@@ -1,6 +1,6 @@
 Util.Objects["qnas"] = new function() {
 	this.init = function(div) {
-//		u.bug("qnas init:", div);
+		// u.bug("qnas init:", div);
 
 
 		div.item_id = u.cv(div, "item_id");
@@ -108,7 +108,7 @@ Util.Objects["qnas"] = new function() {
 							var qna_li = u.ae(this.div.list, "li", {"class":"qna qna_id:"+response.cms_object["id"]});
 
 							var info = u.ae(qna_li, "ul", {"class":"info"});
-							u.ae(info, "li", {"class":"user", "html":response.cms_object["user_nickname"]});
+							u.ae(info, "li", {"class":"user", "html":response.cms_object["nickname"]});
 							u.ae(info, "li", {"class":"created_at", "html":response.cms_object["created_at"]});
 							var p = u.ae(qna_li, "p", {"class":"question", "html":response.cms_object["question"]});
 							var p = u.ae(qna_li, "p", {"class":"answer", "html":"Ikke besvaret"});

@@ -403,7 +403,6 @@
 			</div>
 
 
-
 			<hr />
 
 
@@ -459,22 +458,23 @@
 								Paragraph after Heading 3 ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
 								irure dolor in reprehenderit in voluptate velit esse cillum.
 							</p>
-							<code>$ code after heading 3</code>
+							<code>$ code after paragraph</code>
 							<p>
 								Several paragraphs in a row excepteur sint occaecat cupidatat non proident, sunt in culpa
 								qui officia deserunt mollit anim id est laborum.
 							</p>
 
-							<h4>h4 Nostrud exercitation ullamco laboris nisi ut aliquip</h4>
+							<h3>Heading 3 before heading 4 in at least two lines whatever it takes</h3>
+							<h4>h4 Nostrud exercitation ullamco laboris nisi ut aliquip in two lines whatever it takes</h4>
 							<p>
 								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							</p>
-							<h5>h5 Ullamco laboris nisi ut aliquip ex ea commodo </h5>
+							<h5>h5 Ullamco laboris nisi ut aliquip ex ea commodo in two lines whatever it takes</h5>
 							<p>
 								Ut enim ad minim veniam,
 								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 							</p>
-							<h6>H6 Ullamco laboris nisi ut aliquip ex ea commodo </h6>
+							<h6>H6 Ullamco laboris nisi ut aliquip ex ea commodo in two lines whatever it takes</h6>
 							<p>
 								Ut enim ad minim veniam,
 								quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -489,7 +489,7 @@
 							<div class="image item_id:0 variant:missing format:png"></div>
 							<div class="image item_id:0 variant:missing format:png">
 								<p>Image:
-									<a href="/images/0/missing/500x.png">Image after paragraph</a>
+									<a href="/images/0/missing/500x.png">Image after image</a>
 								</p>
 							</div>
 
@@ -531,7 +531,39 @@
 					<li class="item article" itemscope itemtype="http://schema.org/Article">
 
 						<div class="image item_id:0 variant:missing format:png"></div>
-						<h2 itemprop="name headline">Simple list item</h2>
+						<h2 itemprop="name headline">Simple list item with headline in several lines</h2>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<div class="image item_id:0 variant:missing format:png"></div>
+
+						<ul class="tags">
+							<li><a href="/geek/posts">Tags</a></li>
+							<li><a href="/geek/posts/tag/Attempted+peotry" itemprop="articleSection">Attempted peotry</a></li>
+						</ul>
+
+						<h2 itemprop="name headline">Simple list item with headline in several lines</h2>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<ul class="tags">
+							<li><a href="/geek/posts">Tags</a></li>
+							<li><a href="/geek/posts/tag/Attempted+peotry" itemprop="articleSection">Attempted peotry</a></li>
+						</ul>
+
+						<h2 itemprop="name headline">Simple list item with headline in several lines</h2>
 
 						<div class="articlebody" itemprop="articleBody">
 							<p>This is a simple list item with a paragraph following H2. Therefore
@@ -586,10 +618,167 @@
 				</ul>
 			</div>
 
-			<div class="pagination">
-				<ul class="actions">
-					<li class="previous"><a href="/blog/asdfasdf/prev">Previous page</a></li>
-					<li class="next"><a href="/blog/asdfasdf/next">Next page</a></li>
+
+			<hr />
+
+
+
+			<h2>Lower level list of articles</h2>
+
+			<div class="fake_article_scope">
+				<ul class="items articles i:articlelist">
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<ul class="tags">
+							<li><a href="/geek/posts">Tags</a></li>
+							<li><a href="/geek/posts/tag/Attempted+peotry" itemprop="articleSection">Attempted peotry</a></li>
+						</ul>
+
+						<h3 itemprop="name headline">Complex list item</h3>
+
+						<ul class="info">
+							<li class="published_at" itemprop="datePublished" content="2018-02-22">22th February, 2018</li>
+							<li class="modified_at" itemprop="dateModified" content="2018-02-24"></li>
+							<li class="author" itemprop="author">Martin Kæstel Nielsen</li>
+							<li class="main_entity share" itemprop="mainEntityOfPage" content="http://parentnode.dk/"></li>
+							<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+								<ul class="publisher_info">
+									<li class="name" itemprop="name">parentnode.dk</li>
+									<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+										<span class="image_url" itemprop="url" content="http://parentnode.dk/img/logo-large.png"></span>
+									</li>
+								</ul>
+							</li>
+							<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+								<span class="image_url" itemprop="url" content="http://parentnode.dk/img/logo-large.png"></span>
+								<span class="image_width" itemprop="width" content="720"></span>
+								<span class="image_height" itemprop="height" content="405"></span>
+							</li>
+							<li class="place" itemprop="contentLocation" itemscope itemtype="http://schema.org/Place">
+								<ul class="geo" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+									<li class="name" itemprop="name">Copenhagen office</li>
+									<li class="latitude" itemprop="latitude" content="55.681159"></li>
+									<li class="longitude" itemprop="longitude" content="12.58437"></li>
+								</ul>
+							</li>
+						</ul>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>
+								Paragraph before h3 adipisicing elit, sed do eiusmod tempor
+								incididunt <span class="file">/etc/hosts</span> ut labore et dolore magna aliqua.
+							</p>
+
+							<div class="image item_id:0 variant:missing format:png">
+								<p>Image:
+									<a href="/images/0/missing/500x.png">Image after paragraph</a>
+								</p>
+							</div>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<h3 itemprop="name headline">Simple list item</h3>
+						<div class="articlebody" itemprop="articleBody">
+							<p>
+								This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+
+							<div class="image item_id:0 variant:missing format:png">
+								<p>Image:
+									<a href="/images/0/missing/500x.png">Image after paragraph</a>
+								</p>
+							</div>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<div class="image item_id:0 variant:missing format:png"></div>
+						<h3 itemprop="name headline">Simple list item with headline in several lines which has to be long for h3's</h3>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<div class="image item_id:0 variant:missing format:png"></div>
+
+						<ul class="tags">
+							<li><a href="/geek/posts">Tags</a></li>
+							<li><a href="/geek/posts/tag/Attempted+peotry" itemprop="articleSection">Attempted peotry</a></li>
+						</ul>
+
+						<h3 itemprop="name headline">Simple list item with headline in several lines</h3>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<ul class="tags">
+							<li><a href="/geek/posts">Tags</a></li>
+							<li><a href="/geek/posts/tag/Attempted+peotry" itemprop="articleSection">Attempted peotry</a></li>
+						</ul>
+
+						<h3 itemprop="name headline">Simple list item with headline in several lines</h3>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>This is a simple list item with a paragraph following H2. Therefore
+								it does not contain any organizational info which is otherwise recommended by Google.
+							</p>
+						</div>
+					</li>
+					<li class="item article" itemscope itemtype="http://schema.org/Article">
+
+						<div class="image item_id:0 variant:missing format:png">
+							<p>Image:
+								<a href="/images/0/missing/500x.png">Image after paragraph</a>
+							</p>
+						</div>
+
+						<h3 itemprop="name headline">iOS wyebde gvelo</h3>
+
+						<ul class="info">
+							<li class="published_at" itemprop="datePublished" content="2018-02-22">22th February, 2018</li>
+							<li class="modified_at" itemprop="dateModified" content="2018-02-24"></li>
+							<li class="author" itemprop="author">Martin Kæstel Nielsen</li>
+							<li class="main_entity share" itemprop="mainEntityOfPage" content="http://parentnode.dk/"></li>
+							<li class="publisher" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+								<ul class="publisher_info">
+									<li class="name" itemprop="name">parentnode.dk</li>
+									<li class="logo" itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+										<span class="image_url" itemprop="url" content="http://parentnode.dk/img/logo-large.png"></span>
+									</li>
+								</ul>
+							</li>
+							<li class="image_info" itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+								<span class="image_url" itemprop="url" content="http://parentnode.dk/img/logo-large.png"></span>
+								<span class="image_width" itemprop="width" content="720"></span>
+								<span class="image_height" itemprop="height" content="405"></span>
+							</li>
+							<li class="place" itemprop="contentLocation" itemscope itemtype="http://schema.org/Place">
+								<ul class="geo" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+									<li class="name" itemprop="name">Copenhagen office</li>
+									<li class="latitude" itemprop="latitude" content="55.681159"></li>
+									<li class="longitude" itemprop="longitude" content="12.58437"></li>
+								</ul>
+							</li>
+						</ul>
+
+						<div class="articlebody" itemprop="articleBody">
+							<p>
+								Paragraph before h3 adipisicing elit, sed do eiusmod tempor
+								incididunt <span class="file">/etc/hosts</span> ut labore et dolore magna aliqua.
+							</p>
+						</div>
+					</li>
 				</ul>
 			</div>
 
@@ -597,15 +786,61 @@
 			<hr />
 
 
-			<h2>Vcard</h2>
-			<div itemtype="http://schema.org/Person" itemscope="" class="vcard company">
-				<div itemprop="name" class="name fn org">Martin Kæstel Nielsen</div>
-				<div itemprop="telephone" class="tel"><a href="callto:+4520742819">+45 2074 2819</a></div>
-				<div itemprop="email" class="email"><a href="mailto:martin@kaestel.dk">martin@kaestel.dk</a></div>
+			<div itemtype="http://schema.org/Organization" itemscope class="vcard company">
+				<h2 class="name fn org" itemprop="name">Vcard parentNode ApS</h2>
+
+				<dl class="info basic">
+					<dt class="location">Address</dt>
+					<dd class="location" itemprop="location" itemscope itemtype="http://schema.org/Place">
+						<ul class="address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+							<li class="streetaddress" itemprop="streetAddress">Æbeløgade 4b</li>
+							<li class="city"><span class="postal" itemprop="postalCode">2100</span> <span class="locality" itemprop="addressLocality">København Ø</span></li>
+							<li class="country" itemprop="addressCountry">Denmark</li>
+						</ul>
+						<ul class="geo" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+							<li class="latitude" itemprop="latitude" content="55.711510"></li>
+							<li class="longitude" itemprop="longitude" content="12.564495"></li>
+						</ul>
+					</dd>
+					<dt class="cvr">CVR</dt>
+					<dd class="cvr" itemprop="taxID">DK-39757613</dd>
+				</dl>
+
+				<dl class="info contact">
+					<dt class="contact">Contact</dt>
+					<dd class="contact">
+						<ul>
+							<li class="email"><a href="mailto:info@parentnode.dk" itemprop="email" content="info@parentnode.dk">info@parentnode.dk</a></li>
+							<li itemprop="telephone" class="tel" content="+4520742819">+45 2074 2819</li>
+						</ul>
+					</dd>
+					<dt class="social">Social media</dt>
+					<dd class="social">
+						<ul>
+							<li class="facebook"><a itemprop="sameAs" href="https://facebook.com/parentnode" target="_blank">Facebook</a></li>
+							<li class="linkedin"><a itemprop="sameAs" href="https://www.linkedin.com/company/parentnode" target="_blank">LinkedIn</a></li>
+							<li class="meetup"><a itemprop="sameAs" href="https://www.meetup.com/parentNode" target="_blank">Meetup</a></li>
+						</ul>
+					</dd>
+				</dl>
+
+				<dl class="info financial">
+					<dt class="bank">Bank</dt>
+					<dd class="bank"><a href="http://faelleskassen.dk" target="_blank">Fælleskassen</a></dd>
+
+					<dt class="account">Account no</dt>
+					<dd class="account">8411 2034764</dd>
+
+					<dt class="account">IBAN</dt>
+					<dd class="account">DK3184110002034764</dd>
+
+					<dt class="account">SWIFT/BIC</dt>
+					<dd class="account">FAELDKK1</dd>
+				</dl>
 
 			</div>
-			<hr />
 
+		</div>
 
 	</div>
 

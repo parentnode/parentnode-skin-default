@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+	<!-- (c) & (p) think.dk, parentnode.dk 2002-2019 -->
+	<!-- If you want to use or contribute to this code, visit https://parentnode.dk -->
+	<title>Getting lost without losing my way</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="keywords" content="development frontend HTML JavaScript CSS idealism web" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="initial-scale=1, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<meta property="og:title" content="Getting lost without losing my way" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="https://parentnode.dk/img/logo-large.png" />
+	<meta property="og:url" content="http://parentnode-skin-default.local" />
+	<link rel="apple-touch-icon" href="https://parentnode.dk/touchicon.png" />
+	<link rel="icon" href="https://parentnode.dk/favicon.png" />
+
+	<script type="text/javascript" src="https://detector-v4.dearapi.com/js-include"></script>
+</head>
+
+<body class="story">
+
+<div id="page" class="i:page">
+
+	<div id="header">
+		<ul class="servicenavigation">
+			<li class="keynav navigation nofollow"><a href="#navigation">To navigation</a></li>
+			<li class="keynav user nofollow"><a href="/login">Login</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+
+		<div class="scene login i:login">
+			<h1>Login</h1>
+
+
+			<form action="/login/?login=true" method="post" class="labelstyle:inject" enctype="application/x-www-form-urlencoded">
+				<input type="hidden" name="csrf-token" value="bfe3dcb9-ce80-4031-87d9-932681c46fd9" />
+				<input type="hidden" name="login_forward" id="input_login_forward" />		
+				<fieldset>
+					<div class="field string required"><label for="input_username">Email or mobile</label><input type="text" name="username" id="input_username" autocomplete="on" maxlength="255" pattern="[\w\.\-_\+]+@[\w\-\.]+\.\w{2,10}|[\+0-9\-\.\s\(\)]{5,18}" /><div class="help"><div class="hint">Use your emailaddress or mobilenumber to log in.</div><div class="error">The entered value is neither an email or a mobilenumber.</div></div></div>
+					<div class="field password required"><label for="input_password">Password</label><input type="password" name="password" id="input_password" autocomplete="off" maxlength="255" /><div class="help"><div class="hint">Type your password - must be more than 8 characters</div><div class="error">Invalid password</div></div></div>
+				</fieldset>
+
+				<ul class="actions">
+					<li class="login"><input value="Log in" type="submit" class="button primary" /></li>
+					<li class="forgot">Did you <a href="/login/forgot">forget your password</a>?</li>
+				</ul>
+			</form>
+
+		</div>
+
+	</div>
+
+	<div id="navigation">
+		<ul class="navigation">
+			<li class="front"><a href="/">Frontpage</a></li>
+			<li class="blog"><a href="/blog">Posts</a></li>
+		</ul>
+	</div>
+
+	<div id="footer">
+		<ul class="servicenavigation">
+			<li class="terms"><a href="/terms">Terms</a></li>
+		</ul>
+
+		<p>
+			<a href="https://parentnode.dk">&lt;aliens&gt;we are all&lt;/aliens&gt;</a>
+		</p>
+	</div>
+
+</div>
+
+</body>
+</html>
