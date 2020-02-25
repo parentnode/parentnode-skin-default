@@ -14,14 +14,15 @@ document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-pagination.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-comments.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-article_list.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-article_preview_list.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-article_list.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-article_preview_list.js"></script>');
 
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-newsletter.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-signup.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-qnas.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-todolist.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-wishes.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/smartphone/i-columns.js"></script>');
 
 
 

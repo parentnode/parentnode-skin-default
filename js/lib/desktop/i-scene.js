@@ -16,6 +16,7 @@ Util.Objects["scene"] = new function() {
 		scene.ready = function() {
 			// u.bug("scene.ready:", this);
 
+
 			u.showScene(this);
 
 		}

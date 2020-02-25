@@ -170,6 +170,7 @@ ul.actions li {width: auto; height: auto; display: inline-block; padding: 0 10px
 ul.actions input.button {width: auto; height: 30px; padding: 3px 12px; line-height: 14px; display: inline-block; vertical-align: top;
 	-webkit-appearance: none;
 }
+ul.actions a {display: block; height: 16px; padding: 7px 0;}
 ul.actions a.button,
 #content ul.actions a.button {display: block; text-decoration: none; height: 16px; padding: 7px 12px;}
 

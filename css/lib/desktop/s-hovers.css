@@ -4,7 +4,7 @@
 
 #content .scene a:hover {text-decoration: underline;}
 
-.terms_notification .accept:hover,
+.terms_notification .accept:hover {background-color: #313942;}
 .terms_notification .details:hover {text-decoration: underline;}
 
 
@@ -17,9 +17,9 @@ ul.actions a.button.primary:hover,
 ul.actions input.button.secondary:hover,
 ul.actions a.button.secondary:hover,
 #content ul.actions a.button.secondary:hover {background-color: #313942;}
-ul.actions a.button.disabled:hover,
 ul.actions input.button.disabled:hover,
-#content ul.actions input.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+ul.actions a.button.disabled:hover,
+#content ul.actions a.button.disabled:hover {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 
 div.field.html ul.options li:hover {background-color: #64ad8e;}
 div.field.html .editor div.tag:hover .drag {display: block;}

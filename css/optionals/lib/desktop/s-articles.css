@@ -1,0 +1,29 @@
+/* ARTICLES */
+#content .scene ul.articles {padding: 0;}
+#content .scene ul.articles li.article {padding: 30px 0 15px; border-top: 1px solid #dedede; position: relative;}
+#content .scene ul.articles li.article ul.tags {padding-bottom: 20px;}
+#content .scene ul.articles li.article div.image p {padding-bottom: 20px;}
+#content .scene ul.articles li.article h2 {padding-bottom: 20px;}
+#content .scene ul.articles li.article ul.info {padding-bottom: 20px;}
+#content .scene ul.articles li.article ul.actions {margin-top: -10px;}
+#content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
+
+#content .scene ul.articles li.article > svg.checkmark {position: absolute; top: 14px; left: 45px;}
+#content .scene ul.articles li.article > svg.checkmark line {stroke: #666666; stroke-width: 3px;}
+
+/* PREVIEW LIST */
+#content .scene ul.articles.articlePreviewList li.article {padding: 20px 0 15px;}
+#content .scene ul.articles.articlePreviewList li.article ul.tags {padding-bottom: 30px;}
+#content .scene ul.articles.articlePreviewList li.article h3 {padding-bottom: 14px;
+	font-family: "PT Serif", Times, serif;
+}
+#content .scene ul.articles.articlePreviewList li.article ul.info {padding-bottom: 10px;}
+#content .scene ul.articles.articlePreviewList div.description p a.readmore {padding-top: 15px; display: inline-block;}
+#content .scene ul.articles.articlePreviewList div.image img,
+#content .scene ul.articles.articlePreviewList div.media img {margin: 0 50px 16px;}
+
+#content .scene ul.articles.articlePreviewList div.image.fullsize img,
+#content .scene ul.articles.articlePreviewList div.media.fullsize img {margin-left: 0; margin-right: 0;}
+
+#content .scene ul.articles.articlePreviewList div.image p,
+#content .scene ul.articles.articlePreviewList div.media p {margin-top: -13px; padding: 0 70px 19px;}

@@ -43,15 +43,6 @@ dl {font-size: 0;}
 dt, 
 dd {display: block; font-size: 13px; line-height: 1.25em;}
 
-.c {clear: both; font-size: 0; overflow: hidden;}
-.c400, .c300, .c266, .c200, .c150, .c133, .c100, .c75, .c50 {float: left; min-height: 10px; vertical-align: top;}
-.c400 {width: 100%;}
-.c300 {width: 75%;}
-.c266 {width: 66%;}
-.c200 {width: 50%;}
-.c133 {width: 34%;}
-.c100 {width: 25%;}
-
 
 #page {position: relative; min-height: 100%;}
 

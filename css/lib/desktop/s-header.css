@@ -14,7 +14,7 @@
 #header .servicenavigation li:before {content: "\00a0\00a0|\00a0\00a0"; color: #bbbbbb;}
 #header .servicenavigation li.github:before,
 #header .servicenavigation li.navigation:before,
-#header .servicenavigation li:first-child:before {content: "";}
+#header .servicenavigation li:first-child:before {content: none;}
 
 #header .servicenavigation li.github {margin: 0 0 0 10px; padding: 4px 12px; background: #8c9399; border-radius: 3px; cursor: pointer; font-size: 12px; color: #ffffff;}
 #header .servicenavigation li.cart.used {color: #df0000;}

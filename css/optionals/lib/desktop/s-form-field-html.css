@@ -119,7 +119,7 @@ body #selection_options .field input {color: #333333; box-shadow: inset 0 1px 2p
 body #selection_options .field.checkbox input {width: auto;}
 body #selection_options .field.checkbox label {display: inline-block; vertical-align: top; padding: 4px 0 0 3px;}
 
-body #selection_options .field input.default {color: #cccccc;}
+body #selection_options .field input.default {color: #aaaaaa;}
 body #selection_options .field input.focus {}
 
 body #selection_options ul.actions {padding: 10px 0 0;}

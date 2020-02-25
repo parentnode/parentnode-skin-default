@@ -13,7 +13,7 @@
 
 #content .scene.docsindex .files li {position: relative; padding: 5px; border-top: 1px solid #dedede;}
 #content .scene.docsindex .files li h3 {font-size: 16px; padding: 0;}
-#content .scene.docsindex .files li p {font-size: 13px; color: #999999; padding: 0;}
+#content .scene.docsindex .files li p {font-size: 13px; color: #bbbbbb; padding: 0;}
 
 /* DOCUMENTATION SEARCH */
 #content .scene.docsindex .search {padding-top: 15px;}
@@ -42,7 +42,7 @@
 
 #content .scene div.functions .function {padding: 10px 0 0; overflow: hidden; border-top: 1px solid #bbbbbb; background: #ffffff;}
 #content .scene div.functions .function .header {position: relative;}
-#content .scene div.functions .function .header svg {position: absolute; top: 5px; right: 50px; stroke: #999999; stroke-width: 3px;}
+#content .scene div.functions .function .header svg {position: absolute; top: 5px; right: 50px; stroke: #bbbbbb; stroke-width: 3px;}
 #content .scene div.functions .function.open .header svg {transform: rotate(180deg); top: 0px; right: 54px;}
 
 #content .scene div.functions .function .body {padding: 20px 0 0; border: none;}
@@ -70,7 +70,7 @@
 
 #content .scene div.functions .function .body .dependencies {overflow: hidden; margin-bottom: 20px; position: relative;}
 #content .scene div.functions .function .body .dependencies h4 {width: auto; position: relative; cursor: pointer;}
-#content .scene div.functions .function .body .dependencies svg {position: absolute; top: 10px; right: 50px; stroke: #999999; stroke-width: 3px;}
+#content .scene div.functions .function .body .dependencies svg {position: absolute; top: 10px; right: 50px; stroke: #bbbbbb; stroke-width: 3px;}
 #content .scene div.functions .function .body .dependencies.open svg {transform: rotate(180deg); top: 5px; right: 54px;}
 
 #content .scene div.functions .function .body .dependencies .javascript {padding: 5px 0 0;}
@@ -81,7 +81,7 @@
 
 #content .scene div.includefiles {border-bottom: 1px solid #bbbbbb;}
 #content .scene div.includefiles .header {position: relative; cursor: pointer;}
-#content .scene div.includefiles .header svg {position: absolute; top: 10px; right: 50px; stroke: #999999; stroke-width: 3px;}
+#content .scene div.includefiles .header svg {position: absolute; top: 10px; right: 50px; stroke: #bbbbbb; stroke-width: 3px;}
 #content .scene div.includefiles.open .header svg {transform: rotate(180deg); top: 5px; right: 54px;}
 
 #content .scene div.includefiles .body {padding-bottom: 15px; }
@@ -89,7 +89,7 @@
 
 #content .scene div.segmentsupport {padding-top: 25px; border-bottom: 1px solid #bbbbbb;}
 #content .scene div.segmentsupport .header {position: relative; cursor: pointer;}
-#content .scene div.segmentsupport .header svg {position: absolute; top: 10px; right: 50px; stroke: #999999; stroke-width: 3px;}
+#content .scene div.segmentsupport .header svg {position: absolute; top: 10px; right: 50px; stroke: #bbbbbb; stroke-width: 3px;}
 #content .scene div.segmentsupport.open .header svg {transform: rotate(180deg); top: 5px; right: 54px;}
 
 #content .scene div.segmentsupport .body {padding-bottom: 15px; }

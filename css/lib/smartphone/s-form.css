@@ -178,14 +178,15 @@ ul.actions li {display: inline-block; padding: 0 10px 10px 0; vertical-align: to
 	-webkit-user-select: none;
 	user-select: none;
 }
+ul.actions a {display: block; height: 18px; padding: 7px 0;}
 
-ul.actions input.button {width: auto; height: 32px; padding: 2px 12px 4px; display: inline-block; vertical-align: top; outline: none; border-radius: 0; border: 0;
+ul.actions input.button {width: auto; height: 32px; padding: 3px 12px; display: inline-block; vertical-align: top; outline: none; border-radius: 0; border: 0;
 	-webkit-appearance: none;
 }
 @media all and (-webkit-min-device-pixel-ratio:0) {
 	ul.actions input.button {padding-bottom: 5px;}
 }
-ul.actions a.button {display: block; text-decoration: none; height: 18px; padding: 8px 12px 6px;}
+ul.actions a.button {display: block; text-decoration: none; height: 18px; padding: 7px 12px;}
 
 
 /* DEFAULT BUTTON */
@@ -195,7 +196,7 @@ ul.actions a.button,
 
 ul.actions input.button:active,
 ul.actions a.button:active,
-#content ul.actions a.button:active {background-color: #bebebe;}
+#content ul.actions a.button:active {background-color: #bebebe; text-decoration: none;}
 
 
 /* FORM IN SUBMITTING STATE */
@@ -209,23 +210,29 @@ ul.actions a.button:active,
 
 /* PRIMARY BUTTON */
 ul.actions input.button.primary,
-ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
+ul.actions a.button.primary,
+#content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
 
 ul.actions input.button.primary:active,
-ul.actions a.button.primary:active {background-color: #313942;}
+ul.actions a.button.primary:active,
+#content ul.actions a.button.primary:active {background-color: #313942;}
 
 
 /* SECONDARY BUTTON */
 ul.actions input.button.secondary,
-ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
+ul.actions a.button.secondary,
+#content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
 ul.actions input.button.secondary:active,
-ul.actions a.button.secondary:active {background-color: #313942;}
+ul.actions a.button.secondary:active,
+#content ul.actions a.button.secondary:active {background-color: #313942;}
 
 /* DISABLED BUTTON */
-ul.actions a.button.disabled,
 ul.actions input.button.disabled,
+ul.actions a.button.disabled,
+#content ul.actions a.button.disabled,
+ul.actions input.button.disabled:active,
 ul.actions a.button.disabled:active,
-ul.actions input.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+#content ul.actions a.button.disabled:active {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 
 
 /* HELP - HINT AND ERROR MESSAGES */

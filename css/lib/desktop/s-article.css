@@ -2,11 +2,8 @@
 #content .scene div.article {position: relative; padding-bottom: 30px;}
 #content .scene div.article h1 svg.checkmark {cursor: pointer;}
 #content .scene div.article ul.tags {padding-bottom: 30px;}
-#content .scene div.article ul.tags li,
-#content .scene div.article ul.tags li a {color: #cccccc;}
 
 /* ARTICLE BODY */
-
 #content .scene .articlebody {position: relative; z-index: 1;}
 
 #content .scene .articlebody ul,
@@ -28,26 +25,6 @@
 #content .scene div.article div.articlebody span.sup.reference {font-size: 10px; line-height: 1.1em; vertical-align: top; padding-left: 2px;}
 #content .scene div.article div.articlebody h3.reference {padding-top: 20px;}
 #content .scene div.article div.articlebody p.reference {font-style: italic;}
-
-/* ARTICLES */
-#content .scene ul.articles {padding: 0;}
-#content .scene ul.articles li.article {padding: 20px 0 5px; border-top: 1px solid #dedede; position: relative;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
-#content .scene ul.articles li.article ul.tags li,
-#content .scene ul.articles li.article ul.tags li a {color: #cccccc;}
-#content .scene ul.articles li.article div.articlebody h3 {line-height: 1.1em;}
-/* LIST HEADLINES - LOW LEVEL LISTS */
-#content .scene ul.articles li.article > h3 {line-height: 1.1em; padding-bottom: 12px;
-	font-family: "PT Serif", Times, serif;
-}
-#content .scene ul.articles li.article > h3 + ul.info {padding-bottom: 10px;}
-
-#content .scene ul.articles li.article ul.actions {margin-top: -10px;}
-#content .scene ul.articles li.article ul.actions li {padding-bottom: 0;}
-
-/*#content .scene ul.articles li.article p {font-size: 13px; color: #888888;}*/
-#content .scene ul.articles li.article > svg.checkmark {position: absolute; top: 14px; left: 45px;}
-#content .scene ul.articles li.article > svg.checkmark line {stroke: #666666; stroke-width: 3px;}
 
 /* GEOLOCATION */
 #content .scene .article ul.info > li.place {font-size: 0;}

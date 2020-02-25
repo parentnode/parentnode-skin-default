@@ -1,0 +1,54 @@
+.c {clear: both; font-size: 0;}
+.c300, .c225, .c200, .c150, .c100, .c75, .c50 {display: inline-block; min-height: 10px; vertical-align: top;}
+
+.c300 {width: 1080px;}
+.c225 {width: 810px;}
+.c200 {width: 720px;}
+.c150 {width: 540px;}
+.c100 {width: 360px;}
+.c75 {width: 270px;}
+.c50 {width: 180px;}
+
+@media screen and (max-width: 1080px) {
+
+	.c300 {width: 100%;}
+	.c225 {width: 75%;}
+	.c200 {width: 66.666%;}
+	.c150 {width: 50%;}
+	.c100 {width: 33.333%;}
+	.c75 {width: 25%;}
+	.c50 {width: 16.666%;}
+
+	#content .scene .c div.image img,
+	#content .scene .c div.media img {width: calc(100% - 100px);}
+
+}
+
+#content .scene .c h1,
+#content .scene .c h2,
+#content .scene .c h3,
+#content .scene .c h4,
+#content .scene .c h5,
+#content .scene .c h6,
+#content .scene .c p {width: auto; max-width: 500px;}
+
+
+#content .scene .c div.image.fullsize img,
+#content .scene .c div.media.fullsize img {width: 100%;}
+
+
+#content .scene .c ul.articles {max-width: 640px;}
+
+
+#content .scene .c300 div.company h2,
+#content .scene .c300 div.person h2 {max-width: none;}
+
+
+#content .scene .c100 div.categories ul.tags li,
+#content .scene .c150 div.categories ul.tags li {display: block; margin: 0;}
+#content .scene .c100 div.categories ul.tags li.selected,
+#content .scene .c150 div.categories ul.tags li.selected {margin: 5px -10px;}
+
+
+#content .c div.field input {width: calc(100% - 18px);}
+

@@ -1,0 +1,7 @@
+/* READSTATE CHECKMARK */
+#content .scene svg.checkmark {position: absolute; top: 0; left: 0;}
+#content .scene h1 svg.checkmark {top: 13px; left: 35px; transform: scale(1.5);}
+#content .scene h2 svg.checkmark {top: 8px; left: 40px; transform: scale(1.2);}
+#content .scene h3 svg.checkmark {top: 3px; left: 45px;}
+#content .scene svg.checkmark line {stroke: #dedede; stroke-width: 3px;}
+#content .scene svg.checkmark.read line {stroke: #666666;}

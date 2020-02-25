@@ -1,2 +1,11 @@
-#content div.pagination ul li {padding-bottom: 20px;}
-#content div.pagination ul li h2 {font-size: 12px; padding: 0;}
+#content .scene .pagination ul {overflow: hidden;}
+#content .scene .pagination li {padding-bottom: 8px; display: inline;}
+#content .scene .pagination li.next,
+#content .scene .pagination li.previous {padding-bottom: 10px;}
+#content .scene .pagination li.previous {float: left; text-align: left;}
+#content .scene .pagination li.next {float: right; text-align: right;}
+#content .scene .pagination .next a,
+#content .scene .pagination .previous a {background-color: #dedede; color: #333333; text-decoration: none; padding: 6px 12px; display: block;}
+#content .scene .pagination .next a:active,
+#content .scene .pagination .previous a:active {background-color: #313942; color: #ffffff;}
+#content .scene .pagination li.pages {display: none;}

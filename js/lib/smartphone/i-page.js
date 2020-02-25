@@ -168,6 +168,8 @@ Util.Objects["page"] = new function() {
 
 				this.resized();
 
+				this.scrolled();
+
 				// Start showing the page
 				if(!fun(this.cN.scene.revealPage)) {
 					this.revealPage();

@@ -1,6 +1,24 @@
 /* PAGINATION */
 #page.paginated #content {padding-top: 110px;}
-#content .scene .pagination {display: none;}
+/*#content .scene .pagination {display: none;}*/
+
+/* INLINE PAGINATION */
+#content .scene .pagination ul {text-align: center; padding: 30px 20px;}
+#content .scene .pagination li {width: auto; height: auto; display: inline-block; padding: 0 5px; vertical-align: top;}
+#content .scene .pagination li.next,
+#content .scene .pagination li.previous {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+#content .scene .pagination li.next a,
+#content .scene .pagination li.previous a {display: block; text-decoration: none; height: 16px; padding: 7px 12px; font-size: 14px; background-color: #dedede; color: #333333; border: none; cursor: pointer; border-radius: 3px;}
+#content .scene .pagination li.next a:active,
+#content .scene .pagination li.previous a:active {background-color: #313942; color: #ffffff;}
+#content .scene .pagination li.pages {line-height: 25px;}
+
+
+/* SIDE-BOUND PAGINATION */
 body > div.pagination {position: fixed; top: 60px; left: 0; width: 100%;}
 body > div.pagination li h2 {display: none;}
 body > div.pagination li.next > svg.arrow {position: absolute; top: 18px; right: 20px;}
@@ -9,10 +27,13 @@ body > div.pagination li.previous > svg.arrow {position: absolute; top: 18px; le
 body > div.pagination li.previous > svg.arrow line {stroke: #888888; stroke-width: 3px;}
 body > div.pagination li.previous,
 body > div.pagination li.next {z-index: 100; position: absolute; top: 0; height: 50px; overflow: hidden; border: 1px solid #888888; cursor: pointer; background: #ffffff; width: 50%; box-sizing: border-box;}
+body > div.pagination li.previous:active,
+body > div.pagination li.next:active {background-color: #313942; color: #ffffff;}
+body > div.pagination li.previous:active > svg.arrow line,
+body > div.pagination li.next:active > svg.arrow line {stroke: #ffffff;}
 body > div.pagination li.previous {left: 0; text-align: left; border-left: none; padding-left: 50px;}
 body > div.pagination li.next {right: 0; text-align: right; border-right: none; border-left: none; padding-right: 57px;}
 body > div.pagination li.previous a,
-body > div.pagination li.next a {font-size: 13px; line-height: 16px; display: inline-block; vertical-align: top; padding: 16px 0 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; box-sizing: border-box;
- /*opacity: 0;*/}
+body > div.pagination li.next a {font-size: 13px; line-height: 16px; display: inline-block; vertical-align: top; padding: 16px 0 16px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; max-width: 100%; box-sizing: border-box;}
 body > div.pagination li.previous a {padding-left: 0; padding-right: 16px;}
 body > div.pagination li.next a {padding-right: 0; padding-left: 16px;}

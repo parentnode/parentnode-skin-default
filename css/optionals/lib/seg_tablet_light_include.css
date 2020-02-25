@@ -10,6 +10,9 @@
 @import url(desktop_light/s-pagination.css);
 @import url(desktop_light/s-comments.css);
 
+@import url(desktop_light/s-articles.css);
 @import url(desktop_light/s-todos.css);
+@import url(desktop_light/s-qnas.css);
 @import url(desktop_light/s-wishlist.css);
 @import url(desktop_light/s-used_by.css);
+@import url(desktop_light/s-search.css);

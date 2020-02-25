@@ -55,8 +55,8 @@ Util.Objects["page"] = new function() {
 			}
 
 
-			// Fixed width above 1300 px
-			if(page.browser_w > 1300) {
+			// Fixed width above 1080 px
+			if(page.browser_w > 1080) {
 				u.ac(page, "fixed");
 			}
 			else {
@@ -181,6 +181,7 @@ Util.Objects["page"] = new function() {
 				}
 
 
+
 				this.initHeader();
 
 				this.initNavigation();
@@ -188,6 +189,8 @@ Util.Objects["page"] = new function() {
 				this.initFooter();
 
 				this.resized();
+
+				this.scrolled();
 
 				// Start showing the page
 				if(!fun(this.cN.scene.revealPage)) {

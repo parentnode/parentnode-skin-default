@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2019-12-11 15:41:03
+asset-builder @ 2020-02-25 17:27:09
 */
 
 /*seg_tablet_light_include.css*/
@@ -84,14 +84,6 @@ li {font-size: 13px; line-height: 1.25em;}
 dl {font-size: 0;} 
 dt, 
 dd {display: block; font-size: 13px; line-height: 1.25em;}
-.c {clear: both; font-size: 0; overflow: hidden;}
-.c400, .c300, .c266, .c200, .c150, .c133, .c100, .c75, .c50 {float: left; min-height: 10px; vertical-align: top;}
-.c400 {width: 100%;}
-.c300 {width: 75%;}
-.c266 {width: 66%;}
-.c200 {width: 50%;}
-.c133 {width: 34%;}
-.c100 {width: 25%;}
 #page {position: relative; min-height: 100%;}
 .terms_notification {position: absolute; z-index: 90; top: 50%; margin-top: -100px; right: 0px; padding: 15px 20px; background: #888888; border-right: none;}
 .terms_notification h3 {padding: 0 0 15px; font-size: 14px; color: #ffffff;}
@@ -162,7 +154,7 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene ul.items {padding-bottom: 0;}
 #content .scene ul li.item {display: block; padding-top: 20px; padding-bottom: 20px; border-top: 1px solid #dedede;}
 #content .scene dl {padding: 0 70px 15px; overflow: hidden; width: 500px;}
-#content .scene dt {padding: 0 0 5px 0; color: #999999;}
+#content .scene dt {padding: 0 0 5px 0; color: #bbbbbb;}
 #content .scene dd {padding: 0 0 12px;}
 #content .scene dt span {text-transform: none;}
 #content .scene dl dl {padding: 0 0 10px 30px; width: 470px;}
@@ -173,23 +165,24 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene dl h5,
 #content .scene dl h6 {padding-left: 0; padding-right: 0; padding-top: 10px;}
 #content .scene ul.tags {padding-bottom: 20px;}
-#content .scene ul.tags li {font-size: 12px; display: inline; padding: 0 7px 0 0; color: #cccccc;}
-#content .scene ul.tags li a {color: #cccccc;}
-#content .scene ul.tags li.editing {background: #666666; border-radius: 5px; color: #ffffff; margin: -2px 10px 8px -4px; padding: 2px 10px; display: inline-block; vertical-align: top;}
+#content .scene ul.tags li {font-size: 12px; display: inline; padding: 0 7px 0 0;}
+#content .scene ul.tags li.editing {background: #666666; color: #ffffff; margin: -2px 10px 8px -4px; padding: 2px 10px; display: inline-block; vertical-align: top;}
 #content .scene ul.info {padding-bottom: 26px; padding-right: 0; display: inline-block; vertical-align: top; width: auto;}
-#content .scene ul.info li {font-size: 12px; color: #cccccc; display: block;}
+#content .scene ul.info li {font-size: 12px; color: #bbbbbb; display: block;}
 #content .scene ul.info li.main_entity,
 #content .scene ul.info li.publisher,
 #content .scene ul.info li.image_info,
 #content .scene ul.info li.modified_at {display: none;}
 #content .scene div.image,
 #content .scene div.media {display: none;}
-#content .scene div.categories {padding-bottom: 25px; display: block; vertical-align: top;}
-#content .scene div.categories ul {padding-right: 0;}
-#content .scene div.categories ul.tags li {font-size: 14px; padding-bottom: 5px; display: block;}
-#content .scene div.categories ul.tags li.selected a {color: #000000;}
+#content .scene div.categories {padding-bottom: 20px;}
+#content .scene div.categories ul.tags {overflow: hidden;}
+#content .scene div.categories ul.tags li {font-size: 14px; float: left; clear: both; padding: 5px 0;}
+#content .scene div.categories ul.tags li a {display: block;}
+#content .scene div.categories ul.tags li.selected {background-color: #000000; padding: 4px 10px; margin: 5px 0;}
+#content .scene div.categories ul.tags li.selected a {color: #ffffff;}
 #content .scene div.categories ul.actions {padding-bottom: 0;}
-#content .scene div.categories ul.actions li {padding-bottom: 0; font-size: 15px; display: block;}
+#content .scene div.categories ul.actions li {font-size: 15px;}
 #content .scene div.related {padding-top: 10px; position: relative; z-index: 1;}
 #content .scene div.related h2 a {font-size: 13px; display: inline; vertical-align: baseline;
 	font-family: "OpenSans";
@@ -225,16 +218,27 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene span.file {color: #a62300;}
 #content .scene span.htmltag {text-transform: uppercase;}
 #content .scene span.command {color: #4b5cd7;}
-#content .scene div.vcard {height: 160px; margin-top: 65px; border-top: 1px solid #dedede; padding: 0 70px 25px;}
-#content .scene div.vcard h2 {margin-top: -65px; padding: 0 0 60px;}
-#content .scene div.vcard dl.info {width: 230px; padding: 0 0 30px; display: inline; float: left; vertical-align: top;}
-#content .scene div.vcard dl.info.financial {display: none;}
-#content .scene div.vcard dl.info dt,
-#content .scene div.vcard dl.info dd {display: block; width: auto; text-align: left;}
-#content .scene div.vcard dl.info dd {padding-bottom: 10px; color: #cccccc;}
-#content .scene div.vcard dl.info dd ul {padding: 0;}
-#content .scene div.vcard dl.info dd li {font-size: 12px; color: #cccccc;}
+#content .scene div.company,
+#content .scene div.person {padding: 0 70px 25px; overflow: hidden;}
+#content .scene div.company h2,
+#content .scene div.person h2 {padding-left: 0; padding-right: 0; border-bottom: 1px solid #dedede; margin-bottom: 30px;}
+#content .scene div.company dl.info,
+#content .scene div.person dl.info {width: 250px; padding: 0 0 30px; display: inline; float: left; vertical-align: top;}
+#content .scene div.company dl.info.financial,
+#content .scene div.person dl.info.financial {display: none;}
+#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dd,
+#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dd {display: block; width: auto; text-align: left;}
+#content .scene div.company dl.info dd,
+#content .scene div.person dl.info dd {padding-bottom: 10px;}
+#content .scene div.company dl.info dd ul,
+#content .scene div.person dl.info dd ul {padding: 0;}
+#content .scene div.company dl.info dd li,
+#content .scene div.person dl.info dd li {font-size: 12px;}
 #content .scene.login form {padding-bottom: 20px;}
+#content .scene.login form li.forgot {padding: 6px 0 0;}
+#content .scene.login form li.forgot a {padding: 0; display: inline; vertical-align: top;}
 #content .scene p.error,
 #content .scene p.errormessage {color: #df0000;}
 
@@ -249,12 +253,84 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene .articlebody li {font-size: 14px; padding-bottom: 7px; padding-left: 3px; display: list-item;}
 #content .scene .articlebody ul.actions {list-style: none; margin: 0;}
 #content .scene .articlebody ul.actions li {padding-left: 0;}
-#content .scene ul.articles li.article {padding: 20px 0 0; border-top: 1px solid #dedede; position: relative;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 15px;}
-#content .scene ul.articles li.article h3 {font-size: 22px; line-height: 1em; padding-bottom: 15px;
-	font-family: "PT Serif", Times, serif;
-}
 #content .scene .article ul.info ul.geo {padding: 0;}
+
+/*s-form.css*/
+form {}
+fieldset {border: none; display: block;}
+div.field {padding: 0 70px 15px; position: relative; font-size: 0;}
+div.field label {font-size: 14px; display: block;}
+input,
+textarea {-webkit-appearance: none; border-radius: 0;}
+.boolean input,
+.checkbox input {-webkit-appearance: checkbox;}
+.radiobuttons input {-webkit-appearance: radio;}
+div.field input,
+div.field select,
+div.field textarea {color: #333333; background: #ffffff; border: 1px solid #dcdcdc; outline: none; position: relative; z-index: 1;}
+div.field input {width: 366px; height: 24px; padding: 2px 6px;}
+div.field select {width: 381px; height: 33px; color: #333333; padding: 5px 3px 2px 2px;}
+div.field select option {padding: 5px 3px 2px 6px;}
+div.field textarea {width: 372px; height: 100px; overflow: auto; padding: 6px 0 2px 6px; }
+div.field textarea.autoexpand {width: 366px; padding: 6px 6px 2px; overflow: hidden;}
+div.field.checkbox,
+div.field.boolean {}
+div.field.checkbox input,
+div.field.boolean input {display: inline; vertical-align: top; width: auto; height: auto; padding: 0; margin: 0 10px 0 3px; border: 0;}
+div.field.checkbox label,
+div.field.boolean label {width: auto; display: inline; vertical-align: top; font-size: 14px; line-height: 1em;}
+div.field.radiobuttons {}
+div.field.radiobuttons label {display: block; font-size: 14px; line-height: 1em; padding: 0 0 8px 3px;}
+div.field.radiobuttons div.item {padding: 0 0 5px;}
+div.field.radiobuttons div.item input {width: auto; height: auto; padding: 0; margin: 0px 10px 0 3px; border: 0;}
+div.field.radiobuttons div.item label {font-size: 14px; line-height: 1em; display: inline; vertical-align: top; }
+div.field.focus input,
+div.field.focus textarea {}
+div.field.focus select {padding: 3px 3px 2px 0px;}
+div.field.focus input,
+div.field.focus select,
+div.field.focus textarea {border-color: #5c5c5c;}
+div.field.radiobuttons.focus input,
+div.field.checkbox.focus input,
+div.field.boolean.focus input {margin: 0px 10px 0 3px; border: none;}
+div.field .indicator {display: none;}
+div.field.required .indicator {color: #df0000; display: inline;}
+div.field.error input,
+div.field.error textarea {}
+div.field.error select {padding: 3px 3px 2px 0px;}
+div.field.error input,
+div.field.error select,
+div.field.error textarea {border-color: #a62300;}
+div.field.radio_buttons.error input,
+div.field.checkbox.error input,
+div.field.boolean.error input {margin: 0px 10px 0 3px; border: none;}
+ul.actions {overflow: hidden;}
+ul.actions li,
+#content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
+ul.actions input.button {width: auto; height: 30px; line-height: 1em; padding: 3px 12px;}
+ul.actions a {display: block; line-height: 18px; padding: 6px 0; height: 18px;}
+ul.actions a.button,
+#content ul.actions a.button {text-decoration: none; display: block; line-height: 18px; padding: 6px 12px; height: 18px;}
+ul.actions input.button,
+ul.actions a.button,
+#content ul.actions a.button {background-color: #dedede; color: #333333; border: none; cursor: pointer; font-size: 14px;}
+ul.actions input.button.primary,
+ul.actions a.button.primary,
+#content ul.actions a.button.primary {background-color: #8c9399; color: #ffffff;}
+ul.actions input.button.secondary,
+ul.actions a.button.secondary,
+#content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
+ul.actions input.button.disabled
+ul.actions a.button.disabled,
+#content ul.actions a.button.disabled {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+div.field div.help {position: absolute; left: 455px; top: 6px; width: 200px;}
+div.field div.error,
+div.field div.hint {display: none; padding: 5px; font-size: 12px; margin-top: -3px;}
+div.field div.error {border: 1px solid #a62300; color: #a62300; background: #ffddd5;}
+div.field.error div.error {display: block;}
+div.field div.hint {z-index: 9; border: 1px solid #007633; color: #007633; background: #d0f4e0;}
+div.field.focus div.hint {display: block;}
+
 
 /*s-active.css*/
 #header .logo:active,

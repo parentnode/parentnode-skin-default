@@ -86,6 +86,8 @@ ul.actions li,
 #content ul.actions li {width: auto; height: auto; float: left;	padding: 0 10px 10px 0;}
 
 ul.actions input.button {width: auto; height: 30px; line-height: 1em; padding: 3px 12px;}
+
+ul.actions a {display: block; line-height: 18px; padding: 6px 0; height: 18px;}
 ul.actions a.button,
 #content ul.actions a.button {text-decoration: none; display: block; line-height: 18px; padding: 6px 12px; height: 18px;}
 
@@ -110,7 +112,9 @@ ul.actions a.button.secondary,
 #content ul.actions a.button.secondary {background-color: #8c9399; color: #ffffff;}
 
 /* DISABLED BUTTON */
-#content form input.button.disabled {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
+ul.actions input.button.disabled
+ul.actions a.button.disabled,
+#content ul.actions a.button.disabled {cursor: default !important; color: #aaaaaa !important; background-color: #eeeeee !important;}
 
 
 /* HELP - HINT AND ERROR MESSAGES */

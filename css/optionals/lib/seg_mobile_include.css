@@ -10,7 +10,9 @@
 @import url(mobile/s-pagination.css);
 @import url(mobile/s-comments.css);
 
+@import url(mobile/s-articles.css);
 @import url(mobile/s-todos.css);
 @import url(mobile/s-qnas.css);
 @import url(mobile/s-wishlist.css);
 @import url(mobile/s-used_by.css);
+@import url(mobile/s-search.css);

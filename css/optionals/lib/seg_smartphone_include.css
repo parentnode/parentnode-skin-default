@@ -10,8 +10,9 @@
 @import url(smartphone/s-pagination.css);
 @import url(smartphone/s-comments.css);
 
+@import url(smartphone/s-articles.css);
 @import url(smartphone/s-qnas.css);
 @import url(smartphone/s-todos.css);
 @import url(smartphone/s-wishlist.css);
-
 @import url(smartphone/s-used_by.css);
+@import url(smartphone/s-search.css);

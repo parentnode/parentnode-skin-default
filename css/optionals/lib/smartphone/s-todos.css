@@ -1,7 +1,7 @@
 /* TODOS */
 #content .scene ul.todos dl.info {padding-bottom: 10px;}
 #content .scene ul.todos dl.info dd:after {content: ",\00a0";}
-#content .scene ul.todos dl.info dd:last-child:after {content: "";}
+#content .scene ul.todos dl.info dd:last-child:after {content: none;}
 
 /* TODOS - DONE / NOT DONE */
 #content .scene ul.todos > li ul.actions {}
