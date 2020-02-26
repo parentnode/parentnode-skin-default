@@ -30,7 +30,6 @@ Util.Objects["columns"] = new function() {
 				{"c300": [
 					"div.company"
 				]}
-				
 			]);
 
 
