@@ -53,5 +53,14 @@
 #content .scene .c150 div.field input,
 #content .scene .c100 div.field input,
 #content .scene .c75 div.field input,
-#content .scene .c50 div.field input {width: calc(100% - 18px);}
+#content .scene .c50 div.field input {width: calc(100% - 18px)}
 
+#content .scene .c150 div.field textarea,
+#content .scene .c100 div.field textarea,
+#content .scene .c75 div.field textarea,
+#content .scene .c50 div.field textarea {width: calc(100% - 12px)}
+
+#content .scene .c150 div.field .indicator,
+#content .scene .c100 div.field .indicator,
+#content .scene .c75 div.field .indicator,
+#content .scene .c50 div.field .indicator {left: auto; right: 40px;}
