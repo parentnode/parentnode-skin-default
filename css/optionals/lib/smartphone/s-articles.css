@@ -1,7 +1,9 @@
 /* ARTICLES */
 #content .scene ul.articles {padding: 0;}
 #content .scene ul.articles li.article {padding: 20px 0 15px; border-top: 1px solid #dedede;}
-#content .scene ul.articles li.article ul.tags {padding-bottom: 10px;}
+#content .scene ul.articles li.article ul.tags {padding-bottom: 20px;}
 #content .scene ul.articles li.article h3 {line-height: 1.1em; font-size: 20px; padding-bottom: 10px;
 	font-family: "PT Serif", Times, serif;
 }
+
+#content .scene ul.articles.articlePreviewList div.description p a.readmore {padding-top: 15px; display: inline-block;}

@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2020-02-25 17:59:22
+asset-builder @ 2020-03-18 00:04:18
 */
 
 /*seg_smartphone_include.js*/
@@ -3131,17 +3131,17 @@ Util.pageScrollX = u.scrollX = function() {
 Util.pageScrollY = u.scrollY = function() {
 	return window.pageYOffset;
 }
-Util.Objects = u.o = new Object();
+Util.Modules = u.m = new Object();
 Util.init = function(scope) {
-	var i, node, nodes, object;
+	var i, node, nodes, module;
 	scope = scope && scope.nodeName ? scope : document;
 	nodes = u.ges("i\:([_a-zA-Z0-9])+", scope);
 	for(i = 0; i < nodes.length; i++) {
 		node = nodes[i];
-		while((object = u.cv(node, "i"))) {
-			u.rc(node, "i:"+object);
-			if(object && obj(u.o[object])) {
-				u.o[object].init(node);
+		while((module = u.cv(node, "i"))) {
+			u.rc(node, "i:"+module);
+			if(module && obj(u.m[module])) {
+				u.m[module].init(node);
 			}
 		}
 	}
@@ -4747,8 +4747,8 @@ u.f.fixFieldHTML = function(field) {
 	}
 }
 
-/*i-page.js*/
-Util.Objects["page"] = new function() {
+/*m-page.js*/
+Util.Modules["page"] = new function() {
 	this.init = function(page) {
 		u.bug_force = true;
 		u.bug("This site is built using the combined powers of body, mind and spirit. Well, and also Manipulator, Janitor and Detector");
@@ -5029,8 +5029,8 @@ Util.Objects["page"] = new function() {
 u.e.addDOMReadyEvent(u.init);
 
 
-/*i-login.js*/
-Util.Objects["login"] = new function() {
+/*m-login.js*/
+Util.Modules["login"] = new function() {
 	this.init = function(scene) {
 		scene.resized = function() {
 		}
@@ -5046,8 +5046,8 @@ Util.Objects["login"] = new function() {
 }
 
 
-/*i-scene.js*/
-Util.Objects["scene"] = new function() {
+/*m-scene.js*/
+Util.Modules["scene"] = new function() {
 	this.init = function(scene) {
 		scene.resized = function() {
 		}
@@ -5061,8 +5061,8 @@ Util.Objects["scene"] = new function() {
 }
 
 
-/*i-article.js*/
-Util.Objects["article"] = new function() {
+/*m-article.js*/
+Util.Modules["article"] = new function() {
 	this.init = function(article) {
 		article.csrf_token = article.getAttribute("data-csrf-token");
 		article.header = u.qs("h1,h2,h3", article);

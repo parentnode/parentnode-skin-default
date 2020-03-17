@@ -2,6 +2,9 @@
 #page.paginated #content {padding-top: 110px;}
 /*#content .scene .pagination {display: none;}*/
 
+/* AUTO PAGINATION */
+#content .scene .pagination.autoload {display: none;}
+
 /* INLINE PAGINATION */
 #content .scene .pagination ul {text-align: center; padding: 30px 20px;}
 #content .scene .pagination li {width: auto; height: auto; display: inline-block; padding: 0 5px; vertical-align: top;}

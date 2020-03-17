@@ -1,1 +1,13 @@
-#content div.search {display: none;}
+#content .scene ul.articles li.article div.description span.match {font-weight: bold;}
+
+#content div.search {font-size: 0; padding-bottom: 30px;}
+#content div.search fieldset {display: inline-block; vertical-align: top; width: calc(100% - 50px);}
+#content div.search div.field {padding-right: 0;}
+/*#content div.search div.field input {width: calc(100% - 18px);}
+*/
+#content div.search ul.actions {display: inline-block; vertical-align: top; padding: 0;}
+#content div.search ul.actions li {padding: 15px 0 0;}
+#content div.search ul.actions input {width: 30px; text-indent: -9999px; 
+	background: transparent url(/img/gx_search.png) no-repeat center 7px;
+	background-size: 18px auto;
+}

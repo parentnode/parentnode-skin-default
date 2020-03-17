@@ -3,7 +3,7 @@ document.write('<script type="text/javascript" src="/js/lib/seg_desktop_light_in
 
 
 // OPTIONALS
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/i-documentation.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/i-newsletter.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/i-signup.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/m-documentation.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/m-newsletter.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop_light/m-signup.js"></script>');
 

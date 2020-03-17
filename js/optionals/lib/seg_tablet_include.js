@@ -14,19 +14,20 @@ document.write('<script type="text/javascript" src="/js/manipulator/src/beta-u-c
 document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/u-sharing.js"></script>');
 document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/u-expandarrow.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-documentation.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-pagination.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-comments.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-dynamic-variables-post.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-documentation.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-pagination.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-comments.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-dynamic-variables-post.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-article_list.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-article_preview_list.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-article_list.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-article_preview_list.js"></script>');
 
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-newsletter.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-qnas.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-todolist.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-signup.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-wishes.js"></script>');
-document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/i-columns.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-newsletter.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-qnas.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-todolist.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-signup.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-wishes.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-columns.js"></script>');
+document.write('<script type="text/javascript" src="/js/optionals/lib/desktop/m-search.js"></script>');
 
 
