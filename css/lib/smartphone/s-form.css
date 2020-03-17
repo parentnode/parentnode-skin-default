@@ -4,7 +4,7 @@
 form {
 	/*background: transparent url(http://parentnode.local/img/temp-input.png) repeat-y top left;*/
 }
-fieldset {border: none; display: block;}
+fieldset {display: block;}
 div.field {padding: 0 18px 10px; position: relative; font-size: 0; z-index: 1;}
 
 
