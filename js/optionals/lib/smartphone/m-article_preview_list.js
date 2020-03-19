@@ -6,7 +6,7 @@ Util.Modules["articlePreviewList"] = new function() {
 
 		// Init article preview
 		list.initArticle = function(article) {
-			u.bug("initArticle", article);
+			// u.bug("initArticle", article);
 
 			// FIND LINK
 			article._a = u.qs("h3 a", article);
