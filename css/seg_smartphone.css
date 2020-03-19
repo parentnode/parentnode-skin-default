@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2020-03-18 00:04:18
+asset-builder @ 2020-03-19 20:44:16
 */
 
 /*seg_smartphone_include.css*/
@@ -211,11 +211,12 @@ dd {display: block; vertical-align: top; font-size: 16px; line-height: 1.25em;}
 #content .scene div.vimeo iframe,
 #content .scene div.youtube iframe {margin: 0 0 20px; width: 100%; border-radius: 5px; overflow: hidden;}
 #content .scene div.categories {padding-bottom: 20px;}
+#content .scene div.categories ul.tags {padding: 0;}
 #content .scene div.categories ul.tags li {font-size: 14px; padding: 0; display: block;}
-#content .scene div.categories ul.tags li a {padding: 6px 0; display: block;}
+#content .scene div.categories ul.tags li.all {padding-top: 15px;}
+#content .scene div.categories ul.tags li a {padding: 6px 20px; display: block; text-decoration: none;}
 #content .scene div.categories ul.tags li:after {content: none;}
-#content .scene div.categories ul.tags li.selected {margin: 5px -20px;}
-#content .scene div.categories ul.tags li.selected a {background-color: #000000; color: #ffffff; padding: 6px 20px;}
+#content .scene div.categories ul.tags li.selected a {background-color: #000000; color: #ffffff;}
 #content .scene div.categories ul.actions {padding-bottom: 0;}
 #content .scene div.categories ul.actions li {font-size: 15px;}
 #content .scene div.related {padding-top: 10px; position: relative; z-index: 1;}

@@ -1,6 +1,6 @@
 Util.Modules["comments"] = new function() {
 	this.init = function(div) {
-		u.bug("comment init:", div);
+		// u.bug("comment init:", div);
 
 
 		div.item_id = u.cv(div, "item_id");

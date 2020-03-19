@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2020-03-18 00:04:18
+asset-builder @ 2020-03-19 20:44:16
 */
 
 /*seg_desktop_include.css*/
@@ -214,7 +214,7 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene div.categories {padding-bottom: 20px;}
 #content .scene div.categories ul.tags li {font-size: 14px; margin: 0 20px 0 0; display: inline-block; vertical-align: top;}
 #content .scene div.categories ul.tags li.all {padding-top: 15px;}
-#content .scene div.categories ul.tags li a {padding: 5px 0; display: block;}
+#content .scene div.categories ul.tags li a {padding: 5px 0; display: block; text-decoration: none;}
 #content .scene div.categories ul.tags li:after {content: none;}
 #content .scene div.categories ul.tags li.selected {}
 #content .scene div.categories ul.tags li.selected a {background-color: #000000; color: #ffffff; padding: 4px 10px; border-radius: 3px;}

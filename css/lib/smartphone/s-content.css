@@ -107,11 +107,12 @@
 
 /* CATEGORIES */
 #content .scene div.categories {padding-bottom: 20px;}
+#content .scene div.categories ul.tags {padding: 0;}
 #content .scene div.categories ul.tags li {font-size: 14px; padding: 0; display: block;}
-#content .scene div.categories ul.tags li a {padding: 6px 0; display: block;}
+#content .scene div.categories ul.tags li.all {padding-top: 15px;}
+#content .scene div.categories ul.tags li a {padding: 6px 20px; display: block; text-decoration: none;}
 #content .scene div.categories ul.tags li:after {content: none;}
-#content .scene div.categories ul.tags li.selected {margin: 5px -20px;}
-#content .scene div.categories ul.tags li.selected a {background-color: #000000; color: #ffffff; padding: 6px 20px;}
+#content .scene div.categories ul.tags li.selected a {background-color: #000000; color: #ffffff;}
 #content .scene div.categories ul.actions {padding-bottom: 0;}
 #content .scene div.categories ul.actions li {font-size: 15px;}
 
