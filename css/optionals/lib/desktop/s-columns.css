@@ -1,23 +1,32 @@
 .c {clear: both; font-size: 0;}
-.c300, .c225, .c200, .c150, .c100, .c75, .c50 {display: inline-block; min-height: 10px; vertical-align: top;}
+.c300, .c225, .c200, .c175, .c150, .c125, .c100, .c75, .c50, .c-main, .c-sidebar {display: inline-block; min-height: 10px; vertical-align: top;}
 
 .c300 {width: 1080px;}
+
 .c225 {width: 810px;}
 .c200 {width: 720px;}
+.c175 {width: 630px;}
 .c150 {width: 540px;}
+.c125 {width: 450px;}
 .c100 {width: 360px;}
 .c75 {width: 270px;}
 .c50 {width: 180px;}
+.c-main {width: 648px;}
+.c-sidebar {width: 432px;}
 
 @media screen and (max-width: 1080px) {
 
 	.c300 {width: 100%;}
 	.c225 {width: 75%;}
-	.c200 {width: 66.666%;}
+	.c200 {width: 66.6666%;}
+	.c175 {width: 58.3333%;}
 	.c150 {width: 50%;}
-	.c100 {width: 33.333%;}
+	.c125 {width: 41.6666%;}
+	.c100 {width: 33.3333%;}
 	.c75 {width: 25%;}
-	.c50 {width: 16.666%;}
+	.c50 {width: 16.6666%;}
+	.c-main {width: 60%;}
+	.c-sidebar {width: 40%;}
 
 	#content .scene .c div.image img,
 	#content .scene .c div.media img {width: calc(100% - 100px);}
