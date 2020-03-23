@@ -52,24 +52,41 @@
 #content .scene .c300 div.company h2,
 #content .scene .c300 div.person h2 {max-width: none;}
 
+#content .scene .c-sidebar div.image img,
+#content .scene .c100 div.image img,
+#content .scene .c100 div.media img,
+#content .scene .c125 div.image img,
+#content .scene .c125 div.media img,
+#content .scene .c150 div.image img,
+#content .scene .c150 div.media img {width: calc(100% - 100px);}
 
+
+#content .scene .c-sidebar div.categories ul.tags li,
 #content .scene .c100 div.categories ul.tags li,
+#content .scene .c125 div.categories ul.tags li,
 #content .scene .c150 div.categories ul.tags li {display: block; margin: 0;}
 #content .scene .c100 div.categories ul.tags li.selected,
+#content .scene .c125 div.categories ul.tags li.selected,
 #content .scene .c150 div.categories ul.tags li.selected {margin: 5px -10px;}
 
 
+#content .scene .c-sidebar div.field input,
 #content .scene .c150 div.field input,
+#content .scene .c125 div.field input,
 #content .scene .c100 div.field input,
 #content .scene .c75 div.field input,
 #content .scene .c50 div.field input {width: calc(100% - 18px)}
 
+#content .scene .c-sidebar div.field textarea,
 #content .scene .c150 div.field textarea,
+#content .scene .c125 div.field textarea,
 #content .scene .c100 div.field textarea,
 #content .scene .c75 div.field textarea,
 #content .scene .c50 div.field textarea {width: calc(100% - 12px)}
 
+#content .scene .c-sidebar div.field .indicator,
 #content .scene .c150 div.field .indicator,
+#content .scene .c125 div.field .indicator,
 #content .scene .c100 div.field .indicator,
 #content .scene .c75 div.field .indicator,
 #content .scene .c50 div.field .indicator {left: auto; right: 40px;}
