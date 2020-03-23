@@ -137,8 +137,8 @@
 #content .scene div.company ul.geo,
 #content .scene div.person dl.financial {display: none;}
 #content .scene div.company dl.info dt,
-#content .scene div.person dl.info dd,
-#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dt,
+#content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {display: block; width: auto; text-align: left;}
 #content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {padding-bottom: 10px;}

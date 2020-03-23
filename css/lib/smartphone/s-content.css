@@ -174,8 +174,8 @@
 #content .scene div.company dl.info,
 #content .scene div.person dl.info {padding: 0 20px; display: block;}
 #content .scene div.company dl.info dt,
-#content .scene div.person dl.info dd,
-#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dt,
+#content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {display: block; width: auto; text-align: left;}
 #content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {}

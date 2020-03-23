@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2020-03-19 20:44:16
+asset-builder @ 2020-03-23 14:34:46
 */
 
 /*seg_tablet_light_include.css*/
@@ -227,8 +227,8 @@ dd {display: block; font-size: 13px; line-height: 1.25em;}
 #content .scene div.company dl.info.financial,
 #content .scene div.person dl.info.financial {display: none;}
 #content .scene div.company dl.info dt,
-#content .scene div.person dl.info dd,
-#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dt,
+#content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {display: block; width: auto; text-align: left;}
 #content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {padding-bottom: 10px;}

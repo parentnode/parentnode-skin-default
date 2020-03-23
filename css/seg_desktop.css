@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2020-03-19 20:44:16
+asset-builder @ 2020-03-23 14:34:46
 */
 
 /*seg_desktop_include.css*/
@@ -266,8 +266,8 @@ body > div.hint a {text-decoration: underline; display: inline-block; vertical-a
 #content .scene div.company dl.info,
 #content .scene div.person dl.info {width: 33%; padding: 0 0 30px 70px; box-sizing: border-box; display: inline-block; vertical-align: top;}
 #content .scene div.company dl.info dt,
-#content .scene div.person dl.info dd,
-#content .scene div.company dl.info dt,
+#content .scene div.person dl.info dt,
+#content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {display: block; width: auto; text-align: left;}
 #content .scene div.company dl.info dd,
 #content .scene div.person dl.info dd {padding-bottom: 10px; font-size: 12px;}
