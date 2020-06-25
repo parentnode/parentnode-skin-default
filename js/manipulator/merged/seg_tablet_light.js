@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.3-parentnode-skin-default Copyright 2019 https://manipulator.parentnode.dk
-js-merged @ 2020-03-16 23:43:59
+js-merged @ 2020-06-25 11:53:47
 */
 
 /*seg_tablet_light_include.js*/
@@ -242,7 +242,7 @@ Util.getNodeCookie = function(node, name, _options) {
 	var mem = JSON.parse(u.getCookie("man_mem"));
 	if(mem && mem[ref]) {
 		if(name) {
-			return mem[ref][name] ? mem[ref][name] : "";
+			return (typeof(mem[ref][name]) != "undefined") ? mem[ref][name] : false;
 		}
 		else {
 			return mem[ref];
@@ -1871,15 +1871,20 @@ Util.hasClass = u.hc = function(node, classname) {
 	return false;
 }
 Util.addClass = u.ac = function(node, classname, dom_update) {
-	var regexp = new RegExp("(^|\\s)" + classname + "(\\s|$)");
-	if(typeof(SVGElement) !== "undefined" && node instanceof SVGElement) {
-		if(!regexp.test(node.className.baseVal)) {
-			node.className.baseVal += node.className.baseVal ? " " + classname : classname;
+	var classnames = classname.split(" ");
+	while(classnames.length) {
+		classname = classnames.shift();
+		var regexp = new RegExp("(^|\\s)" + classname + "(\\s|$)");
+		u.bug(classname, regexp.test(node.className));
+		if(typeof(SVGElement) !== "undefined" && node instanceof SVGElement) {
+			if(!regexp.test(node.className.baseVal)) {
+				node.className.baseVal += node.className.baseVal ? " " + classname : classname;
+			}
 		}
-	}
-	else {
-		if(!regexp.test(node.className)) {
-			node.className += node.className ? " " + classname : classname;
+		else {
+			if(!regexp.test(node.className)) {
+				node.className += node.className ? " " + classname : classname;
+			}
 		}
 	}
 	dom_update = (!dom_update) || (node.offsetTop);
@@ -2096,8 +2101,10 @@ if(typeof(document.contains) == "undefined") {
 }
 if(!Element.prototype.matches) {
 	Element.prototype.matches = Element.prototype.matchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.msMatchesSelector || Element.prototype.oMatchesSelector || Element.prototype.webkitMatchesSelector || function(selector) {
-		var matches = (this.parentNode || this.document || this.ownerDocument).querySelectorAll(selector);
-		return u.nodeInList(this, matches);
+		var matches = (this.document || this.ownerDocument).querySelectorAll(selector);
+		var i = matches.length;
+		while (--i >= 0 && matches.item(i) !== this) {}
+		return i > -1;
 	};
 }
 if(document.querySelector == undefined) {
@@ -3632,12 +3639,12 @@ Util.Form = u.f = new function() {
 		var i;
 		var files = this.val();
 		this.field.filelist.innerHTML = "";
-		u.ae(this.field.filelist, "li", {html:this.field.hint ? u.text(this.field.hint) : u.text(this.label), class:"label"})
+		u.ae(this.field.filelist, "li", {"html":this.field.hint ? u.text(this.field.hint) : u.text(this.label), "class":"label"})
 		if(files && files.length) {
 			u.ac(this.field, "has_new_files");
 			var i;
 			for(i = 0; i < files.length; i++) {
-				u.ae(this.field.filelist, "li", {html:files[i].name, class:"new"})
+				u.ae(this.field.filelist, "li", {"html":files[i].name, "class":"new"})
 			}
 			if(this.multiple) {
 				for(i = 0; i < this.field.uploaded_files.length; i++) {
