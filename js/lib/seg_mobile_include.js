@@ -3,3 +3,6 @@ document.write('<script type="text/javascript" src="/js/manipulator/merged/seg_m
 // Project specific
 document.write('<script type="text/javascript" src="/js/lib/u-basics.js"></script>');
 document.write('<script type="text/javascript" src="/js/lib/u-settings.js"></script>');
+
+document.write('<script type="text/javascript" src="/js/lib/mobile/m-page.js"></script>');
+document.write('<script type="text/javascript" src="/js/lib/mobile/m-login.js"></script>');
