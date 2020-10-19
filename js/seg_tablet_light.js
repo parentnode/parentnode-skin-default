@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2020-06-25 14:38:22
+asset-builder @ 2020-10-19 11:37:39
 */
 
 /*seg_tablet_light_include.js*/

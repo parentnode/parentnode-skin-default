@@ -1,6 +1,6 @@
 /*
 MIT license, 2002-2019 parentNode.dk
-asset-builder @ 2020-06-25 14:38:22
+asset-builder @ 2020-10-19 11:15:48
 */
 
 /*seg_mobile_include.css*/
@@ -85,6 +85,7 @@ dd {display: block; vertical-align: top; font-size: 14px; line-height: 1.25em;}
 }
 #header .servicenavigation li.navigation {}
 #header .servicenavigation li.navigation a {}
+#header .servicenavigation li.cart {display: none;}
 #header .servicenavigation li.login {display: none;}
 #header .servicenavigation li.user {display: none;}
 #header .servicenavigation li.admin {display: none;}

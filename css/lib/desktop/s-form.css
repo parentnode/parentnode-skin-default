@@ -39,9 +39,9 @@ div.field input.default ~ .pseudolabel {display: inline-block;}
 div.field.checkbox,
 div.field.boolean {}
 div.field.checkbox input,
-div.field.boolean input {display: inline-block; vertical-align: top; width: auto; height: auto; padding: 0; margin: 1px 10px 0 3px; border: 0;}
+div.field.boolean input {display: inline-block; vertical-align: top; width: auto; height: auto; padding: 0; margin: 2px 10px 0 3px; border: 0;}
 div.field.checkbox label,
-div.field.boolean label {width: auto; display: inline-block; vertical-align: top; font-size: 14px; line-height: 1em;}
+div.field.boolean label {width: auto; display: inline-block; vertical-align: top; font-size: 14px; line-height: 1.2em;}
 
 
 /* RADIO */
@@ -65,17 +65,29 @@ div.field input[type="number"]::-webkit-outer-spin-button {margin: 0;
 	-webkit-appearance: none;
 }
 
+
+div.field.files {padding: 0; margin: 2px 68px 17px;}
+div.field.files input[type="file"] {z-index: 10; opacity: 0; position: absolute; top: 0; left: 0; width: 384px; border: none; height: 60px; margin: 0; padding: 0; height: 100%; position: absolute; top: 0; left: 0;
+	/*
+	IE HACK to resize file input size (currently disabled)
+	font-size: 130px;
+	*/
+}
+div.field.files ul.filelist {border: 3px dashed #dedede; /*width: 378px;*/ text-align: center; display: block; border-radius: 5px; position: relative; padding: 20px 0 !important; margin: 0; overflow: hidden;}
+div.field.files ul.filelist li {box-sizing: border-box; display: block; padding: 2px 0 2px; font-size: 13px; line-height: 17px; text-align: center;}
+div.field.files ul.filelist li.new {font-weight: bold;}
+div.field.files ul.filelist li.label {display: inline-block; padding: 1px 10px 3px; margin: 0 20px 5px; border-radius: 6px; background: #dedede;}
+
 /* FILES */
-div.field.files {border: 3px dashed #dedede; display: block; width: 378px; border-radius: 5px; position: relative; margin: 2px 68px 17px; padding: 0;}
+/*div.field.files {border: 3px dashed #dedede; display: block; width: 378px; border-radius: 5px; position: relative; margin: 2px 68px 17px; padding: 0;}
 div.field.files input[type=file] {opacity: 0; width: 360px; height: 49px; margin: 0; border: 0;}
-/* IE HACK TO CHANGE HEIGHT OF FILE INPUT */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 	div.field.files input[type=file] {font-size: 130px;}
 }
 
 div.field.files label {color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;}
 div.field.files ul.filelist {color: #333333; font-size: 14px; display: block; position: absolute; width: 120px; left: 50%; padding: 1px 4px 3px; margin: 16px 0 0 -60px; text-align: center; border-radius: 6px; background: #dedede;}
-
+*/
 div.field.files.loading label {display: none;}
 div.field.files.loading {background: transparent url(../../../img/gx_loader.gif) no-repeat center center;}
 

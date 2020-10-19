@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.3-parentnode-skin-default Copyright 2019 https://manipulator.parentnode.dk
-js-merged @ 2020-06-25 11:53:45
+js-merged @ 2020-10-19 11:37:07
 */
 
 /*seg_desktop_include.js*/
@@ -1607,6 +1607,7 @@ Util.Form = u.f = new function() {
 		_form._label_style = u.cv(_form, "labelstyle");
 		_form._callback_ready = "ready";
 		_form._callback_submitted = "submitted";
+		_form._callback_submit_failed = "submitFailed";
 		_form._callback_pre_submitted = "preSubmitted";
 		_form._callback_resat = "resat";
 		_form._callback_updated = "updated";
@@ -1625,6 +1626,7 @@ Util.Form = u.f = new function() {
 					case "label_style"              : _form._label_style               = _options[_argument]; break;
 					case "callback_ready"           : _form._callback_ready            = _options[_argument]; break;
 					case "callback_submitted"       : _form._callback_submitted        = _options[_argument]; break;
+					case "callback_submit_failed"   : _form._callback_submit_failed    = _options[_argument]; break;
 					case "callback_pre_submitted"   : _form._callback_pre_submitted    = _options[_argument]; break;
 					case "callback_resat"           : _form._callback_resat            = _options[_argument]; break;
 					case "callback_updated"         : _form._callback_updated          = _options[_argument]; break;
@@ -1869,6 +1871,11 @@ Util.Form = u.f = new function() {
 					}
 				}
 				this.DOMsubmit();
+			}
+		}
+		else {
+			if(fun(this[this._callback_submit_failed])) {
+				this[this._callback_submit_failed](iN);
 			}
 		}
 	}
