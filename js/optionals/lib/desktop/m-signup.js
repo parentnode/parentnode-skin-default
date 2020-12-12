@@ -14,77 +14,79 @@ Util.Modules["signup"] = new function() {
 			// u.bug("scene.ready:", this);
 
 			var form_signup = u.qs("form.signup", this);
-			var place_holder = u.qs("div.articlebody .placeholder.signup", this);
-
-			if(form_signup && place_holder) {
-				place_holder.parentNode.replaceChild(form_signup, place_holder);
-			}
-
 			if(form_signup) {
-				u.f.init(form_signup);
-			}
+				var place_holder = u.qs("div.articlebody .placeholder.signup", this);
 
-			// Ajax janitor signup flow
-			form_signup.submitted = function() {
-				var data = this.getData();
-
-				// submit state
-				this.is_submitting = true; 
-				u.ac(this, "submitting");
-				u.ac(this.actions["signup"], "disabled");
-
-				// signup controller
-				this.response = function(response, request_id) {
-
-					// Success
-					if (u.qs(".scene.verify", response)) {
-						u.bug(response);
-
-						// Update scene
-						scene.replaceScene(response);
-
-						// Get returned actions only
-						var url_actions = this[request_id].response_url.replace(location.protocol + "://" + document.domain, "");
-
-						// Update url
-						u.h.navigate(url_actions, false, true);
-					}
-					// Error
-					else {
-						// Remove submit state if present
-						if (this.is_submitting) {
-							this.is_submitting = false; 
-							u.rc(this, "submitting");
-							u.rc(this.actions["signup"], "disabled");
-						}
-
-						// Remove past error from DOM
-						if (this.error) {
-							this.error.parentNode.removeChild(this.error);
-						}
-						
-						// Append error to scene
-						this.error = scene.showMessage(this, response);
-
-						// Set inital state before animating
-						u.ass(this.error, {
-							transform:"translate3d(0, -20px, 0) rotate3d(-1, 0, 0, 90deg)",
-							opacity:0
-						});
-
-						// Animate error
-						u.a.transition(this.error, "all .6s ease");
-						u.ass(this.error, {
-							transform:"translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg)",
-							opacity:1
-						});
-					}
+				if(form_signup && place_holder) {
+					place_holder.parentNode.replaceChild(form_signup, place_holder);
 				}
 
-				// Post input to action ("save" from signup controller)
-				u.request(this, this.action, {"data":data, "method":"POST"});
-			}
+				if(form_signup) {
+					u.f.init(form_signup);
+				}
 
+				// Ajax janitor signup flow
+				form_signup.submitted = function() {
+					var data = this.getData();
+
+					// submit state
+					this.is_submitting = true; 
+					u.ac(this, "submitting");
+					u.ac(this.actions["signup"], "disabled");
+
+					// signup controller
+					this.response = function(response, request_id) {
+
+						// Success
+						if (u.qs(".scene.verify", response)) {
+							u.bug(response);
+
+							// Update scene
+							scene.replaceScene(response);
+
+							// Get returned actions only
+							var url_actions = this[request_id].response_url.replace(location.protocol + "://" + document.domain, "");
+
+							// Update url
+							u.h.navigate(url_actions, false, true);
+						}
+						// Error
+						else {
+							// Remove submit state if present
+							if (this.is_submitting) {
+								this.is_submitting = false; 
+								u.rc(this, "submitting");
+								u.rc(this.actions["signup"], "disabled");
+							}
+
+							// Remove past error from DOM
+							if (this.error) {
+								this.error.parentNode.removeChild(this.error);
+							}
+						
+							// Append error to scene
+							this.error = scene.showMessage(this, response);
+
+							// Set inital state before animating
+							u.ass(this.error, {
+								transform:"translate3d(0, -20px, 0) rotate3d(-1, 0, 0, 90deg)",
+								opacity:0
+							});
+
+							// Animate error
+							u.a.transition(this.error, "all .6s ease");
+							u.ass(this.error, {
+								transform:"translate3d(0, 0, 0) rotate3d(0, 0, 0, 0deg)",
+								opacity:1
+							});
+						}
+					}
+
+					// Post input to action ("save" from signup controller)
+					u.request(this, this.action, {"data":data, "method":"POST"});
+				}
+
+			}
 
 			u.showScene(this);
 
