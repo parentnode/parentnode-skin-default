@@ -97,7 +97,7 @@ Util.parentNode = u.pn = function(node, _options) {
 // excludes nodes matched by exclude=css selector
 // includes nodes matched by include=css selector
 Util.previousSibling = u.ps = function(node, _options) {
-//	u.bug("ps:" + u.nodeId(node));
+	// u.bug("ps:", node);
 
 	var exclude = "";
 	var include = "";
@@ -139,7 +139,7 @@ Util.previousSibling = u.ps = function(node, _options) {
 // excludes nodes matched by exclude=css selector
 // includes nodes matched by include=css selector
 Util.nextSibling = u.ns = function(node, _options) {
-//	u.bug("ns:" + u.nodeId(node));
+	// u.bug("ns:", node);
 
 	var exclude = "";
 	var include = "";
@@ -164,9 +164,8 @@ Util.nextSibling = u.ns = function(node, _options) {
 	var exclude_nodes = exclude ? u.qsa(exclude, node.parentNode) : [];
 	var include_nodes = include ? u.qsa(include, node.parentNode) : [];
 
-	// get previousSibling using standard JS
+	// get nextSibling using standard JS
 	node = node.nextSibling;
-
 	// compare and keep iterating if not valid match
 	// ignore comment and text nodes
 	while(node && (node.nodeType == 3 || node.nodeType == 8 || (exclude && (u.inNodeList(node, exclude_nodes))) || (include && (!u.inNodeList(node, include_nodes))))) {
@@ -358,8 +357,14 @@ Util.clickableElement = u.ce = function(node, _options) {
 		// only set url, if a has href attribute
 		if(a.getAttribute("href") !== null) {
 			node.url = a.href;
-			a.removeAttribute("href");
-
+			a.url = a.href;
+			// a.href = node.url;
+			// Experimental – keeps hrefs for better accesibility (user can see/copy links)
+			// a.removeAttribute("href");
+			// And then prevent href from hijacking click
+			node.onclick = function(event) {
+				event.preventDefault();
+			}
 			node._a = a;
 		}
 	}
@@ -404,7 +409,7 @@ Util.clickableElement = u.ce = function(node, _options) {
 
 // Get JSS class value
 Util.classVar = u.cv = function(node, var_name) {
-//	u.bug(u.nodeId(node) + ":" + node.className);
+	// u.bug(node, var_name, node.className);
 	try {
 		var regexp = new RegExp("(\^| )" + var_name + ":[?=\\w/\\#~:.,?+=?&%@!\\-]*");
 		var match = node.className.match(regexp);
@@ -661,10 +666,10 @@ u.elementMatches = u.em = function(node, selector) {
 /**
 * FOR CONSIDERATION
 */
-Util.insertAfter = u.ia = function(after_node, insert_node) {
+Util.insertAfter = u.ia = function(insert_node, after_node) {
 	var next_node = u.ns(after_node);
 	if(next_node) {
-		after_node.parentNode.insertBefore(next_node, insert_node);
+		after_node.parentNode.insertBefore(insert_node, next_node);
 	}
 	else {
 		after_node.parentNode.appendChild(insert_node);

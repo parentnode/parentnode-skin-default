@@ -5,51 +5,63 @@ Util.Modules["pagination"] = new function() {
 			u.ae(document.body, pagination);
 			u.as(pagination, "transform", "none");
 		
-			var next = u.qs(".next", pagination);
-			if(next) {
-				u.addNextArrow(next);
-				next.a = u.qs("a", next);
-				u.ce(next, {"type":"link"});
-				u.e.hover(next);
-				next.over = function() {
+			pagination.next = u.qs(".next", pagination);
+			if(pagination.next) {
+				u.addNextArrow(pagination.next);
+				pagination.next.a = u.qs("a", pagination.next);
+				u.ce(pagination.next, {"type":"link"});
+				u.e.hover(pagination.next);
+				pagination.next.over = function() {
 					u.ass(this, {
+						"transition": "width 0.3s ease",
 						"width":this.a.offsetWidth+"px"
 					});
 					u.ass(this.a, {
+						"transition": "opacity 0.2s ease 0.2s",
 						"opacity":1
 					});
 				}
-				next.out = function() {
+				pagination.next.out = function() {
 					u.ass(this.a, {
+						"transition": "opacity 0.2s ease",
 						"opacity":0
 					});
 					u.ass(this, {
+						"transition": "width 0.3s ease 0.2s",
 						"width":0
 					});
 				}
 			}
-			var prev = u.qs(".previous", pagination);
-			if(prev) {
-				u.addPreviousArrow(prev);
-				prev.a = u.qs("a", prev);
-				u.ce(prev, {"type":"link"});
-				u.e.hover(prev);
-				prev.over = function() {
+			pagination.prev = u.qs(".previous", pagination);
+			if(pagination.prev) {
+				u.addPreviousArrow(pagination.prev);
+				pagination.prev.a = u.qs("a", pagination.prev);
+				u.ce(pagination.prev, {"type":"link"});
+				u.e.hover(pagination.prev);
+				pagination.prev.over = function() {
 					u.ass(this, {
+						"transition": "width 0.3s ease",
 						"width":this.a.offsetWidth+"px"
 					});
 					u.ass(this.a, {
+						"transition": "opacity 0.2s ease 0.2s",
 						"opacity":1
 					});
 				}
-				prev.out = function() {
+				pagination.prev.out = function() {
 					u.ass(this.a, {
+						"transition": "opacity 0.2s ease",
 						"opacity":0
 					});
 					u.ass(this, {
+						"transition": "width 0.3s ease 0.2s",
 						"width":0
 					});
 				}
+			}
+			
+			pagination.destroy = function() {
+				document.body.removeChild(this);
 			}
 		}
 	}
