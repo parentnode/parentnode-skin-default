@@ -19,6 +19,11 @@ Util.Modules["pagination"] = new function() {
 				prev.a = u.qs("a", prev);
 				u.ce(prev, {"type":"link"});
 			}
+
+		}
+
+		pagination.destroy = function() {
+			document.body.removeChild(this);
 		}
 
 	}
