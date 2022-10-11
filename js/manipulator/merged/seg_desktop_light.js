@@ -1,6 +1,6 @@
 /*
 Manipulator v0.9.3-parentnode-skin-default Copyright 2019 https://manipulator.parentnode.dk
-js-merged @ 2021-11-30 23:38:13
+js-merged @ 2022-10-11 21:28:02
 */
 
 /*seg_desktop_light_include.js*/
@@ -177,7 +177,7 @@ Util.saveCookie = function(name, value, _options) {
 		return;
 	}
 	if(expires === false) {
-		expires = ";expires=Mon, 04-Apr-2020 05:00:00 GMT";
+		expires = ";expires="+(new Date((new Date()).getTime() + (1000*60*60*24*365))).toGMTString();
 	}
 	else if(str(expires)) {
 		expires = ";expires="+expires;
@@ -1222,13 +1222,13 @@ u.e.addWindowStartEvent = function(node, action) {
 			}
 		}
 	};
-	eval('window["_OnWindowEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowStartEvent_'+ id + '"].callback(event);}');
-	u.e.addEvent(window, type, window["_OnWindowStartEvent_" + id].eventCallback);
+	eval('window["_OnWindowStartEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowStartEvent_'+ id + '"].callback(event);}');
+	u.e.addStartEvent(window, window["_OnWindowStartEvent_" + id].eventCallback);
 	return id;
 }
 u.e.removeWindowStartEvent = function(id) {
 	if(window["_OnWindowStartEvent_" + id]) {
-		u.e.removeEvent(window, window["_OnWindowStartEvent_"+id].type, window["_OnWindowStartEvent_"+id].eventCallback);
+		u.e.removeStartEvent(window, window["_OnWindowStartEvent_"+id].eventCallback);
 		delete window["_OnWindowStartEvent_"+id];
 	}
 }
@@ -1248,12 +1248,12 @@ u.e.addWindowMoveEvent = function(node, action) {
 		}
 	};
 	eval('window["_OnWindowMoveEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowMoveEvent_'+ id + '"].callback(event);}');
-	u.e.addEvent(window, type, window["_OnWindowMoveEvent_" + id].eventCallback);
+	u.e.addMoveEvent(window, type, window["_OnWindowMoveEvent_" + id].eventCallback);
 	return id;
 }
 u.e.removeWindowMoveEvent = function(id) {
 	if(window["_OnWindowMoveEvent_" + id]) {
-		u.e.removeEvent(window, window["_OnWindowMoveEvent_"+id].type, window["_OnWindowMoveEvent_"+id].eventCallback);
+		u.e.removeMoveEvent(window, window["_OnWindowMoveEvent_"+id].eventCallback);
 		delete window["_OnWindowMoveEvent_"+id];
 	}
 }

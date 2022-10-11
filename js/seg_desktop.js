@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2020-12-12 12:42:07
+asset-builder @ 2022-10-11 21:28:56
 */
 
 /*seg_desktop_include.js*/
@@ -352,6 +352,7 @@ Util.Animation = u.a = new function() {
 Util.saveCookie = function(name, value, _options) {
 	var expires = true;
 	var path = false;
+	var samesite = "lax";
 	var force = false;
 	if(obj(_options)) {
 		var _argument;
@@ -359,6 +360,7 @@ Util.saveCookie = function(name, value, _options) {
 			switch(_argument) {
 				case "expires"	: expires	= _options[_argument]; break;
 				case "path"		: path		= _options[_argument]; break;
+				case "samesite"	: samesite	= _options[_argument]; break;
 				case "force"	: force		= _options[_argument]; break;
 			}
 		}
@@ -373,7 +375,7 @@ Util.saveCookie = function(name, value, _options) {
 		return;
 	}
 	if(expires === false) {
-		expires = ";expires=Mon, 04-Apr-2020 05:00:00 GMT";
+		expires = ";expires="+(new Date((new Date()).getTime() + (1000*60*60*24*365))).toGMTString();
 	}
 	else if(str(expires)) {
 		expires = ";expires="+expires;
@@ -387,7 +389,8 @@ Util.saveCookie = function(name, value, _options) {
 	else {
 		path = "";
 	}
-	document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + path + expires;
+	samesite = ";samesite="+samesite;
+	document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + path + expires + samesite;
 }
 Util.getCookie = function(name) {
 	var matches;
@@ -779,7 +782,10 @@ Util.clickableElement = u.ce = function(node, _options) {
 		u.ac(node, "link");
 		if(a.getAttribute("href") !== null) {
 			node.url = a.href;
-			a.removeAttribute("href");
+			a.url = a.href;
+			node.onclick = function(event) {
+				event.preventDefault();
+			}
 			node._a = a;
 		}
 	}
@@ -943,10 +949,10 @@ u.containsOrIs = function(scope, node) {
 u.elementMatches = u.em = function(node, selector) {
 	return node.matches(selector);
 }
-Util.insertAfter = u.ia = function(after_node, insert_node) {
+Util.insertAfter = u.ia = function(insert_node, after_node) {
 	var next_node = u.ns(after_node);
 	if(next_node) {
-		after_node.parentNode.insertBefore(next_node, insert_node);
+		after_node.parentNode.insertBefore(insert_node, next_node);
 	}
 	else {
 		after_node.parentNode.appendChild(insert_node);
@@ -1276,7 +1282,7 @@ Util.Events = u.e = new function() {
 			}
 			if(this.e_drag || this.e_swipe) {
 				u.e.addMoveEvent(this, u.e._pick);
-				u.e.addEndEvent(this, u.e._cancelPick);
+				this.e_cancelPick = u.e.addWindowEndEvent(this, u.e._cancelPick);
 			}
 			if(this.e_scroll) {
 				u.e.addMoveEvent(this, u.e._scrollStart);
@@ -1328,7 +1334,7 @@ Util.Events = u.e = new function() {
 		u.e.addStartEvent(node, this._inputStart);
 	}
 	this._held = function(event) {
-		this.e_hold_options.event = event;
+		this.e_hold_options.event = this.e_hold_options.event || "hold";
 		u.stats.event(this, this.e_hold_options);
 		u.e.resetNestedEvents(this);
 		if(fun(this.held)) {
@@ -1343,7 +1349,7 @@ Util.Events = u.e = new function() {
 	}
 	this._clicked = function(event) {
 		if(this.e_click_options) {
-			this.e_click_options.event = event;
+			this.e_click_options.event = this.e_click_options.event || "click";
 			u.stats.event(this, this.e_click_options);
 		}
 		u.e.resetNestedEvents(this);
@@ -1361,7 +1367,7 @@ Util.Events = u.e = new function() {
 	this._rightclicked = function(event) {
 		u.bug("_rightclicked:", this);
 		if(this.e_rightclick_options) {
-			this.e_rightclick_options.event = event;
+			this.e_rightclick_options.event = this.e_rightclick_options.event || "rightclick";
 			u.stats.event(this, this.e_rightclick_options);
 		}
 		u.e.resetNestedEvents(this);
@@ -1377,7 +1383,7 @@ Util.Events = u.e = new function() {
 	}
 	this._dblclicked = function(event) {
 		if(u.t.valid(this.t_clicked) && event) {
-			this.e_dblclick_options.event = event;
+			this.e_dblclick_options.event = this.e_dblclick_options.event || "doubleclick";
 			u.stats.event(this, this.e_dblclick_options);
 			u.e.resetNestedEvents(this);
 			if(fun(this.dblclicked)) {
@@ -1459,9 +1465,22 @@ u.e.addDOMReadyEvent = function(action) {
 		}
 		else {
 			var id = u.randomString();
-			window["DOMReady_" + id] = action;
-			eval('window["_DOMReady_' + id + '"] = function() {window["DOMReady_'+id+'"](); u.e.removeEvent(document, "DOMContentLoaded", window["_DOMReady_' + id + '"])}');
-			u.e.addEvent(document, "DOMContentLoaded", window["_DOMReady_" + id]);
+			window["_DOMReady_" + id] = {
+				id: id,
+				action: action,
+				callback: function(event) {
+					if(fun(this.action)) {
+						this.action.bind(window)(event);
+					}
+					else if(fun(this[this.action])){
+						this[this.action].bind(window)(event);
+					}
+ 					u.e.removeEvent(document, "DOMContentLoaded", window["_DOMReady_" + this.id].eventCallback); 
+					delete window["_DOMReady_" + this.id];
+				}
+			}
+			eval('window["_DOMReady_' + id + '"].eventCallback = function() {window["_DOMReady_'+id+'"].callback(event);}');
+			u.e.addEvent(document, "DOMContentLoaded", window["_DOMReady_" + id].eventCallback);
 		}
 	}
 	else {
@@ -1474,81 +1493,124 @@ u.e.addOnloadEvent = function(action) {
 	}
 	else {
 		var id = u.randomString();
-		window["Onload_" + id] = action;
-		eval('window["_Onload_' + id + '"] = function() {window["Onload_'+id+'"](); u.e.removeEvent(window, "load", window["_Onload_' + id + '"])}');
-		u.e.addEvent(window, "load", window["_Onload_" + id]);
+		window["_Onload_" + id] = {
+			id: id,
+			action: action,
+			callback: function(event) {
+				if(fun(this.action)) {
+					this.action.bind(window)(event);
+				}
+				else if(fun(this[this.action])){
+					this[this.action].bind(window)(event);
+				}
+				u.e.removeEvent(document, "load", window["_Onload_" + this.id].eventCallback); 
+				delete window["_Onload_" + this.id];
+			}
+		}
+		eval('window["_Onload_' + id + '"].eventCallback = function() {u.bug("load");window["_Onload_'+id+'"].callback(event);}');
+		u.e.addEvent(window, "load", window["_Onload_" + id].eventCallback);
 	}
 }
 u.e.addWindowEvent = function(node, type, action) {
 	var id = u.randomString();
-	window["_OnWindowEvent_node_"+ id] = node;
-	if(fun(action)) {
-		eval('window["_OnWindowEvent_callback_' + id + '"] = function(event) {window["_OnWindowEvent_node_'+ id + '"]._OnWindowEvent_callback_'+id+' = '+action+'; window["_OnWindowEvent_node_'+ id + '"]._OnWindowEvent_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_OnWindowEvent_callback_' + id + '"] = function(event) {if(fun(window["_OnWindowEvent_node_'+ id + '"]["'+action+'"])) {window["_OnWindowEvent_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEvent(window, type, window["_OnWindowEvent_callback_" + id]);
+	window["_OnWindowEvent_"+ id] = {
+		id: id,
+		node: node,
+		type: type,
+		action: action,
+		callback: function(event) {
+			if(fun(this.action)) {
+				this.action.bind(this.node)(event);
+			}
+			else if(fun(this[this.action])){
+				this[this.action](event);
+			}
+		}
+	};
+	eval('window["_OnWindowEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowEvent_'+ id + '"].callback(event);}');
+	u.e.addEvent(window, type, window["_OnWindowEvent_" + id].eventCallback);
 	return id;
 }
-u.e.removeWindowEvent = function(node, type, id) {
-	u.e.removeEvent(window, type, window["_OnWindowEvent_callback_"+id]);
-	delete window["_OnWindowEvent_node_"+id];
-	delete window["_OnWindowEvent_callback_"+id];
+u.e.removeWindowEvent = function(id) {
+	if(window["_OnWindowEvent_" + id]) {
+		u.e.removeEvent(window, window["_OnWindowEvent_"+id].type, window["_OnWindowEvent_"+id].eventCallback);
+		delete window["_OnWindowEvent_"+id];
+	}
 }
 u.e.addWindowStartEvent = function(node, action) {
 	var id = u.randomString();
-	window["_Onstart_node_"+ id] = node;
-	if(fun(action)) {
-		eval('window["_Onstart_callback_' + id + '"] = function(event) {window["_Onstart_node_'+ id + '"]._Onstart_callback_'+id+' = '+action+'; window["_Onstart_node_'+ id + '"]._Onstart_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onstart_callback_' + id + '"] = function(event) {if(fun(window["_Onstart_node_'+ id + '"]["'+action+'"])) {window["_Onstart_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addStartEvent(window, window["_Onstart_callback_" + id]);
+	window["_OnWindowStartEvent_"+ id] = {
+		id: id,
+		node: node,
+		action: action,
+		callback: function(event) {
+			if(fun(this.action)) {
+				this.action.bind(this.node)(event);
+			}
+			else if(fun(this[this.action])){
+				this[this.action](event);
+			}
+		}
+	};
+	eval('window["_OnWindowStartEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowStartEvent_'+ id + '"].callback(event);}');
+	u.e.addStartEvent(window, window["_OnWindowStartEvent_" + id].eventCallback);
 	return id;
 }
-u.e.removeWindowStartEvent = function(node, id) {
-	u.e.removeStartEvent(window, window["_Onstart_callback_"+id]);
-	delete window["_Onstart_node_"+id]["_Onstart_callback_"+id];
-	delete window["_Onstart_node_"+id];
-	delete window["_Onstart_callback_"+id];
+u.e.removeWindowStartEvent = function(id) {
+	if(window["_OnWindowStartEvent_" + id]) {
+		u.e.removeStartEvent(window, window["_OnWindowStartEvent_"+id].eventCallback);
+		delete window["_OnWindowStartEvent_"+id];
+	}
 }
 u.e.addWindowMoveEvent = function(node, action) {
 	var id = u.randomString();
-	window["_Onmove_node_"+ id] = node;
-	if(fun(action)) {
-		eval('window["_Onmove_callback_' + id + '"] = function(event) {window["_Onmove_node_'+ id + '"]._Onmove_callback_'+id+' = '+action+'; window["_Onmove_node_'+ id + '"]._Onmove_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onmove_callback_' + id + '"] = function(event) {if(fun(window["_Onmove_node_'+ id + '"]["'+action+'"])) {window["_Onmove_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addMoveEvent(window, window["_Onmove_callback_" + id]);
+	window["_OnWindowMoveEvent_"+ id] = {
+		id: id,
+		node: node,
+		action: action,
+		callback: function(event) {
+			if(fun(this.action)) {
+				this.action.bind(this.node)(event);
+			}
+			else if(fun(this[this.action])){
+				this[this.action](event);
+			}
+		}
+	};
+	eval('window["_OnWindowMoveEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowMoveEvent_'+ id + '"].callback(event);}');
+	u.e.addMoveEvent(window, type, window["_OnWindowMoveEvent_" + id].eventCallback);
 	return id;
 }
-u.e.removeWindowMoveEvent = function(node, id) {
-	u.e.removeMoveEvent(window, window["_Onmove_callback_" + id]);
-	delete window["_Onmove_node_"+ id]["_Onmove_callback_"+id];
-	delete window["_Onmove_node_"+ id];
-	delete window["_Onmove_callback_"+ id];
+u.e.removeWindowMoveEvent = function(id) {
+	if(window["_OnWindowMoveEvent_" + id]) {
+		u.e.removeMoveEvent(window, window["_OnWindowMoveEvent_"+id].eventCallback);
+		delete window["_OnWindowMoveEvent_"+id];
+	}
 }
 u.e.addWindowEndEvent = function(node, action) {
 	var id = u.randomString();
-	window["_Onend_node_"+ id] = node;
-	if(fun(action)) {
-		eval('window["_Onend_callback_' + id + '"] = function(event) {window["_Onend_node_'+ id + '"]._Onend_callback_'+id+' = '+action+'; window["_Onend_node_'+ id + '"]._Onend_callback_'+id+'(event);};');
-	} 
-	else {
-		eval('window["_Onend_callback_' + id + '"] = function(event) {if(fun(window["_Onend_node_'+ id + '"]["'+action+'"])) {window["_Onend_node_'+id+'"]["'+action+'"](event);}};');
-	}
-	u.e.addEndEvent(window, window["_Onend_callback_" + id]);
+	window["_OnWindowEndEvent_"+ id] = {
+		id: id,
+		node: node,
+		action: action,
+		callback: function(event) {
+			if(fun(this.action)) {
+				this.action.bind(this.node)(event);
+			}
+			else if(fun(this[this.action])){
+				this[this.action](event);
+			}
+		}
+	};
+	eval('window["_OnWindowEndEvent_' + id + '"].eventCallback = function(event) {window["_OnWindowEndEvent_'+ id + '"].callback(event);}');
+	u.e.addEndEvent(window, window["_OnWindowEndEvent_" + id].eventCallback);
 	return id;
 }
-u.e.removeWindowEndEvent = function(node, id) {
-	u.e.removeEndEvent(window, window["_Onend_callback_" + id]);
-	delete window["_Onend_node_"+ id]["_Onend_callback_"+id];
-	delete window["_Onend_node_"+ id];
-	delete window["_Onend_callback_"+ id];
+u.e.removeWindowEndEvent = function(id) {
+	if(window["_OnWindowEndEvent_" + id]) {
+		u.e.removeEndEvent(window, window["_OnWindowEndEvent_" + id].eventCallback);
+		delete window["_OnWindowEndEvent_"+id];
+	}
 }
 Util.Form = u.f = new function() {
 	this.customInit = {};
@@ -1717,6 +1779,32 @@ Util.Form = u.f = new function() {
 				u.e.addEvent(field.input, "change", this._changed);
 				this.activateInput(field.input);
 			}
+			else if(u.hc(field, "json")) {
+				field.type = "json";
+				field.input = u.qs("textarea", field);
+				field.input._form = _form;
+				field.input.label = u.qs("label[for='"+field.input.id+"']", field);
+				field.input.field = field;
+				field.input.val = this._value;
+				if(u.hc(field, "autoexpand")) {
+					u.ass(field.input, {
+						"overflow": "hidden"
+					});
+					field.input.setHeight = function() {
+						u.ass(this, {
+							height: "auto"
+						});
+						u.ass(this, {
+							height: (this.scrollHeight) + "px"
+						});
+					}
+					u.e.addEvent(field.input, "input", field.input.setHeight);
+					field.input.setHeight();
+				}
+				u.e.addEvent(field.input, "keyup", this._updated);
+				u.e.addEvent(field.input, "change", this._changed);
+				this.activateInput(field.input);
+			}
 			else if(u.hc(field, "select")) {
 				field.type = "select";
 				field.input = u.qs("select", field);
@@ -1775,8 +1863,6 @@ Util.Form = u.f = new function() {
 				field.uploaded_files = u.qsa("li.uploaded", field.filelist);
 				this._update_filelist.bind(field.input)();
 				u.e.addEvent(field.input, "change", this._update_filelist);
-				u.e.addEvent(field.input, "change", this._updated);
-				u.e.addEvent(field.input, "change", this._changed);
 				if(u.e.event_support != "touch") {
 					u.e.addEvent(field.input, "dragenter", this._focus);
 					u.e.addEvent(field.input, "dragleave", this._blur);
@@ -1794,9 +1880,20 @@ Util.Form = u.f = new function() {
 				this.validate(field.input);
 			}
 		}
+		if(field.virtual_input && !field.virtual_input.tabindex) {
+			field.virtual_input.setAttribute("tabindex", 0);
+			field.input.setAttribute("tabindex", 0);
+		}
+		else if(field.input && field.input.getAttribute("readonly")) {
+			field.input.setAttribute("tabindex", -1);
+		}
+		else if(field.input && !field.input.tabindex) {
+			field.input.setAttribute("tabindex", 0);
+		}
 	}
 	this.initButton = function(_form, action) {
 		action._form = _form;
+		action.setAttribute("tabindex", 0);
 		this.buttonOnEnter(action);
 		this.activateButton(action);
 	}
@@ -1942,6 +2039,7 @@ Util.Form = u.f = new function() {
 		return "";
 	}
 	this._changed = function(event) {
+		u.f.positionHint(this.field);
 		if(fun(this[this._form._callback_changed])) {
 			this[this._form._callback_changed](this);
 		}
@@ -1978,12 +2076,50 @@ Util.Form = u.f = new function() {
 		var i;
 		var files = this.val();
 		this.field.filelist.innerHTML = "";
-		u.ae(this.field.filelist, "li", {html:this.field.hint ? u.text(this.field.hint) : u.text(this.label), class:"label"})
+		this.e_updated = event;
+		u.ae(this.field.filelist, "li", {
+			"html":this.field.hint ? u.text(this.field.hint) : u.text(this.label), class:"label",
+		});
 		if(files && files.length) {
 			u.ac(this.field, "has_new_files");
-			var i;
+			var i, file, li_file;
+			this.field.filelist.load_queue = 0;
 			for(i = 0; i < files.length; i++) {
-				u.ae(this.field.filelist, "li", {html:files[i].name, class:"new"})
+				file = files[i];
+				li_file = u.ae(this.field.filelist, "li", {"html":file.name, "class":"new format:"+file.name.substring(file.name.lastIndexOf(".")+1).toLowerCase()})
+				li_file.input = this;
+				if(file.type.match(/image/)) {
+					li_file.image = new Image();
+					li_file.image.li = li_file;
+					u.ac(li_file, "loading");
+					this.field.filelist.load_queue++;
+					li_file.image.onload = function() {
+						u.ac(this.li, "width:"+this.width);
+						u.ac(this.li, "height:"+this.height);
+						u.rc(this.li, "loading");
+						this.li.input.field.filelist.load_queue--;
+						delete this.li.image;
+						u.f.filelistUpdated(this.li.input);
+					}
+					li_file.image.src = URL.createObjectURL(file);
+				}
+				else if(file.type.match(/video/)) {
+					li_file.video = document.createElement("video");
+					li_file.video.preload = "metadata";
+					li_file.video.li = li_file;
+					u.ac(li_file, "loading");
+					this.field.filelist.load_queue++;
+					li_file.video.onloadedmetadata = function() {
+						u.bug("loaded", this);
+						u.ac(this.li, "width:"+this.videoWidth);
+						u.ac(this.li, "height:"+this.videoHeight);
+						u.rc(this.li, "loading");
+						this.li.input.field.filelist.load_queue--;
+						delete this.li.video;
+						u.f.filelistUpdated(this.li.input);
+					}
+					li_file.video.src = URL.createObjectURL(file);
+				}
 			}
 			if(this.multiple) {
 				for(i = 0; i < this.field.uploaded_files.length; i++) {
@@ -1993,6 +2129,7 @@ Util.Form = u.f = new function() {
 			else {
 				this.field.uploaded_files = [];
 			}
+			u.f.filelistUpdated(this);
 		}
 		else if(this.field.uploaded_files && this.field.uploaded_files.length) {
 			u.rc(this.field, "has_new_files");
@@ -2003,6 +2140,57 @@ Util.Form = u.f = new function() {
 		}
 		else {
 			u.rc(this.field, "has_new_files");
+		}
+	}
+	this.filelistUpdated = function(input) {
+		if(input.field.filelist.load_queue === 0) {
+			this._changed.bind(input.field.input)(input.e_updated);
+			this._updated.bind(input.field.input)(input.e_updated);
+			delete input.e_updated;
+		}
+	}
+	this.updateFilelistStatus = function(form, response) {
+		if(form && form.inputs && response && response.cms_status == "success" && response.cms_object && response.cms_object.mediae) {
+			var mediae = JSON.parse(JSON.stringify(response.cms_object.mediae));
+			var filelists = u.qsa("div.field.files ul.filelist", form);
+			var i, j, k, filelist, old_files, old_file, new_files, new_files;
+			for(i = 0; i < filelists.length; i++) {
+				filelist = filelists[i];
+				new_files = u.qsa("li.new", filelist);
+				if(new_files.length) {
+					old_files = u.qsa("li.uploaded", filelist);
+					if(old_files.length) {
+						for(j in mediae) {
+							media = mediae[j];
+							if(media.variant.match("^" + filelist.field.input.name.replace(/\[\]$/, "") + "(\-|$)")) {
+								for(k = 0; k < old_files.length; k++) {
+									old_file = old_files[k];
+									if(u.cv(old_file, "media_id") == media.id) {
+										delete mediae[j];
+									}
+								}
+							}
+						}
+					}
+					if(Object.keys(mediae).length) {
+						for(j in mediae) {
+							media = mediae[j];
+							if(media.variant.match("^"+filelist.field.input.name.replace(/\[\]$/, "")+"(\-|$)")) {
+								for(k = 0; k < new_files.length; k++) {
+									new_file = new_files[k];
+									if(u.text(new_file) == media.name || u.text(new_file)+".zip" == media.name) {
+										new_file.innerHTML = media.name;
+										u.rc(new_file, "new");
+										u.ac(new_file, "uploaded media_id:"+media.id+" variant:"+media.variant+" format:"+media.format+" width:"+media.width+" height:"+media.height);
+										delete mediae[j];
+									}
+								}
+							}
+						}
+					}
+				}
+				filelist.field.uploaded_files = u.qsa("li.uploaded", filelist);
+			}
 		}
 	}
 	this._mouseenter = function(event) {
@@ -2178,55 +2366,17 @@ Util.Form = u.f = new function() {
 					return;
 				}
 			}
-			var input_middle = field.input.offsetTop + (field.input.offsetHeight / 2);
-			var help_top = input_middle - field.help.offsetHeight / 2;
+			var input_middle, help_top;
+			if(field.virtual_input) {
+				input_middle = field.virtual_input.parentNode.offsetTop + (field.virtual_input.parentNode.offsetHeight / 2);
+			}
+			else {
+				input_middle = field.input.offsetTop + (field.input.offsetHeight / 2);
+			}
+			help_top = input_middle - field.help.offsetHeight / 2;
 			u.ass(field.help, {
 				"top": help_top + "px"
 			});
-		}
-	}
-	this.updateFilelistStatus = function(form, response) {
-		if(form && form.inputs && response && response.cms_status == "success" && response.cms_object && response.cms_object.mediae) {
-			var mediae = JSON.parse(JSON.stringify(response.cms_object.mediae));
-			var filelists = u.qsa("div.field.files ul.filelist", form);
-			var i, j, k, filelist, old_files, old_file, new_files, new_files;
-			for(i = 0; i < filelists.length; i++) {
-				filelist = filelists[i];
-				new_files = u.qsa("li.new", filelist);
-				if(new_files.length) {
-					old_files = u.qsa("li.uploaded", filelist);
-					if(old_files.length) {
-						for(j in mediae) {
-							media = mediae[j];
-							if(media.variant.match("^" + filelist.field.input.name.replace(/\[\]$/, "") + "(\-|$)")) {
-								for(k = 0; k < old_files.length; k++) {
-									old_file = old_files[k];
-									if(u.cv(old_file, "media_id") == media.id) {
-										delete mediae[j];
-									}
-								}
-							}
-						}
-					}
-					if(Object.keys(mediae).length) {
-						for(j in mediae) {
-							media = mediae[j];
-							if(media.variant.match("^"+filelist.field.input.name.replace(/\[\]$/, "")+"(\-|$)")) {
-								for(k = 0; k < new_files.length; k++) {
-									new_file = new_files[k];
-									if(u.text(new_file) == media.name || u.text(new_file)+".zip" == media.name) {
-										new_file.innerHTML = media.name;
-										u.rc(new_file, "new");
-										u.ac(new_file, "uploaded media_id:"+media.id+" variant:"+media.variant+" format:"+media.format+" width:"+media.width+" height:"+media.height);
-										delete mediae[j];
-									}
-								}
-							}
-						}
-					}
-				}
-				filelist.field.uploaded_files = u.qsa("li.uploaded", filelist);
-			}
 		}
 	}
 	this.inputHasError = function(iN) {
@@ -2277,6 +2427,7 @@ Util.Form = u.f = new function() {
 			delete iN.is_correct;
 			this.updateInputValidationState(iN);
 		}
+		this.positionHint(iN.field);
 	}
 	this.updateInputValidationState = function(iN) {
 		if(iN.has_error && fun(iN[iN._form._callback_validation_failed])) {
@@ -2468,6 +2619,30 @@ Util.Form = u.f = new function() {
 					this.inputHasError(iN);
 				}
 			}
+			else if(u.hc(iN.field, "json")) {
+				min = Number(u.cv(iN.field, "min"));
+				max = Number(u.cv(iN.field, "max"));
+				min = min ? min : 2;
+				max = max ? max : 10000000;
+				if(
+					iN.val().length >= min && 
+					iN.val().length <= max && 
+					(function(value) {
+						try {
+							JSON.parse(value);
+							return true;
+						}
+						catch(exception) {
+							return false;
+						}
+					}(iN.val()))
+				) {
+					this.inputIsCorrect(iN);
+				}
+				else {
+					this.inputHasError(iN);
+				}
+			}
 			else if(u.hc(iN.field, "date")) {
 				min = u.cv(iN.field, "min");
 				max = u.cv(iN.field, "max");
@@ -2512,21 +2687,35 @@ Util.Form = u.f = new function() {
 				min = min ? min : 1;
 				max = max ? max : 10000000;
 				pattern = iN.getAttribute("accept");
-				var i, value = iN.val(), files = [];
-				if(iN.field.uploaded_files && iN.field.uploaded_files.length) {
-					for(i = 0; i < iN.field.uploaded_files.length; i++) {
-						files.push("." + u.cv(iN.field.uploaded_files[i], "format").toLowerCase());
-					}
+				if(pattern) {
+					pattern = pattern.split(",");
 				}
-				if(value && value.length) {
-					for(i = 0; i < value.length; i++) {
-						files.push(value[i].name.substring(value[i].name.lastIndexOf(".")).toLowerCase());
+				var i, files = Array.prototype.slice.call(u.qsa("li:not(.label)", iN.field.filelist));
+				var min_width = Number(iN.getAttribute("data-min-width"));
+				var min_height = Number(iN.getAttribute("data-min-height"));
+				var allowed_sizes = iN.getAttribute("data-allowed-sizes");
+				if(allowed_sizes) {
+					allowed_sizes = allowed_sizes.split(",");
+				}
+				var allowed_proportions = iN.getAttribute("data-allowed-proportions");
+				if(allowed_proportions) {
+					allowed_proportions = allowed_proportions.split(",");
+					for(i = 0; i < allowed_proportions.length; i++) {
+						allowed_proportions[i] = u.round(eval(allowed_proportions[i]), 4);
 					}
 				}
 				if(
 					(files.length >= min && files.length <= max)
 					&&
-					(!pattern || files.every(function(v) {return pattern.split(",").indexOf(v) !== -1}))
+					(!pattern || files.every(function(node) {return pattern.indexOf("."+u.cv(node, "format")) !== -1}))
+					&&
+					(!min_width || files.every(function(node) {return u.cv(node, "width") >= min_width}))
+					&&
+					(!min_height || files.every(function(node) {return u.cv(node, "height") >= min_height}))
+					&&
+					(!allowed_sizes || files.every(function(node) {return allowed_sizes.indexOf(u.cv(node, "width")+"x"+u.cv(node, "height")) !== -1}))
+					&&
+					(!allowed_proportions || files.every(function(node) {return allowed_proportions.indexOf(u.round(Number(u.cv(node, "width"))/Number(u.cv(node, "height")), 4)) !== -1}))
 				) {
 					this.inputIsCorrect(iN);
 				}
@@ -2698,6 +2887,7 @@ Util.Form.customLabelStyle["inject"] = function(iN) {
 		iN.default_value = u.text(iN.label);
 		u.e.addEvent(iN, "focus", u.f._changed_state);
 		u.e.addEvent(iN, "blur", u.f._changed_state);
+		u.e.addEvent(iN, "change", u.f._changed_state);
 		if(iN.type.match(/number|integer|password|datetime|date/)) {
 			iN.pseudolabel = u.ae(iN.parentNode, "span", {"class":"pseudolabel", "html":iN.default_value});
 			iN.pseudolabel.iN = iN;
@@ -2718,6 +2908,9 @@ u.f._changed_state = function() {
 u.f.updateDefaultState = function(iN) {
 	if(iN.is_focused || iN.val() !== "") {
 		u.rc(iN, "default");
+		if(iN.field.virtual_input) {
+			u.rc(iN.field.virtual_input, "default");
+		}
 		if(iN.val() === "") {
 			iN.val("");
 		}
@@ -2725,6 +2918,9 @@ u.f.updateDefaultState = function(iN) {
 	else {
 		if(iN.val() === "") {
 			u.ac(iN, "default");
+			if(obj(iN.field.virtual_input)) {
+				u.ac(iN.field.virtual_input, "default");
+			}
 			iN.val(iN.default_value);
 		}
 	}
@@ -3563,6 +3759,9 @@ Util.svg = function(svg_object) {
 	if(svg_object.id) {
 		svg.setAttributeNS(null, "id", svg_object.id);
 	}
+	if(svg_object.viewBox) {
+		svg.setAttributeNS(null, "viewBox", svg_object.viewBox);
+	}
 	if(svg_object.node) {
 		svg.node = svg_object.node;
 	}
@@ -3572,8 +3771,8 @@ Util.svg = function(svg_object) {
 	return svg;
 }
 Util.svgShape = function(svg, svg_object) {
+	var detail, svg_shape;
 	svg_shape = document.createElementNS("http://www.w3.org/2000/svg", svg_object["type"]);
-	svg_object["type"] = null;
 	delete svg_object["type"];
 	for(detail in svg_object) {
 		svg_shape.setAttributeNS(null, detail, svg_object[detail]);
@@ -3778,7 +3977,7 @@ Util.Timer = u.t = new function() {
 	this._timers = new Array();
 	this.setTimer = function(node, action, timeout, param) {
 		var id = this._timers.length;
-		param = param ? param : {"target":node, "type":"timeout"};
+		param = param != undefined ? param : {"target":node, "type":"timeout"};
 		this._timers[id] = {"_a":action, "_n":node, "_p":param, "_t":setTimeout("u.t._executeTimer("+id+")", timeout)};
 		return id;
 	}
@@ -4045,13 +4244,11 @@ u.navigation = function(_options) {
 			if(location.hash.length < 2) {
 				window._man_nav_path = u.h.getCleanUrl(location.href);
 				u.h.navigate(window._man_nav_path);
-				u.init(initialization_scope);
 			}
 			else if(location.hash.match(/^#\//) && u.h.getCleanHash(location.hash) != u.h.getCleanUrl(location.href)) {
 				callback_after_init = u.h.getCleanHash(location.hash);
 			}
 			else {
-				u.init(initialization_scope);
 			}
 		}
 		else {
@@ -4061,7 +4258,6 @@ u.navigation = function(_options) {
 				callback_after_init = window._man_nav_path;
 			}
 			else {
-				u.init(initialization_scope);
 			}
 		}
 		var random_string = u.randomString(8);
@@ -4093,106 +4289,6 @@ u.txt = function(index) {
 u.txt["assign"] = function(obj) {
 	for(x in obj) {
 		u.txt[x] = obj[x];
-	}
-}
-if(document.documentMode && document.documentMode <= 10 && document.documentMode >= 8) {
-	Util.appendElement = u.ae = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.appendChild(node);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ae (desktop_ie10)", arguments, exception);
-		}
-	}
-	Util.insertElement = u.ie = function(_parent, node_type, attributes) {
-		try {
-			var node = (obj(node_type)) ? node_type : (node_type == "svg" ? document.createElementNS("http://www.w3.org/2000/svg", node_type) : document.createElement(node_type));
-			if(attributes) {
-				var attribute;
-				for(attribute in attributes) {
-					if(!attribute.match(/^(value|html)$/)) {
-						node.setAttribute(attribute, attributes[attribute]);
-					}
-				}
-			}
-			node = _parent.insertBefore(node, _parent.firstChild);
-			if(attributes) {
-				if(attributes["value"]) {
-					node.value = attributes["value"];
-				}
-				if(attributes["html"]) {
-					node.innerHTML = attributes["html"];
-				}
-			}
-			return node;
-		}
-		catch(exception) {
-			u.exception("u.ie (desktop_ie10)", arguments, exception);
-		}
-	}
-}
-if(document.documentMode && document.documentMode <= 11 && document.documentMode >= 8) {
-	Util.hasClass = u.hc = function(node, classname) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(\\s|$)");
-		if(node instanceof SVGElement) {
-			if(regexp.test(node.className.baseVal)) {
-				return true;
-			}
-		}
-		else {
-			if(regexp.test(node.className)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	Util.addClass = u.ac = function(node, classname, dom_update) {
-		var classnames = classname.split(" ");
-		while(classnames.length) {
-			classname = classnames.shift();
-			var regexp = new RegExp("(^|\\s)" + classname + "(\\s|$)");
-			if(node instanceof SVGElement) {
-				if(!regexp.test(node.className.baseVal)) {
-					node.className.baseVal += node.className.baseVal ? " " + classname : classname;
-				}
-			}
-			else {
-				if(!regexp.test(node.className)) {
-					node.className += node.className ? " " + classname : classname;
-				}
-			}
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
-	}
-	Util.removeClass = u.rc = function(node, classname, dom_update) {
-		var regexp = new RegExp("(^|\\s)(" + classname + ")(?=[\\s]|$)", "g");
-		if(node instanceof SVGElement) {
-			node.className.baseVal = node.className.baseVal.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		else {
-			node.className = node.className.replace(regexp, " ").trim().replace(/[\s]{2}/g, " ");
-		}
-		dom_update = (!dom_update) || (node.offsetTop);
-		return node.className;
 	}
 }
 
@@ -4662,7 +4758,7 @@ u.smartphoneSwitch = new function() {
 			}
 			u.e.click(bn_hide);
 			bn_hide.clicked = function() {
-				u.e.removeWindowEvent(u.smartphoneSwitch, "resize", u.smartphoneSwitch.event_id);
+				u.e.removeWindowEvent(u.smartphoneSwitch.event_id);
 				u.smartphoneSwitch.switchOff();
 			}
 			u.a.transition(this.panel, "all 0.5s ease-in-out");
