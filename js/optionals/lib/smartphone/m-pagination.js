@@ -23,6 +23,7 @@ Util.Modules["pagination"] = new function() {
 		}
 
 		pagination.destroy = function() {
+			u.rc(page, "paginated");
 			document.body.removeChild(this);
 		}
 
