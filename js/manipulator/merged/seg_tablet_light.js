@@ -1,6 +1,6 @@
 /*
-Manipulator v0.9.3-parentnode-skin-default Copyright 2019 https://manipulator.parentnode.dk
-js-merged @ 2022-10-11 21:28:01
+Manipulator v0.9.4-parentnode-skin-default Copyright 2023 https://manipulator.parentnode.dk
+js-merged @ 2023-05-11 09:54:31
 */
 
 /*seg_tablet_light_include.js*/
