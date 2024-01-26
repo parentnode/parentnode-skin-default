@@ -47,7 +47,7 @@ u.showScene = function(scene) {
 			u.a.transition(node, "all 0.2s ease-in "+((i*100)+200)+"ms");
 			u.ass(node, {
 				"opacity":1,
-				"transform":"translate(0, 0)"
+				// "transform":"translate(0, 0)"
 			});
 
 		}

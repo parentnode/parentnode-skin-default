@@ -1,6 +1,6 @@
 /*
 MIT license, 2019 parentNode.dk
-asset-builder @ 2023-05-11 10:00:53
+asset-builder @ 2024-01-26 16:53:16
 */
 
 /*seg_desktop_light_include.js*/
@@ -4845,7 +4845,6 @@ u.showScene = function(scene) {
 			u.a.transition(node, "all 0.2s ease-in "+((i*100)+200)+"ms");
 			u.ass(node, {
 				"opacity":1,
-				"transform":"translate(0, 0)"
 			});
 		}
 	}
